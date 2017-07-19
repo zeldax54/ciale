@@ -1,0 +1,12 @@
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+homepage:
+    pattern:   /
+    defaults:  { _controller: gemaBundle:Page:index }
+
+gema:
+    resource: "@gemaBundle/Resources/config/routing.yml"
+    prefix:   /
+    options:
+        expose: true

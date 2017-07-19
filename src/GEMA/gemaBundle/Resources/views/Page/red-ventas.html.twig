@@ -1,0 +1,180 @@
+{% extends 'gemaBundle::clientlayout.html.twig' %}
+
+  {% block customstylesheets %}
+	  <link href="{{ asset('bundles/gema/clientresources/mapa/jquery-jvectormap-2.0.3.css')}}" rel="stylesheet">
+	  <link href="{{ asset('bundles/gema/css/jquery.bootgrid.min.css') }}" rel="stylesheet">
+
+
+
+	  <style>
+
+
+	  </style>
+	  {% endblock %}
+  {% block content %}
+	  <div style="height: 20px !important;"></div>
+
+			<div class="row">
+
+      <div class="col-md-3"  >
+       <div id="arg-map" style="height: 500px;width: 293px"></div>
+	  </div>
+
+			    <div class="col-md-9"  >
+
+                    {% if datosoficina is not null %}
+					<h1 class="redventasHeader">Oficina comercial y Administración</h1>
+					<div class="redventasheaderdivsep"> </div>
+					<div class="redventasheaderdiv redventasheaderdivsep">
+                     {{ datosoficina.datosoficina|raw }}<br>
+						<h4 class="redventasHeader">STAFF</h4>
+
+					</div>
+					{% else %}
+
+					<div class="redventasheaderdivsep">
+						<h4 class="redventasHeader">Vendedores   de{{ provname|raw }}</h4></div>
+					{% endif %}
+					<div>
+						<div style="margin-top: 10px;text-align: center" >
+
+							{% for s in staff %}
+								 {% if loop.index is divisible by(2) %}
+						     	<div class=" row">
+					           {% endif %}
+								<div class="col-md-6" style="margin-bottom: 1em">
+									<div class="col-md-3">
+									<img  src="{{ asset(s.foto) }}" alt="" width="100" height="100" >
+									</div>
+									<div class="col-md-9" >
+									<p id="infocontainer" style="">
+
+										{% if codigo==-1 %}
+											<strong class="redventastextbold">{{ s.cargo }}</strong><br>
+											{% else %}
+												<strong class="redventastext" style="color:#00388B">{{ s.zona }}</strong><br>
+										{% endif %}
+											<em class="redventastext">{{ s.nombre }}</em><br>
+										{% if codigo!=-1 %}
+											<em class="redventastext">{{ s.ciudad }}</em><br>
+										{% endif %}
+											<span class="redventastext">{{ s.telefono }}</span><br>
+											<a href="/red-de-ventas/contactar-vendedor/32" title="Contactarse" class="redventastext">{{ s.email }}</a>
+
+								</p>
+									</div>
+								</div>
+									 {% if loop.index is divisible by(2) %}
+							</div>
+					           {% endif %}
+							{% endfor %}
+						</div>
+					</div>
+
+
+
+
+
+				</div>
+
+			<div style="height: 20px !important;"></div>
+
+
+	</div>
+	  {% if localdist is not null and localdist|length>0 %}
+		  <div class="row" style="text-align: center">
+			  <h4 class="redventasHeader">Distribuidores   de{{ provname|raw }}</h4>
+
+			  <div class="col-md-12" style="margin-bottom: 1em;text-align: center;margin-left: 12%;">
+
+
+				     {% for l in localdist %}
+
+					  {% if loop.index is divisible by(3) or loop.index==0%}
+						  <div class=" row" style="">
+					  {% endif %}
+
+					  <div class="col-md-3" style="margin-bottom: 1em;text-align: left">
+					  <strong class="redventastext">{{ l.ciudad }}</strong><br>
+					  <span class="redventastext">{{ l.nombreveterinaria }}</span><br>
+					  {% for d in l.datos %}
+						  <span class="redventastext">{{ d }}</span><br>
+					  {% endfor %}
+					  </div>
+
+
+					    {% if loop.index is divisible by(3) or loop.index==0%}
+						  </div>
+					  {% endif %}
+				  {% endfor %}
+
+			  </div>
+
+		  </div>
+	  {% endif %}
+	  <h4 class="redventasHeader">DISTRIBUIDORES EN OTROS PAISES</h4>
+	  {% include '@shared/vendinternac.html.twig' with {'distrib':distrib} %}
+
+	  <div style="height: 50px !important;"></div>
+
+{% endblock %}
+
+    {% block custom_javascripts %}
+		<script src="{{ asset('bundles/gema/clientresources/mapa/jquery-jvectormap-2.0.3.min.js')}}"></script>
+		<script src="{{ asset('bundles/gema/clientresources/mapa/jquery-jvectormap-ar-merc.js')}}"></script>
+		<script>
+			$(function(){
+
+				$('#arg-map').vectorMap(
+						{
+							map: 'ar_merc',
+							backgroundColor:  "#FFFFFF",
+							color: '#aaaaaa',
+
+							regionStyle:{
+								initial: {
+									fill: '#00388B',
+									"fill-opacity": 1,
+									stroke: 'none',
+									"stroke-width": 0,
+									"stroke-opacity": 1
+								},
+								hover: {
+									"fill-opacity": 0.8,
+									cursor: 'pointer'
+								},
+								selected: {
+									fill: 'yellow'
+								},
+								selectedHover: {
+								}
+							},
+							markerStyle: {
+								initial: {
+									image: '/cialesymf/web/library/casa-central.png'
+								}
+							},
+							markers: [
+								{latLng: [-34.603722,-58.381592], name: 'Red de Ventas >> Oficina Central y Administración'}],
+							onMarkerClick: function(e, code){
+								var url = Routing.generate('gema_redventas',{codigo:-1});
+								window.location=url;
+							},
+
+						onRegionClick: function( event,code){
+							var map = $('#arg-map').vectorMap('get', 'mapObject');
+//							var name = map.getRegionName(code);
+							var url = Routing.generate('gema_redventas',{codigo:code});
+							window.location=url;
+
+				         }
+
+
+						});
+
+			});
+
+
+		</script>
+
+	{% endblock %}

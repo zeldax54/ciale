@@ -1,0 +1,101 @@
+<?php
+
+namespace GEMA\gemaBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Tipo
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="GEMA\gemaBundle\Entity\TipoRepository")
+ */
+class Tipo {
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Nb_Tipo", type="string", length=20)
+     */
+    private $Nb_Tipo;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="GEMA\gemaBundle\Entity\Clase",inversedBy="tipos", cascade={"persist"})
+     */
+
+    private $clase;
+
+    /**
+     * @ORM\OneToMany(targetEntity="GEMA\gemaBundle\Entity\Vehiculo" , mappedBy="tipo", cascade={"persist", "remove"})
+     */
+    private $vehiculos;
+
+
+
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set Nb_Tipo
+     *
+     * @param string $nbTipo
+     * @return Tipo
+     */
+    public function setNbTipo($nbTipo)
+    {
+        $this->Nb_Tipo = $nbTipo;
+
+        return $this;
+    }
+
+    /**
+     * Get Nb_Tipo
+     *
+     * @return string 
+     */
+    public function getNbTipo()
+    {
+        return $this->Nb_Tipo;
+    }
+
+    /**
+     * Set clase
+     *
+     * @param \GEMA\gemaBundle\Entity\Clase $clase
+     * @return Tipo
+     */
+    public function setClase(\GEMA\gemaBundle\Entity\Clase $clase = null)
+    {
+        $this->clase = $clase;
+
+        return $this;
+    }
+
+    /**
+     * Get clase
+     *
+     * @return \GEMA\gemaBundle\Entity\Clase 
+     */
+    public function getClase()
+    {
+        return $this->clase;
+    }
+}

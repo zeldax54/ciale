@@ -1,0 +1,156 @@
+    {% extends 'gemaBundle::layout.html.twig' %}
+
+    {% block gema_page -%}
+    <h2>Toro</h2>
+
+    <div class="table-responsive">
+        <table class="record_properties table table-hover">
+            <thead>
+                <tr>                                                                <th>Nombre</th>
+                                                                    <th>Nombreinterno</th>
+                                                                    <th>Apodo</th>
+                                                                    <th>Criador</th>
+                                                                    <th>Propietario</th>
+                                                                    <th>Descripcion</th>
+                                                                    <th>Nuevo</th>
+                                                                    <th>Publico</th>
+                                                                    <th>Padre</th>
+                                                                    <th>Madre</th>
+                                                                    <th>Padrepadre</th>
+                                                                    <th>Madrepadre</th>
+                                                                    <th>Padremadre</th>
+                                                                    <th>Madremadre</th>
+                                                                    <th>Padrepadrepadre</th>
+                                                                    <th>Madrepadrepadre</th>
+                                                                    <th>Padremadrepadre</th>
+                                                                    <th>Madremadrepadre</th>
+                                                                    <th>Padrepadremadre</th>
+                                                                    <th>Madrepadremadre</th>
+                                                                    <th>Padremadremadre</th>
+                                                                    <th>Madremadremadre</th>
+                                                                    <th>Evaluaciongenetica</th>
+                                                                    <th>Facilidadparto</th>
+                                                                    <th>Rp</th>
+                                                                    <th>Hba</th>
+                                                                    <th>Senasa</th>
+                                                                    <th>Fechanacimiento</th>
+                                                                    <th>Adn</th>
+                                                                    <th>Circunferenciaescrotal</th>
+                                                                    <th>Largogrupa</th>
+                                                                    <th>Anchogrupa</th>
+                                                                    <th>Altogrupa</th>
+                                                                    <th>Largocorporal</th>
+                                                                    <th>Peso</th>
+                                                                    <th>Enlacerefexterna</th>
+                                                                    <th>Tablagenetica</th>
+                                                                    <th>Pn1</th>
+                                                                    <th>P205d</th>
+                                                                    <th>P365d</th>
+                                                                    <th>P550d</th>
+                        
+                    <th colspan="3">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>                                        
+                        <td>{{ entity.nombre }}</td>
+                                        
+                        <td>{{ entity.nombreinterno }}</td>
+                                        
+                        <td>{{ entity.apodo }}</td>
+                                        
+                        <td>{{ entity.criador }}</td>
+                                        
+                        <td>{{ entity.propietario }}</td>
+                                        
+                        <td>{{ entity.descripcion }}</td>
+                                        
+                        <td>{{ entity.nuevo }}</td>
+                                        
+                        <td>{{ entity.publico }}</td>
+                                        
+                        <td>{{ entity.padre }}</td>
+                                        
+                        <td>{{ entity.madre }}</td>
+                                        
+                        <td>{{ entity.padrepadre }}</td>
+                                        
+                        <td>{{ entity.madrepadre }}</td>
+                                        
+                        <td>{{ entity.padremadre }}</td>
+                                        
+                        <td>{{ entity.madremadre }}</td>
+                                        
+                        <td>{{ entity.padrepadrepadre }}</td>
+                                        
+                        <td>{{ entity.madrepadrepadre }}</td>
+                                        
+                        <td>{{ entity.padremadrepadre }}</td>
+                                        
+                        <td>{{ entity.madremadrepadre }}</td>
+                                        
+                        <td>{{ entity.padrepadremadre }}</td>
+                                        
+                        <td>{{ entity.madrepadremadre }}</td>
+                                        
+                        <td>{{ entity.padremadremadre }}</td>
+                                        
+                        <td>{{ entity.madremadremadre }}</td>
+                                        
+                        <td>{{ entity.evaluaciongenetica }}</td>
+                                        
+                        <td>{{ entity.facilidadparto }}</td>
+                                        
+                        <td>{{ entity.rp }}</td>
+                                        
+                        <td>{{ entity.HBA }}</td>
+                                        
+                        <td>{{ entity.senasa }}</td>
+                                        
+                        <td>{{ entity.fechanacimiento|date('Y-m-d H:i:s') }}</td>
+                                        
+                        <td>{{ entity.ADN }}</td>
+                                        
+                        <td>{{ entity.circunferenciaescrotal }}</td>
+                                        
+                        <td>{{ entity.largogrupa }}</td>
+                                        
+                        <td>{{ entity.anchogrupa }}</td>
+                                        
+                        <td>{{ entity.altogrupa }}</td>
+                                        
+                        <td>{{ entity.largocorporal }}</td>
+                                        
+                        <td>{{ entity.peso }}</td>
+                                        
+                        <td>{{ entity.enlacerefexterna }}</td>
+                                        
+                        <td>{{ entity.tablagenetica }}</td>
+                                        
+                        <td>{{ entity.pn1 }}</td>
+                                        
+                        <td>{{ entity.p205d }}</td>
+                                        
+                        <td>{{ entity.p365d }}</td>
+                                        
+                        <td>{{ entity.p550d }}</td>
+                    
+    <td><a href="{{ path('admin_toro__show', { 'id': entity.id }) }}"><i class="fa fa-eye"></i> Mostrar</a></td>
+    <td><a href="{{ path('admin_toro__edit', { 'id': entity.id }) }}"><i class="fa fa-edit"></i> Editar</a></td>
+    <td><a href="{{ path('admin_toro__delete', { 'id': entity.id }) }}"><i class="fa fa-minus-circle"></i> Eliminar</a></td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <ul class="pager">
+        <li class="next"><a href="{{path('admin_toro_')}}"><i class="fa fa-list"></i>
+                Listado de Toro
+            </a>
+        </li>
+    </ul>
+
+
+    {% endblock %}

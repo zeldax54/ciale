@@ -1,0 +1,22 @@
+<div class="row" style="text-align: center;margin: 0 auto;border-top: 1px solid ">
+    <div class="col-md-12">
+    <div class="table-responsive" style="overflow: scroll;" tabindex="0">
+        <table class="record_properties table table-hover table table-striped table-vmiddle bootgrid-table">
+            <tr>
+                {% for d in distrib %}
+
+                    <td>
+
+                        <strong class="redventastextbold" >{{ d.nombre }}</strong>
+                        <span style="float: right;margin-top: -6%;margin-right: 34%;"> {{ d.bandera|raw }}</span><br>
+
+
+                        {{ d.datos|raw }}
+
+                    </td>
+                {% endfor %}
+            </tr>
+        </table>
+    </div>
+    </div>
+</div>

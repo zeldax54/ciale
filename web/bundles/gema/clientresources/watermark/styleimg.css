@@ -1,0 +1,111 @@
+
+
+.example {
+  text-align: center;
+}
+
+
+.example pre {
+  width: 600px;
+}
+
+.example .hljs {
+  border-radius: 4px;
+}
+
+.example img,
+#preview img {
+ /* border: 10px solid #fff;*/
+/*  box-shadow: 3px 6px 5px rgba(0, 0, 0, 0.3);*/
+  max-width: 100%;
+}
+
+.tablaup th{
+	border:2px solid !important;
+	border-color:white !important;
+}
+.tablaup td{
+	border:2px solid !important;
+	border-color:white !important;
+}
+.tableup{
+	font-size: 85%;
+}
+
+@media (max-width:354px){
+	.tabla-esp{
+		overflow:scroll;
+	}
+}
+
+@media (max-width:330px){
+	.medida1{
+		top: 54%;
+left: 10%;
+	}
+}
+
+.normalcursor:hover{
+	cursor:default ;
+}
+
+
+
+.mybtn{
+	background: #B14E0A;
+font-size: 117%;
+
+color: white;
+border-radius: 12px;
+}
+.mybtn:hover{
+	background: #B14E0A;
+font-size: 117%;
+
+color: white;
+border-radius: 12px;
+}
+
+.caret{
+	border-top-color:#fff !important
+}
+.mya{
+	color: white !important;
+font-size: 117%;
+background: #B14E0A;
+font-weight: bold;
+}
+.mya:hover{
+	background: #B14E0A !important;
+}
+
+.mybtn:focus{
+	color:white;
+}
+
+.table > tbody > tr > td
+{
+	color: #D24C26;
+}
+
+a{
+	font-family:'Fago-bold';
+}
+
+td{
+	font-family:'Fago-normal';
+}
+b{
+	font-family:'Fago-normal';
+}
+label{
+	font-family:'Fago-normal';
+}
+address,p,strong{
+	font-family:'Fago-normal';
+}
+
+
+
+
+

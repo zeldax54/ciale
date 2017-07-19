@@ -1,0 +1,32 @@
+    {% extends 'gemaBundle::layout.html.twig' %}
+    {% block gema_navbar_boletin %}active{% endblock %}
+    {% form_theme edit_form 'gemaBundle:Form:theme.html.twig' %}
+
+    {% block gema_page -%}
+    <h4>Editar Boletin </h4>
+    <input type="text" id="idboletin" value="{{ idboletin }}" hidden>
+        <div class="form-group"> <input type="button" class="btn btn-file" value="Editar Archivos" id="editarArchivos"></div>
+    {{ form(edit_form) }}
+
+    <ul class="pager">
+        <li class="next"><a href="{{path('boletin')}}"><i class="fa fa-ban"></i>
+                Cancelar
+            </a></li>
+        <li class="next"><a href="{{path('boletin')}}"><i class="fa fa-list"></i>
+                Listado de Boletin
+            </a></li>
+
+    </ul>
+    {% endblock %}
+
+    {% block custom_javascripts %}
+        <script>
+
+
+            $('#editarArchivos').click(function(){
+                var param=$('#idboletin').val();
+                GetData('boletines',param);
+            });
+
+        </script>
+    {% endblock %}

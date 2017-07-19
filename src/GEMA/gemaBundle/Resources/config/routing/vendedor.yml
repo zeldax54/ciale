@@ -1,0 +1,28 @@
+admin_vendedor:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:Vendedor:index" }
+
+admin_vendedor_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:Vendedor:show" }
+
+admin_vendedor_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:Vendedor:new" }
+
+admin_vendedor_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:Vendedor:create" }
+    requirements: { _method: post }
+
+admin_vendedor_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:Vendedor:edit" }
+
+admin_vendedor_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:Vendedor:update" }
+
+admin_vendedor_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:Vendedor:delete" }

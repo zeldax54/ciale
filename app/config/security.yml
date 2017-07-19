@@ -1,0 +1,60 @@
+security:
+    encoders:
+        GEMA\gemaBundle\Entity\Usuario: { algorithm: sha512, iterations: 5 }  
+        
+        Symfony\Component\Security\Core\User\User: plaintext 
+#        Symfony\Component\Security\Core\User\User: { algorithm: sha512, iterations: 5 } 
+
+    role_hierarchy:
+        ROLE_ADMINISTRADOR:    ROLE_USER
+        ROLE_administrador_de_toros: ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_USER,ROLE_ADMINISTRADOR,ROLE_administrador_de_toros, ROLE_ALLOWED_TO_SWITCH]
+
+    providers:
+        unidos:
+            chain:
+                providers: [in_memory, base_datos]
+        in_memory:
+            memory:
+                users:
+                    administrador:  { password: a, roles: [ 'ROLE_ADMINISTRADOR' ] }
+                    admin: { password: a, roles: [ 'ROLE_SUPER_ADMIN' ] }
+        base_datos:
+                entity: { class: GEMA\gemaBundle\Entity\Usuario, property: usuario }
+
+    firewalls:
+#        dev:
+#            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+#            security: false
+#
+#        login:
+#            pattern: ^/login$
+#            anonymous: ~
+
+        area_asegurada:
+            pattern:    ^/admin
+            anonymous: ~
+            remember_me:
+                key: GEMASESSION
+                lifetime: 1
+            form_login:
+                check_path: gema_login_check
+                login_path: gema_login
+            logout:
+                path:   gema_logout
+                target: gema_login
+#               anonymous: ~
+#            http_basic:
+#                realm: "Area Asegurada"
+        
+
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/pagina, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/loggedcheck, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/rol/*, roles: [ROLE_ADMINISTRADOR] }
+        - { path: ^/persona/*, roles: [ROLE_ADMINISTRADOR] }
+        - { path: ^/usuario/*, roles: [ROLE_ADMINISTRADOR] }
+        - { path: ^/traza/*, roles: [ROLE_ADMINISTRADOR] }
+        - { path: ^/*, roles:  ROLE_USER}
+        

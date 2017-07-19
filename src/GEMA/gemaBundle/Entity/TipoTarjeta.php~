@@ -1,0 +1,161 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: HL
+ * Date: 15/09/2016
+ * Time: 23:36
+ */
+
+namespace GEMA\gemaBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+/**
+ * TipoTarjeta
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="GEMA\gemaBundle\Entity\TipoTarjetaRepository")
+ * @UniqueEntity(fields="Nb_TipoTarjeta", message="Este Tipo de Tarjeta ya ha sido registrado")
+ */
+class TipoTarjeta {
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     * @Assert\NotBlank()
+     * @ORM\Column(name="Nb_TipoTarjeta", type="string", length=20)
+     */
+    private $Nb_TipoTarjeta;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="GEMA\gemaBundle\Entity\Portador",inversedBy="tipostarjeta", cascade={"persist"})
+     */
+
+    private $portador;
+
+    /**
+     * @ORM\OneToMany(targetEntity="GEMA\gemaBundle\Entity\TarjetaMagnetica" , mappedBy="responsable", cascade={"persist", "remove"})
+     */
+
+    private $tarjetas;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Codigo", type="integer", length=1)
+     */
+    private $Codigo;
+
+
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set Nb_TipoTarjeta
+     *
+     * @param string $nbTipoTarjeta
+     * @return TipoTarjeta
+     */
+    public function setNbTipoTarjeta($nbTipoTarjeta)
+    {
+        $this->Nb_TipoTarjeta = $nbTipoTarjeta;
+
+        return $this;
+    }
+
+    /**
+     * Get Nb_TipoTarjeta
+     *
+     * @return string 
+     */
+    public function getNbTipoTarjeta()
+    {
+        return $this->Nb_TipoTarjeta;
+    }
+
+    /**
+     * Set portador
+     *
+     * @param \GEMA\gemaBundle\Entity\Portador $portador
+     * @return TipoTarjeta
+     */
+    public function setPortador(\GEMA\gemaBundle\Entity\Portador $portador = null)
+    {
+        $this->portador = $portador;
+
+        return $this;
+    }
+
+    /**
+     * Get portador
+     *
+     * @return \GEMA\gemaBundle\Entity\Portador 
+     */
+    public function getPortador()
+    {
+        return $this->portador;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->tarjetas = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add tarjetas
+     *
+     * @param \GEMA\gemaBundle\Entity\TarjetaMagnetica $tarjetas
+     * @return TipoTarjeta
+     */
+    public function addTarjeta(\GEMA\gemaBundle\Entity\TarjetaMagnetica $tarjetas)
+    {
+        $this->tarjetas[] = $tarjetas;
+
+        return $this;
+    }
+
+    /**
+     * Remove tarjetas
+     *
+     * @param \GEMA\gemaBundle\Entity\TarjetaMagnetica $tarjetas
+     */
+    public function removeTarjeta(\GEMA\gemaBundle\Entity\TarjetaMagnetica $tarjetas)
+    {
+        $this->tarjetas->removeElement($tarjetas);
+    }
+
+    /**
+     * Get tarjetas
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTarjetas()
+    {
+        return $this->tarjetas;
+    }
+
+    public function __toString(){
+        return $this->getNbTipoTarjeta();
+    }
+}

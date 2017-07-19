@@ -1,0 +1,158 @@
+<?php
+
+namespace GEMA\gemaBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+/**
+ * Clase
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="GEMA\gemaBundle\Entity\ClaseRepository")
+ * @UniqueEntity(fields="Nb_Clase", message="Esta Clase ya ha sido registrada")
+ */
+class Clase {
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Nb_Clase", type="string", length=20)
+     */
+    private $Nb_Clase;
+
+    /**
+     * @ORM\OneToMany(targetEntity="GEMA\gemaBundle\Entity\Clase" , mappedBy="clase", cascade={"persist", "detach"})
+     */
+
+    private $tipos;
+
+    /**
+     * @ORM\OneToMany(targetEntity="GEMA\gemaBundle\Entity\Vehiculo" , mappedBy="tipo", cascade={"persist", "detach"})
+     */
+    private $vehiculos;
+
+
+
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set Nb_Clase
+     *
+     * @param string $nbClase
+     * @return Clase
+     */
+    public function setNbClase($nbClase)
+    {
+        $this->Nb_Clase = $nbClase;
+
+        return $this;
+    }
+
+    /**
+     * Get Nb_Clase
+     *
+     * @return string 
+     */
+    public function getNbClase()
+    {
+        return $this->Nb_Clase;
+    }
+
+    public function __toString() {
+        return $this->getNbClase();
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->tipos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add tipos
+     *
+     * @param \GEMA\gemaBundle\Entity\Clase $tipos
+     * @return Clase
+     */
+    public function addTipo(\GEMA\gemaBundle\Entity\Clase $tipos)
+    {
+        $this->tipos[] = $tipos;
+
+        return $this;
+    }
+
+    /**
+     * Remove tipos
+     *
+     * @param \GEMA\gemaBundle\Entity\Clase $tipos
+     */
+    public function removeTipo(\GEMA\gemaBundle\Entity\Clase $tipos)
+    {
+        $this->tipos->removeElement($tipos);
+    }
+
+    /**
+     * Get tipos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTipos()
+    {
+        return $this->tipos;
+    }
+
+    /**
+     * Add vehiculos
+     *
+     * @param \GEMA\gemaBundle\Entity\Vehiculo $vehiculos
+     * @return Clase
+     */
+    public function addVehiculo(\GEMA\gemaBundle\Entity\Vehiculo $vehiculos)
+    {
+        $this->vehiculos[] = $vehiculos;
+
+        return $this;
+    }
+
+    /**
+     * Remove vehiculos
+     *
+     * @param \GEMA\gemaBundle\Entity\Vehiculo $vehiculos
+     */
+    public function removeVehiculo(\GEMA\gemaBundle\Entity\Vehiculo $vehiculos)
+    {
+        $this->vehiculos->removeElement($vehiculos);
+    }
+
+    /**
+     * Get vehiculos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getVehiculos()
+    {
+        return $this->vehiculos;
+    }
+}

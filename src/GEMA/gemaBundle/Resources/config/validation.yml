@@ -1,0 +1,4 @@
+Acme\DemoBundle\Entity\Activo:
+    getters:
+        passwordLegal:
+            - "True": { message: "Fecha de Instalacion anterior a la Puesta en Marcha." }

@@ -1,0 +1,25 @@
+<?php
+
+namespace GEMA\gemaBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+/**
+ * TipoAttr
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="GEMA\gemaBundle\Entity\TipoAttrRepository")
+ */
+class TipoAttr {
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tipo", type="string", length=20)
+     */
+    private $tipo;
+
+}

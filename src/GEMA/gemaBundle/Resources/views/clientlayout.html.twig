@@ -1,0 +1,257 @@
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>{% block title %}CIALE ALTA.{% endblock %}</title>
+        {% block stylesheets %}
+        <!-- Bootstrap -->
+        <link href="{{ asset('bundles/gema/clientresources/css/bootstrap.min.css')}}" rel="stylesheet">
+        <link href="{{ asset('bundles/gema/clientresources/css/font-awesome.min.css')}}" rel="stylesheet">
+        <link href="{{ asset('bundles/gema/clientresources/css/style.css')}}" rel="stylesheet">
+        <link href="{{ asset('bundles/gema/clientresources/css/myfonts.css')}}" rel="stylesheet">
+            <link href="{{ asset('bundles/gema/clientresources/snarl/snarl.css')}}" rel="stylesheet">
+            <link href="{{ asset('bundles/gema/clientresources/vex/css/vex.css')}}" rel="stylesheet">
+            <link href="{{ asset('bundles/gema/clientresources/vex/css/vex-theme-bottom-right-corner.css')}}" rel="stylesheet">
+            <link href="{{ asset('bundles/gema/clientresources/vex/css/vex-theme-default.css')}}" rel="stylesheet">
+            <link href="{{ asset('bundles/gema/clientresources/vex/css/vex-theme-os.css')}}" rel="stylesheet">
+            <link href="{{ asset('bundles/gema/clientresources/vex/css/vex-theme-wireframe.css')}}" rel="stylesheet">
+            <style type="text/css">
+                @font-face {
+                    font-family: 'Fago-Bold';
+                    src:    url({{asset('bundles/gema/clientresources/fago/FagoOffc-Bold.ttf')}}) format('truetype');
+                }
+
+                @font-face {
+                    font-family: 'Fago-normal';
+                    src:    url({{asset('bundles/gema/clientresources/fago/FagoOffc.ttf')}}) format('truetype');
+                }
+
+
+            </style>
+
+
+            <link href="{{ asset('bundles/gema/clientresources/css/myfonts.css')}}" rel="stylesheet">
+
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
+        <![endif]-->
+        {% endblock %}
+
+        {% block customstylesheets %}
+        {% endblock %}
+
+        <link rel="shortcut icon" href="{{ asset('bundles/gema/images/ico/favicon1.png') }}">
+    </head>
+    <body >
+
+    <ul class="top-navegacion navbar-fixed-top">
+        <div class="container">
+            <li>
+                <a href="#">Alta</a>
+            </li>
+            <li>
+                <a href="#">Koepon</a>
+            </li>
+            <li class="pull-right">
+                <a href="#">Webmail</a>
+            </li>
+        </div>
+    </ul>
+
+    <div class="container wrapped-container">
+
+        <div class="row">
+            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                <a href="{{path("homepage")}}">  <img id="logotipo" src="{{ asset('bundles/gema/clientresources/img/Menu.png')}}" class="img-responsive" alt="Alta Sciele"/></a>
+            </div>
+            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+
+                <nav class="navbar navbar-principal2" role="navigation">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse navbar-ex1-collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="menu-items active"><a href="{{path("homepage")}}">PRINCIPAL <span class="sr-only">(current)</span></a></li>
+                            <li class="menu-items"><a href="#">LA EMPRESA</a></li>
+                            <li class="menu-items"><a href="{{  path('gema_redventas',{'codigo':-1}) }}">RED DE VENTAS</a></li>
+                            <li class="menu-items dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">NOTICIAS Y EVENTOS&nbsp;<i class="fa fa-plus"></i><i class="fa fa-minus"></i></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Alta ADVANTAGE</a></li>
+                                    <li><a href="#">AltaU</a></li>
+                                    <li><a href="#">Alta ADVANTAGE SHOWCASE</a></li>
+                                    <li><a href="#">Alta JERSEY DRIVEN</a></li>
+                                    <li><a href="#">Concept PLUS</a></li>
+                                    <li><a href="#">Alta GPS</a></li>
+                                    <li><a href="#">DAIRY MANAGER SCHOOL</a></li>
+                                </ul>
+                            </li>
+                            <li class="menu-items"><a href="#">INFORMACIÓN</a></li>
+                            <li class="menu-items"><a href="#">LECHE</a></li>
+                            <li class="menu-items"><a href="#">CONTACTOS</a></li>
+                            {#<li class="menu-items"><button class="btn btn-default" style="border-radius:50%;border-color:#133775"><i class="fa fa-search"></i></button></li>#}
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </nav>
+            </div>
+
+        </div>
+
+
+
+
+
+        {% block content %}{% endblock %}
+
+
+
+
+        {% block javascripts %}
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+
+            <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+            <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+
+            <script src="{{ asset('bundles/gema/clientresources/js/application.js')}}"></script>
+            <script src="{{ asset('bundles/gema/clientresources/js/bootstrap.js')}}"></script>
+            <script src="{{ asset('bundles/gema/clientresources/js/holder.js')}}"></script>
+
+            <script src="{{ asset('bundles/gema/clientresources/js/jquery.js')}}"></script>
+
+
+    <script src="{{ asset('bundles/gema/clientresources/js/affix.js')}}"></script>
+    <script src="{{ asset('bundles/gema/clientresources/js/alert.js')}}"></script>
+    <script src="{{ asset('bundles/gema/clientresources/js/button.js')}}"></script>
+    <script src="{{ asset('bundles/gema/clientresources/js/carousel.js')}}"></script>
+    <script src="{{ asset('bundles/gema/clientresources/js/collapse.js')}}"></script>
+            <script src="{{ asset('bundles/gema/clientresources/js/dropdown.js')}}"></script>
+    <script src="{{ asset('bundles/gema/clientresources/js/modal.js')}}"></script>
+    <script src="{{ asset('bundles/gema/clientresources/js/popover.js')}}"></script>
+    <script src="{{ asset('bundles/gema/clientresources/js/tab.js')}}"></script>
+    <script src="{{ asset('bundles/gema/clientresources/js/tooltip.js')}}"></script>
+            <script src="{{ asset('bundles/gema/clientresources/snarl/snarl.js') }}"></script>
+            <script src="{{ asset('bundles/gema/clientresources/vex/js/vex.combined.min.js') }}"></script>
+
+            <script> vex.defaultOptions.className = 'vex-theme-bottom-right-corner'</script>
+
+
+        {% endblock %}
+        {% block custom_javascripts %}
+            <script>
+
+            </script>
+        {% endblock %}
+       </div>
+
+    </body>
+    <footer>
+        <div class="footer-superior">
+            <div class="container">
+                <div class="row primera-linea">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <img src="{{ asset('bundles/gema/clientresources/img/logoBlanco.png')}}" class="img-responsive" alt="Alta Sciele" style="margin-top: 1em"/>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <ul>
+                            <li class="enlace-footer">
+                               LA EMPRESA
+                            </li>
+                         <li class="enlace-footer">
+                             <a href="{{  path('gema_redventas',{'codigo':-1}) }}" class="footera">RED DE VENTAS</a>
+                            </li>
+                            <li class="enlace-footer">
+                                NOTICIAS Y EVENTOS
+                            </li>
+                            <li class="enlace-footer">
+                                INFORMACIÓN +
+                            </li>
+                            <li class="enlace-footer">
+                                CONTACTO
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="row">
+                            <b class="enlace-footer" style="margin-top:20px;margin-bottom:15px;">
+                                BUSCAR TOROS DE CARNE<br>
+                            </b>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 columna-busqueda">
+                                <a href="http://bs.altagenetics.com/argentina/BS/Advanced">
+                                <button class="btn btn-primary">
+                                    búsqueda Avanzada >
+                                </button></a>
+
+                            </div>
+
+                            <div class="col-lg-12 col-md-12 col-sm-6 col-xs-6 columna-busqueda">
+                                <br>
+                                {#<div class="input-group">#}
+                                    {#<input id="imput-busqueda" type="text" class="form-control">#}
+								  {#<span class="input-group-btn">#}
+									{#<button id="imput-boton" class="btn btn-default" type="button"><img id="btn-center" src="{{ asset('bundles/gema/clientresources/img/bt_buscar.png')}}"></button>#}
+								  {#</span>#}
+                                {#</div>#}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-medio">
+            <div class="container" style="color:#81A1C8;">
+                <div class="row">
+                    <div class="col-lg-6 col-md-7 col-sm-12 col-xs-12">
+                        <img src="{{ asset('bundles/gema/clientresources/img/1l.jpg')}}" class="patrocinadores">
+                        <img src="{{ asset('bundles/gema/clientresources/img/2l.jpg')}}" class="patrocinadores">
+                        <img src="{{ asset('bundles/gema/clientresources/img/3l.jpg')}}" class="patrocinadores">
+                        <img src="{{ asset('bundles/gema/clientresources/img/4l.jpg')}}" class="patrocinadores">
+                        <img src="{{ asset('bundles/gema/clientresources/img/5l.jpg')}}" class="patrocinadores">
+                    </div>
+                    <div class="col-lg-6 col-md-5 col-sm-12 col-xs-12">
+                        <i class="fa fa-youtube fa-2x enlace-redes"></i>
+                        <i class="fa fa-linkedin fa-2x enlace-redes"></i>
+                        <i class="fa fa-twitter fa-2x enlace-redes"></i>
+                        <i class="fa fa-facebook fa-2x enlace-redes"></i>
+                        <i class="fa fa-envelope-o fa-2x enlace-redes"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="footer-inferior">
+            <div class="container">
+                &copy; 2017 - CIALE Alta - All Rights Reserved
+            </div>
+        </div>
+    </footer>
+
+    </html>
+
+
+
+
+
+
+

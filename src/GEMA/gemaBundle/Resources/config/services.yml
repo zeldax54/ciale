@@ -1,0 +1,14 @@
+parameters:
+    gema.utiles.class: GEMA\gemaBundle\Utiles\Utiles
+
+services:
+    gema.utiles:
+        class: %gema.utiles.class%
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+        calls:
+            - [ setContainer, [@service_container]]
+#        arguments: [@service_id, "plain_value", %parameter%]
+#    gema.example:
+#        class: %gema.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

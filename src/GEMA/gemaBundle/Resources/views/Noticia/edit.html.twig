@@ -1,0 +1,32 @@
+    {% extends 'gemaBundle::layout.html.twig' %}
+    {% form_theme edit_form 'gemaBundle:Form:theme.html.twig' %}
+
+    {% block gema_page -%}
+    <h1>Editar Noticia </h1>
+        <div class="form-group"> <input type="button" class="btn btn-file" value="Imagen(es) para la Portada" id="editarArchivos">
+            <input type="button" class="btn btn-file" value="Imagen(es) para la Galería" id="editarArchivosg"></div>
+    {{ form(edit_form) }}
+
+    <ul class="pager">
+        <li class="next"><a href="{{path('admin_noticias')}}"><i class="fa fa-ban"></i>
+                Cancelar
+            </a></li>
+        <li class="next"><a href="{{path('admin_noticias')}}"><i class="fa fa-list"></i>
+                Listado de Noticia
+            </a></li>
+
+    </ul>
+    {% endblock %}
+
+    {% block custom_javascripts %}
+    <script>
+        var param=$('#gema_gemabundle_noticia_guid').val();
+        $('#editarArchivos').click(function(){
+            GetData('noticia',param);
+        });
+
+        $('#editarArchivosg').click(function(){
+            GetData('noticia',param+"G");
+        });
+        </script>
+    {% endblock %}

@@ -1,0 +1,60 @@
+    {% extends 'gemaBundle::layout.html.twig' %}
+
+    {% block gema_page -%}
+    <h2>Raza</h2>
+
+    <div class="table-responsive">
+        <table class="record_properties table table-hover">
+            <thead>
+                <tr>                                                                <th>Nombre</th>
+                                                                    <th>Descripcion</th>
+                                                                    <th>Nombretablagenetica</th>
+                                                                    <th>Haverazaname</th>
+                                                                    <th>Haveactenlace</th>
+                                                                    <th>Publico</th>
+                                                                    <th>Redireccionarraza</th>
+                                                                    <th>Redirurl</th>
+                                                                    <th>Redirnewwindow</th>
+                        
+                    <th colspan="3">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>                                        
+                        <td>{{ entity.nombre }}</td>
+                                        
+                        <td>{{ entity.descripcion }}</td>
+                                        
+                        <td>{{ entity.nombretablagenetica }}</td>
+                                        
+                        <td>{{ entity.haverazaName }}</td>
+                                        
+                        <td>{{ entity.haveactEnlace }}</td>
+                                        
+                        <td>{{ entity.publico }}</td>
+                                        
+                        <td>{{ entity.redireccionarraza }}</td>
+                                        
+                        <td>{{ entity.redirUrl }}</td>
+                                        
+                        <td>{{ entity.redirnewWindow }}</td>
+                    
+    <td><a href="{{ path('admin_raza_show', { 'id': entity.id }) }}"><i class="fa fa-eye"></i> Mostrar</a></td>
+    <td><a href="{{ path('admin_raza_edit', { 'id': entity.id }) }}"><i class="fa fa-edit"></i> Editar</a></td>
+    <td><a href="{{ path('admin_raza_delete', { 'id': entity.id }) }}"><i class="fa fa-minus-circle"></i> Eliminar</a></td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <ul class="pager">
+        <li class="next"><a href="{{path('admin_raza')}}"><i class="fa fa-list"></i>
+                Listado de Raza
+            </a>
+        </li>
+    </ul>
+
+
+    {% endblock %}

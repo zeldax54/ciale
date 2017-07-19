@@ -1,0 +1,289 @@
+{% extends 'gemaBundle::layout.html.twig' %}
+{% form_theme edit_form 'gemaBundle:Form:theme.html.twig' %}
+
+
+{% block gema_page -%}
+    <h1>Editar Toro</h1>
+
+    {{ form_start(edit_form) }}
+     <fieldset style="background: cadetblue">
+        <legend style="background: #eee;text-align: center;margin: 0 auto">Archivos</legend>
+    <div class="form-group">
+        <label class="col-md-6 control-label "><strong>Imagen Principal y miniatura</strong></label>
+        <input type="button" class="btn btn-file" value="Editar Archivos" id="editarArchivosp">
+        <div class="form-group">
+    <label class="col-md-6 control-label "><strong>Resto de Archivos</strong></label>
+    <div class="form-group"> <input type="button" class="btn btn-file" value="Editar Archivos" id="editarArchivos"></div>
+
+            <div>
+
+                <ul class="youtubes"  style="list-style-type: none;" data-prototype="{{ form_widget(edit_form.youtubes.vars.prototype) | e }}">
+                    {% for y in edit_form.youtubes %}
+
+                        <li>
+                            {{ form_row(y.url)}}
+
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+
+    </div>
+    </div>
+     </fieldset>
+    <fieldset style="background: #eee">
+        <legend style="background: #eee;text-align: center;margin: 0 auto">Información general</legend>
+        {{ form_row(edit_form.raza) }}
+        {{ form_row(edit_form.nombre) }}
+        {{ form_row(edit_form.nacionalidad) }}
+        {{ form_row(edit_form.nombreinterno) }}
+        {{ form_row(edit_form.apodo) }}
+        {{ form_row(edit_form.criador) }}
+        {{ form_row(edit_form.propietario) }}
+        {{ form_row(edit_form.descripcion) }}
+        {{ form_row(edit_form.nuevo) }}
+        {{ form_row(edit_form.publico) }}
+        {{ form_row(edit_form.precio) }}
+    </fieldset>
+
+    <fieldset style="background: #eee;margin-top: 20px">
+        <legend style="background: #eee;text-align: center;margin: 0 auto">Pedigree</legend>
+        {{  form_row(edit_form.padre) }}
+        {{ form_row(edit_form.madre) }}
+        {{ form_row(edit_form.padrepadre) }}
+        {{form_row(edit_form.madrepadre)}}
+        {{form_row(edit_form.padremadre)}}
+        {{form_row(edit_form.madremadre)}}
+        {{form_row(edit_form.padrepadrepadre)}}
+        {{form_row(edit_form.madrepadrepadre)}}
+        {{form_row(edit_form.padremadrepadre)}}
+        {{form_row(edit_form.madremadrepadre)}}
+        {{form_row(edit_form.padrepadremadre)}}
+        {{form_row(edit_form.madrepadremadre)}}
+        {{form_row(edit_form.padremadremadre)}}
+        {{form_row(edit_form.madremadremadre)}}
+    </fieldset>
+    <fieldset style="background: #eee;margin-top: 20px">
+        <legend style="background: #eee;text-align: center;margin: 0 auto">Datos genéticos</legend>
+        {{form_row(edit_form.evaluaciongenetica)}}
+        {{ form_row(edit_form.lineagenetica) }}
+        {{form_row(edit_form.facilidadparto)}}
+        {{form_row(edit_form.cp)}}
+        {{form_row(edit_form.rp)}}
+        {{form_row(edit_form.HBA)}}
+        {{form_row(edit_form.senasa)}}
+        {{form_row(edit_form.fechanacimiento)}}
+        {{form_row(edit_form.ADN)}}
+
+
+
+    </fieldset>
+
+    {#Tabla Genetica#}
+    <fieldset style="background: #eee;margin-top: 20px">
+        <legend style="background: #eee;text-align: center;margin: 0 auto">Tabla Genética</legend>
+        <div class="form-group">
+            <label  class="col-md-2 control-label">Tipo de Tabla Genética</label>
+            <div class="col-md-10">
+                <select class="tag-select form-control" id="tipostablaSelect">
+                    {% for t in raza.tipotabla.tablas %}
+                        {% if t.id==entity.tipotablaselected %}
+                          <option value="{{ t.id }}" selected>{{ t.nombre }}</option>
+                    {% else %}
+                        <option value="{{ t.id }}">{{ t.nombre }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+
+        </div>
+
+        <div>
+            {% for t in raza.tipotabla.tablas %}
+                <div style="overflow-x:auto;" id="contenedor{{ t.id }}" class="contenedorT" name="{{ t.nombre }}">
+                    <table class="record_properties table table-hover table table-striped table-vmiddle tablagen" name="{{ t.nombre }}" id="tabla{{ t.id }}">
+                        <thead style=""><tr><th data-override="rowhead"> </th>
+                            {% for td in t.tabladatos %}
+                                <th data-override="{{ td.nombre }}" style="background: #9fa1a0;font-weight: bold"> {{ td.nombre }}</th>
+                            {% endfor %}
+                        </tr> </thead>
+                        <tbody>
+
+                        </tbody>
+
+                    </table>
+                </div>
+            {% endfor %}
+        </div>
+
+    </fieldset>
+
+    <fieldset style="background: #eee;margin-top: 20px">
+        <legend style="background: #eee;text-align: center;margin: 0 auto">Medidas Corporales</legend>
+        {{form_row(edit_form.circunferenciaescrotal)}}
+        {{form_row(edit_form.largogrupa)}}
+        {{form_row(edit_form.anchogrupa)}}
+        {{form_row(edit_form.altogrupa)}}
+        {{form_row(edit_form.largocorporal)}}
+        {{form_row(edit_form.peso)}}
+        {{form_row(edit_form.pn1)}}
+        {{form_row(edit_form.p205d)}}
+        {{form_row(edit_form.p365d)}}
+        {{form_row(edit_form.p550d)}}
+        {{form_row(edit_form.guid)}}
+        {{form_row(edit_form.enlacerefexterna)}}
+
+    </fieldset>
+    {{ form_rest(edit_form) }}
+    {{ form_end(edit_form) }}
+
+    <ul class="pager">
+        <li class="next"><a href="{{path('admin_toro_')}}"><i class="fa fa-list"></i>
+                Listar Toro
+            </a></li>
+    </ul>
+{% endblock %}
+
+{% block custom_javascripts %}
+    <script src="{{ asset('bundles/gema/js/TableToJson/jquery.tabletojson.js') }}"></script>
+    <script>
+
+        $('#editarArchivos').click(function(){
+            var param=$('#gema_gemabundle_toro_guid').val();
+            GetData('toro',param);
+        });
+        $('#editarArchivosp').click(function(){
+            var param=$('#gema_gemabundle_toro_guid').val();
+            GetData('toro',param+'P');
+        });
+
+
+
+        //UpdatingTab
+        var jsonString=$('#gema_gemabundle_toro_tablagenetica').val();
+        var arrays = JSON.parse(jsonString);
+        $('.contenedorT').each(function() {
+            var tablename=$(this).find('table').attr('name');
+            var tableid=$(this).find('table').attr('id');
+            var arrtab=arrays[tablename];
+
+            var tabla=$('#'+tableid);
+            var cabeceras=tabla.find('th');
+            var cabecerasArray=[];
+           cabeceras.each(function(){
+               cabecerasArray.push($(this).attr('data-override'));
+           });
+            for (var f = 0; f < arrtab.length; f++) {
+                var tr='<tr>';
+                for (var j = 0; j < cabecerasArray.length; j++) {
+                    var value=arrtab[f][cabecerasArray[j]];
+                    if(cabecerasArray[j]!="rowhead")
+                    tr+='<td data-override='+value+'><input type="text" value="'+value+'" class="form-control tbinput"  style="width: 100%;background:#d0d4d5;text-align: center"></td>';
+                    else
+                        tr+='<td data-override='+value+'>'+value+'</td>';
+                }
+                tr+='</tr>';
+                $(tr).appendTo("#"+tableid+' tbody');
+            }
+        });
+
+
+        var selectedId=$('#tipostablaSelect').val();
+        $('.contenedorT').each(function(){
+            if(this.id!='contenedor'+selectedId)
+                $(this).hide();
+        });
+
+        $('#tipostablaSelect').change(function(){
+            var id=$(this).val();
+            $('#gema_gemabundle_toro_tipotablaselected').attr('value',id);
+
+            $('.contenedorT').each(function(){
+                if(this.id!='contenedor'+id)
+                    $(this).hide();
+                else
+                    $(this).show();
+            });
+            UpdateJsonCont();
+        });
+
+
+
+        $('.tbinput').change(function(){
+            $(this).closest('td').attr('data-override', $(this).val());//
+            UpdateJsonCont();
+        });
+
+
+        function UpdateJsonCont(){
+
+            var stringJson="{";
+            $('.tablagen').each(function(){
+
+                var id=$(this).attr('id');
+                var name=$(this).attr('name');
+                var table = $('#'+id).tableToJSON({ignoreHiddenRows: false});
+                stringJson+='"'+name+'":'+JSON.stringify(table)+",";
+            });
+            stringJson=stringJson.slice(0,stringJson.length-1);
+            stringJson+="}";
+            document.getElementById('gema_gemabundle_toro_tablagenetica').value =stringJson;
+        }
+
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('<a href="{{path('admin_toro_')}}" class="btn btn-default m-l-10 btn-cancel">Cancelar</a>').insertAfter('#gema_gemabundle_area_submit');
+
+
+
+
+            // Get the ul that holds the collection of tags
+            $collectionHolder = $('ul.youtubes');
+            $collectionHolder.find('li').each(function() {
+                addTagFormDeleteLink($(this));
+            });
+            // add the "add a tag" anchor and li to the tags ul
+            $collectionHolder.append($newLinkLi);
+            $collectionHolder.data('index', $collectionHolder.find(':input').length);
+            $addTagLink.on('click', function(e) {
+                e.preventDefault();
+                addDepForm($collectionHolder, $newLinkLi);
+            });
+
+
+        });
+
+
+
+        var $collectionHolder;
+        // setup an "add a tag" link
+        var $addTagLink = $('<a href="#" class="btn btn-success">Agregar Video</a>');
+        var $newLinkLi = $('<li form-control></li>').append($addTagLink);
+
+        function addDepForm($collectionHolder, $newLinkLi) {
+
+            var prototype = $collectionHolder.data('prototype');
+            var index = $collectionHolder.data('index');
+            var newForm = prototype.replace(/__name__/g, index);
+            $collectionHolder.data('index', index + 1);
+            var $newFormLi = $('<li></li>').append(newForm);
+            addTagFormDeleteLink($newFormLi);
+            $newLinkLi.before($newFormLi);
+        }
+
+
+        function addTagFormDeleteLink($tagFormLi) {
+            var $removeFormA = $('<div style="text-align: center"><a href="#" class="btn btn-default">Eliminar Video</a><div>');
+            $tagFormLi.append($removeFormA);
+            $removeFormA.on('click', function(e) {
+                e.preventDefault();
+                $tagFormLi.remove();
+            });
+        }
+
+
+    </script>
+{% endblock %}

@@ -1,0 +1,167 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: HL
+ * Date: 16/09/2016
+ * Time: 0:03
+ */
+
+
+namespace GEMA\gemaBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+/**
+ * TarjetaMagnetica
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="GEMA\gemaBundle\Entity\TarjetaMagneticaRepository")
+ * @UniqueEntity(fields="Numero_Tarjeta", message="Esta tarjeta ya ha sido registrada")
+ */
+class TarjetaMagnetica
+{
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     * @Assert\NotBlank()
+     * @Assert\Length(min = 13, max = 13)
+     * @ORM\Column(name="Numero_Tarjeta", type="string", length=13)
+     */
+    private $Numero_Tarjeta;
+
+    /**
+     * @Assert\NotBlank()
+     * @ORM\ManyToOne(targetEntity="GEMA\gemaBundle\Entity\Responsable",inversedBy="tarjetas", cascade={"persist"})
+     */
+
+    private $responsable;
+
+    /**
+     * @Assert\NotBlank()
+     * @ORM\ManyToOne(targetEntity="GEMA\gemaBundle\Entity\Tipotarjeta",inversedBy="tarjetas", cascade={"persist"})
+     */
+
+    private $tipotarjeta;
+
+
+
+
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set Numero_Tarjeta
+     *
+     * @param integer $numeroTarjeta
+     * @return TarjetaMagnetica
+     */
+    public function setNumeroTarjeta($numeroTarjeta)
+    {
+        $this->Numero_Tarjeta = $numeroTarjeta;
+
+        return $this;
+    }
+
+    /**
+     * Get Numero_Tarjeta
+     *
+     * @return integer 
+     */
+    public function getNumeroTarjeta()
+    {
+        return $this->Numero_Tarjeta;
+    }
+
+    /**
+     * Set responsable
+     *
+     * @param \GEMA\gemaBundle\Entity\Responsable $responsable
+     * @return TarjetaMagnetica
+     */
+    public function setResponsable(\GEMA\gemaBundle\Entity\Responsable $responsable = null)
+    {
+        $this->responsable = $responsable;
+
+        return $this;
+    }
+
+    /**
+     * Get responsable
+     *
+     * @return \GEMA\gemaBundle\Entity\Responsable 
+     */
+    public function getResponsable()
+    {
+        return $this->responsable;
+    }
+
+    /**
+     * Set Cantidad_Litros
+     *
+     * @param float $cantidadLitros
+     * @return TarjetaMagnetica
+     */
+    public function setCantidadLitros($cantidadLitros)
+    {
+        $this->Cantidad_Litros = $cantidadLitros;
+
+        return $this;
+    }
+
+    /**
+     * Get Cantidad_Litros
+     *
+     * @return float 
+     */
+    public function getCantidadLitros()
+    {
+        return $this->Cantidad_Litros;
+    }
+
+    /**
+     * Set tipotarjeta
+     *
+     * @param \GEMA\gemaBundle\Entity\Tipotarjeta $tipotarjeta
+     * @return TarjetaMagnetica
+     */
+    public function setTipotarjeta(\GEMA\gemaBundle\Entity\Tipotarjeta $tipotarjeta = null)
+    {
+        $this->tipotarjeta = $tipotarjeta;
+
+        return $this;
+    }
+
+    /**
+     * Get tipotarjeta
+     *
+     * @return \GEMA\gemaBundle\Entity\Tipotarjeta 
+     */
+    public function getTipotarjeta()
+    {
+        return $this->tipotarjeta;
+    }
+
+    public function __toString(){
+        return $this->Numero_Tarjeta;
+    }
+}

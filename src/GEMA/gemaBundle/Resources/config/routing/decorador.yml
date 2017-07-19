@@ -1,0 +1,28 @@
+admin_decorador:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:Decorador:index" }
+
+admin_decorador_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:Decorador:show" }
+
+admin_decorador_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:Decorador:new" }
+
+admin_decorador_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:Decorador:create" }
+    requirements: { _method: post }
+
+admin_decorador_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:Decorador:edit" }
+
+admin_decorador_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:Decorador:update" }
+
+admin_decorador_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:Decorador:delete" }

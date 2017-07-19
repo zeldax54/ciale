@@ -1,0 +1,42 @@
+
+    /**
+{% block phpdoc_method_header %}
+     * Lists all {{ entity }} entities.
+{% endblock phpdoc_method_header %}
+     *
+{% block phpdoc_method_annotations %}
+{% if 'annotation' == format %}
+     * @Route("/", name="{{ route_name_prefix }}")
+     * @Method("GET")
+     * @Template()
+{% endif %}
+{% endblock phpdoc_method_annotations %}
+     */
+{% block method_definition %}
+    public function indexAction(Request $request)
+{% endblock method_definition %}
+    {
+{% block method_body %}
+        $em = $this->getDoctrine()->getManager();
+
+        $entities = array();
+        if ($request->isXmlHttpRequest()) {
+            $repo = $em->getRepository('{{ bundle }}:{{ entity }}');
+            $qb = $repo->filtrar($request);
+            $result = $this->get("gema.utiles")->paginar($request->get("current"), $request->get("rowCount"), $qb->getQuery());
+            return new JsonResponse($result);
+        } else {
+            $entities = $em->getRepository('{{ bundle }}:{{ entity }}')->findAll();
+        }
+        $accion = 'Listar Expedientes de {{ entity }}';
+        $this->get("gema.utiles")->traza($accion);
+        
+        
+{% endblock method_body %}
+
+{% block method_return %}
+        return $this->render('{{ bundle }}:{{ entity }}:index.html.twig', array(
+                    'entities' => $entities,
+        ));
+{% endblock method_return %}
+    }

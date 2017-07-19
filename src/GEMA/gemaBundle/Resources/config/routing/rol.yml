@@ -1,0 +1,28 @@
+rol:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:Rol:index" }
+
+rol_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:Rol:show" }
+
+rol_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:Rol:new" }
+
+rol_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:Rol:create" }
+    requirements: { _method: post }
+
+rol_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:Rol:edit" }
+
+rol_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:Rol:update" }
+
+rol_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:Rol:delete" }

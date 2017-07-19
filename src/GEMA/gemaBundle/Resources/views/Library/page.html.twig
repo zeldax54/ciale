@@ -1,0 +1,155 @@
+
+
+   {% block stylesheets %}
+       <link href="{{ asset('bundles/gema/css/bootstrap.css') }}" rel="stylesheet">
+       <link href="{{ asset('bundles/gema/css/material-icons/material-design-iconic-font.min.css') }}" rel="stylesheet">
+       <link href="{{ asset('bundles/gema/css/material-design-iconic-font-v2.2.0/css/material-design-iconic-font.min.css') }}" rel="stylesheet" type="text/css"/>
+       <link href="{{ asset('bundles/gema/css/fonts/font-awesome-4.3.0/css/font-awesome.css') }}" rel="stylesheet">
+       <link href="{{ asset('bundles/gema/js/snarl/snarl.min.css') }}" rel="stylesheet">
+       <link href="{{ asset('bundles/gema/css/animate.min.css') }}" rel="stylesheet">
+       <link href="{{ asset('bundles/gema/css/theme.css') }}" rel="stylesheet">
+       <link href="{{ asset('bundles/gema/css/app.min.1.css') }}" rel="stylesheet">
+       <link href="{{ asset('bundles/gema/css/app.min.2.css') }}" rel="stylesheet">
+       <link href="{{ asset('bundles/gema/js/growl/stylesheets/jquery.growl.css') }}" rel="stylesheet">
+       <link href="{{ asset('bundles/gema/css/dist/dropzone.css') }}" rel="stylesheet">
+
+
+
+       <!--[if lt IE 9]>
+       <script src="{{ asset('bundles/gema/js/html5shiv.js') }}"></script>
+       <script src="{{ asset('bundles/gema/js/respond.min.js') }}"></script>
+       <![endif]-->
+
+
+
+    <style xmlns="http://www.w3.org/1999/html">
+
+        .modal-dialog {
+            width: 85%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+
+
+        }
+
+        .modal-content {
+            height: auto;
+            min-height: 100%;
+            border-radius: 0;
+            background: #e9e9df;
+
+        }
+
+
+    </style>
+
+{% endblock %}
+
+
+   <body class="{% block background %}midnightBlue{% endblock %}">
+<div class="content">
+    <input type="text" id="serverN" style="display: none" value="{{ serverName }}">
+    <input type="search" id="textoBuscar" class="form-control" style="width:30%" placeholder="Buscar..." >
+    <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+        <li class="active"><a href="#red" data-toggle="tab">Biblioteca Multimedia</a></li>
+        <li><a href="#orange" data-toggle="tab">Subir Archivos</a></li>
+    </ul>
+    <div id="my-tab-content" class="tab-content">
+        <div class="tab-pane active" id="red">
+
+            <div class="row" id="allImagesFather" style="overflow-y: scroll; height:400px; float: left;width: 60%; border: 3px solid #72777c;">
+
+            {% for archivo in archivos %}
+
+
+                <div class="col-xs-5 col-md-2 imgDiv"  name="{{ archivo[3] }}" style="width: 200px;height:200px" >
+
+
+
+                    <a name="{{ asset(archivo[6]) }}" href="#"  class="archivo thumbnail">
+                        <img src="{{ asset(archivo[1]) }}" alt="{{ archivo[0] }}" title="{{ archivo[0] }}" folder="{{archivo[4]}}" param="{{archivo[5]}}" id="originalImage" name="{{ archivo[0] }}" >
+                    </a>
+                </div>
+
+
+
+        {% endfor %}
+
+        </div>
+
+            <div style="float: right;overflow-y: scroll; height:400px;width: 40%; border: 3px solid #72777c;">
+             <div style="text-align: center">
+                 <label class="">Detalles</label>
+                 <div id="imgDetContainer" style="width: 30%;text-align: center;margin: 0 auto;border: none;">
+                 <a name="" href="#"  class="thumbnail" id="imgDet" style="border: none">
+                     <img src="" id="imgContainer" style="background: transparent;border: none">
+                 </a>
+             </div>
+                 <input type="text" class="form-control" value="" id="nameFile" readonly style="text-align: center">
+                 <div class="form-group">
+                     <button type="button" class="btn btn-danger eliminarRegistro" id="deleteFileButton">Eliminar</button>
+                     <button type="button" class="btn btn-success" id="addFileButton">Agregar</button>
+                     <button type="button" class="btn btn-info" id="copyURLButton">Copiar URL</button>
+
+                 </div>
+
+                 <div class="form-group" style="display: none">
+                     <label class="">URL</label>
+                     <div class="col-md-10">
+                     <input type="text" class="form-control" value="" id="urlFile" readonly>
+                     </div>
+
+                 </div>
+             </div>
+
+            </div>
+    </div>
+        <div class="tab-pane" id="orange">
+            <div id="myOneUploadDropZone" class="dropzone"> </div>
+        </div>
+    </div>
+
+<input type="text" id="folder" value="{{ folder }}" style="display: none">
+<input type="text" id="guidParam" value="{{ guidParam }}" style="display: none">
+
+
+
+</div>
+
+</body>
+
+ {% block javascripts %}
+     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+     <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+     <script src="{{ asset('bundles/gema/js/jquery2.1.4.js') }}"></script>
+     <script src="{{ asset('bundles/gema/js/bootstrap.js') }}"></script>
+     <script src="{{ asset('bundles/gema/js/dropzone.js') }}"></script>
+     <script src="{{ asset('bundles/gema/js/uploader.js') }}"></script>
+
+
+     <script>
+         window.setTimeout(function () {
+             $(".auto-dismiss").fadeTo(500, 0).slideUp(600, function () {
+                 $(this).remove();
+             });
+         }, 2900);
+     </script>
+ {% endblock %}
+
+
+    {% block custom_javascripts %}
+
+    <script>
+
+$(document).ready(function(){
+
+    var folder=$('#folder').val();
+    var guidParam=$('#guidParam').val();
+
+
+ StartDropZone('myOneUploadDropZone',folder,guidParam);
+});
+    </script>
+
+{% endblock %}

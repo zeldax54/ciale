@@ -1,0 +1,293 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: hector.duran
+ * Date: 21/09/2016
+ * Time: 13:47
+ */
+
+namespace GEMA\gemaBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+/**
+ * Agencia
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="GEMA\gemaBundle\Entity\SolicitudCombReservaRepository")
+ * @UniqueEntity(fields="Numero", message="Este Numero de Solicitud ya ha sido registrado")
+ */
+class SolicitudCombReserva
+{
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+
+
+    /**
+     * @var string
+     * @Assert\NotBlank()
+     * @Assert\Length(min = 5, max = 5)
+     * @ORM\Column(name="Numero", type="integer", length=5)
+     */
+    private $Numero;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="GEMA\gemaBundle\Entity\TarjetaMagnetica" , inversedBy="id")
+     */
+
+    private $tarjeta;
+    /**
+     * @var string
+     * @Assert\NotBlank()
+     * @Assert\Length(min = 1, max = 10)
+     * @ORM\Column(name="saldoenTarj", type="float", length=5)
+     */
+    private $saldoenTarj;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="GEMA\gemaBundle\Entity\Responsable" , inversedBy="id")
+     */
+
+    private $responsable;
+
+    /**
+     * @var string
+     * @Assert\NotBlank()
+     * @Assert\Length(min = 1, max = 10)
+     * @ORM\Column(name="litros", type="float", length=5)
+     */
+    private $litros;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Autoriza", type="string", length=255)
+     */
+    private $Autoriza;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="CargoAutoriza", type="string", length=255)
+     */
+    private $CargoAutoriza;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="mesyear", type="datetime")
+     */
+    private $mesyear;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Motivo", type="string")
+     */
+    private $Motivo;
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set litros
+     *
+     * @param float $litros
+     * @return SolicitudCombReserva
+     */
+    public function setLitros($litros)
+    {
+        $this->litros = $litros;
+
+        return $this;
+    }
+
+    /**
+     * Get litros
+     *
+     * @return float 
+     */
+    public function getLitros()
+    {
+        return $this->litros;
+    }
+
+    /**
+     * Set mesyear
+     *
+     * @param \DateTime $mesyear
+     * @return SolicitudCombReserva
+     */
+    public function setMesyear($mesyear)
+    {
+        $this->mesyear = $mesyear;
+
+        return $this;
+    }
+
+    /**
+     * Get mesyear
+     *
+     * @return \DateTime 
+     */
+    public function getMesyear()
+    {
+        return $this->mesyear;
+    }
+
+    /**
+     * Set tarjeta
+     *
+     * @param \GEMA\gemaBundle\Entity\TarjetaMagnetica $tarjeta
+     * @return SolicitudCombReserva
+     */
+    public function setTarjeta(\GEMA\gemaBundle\Entity\TarjetaMagnetica $tarjeta = null)
+    {
+        $this->tarjeta = $tarjeta;
+
+        return $this;
+    }
+
+    /**
+     * Get tarjeta
+     *
+     * @return \GEMA\gemaBundle\Entity\TarjetaMagnetica 
+     */
+    public function getTarjeta()
+    {
+        return $this->tarjeta;
+    }
+
+    /**
+     * Set responsable
+     *
+     * @param \GEMA\gemaBundle\Entity\Responsable $responsable
+     * @return SolicitudCombReserva
+     */
+    public function setResponsable(\GEMA\gemaBundle\Entity\Responsable $responsable = null)
+    {
+        $this->responsable = $responsable;
+
+        return $this;
+    }
+
+    /**
+     * Get responsable
+     *
+     * @return \GEMA\gemaBundle\Entity\Responsable 
+     */
+    public function getResponsable()
+    {
+        return $this->responsable;
+    }
+
+    /**
+     * Set Autoriza
+     *
+     * @param string $autoriza
+     * @return SolicitudCombReserva
+     */
+    public function setAutoriza($autoriza)
+    {
+        $this->Autoriza = $autoriza;
+
+        return $this;
+    }
+
+    /**
+     * Get Autoriza
+     *
+     * @return string 
+     */
+    public function getAutoriza()
+    {
+        return $this->Autoriza;
+    }
+
+    /**
+     * Set CargoAutoriza
+     *
+     * @param string $cargoAutoriza
+     * @return SolicitudCombReserva
+     */
+    public function setCargoAutoriza($cargoAutoriza)
+    {
+        $this->CargoAutoriza = $cargoAutoriza;
+
+        return $this;
+    }
+
+    /**
+     * Get CargoAutoriza
+     *
+     * @return string 
+     */
+    public function getCargoAutoriza()
+    {
+        return $this->CargoAutoriza;
+    }
+
+    /**
+     * Set saldoenTarj
+     *
+     * @param float $saldoenTarj
+     * @return SolicitudCombReserva
+     */
+    public function setSaldoenTarj($saldoenTarj)
+    {
+        $this->saldoenTarj = $saldoenTarj;
+
+        return $this;
+    }
+
+    /**
+     * Get saldoenTarj
+     *
+     * @return float 
+     */
+    public function getSaldoenTarj()
+    {
+        return $this->saldoenTarj;
+    }
+
+    /**
+     * Set Numero
+     *
+     * @param integer $numero
+     * @return SolicitudCombReserva
+     */
+    public function setNumero($numero)
+    {
+        $this->Numero = $numero;
+
+        return $this;
+    }
+
+    /**
+     * Get Numero
+     *
+     * @return integer 
+     */
+    public function getNumero()
+    {
+        return $this->Numero;
+    }
+}

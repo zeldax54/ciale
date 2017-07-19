@@ -1,0 +1,28 @@
+admin_distribuidorlocal:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:Distribuidorlocal:index" }
+
+admin_distribuidorlocal_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:Distribuidorlocal:show" }
+
+admin_distribuidorlocal_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:Distribuidorlocal:new" }
+
+admin_distribuidorlocal_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:Distribuidorlocal:create" }
+    requirements: { _method: post }
+
+admin_distribuidorlocal_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:Distribuidorlocal:edit" }
+
+admin_distribuidorlocal_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:Distribuidorlocal:update" }
+
+admin_distribuidorlocal_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:Distribuidorlocal:delete" }

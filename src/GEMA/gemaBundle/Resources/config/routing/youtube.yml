@@ -1,0 +1,28 @@
+admin_youtube:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:Youtube:index" }
+
+admin_youtube_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:Youtube:show" }
+
+admin_youtube_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:Youtube:new" }
+
+admin_youtube_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:Youtube:create" }
+    requirements: { _method: post }
+
+admin_youtube_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:Youtube:edit" }
+
+admin_youtube_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:Youtube:update" }
+
+admin_youtube_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:Youtube:delete" }

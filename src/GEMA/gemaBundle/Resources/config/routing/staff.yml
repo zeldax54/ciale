@@ -1,0 +1,28 @@
+admin_staff:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:Staff:index" }
+
+admin_staff_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:Staff:show" }
+
+admin_staff_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:Staff:new" }
+
+admin_staff_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:Staff:create" }
+    requirements: { _method: post }
+
+admin_staff_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:Staff:edit" }
+
+admin_staff_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:Staff:update" }
+
+admin_staff_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:Staff:delete" }

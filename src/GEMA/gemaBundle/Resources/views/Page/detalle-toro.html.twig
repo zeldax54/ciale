@@ -1,0 +1,466 @@
+{% extends 'gemaBundle::clientlayout.html.twig' %}
+
+  {% block customstylesheets %}
+	  <link href="{{ asset('bundles/gema/clientresources/fancybox/dist/jquery.fancybox.min.css')}}" rel="stylesheet">
+	  <link href="{{ asset('bundles/gema/clientresources/jquerybxslider/jquery.bxslider.css')}}" rel="stylesheet">
+	  <link href="{{ asset('bundles/gema/clientresources/watermark/styleimg.css')}}" rel="stylesheet">
+
+	  <style>
+
+
+	  </style>
+	  {% endblock %}
+  {% block content %}
+		<div class="row">
+
+
+			<div class="colapsive-panel" role="navigation">
+
+							<div class="row">
+								<div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+									<b>Raza:</b>
+								</div>
+								<div class="col-lg-2 col-md-2 col-sm-2 col-xs-9">
+									<div class="btn-group">
+									  <button type="button" class="btn btn-xs dropdown-toggle btn-toro" data-toggle="dropdown">
+										{{ toro.raza.nombre }} <span class="caret"></span>
+									  </button>
+									  <ul class="dropdown-menu" style="background: #B14E0A">
+										  <li><a class="" href=" {{  path('gema_razalist', {'nombreraza': toro.raza.nombre})  }} ">Listdo de {{ toro.raza.nombre }}&nbsp;&nbsp;&nbsp;</a></li>
+										  {% for r in razas %}
+											  <li><a class="" href=" {{  path('gema_razalist', {'nombreraza': r.nombre})  }} ">Listado de {{ r.nombre }}&nbsp;&nbsp;&nbsp;</a></li>
+											  <li class="divider"></li>
+										  {% endfor %}
+									  </ul>
+									</div>
+								</div>
+							</div>
+							
+
+							<div >
+							
+								<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+									<button type="submit" class="btn btn-warning btn-sm">Generar PDF</button>
+								</div>
+								<div class="col-lg-7 col-md-6 col-sm-9 col-xs-7">
+									<div class="form-group buscador">
+									  <em><input type="text" id="datotextresp" class="form-control" placeholder="Buscar por Nombre, Prefijo o padre ..."></em>
+									</div>
+								</div>
+								<div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
+									<a href="#" id="buscartorosresp"><img class="" src="{{ asset('bundles/gema/clientresources/img/bt_buscar.png')}}"></a>
+								</div>
+
+						  </div>
+
+			</div>
+
+
+			<nav id="barra-busqueda" class="navbar" role="navigation">
+
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+					  <span class="sr-only">Toggle navigation</span>
+					  <span class="icon-bar"></span>
+					  <span class="icon-bar"></span>
+					  <span class="icon-bar"></span>
+					</button>
+				</div>
+			
+				<!-- Collect the nav links, forms, and other content for toggling -->
+
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				  
+					<div class="row">
+
+						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+
+							<ul class="nav navbar-nav">
+								<li style="font-size: 117%;">Raza:</li>
+								<li>
+						<!-- Split button -->
+									<div class="btn-group">
+										<span  class="btn btn-xs dropdown-toggle btn-toro mybtn" data-toggle="dropdown">
+											{{ toro.raza.nombre }}&nbsp;&nbsp;&nbsp;
+											<span class="caret"></span>
+										</span>
+										<ul class="dropdown-menu" style="background: #B14E0A;/">
+											<li><a class="mya" href=" {{  path('gema_razalist', {'nombreraza': toro.raza.nombre})  }} ">Listaado de {{ toro.raza.nombre }}&nbsp;&nbsp;&nbsp;</a></li>
+										{% for r in razas %}
+											<li><a class="mya" href=" {{  path('gema_razalist', {'nombreraza': r.nombre})  }} ">Listado de {{ r.nombre }}&nbsp;&nbsp;&nbsp;</a></li>
+											<li class="divider"></li>
+										{% endfor %}
+										</ul>
+									</div>
+								</li>
+							</ul>
+
+						</div>
+
+						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+				  
+						  <div class="navbar-form navbar-right">
+							
+							<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+								<button id="btn-pdf" type="submit" class="btn btn-warning btn-sm">Generar PDF</button>
+							</div>
+							<div class="col-lg-7 col-md-6 col-sm-9 col-xs-9">
+								<div class="form-group buscador">
+								  <em><input type="text" id="datotext" class="form-control" placeholder="Buscar por Nombre, Prefijo o padre ..."></em>
+								</div>
+							</div>
+ 							<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+								<a href="#" id="buscartoros"><img class="btn-buscar-logo" src="{{ asset('bundles/gema/clientresources/img/bt_buscar.png')}}"></a>
+     						</div>
+
+						  </div>
+
+						</div>
+
+					</div>
+
+				</div><!-- /.navbar-collapse -->
+
+			</nav>
+
+		</div>
+
+		<div class="row">
+	
+			<div id="izq-primero">
+
+				<div style="position: relative; left: 0; top: 0;" id="imgwatercont" class="example">
+
+					<img id="imagen-principal" width="480" height="300" src="{{ asset(princimg) }}" class="img-responsive toroimg" style="display: none"/>
+					<img id="imagen-wattermark"  src="{{ asset(watermarkimg) }}" class="img-responsive marcaagua" style="display: none"/>
+				</div>
+
+
+	  {%   if mediatoro | length >0 %}
+				<a>Vea más Fotos y Videos de éste toro:</a>
+	  {% endif %}
+
+				<br>
+
+				<div class="row" style="padding:15px 20px;">
+					{%   if mediatoro|length >0 %}
+						<ul class="bxslider">
+
+						{% for media in mediatoro %}
+							<li>
+								<div class="row" style="margin: 0 auto">
+								{% for dato in media %}
+
+										<div class="col-xs-3" style="padding: 1px">
+											<a href="{{ asset(dato.url) }}" data-fancybox="gallery">
+												<img   src="{{ asset(dato.rep) }}" class="img-responsive thumbnail"/>
+											</a>
+										</div>
+
+
+								{% endfor %}
+								</div>
+							</li>
+
+
+
+							{% endfor %}
+						</ul>
+					{% endif %}
+				</div>
+
+				<div class="encabezado-area encabezado-izq">
+					<i class="fa fa-caret-right fa-3x" style="margin:-9px 0 0 -45px;">&nbsp;&nbsp;</i>
+					<strong style="font-size:16px;position:absolute;margin-top:2px;">Pedigree</strong>			
+				</div>
+				<br>
+				<div class="row">
+
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+						<br><br><br><strong style="float:right;margin-right:40px;">{{ toro.padre }}</strong>
+					</div>
+
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+						<div class="arbol1"></div>
+						<div class="arbol2"></div>
+						<address class="pedigree-tree">
+							&nbsp;&nbsp;{{ toro.padrepadrepadre }}<br>
+							{{ toro.padrepadre }}<br>
+							&nbsp;&nbsp;{{ toro.madrepadrepadre }}<br>
+						</address>
+						<br>
+						<div class="arbol2"></div>
+						<address class="pedigree-tree">
+							&nbsp;&nbsp;{{ toro.padremadrepadre }}<br>
+							{{ toro.padremadre }}<br>
+							&nbsp;&nbsp;{{ toro.madremadrepadre }}<br>
+						</address>
+					</div>			
+				</div>
+				<br>
+				<div class="row">
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+						<br><br><br><strong style="float:right;margin-right:40px;">{{ toro.madre }}</strong>
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+						<div class="arbol1"></div>
+						<div class="arbol2"></div>
+						<address class="pedigree-tree">
+							&nbsp;&nbsp;{{ toro.padrepadremadre }}<br>
+							{{ toro.madrepadre }}<br>
+							&nbsp;&nbsp;{{ toro.madrepadremadre }}<br>
+						</address>
+						<br>
+						<div class="arbol2"></div>
+						<address class="pedigree-tree">
+							&nbsp;&nbsp;{{ toro.padremadremadre }}<br>
+							{{ toro.madremadre }}<br>
+							&nbsp;&nbsp;{{ toro.madremadremadre }}<br>
+						</address>
+					</div>
+				</div>				
+
+			</div>				
+
+			<div id="der-primero">
+	
+				<address>
+					<h2><strong>{{ toro.apodo }}</strong></h2>
+					<strong>{{ toro.nombre }}</strong><br>
+					<div class="row">
+						<div class="col-lg-3 col-md-4 col-sd-3 col-xs-12">
+							<strong>HBA:</strong>&nbsp;{{ toro.hba }}
+						</div>
+						<div class="col-lg-3 col-md-4 col-sd-3 col-xs-12">
+							<strong>ADN:</strong>&nbsp;{{ toro.adn }}
+						</div>
+						{#<div class="col-lg-3 col-md-4 col-sd-3 col-xs-12">#}
+							{#<strong>Código:</strong>&nbsp;{{ toro.codigo }}<br>#}
+						{#</div>#}
+					</div>
+					<div class="row">
+						<div class="col-lg-3 col-md-4 col-sd-3 col-xs-12">
+							<strong>RP:</strong>&nbsp;{{ toro.rp }}
+						</div>
+						<div class="col-lg-4 col-md-4 col-sd-3 col-xs-12">
+							<strong>Senasa:</strong>&nbsp;{{ toro.senasa }}
+						</div>
+						
+					</div>
+					<strong>2017</strong>
+				</address>
+	
+				<div class="row">
+	
+					<div class="col-lg-4 col-md-4 col-sm-5 col-xs-5">
+						{% if imgfp is not null %}
+						<img src="{{ asset(imgfp) }}" class="img-responsive" style="height:85px;"/>
+						{% endif %}
+					</div>
+					<div class="col-lg-5 col-md-5 col-sm-6 col-xs-6">
+						{% if toro.cp==true %}
+						<img src="{{ asset(imgcp) }}" class="img-responsive" style="height:85px;"/>
+							{% endif %}
+					</div>
+					
+				</div>
+	
+				<br>
+	
+				<address style="color:black;margin-bottom:2px;">
+					<strong>Raza:</strong>&nbsp;{{ toro.raza.nombre }}<br>
+					<strong>Nacimiento:</strong>&nbsp;{{ toro.fechanacimiento|date('d-m-Y')  }}<br>
+					<strong>Criador:</strong>&nbsp;{{ toro.criador }}<br>
+					<strong>Propietario:</strong>&nbsp;{{ toro.propietario }}
+				</address>
+	
+				<div style="display: none"><strong>Precio de lista:</strong>&nbsp;$ {{ toro.precio }}<br></div>
+	
+			</div>
+
+			<div id="der-segundo">
+
+				<div class="encabezado-area" style="margin-left:25px;">
+					<i class="fa fa-caret-right fa-3x" style="margin:-9px 0 0 -45px;">&nbsp;&nbsp;</i>
+					<strong style="font-size:16px;position:absolute;margin-top:2px;">Medidas Corporales y Pesos</strong>			
+				</div>
+	
+				<br>
+				
+				<div class="contenedor-medidas">
+					
+					<div class="medida medida1"><strong title="Circunferencia Escrotal">{{ toro.circunferenciaescrotal }}</strong></div>
+
+					<div class="medida medida2"><strong title="Alto de la grupa">{{ toro.altogrupa }}</strong></div>
+			
+					<div class="medida medida3"><br> <strong title="Ancho de grupa ">{{ toro.anchogrupa }}</strong></div>
+
+					<div class="medida medida4"><br> <strong title="Largo de grupa">{{ toro.largogrupa }}</strong></div>
+				
+					<div class="medida medida5"><strong title="Largo corporal">{{ toro.largocorporal }}</strong></div>
+
+					<img src="{{ asset(silueta) }}" class="img-responsive" style="margin:0 auto"/>
+					<b style="margin-left:0px;"><em>Deslice el mause sobre los números para ver la descripción</em></b>
+	
+				</div>						
+
+				<br>
+	
+				<div class="table-responsive tabla-esp">
+					<table class="table table-bordered tablaup">
+						 <thead>
+							<tr>
+								<th>EDAD</th>
+								<th>PN</th>
+								<th>P205D</th>
+								<th>P365D</th>
+								<th>P550D</th>
+								<th>P. ADULTO</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row">PESO (KG)</th>
+								<td>{{ toro.pn1 }}</td>
+								<td>{{ toro.p205d }}</td>
+								<td>{{ toro.p365d }}</td>
+								<td>{{ toro.p550d }}</td>
+								<td>{{ toro.peso }}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+	
+				<br>
+	
+				<div class="encabezado-area" style="margin-left:25px;">
+					<i class="fa fa-caret-right fa-3x" style="margin:-9px 0 0 -45px;">&nbsp;&nbsp;</i>
+					<strong style="font-size:16px;position:absolute;margin-top:2px;">Comentários</strong>			
+				</div>
+	
+				<p>
+					{{ toro.descripcion }}
+				</p>
+				
+				<br>
+
+			</div>
+
+		</div>
+
+		<div id="ultima-col" class="row">
+	
+			<div class="encabezado-area encabezado-izq">
+					<i class="fa fa-caret-right fa-3x" style="margin:-9px 0 0 -45px;">&nbsp;&nbsp;</i>
+					<strong style="font-size:16px;position:absolute;margin-top:2px;">Pruebas</strong>			
+			</div>
+	
+			<div class="encabezado-tabla">{{ toro.evaluaciongenetica }}</div>
+	
+			<div id="tabla-infeior">		
+				<div class="table-responsive">
+					<table class="table table-bordered">
+						 <thead>
+
+
+							<tr>
+	  <th class=""></th>
+	  {% for t in tabla.tabladatos %}
+								<th>{{ t.nombre }}</th>
+		  {% endfor %}
+
+							</tr>
+						</thead>
+						<tbody>
+						{% for dato in tablagenetica %}
+							<tr class="{{ cycle(["alterna", ""], loop.index) }}">
+								<th scope="row">{{ dato['rowhead'] }}</th>
+								{% for td in tabla.tabladatos %}
+									{%   if dato['rowhead']|lower =='ranking' and dato[td.nombre] | replace('%','')<=25 and td.nombre|lower !='altura' %}
+									<td class="downprom">
+										{{ dato[td.nombre] }}
+									</td>
+                           {% else %}
+						       <td>
+							   {{ dato[td.nombre] }}
+							   </td>
+									{% endif %}
+								{% endfor %}
+							</tr>
+							{% endfor %}
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+	
+		</div>
+
+	</div>
+
+	  <div id="slider-next" style="display: none"> </div>
+	  <div id="slider-prev" style="display: none"> </div>
+
+{% endblock %}
+
+    {% block custom_javascripts %}
+		<script src="{{ asset('bundles/gema/clientresources/fancybox/dist/jquery.fancybox.min.js')}}"></script>
+		<script src="{{ asset('bundles/gema/clientresources/jquerybxslider/jquery.bxslider.min.js')}}"></script>
+		<script src="{{ asset('bundles/gema/clientresources/watermark/watermark-polyfill.js')}}"></script>
+		<script src="{{ asset('bundles/gema/js/buscadortoros.js')}}"></script>
+
+		<script>
+
+
+//
+         var url1=$('#imagen-principal').prop('src');
+         var url2=$('#imagen-wattermark').prop('src');
+
+       watermark([url1, url2])
+		.image(watermark.image.lowerRight(1))
+		.then(function (img) {
+
+			document.getElementById('imgwatercont').appendChild(img);
+
+		});
+			$(document).ready(function(){
+				$('.bxslider').bxSlider(
+						{
+							adaptiveHeight: true,
+                               nextSelector: '#slider-next',
+                               prevSelector: '#slider-prev',
+                               nextText: 'Onward →',
+                               prevText: '← Go back'
+
+						}
+				);
+			})
+		</script>
+
+		<script>
+
+
+			$('#buscartorosresp').click(function(){
+				var dato=$('#datotextresp').val();
+				BuscarToros(dato);
+
+			});
+
+			$('#buscartoros').click(function(){
+				var dato=$('#datotext').val();
+				BuscarToros(dato);
+
+			});
+
+			$('#datotext').keyup(function(e){
+				if(e.keyCode == 13)
+					BuscarToros($(this).val());
+			});
+			$('#datotextresp').keyup(function(e){
+				if(e.keyCode == 13)
+					BuscarToros($(this).val());
+			});
+
+		</script>
+
+	{% endblock %}

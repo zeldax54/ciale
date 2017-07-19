@@ -1,0 +1,119 @@
+<?php
+
+namespace GEMA\gemaBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+/**
+ * Marca
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="GEMA\gemaBundle\Entity\MarcaRepository")
+ * @UniqueEntity(fields="Nb_Marca", message="Esta Marca ya ha sido registrada")
+ */
+class Marca {
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Nb_Marca", type="string", length=20)
+     */
+    private $Nb_Marca;
+
+    /**
+     * @ORM\OneToMany(targetEntity="GEMA\gemaBundle\Entity\Modelo" , mappedBy="marca", cascade={"persist", "remove"})
+     */
+
+    private $modelos;
+
+
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set Nb_Marca
+     *
+     * @param string $nbMarca
+     * @return Marca
+     */
+    public function setNbMarca($nbMarca)
+    {
+        $this->Nb_Marca = $nbMarca;
+
+        return $this;
+    }
+
+    /**
+     * Get Nb_Marca
+     *
+     * @return string 
+     */
+    public function getNbMarca()
+    {
+        return $this->Nb_Marca;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->modelos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add modelos
+     *
+     * @param \GEMA\gemaBundle\Entity\Modelo $modelos
+     * @return Marca
+     */
+    public function addModelo(\GEMA\gemaBundle\Entity\Modelo $modelos)
+    {
+        $this->modelos[] = $modelos;
+
+        return $this;
+    }
+
+    /**
+     * Remove modelos
+     *
+     * @param \GEMA\gemaBundle\Entity\Modelo $modelos
+     */
+    public function removeModelo(\GEMA\gemaBundle\Entity\Modelo $modelos)
+    {
+        $this->modelos->removeElement($modelos);
+    }
+
+    /**
+     * Get modelos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getModelos()
+    {
+        return $this->modelos;
+    }
+
+    public function __toString() {
+        return $this->getNbMarca();
+    }
+}

@@ -1,0 +1,55 @@
+{% extends 'gemaBundle::layout.html.twig' %}
+{% form_theme edit_form 'gemaBundle:Form:theme.html.twig' %}
+
+
+{% block gema_page -%}
+
+    <fieldset>
+        <legend>Editar Raza</legend>
+
+        {{ form_start(edit_form) }}
+        <div class="form-group"> <input type="button" class="btn btn-file" value="Editar Archivos" id="editarArchivos"></div>
+        {{ form_row(edit_form.tiporaza) }}
+        {{ form_row(edit_form.nombre) }}
+        {{ form_row(edit_form.descripcion) }}
+        {{ form_row(edit_form.nombretablagenetica) }}
+        <fieldset>
+            <legend >Tipo de tablas geneticas a utilizar</legend>
+            {{ form_row(edit_form.tipotabla) }}
+            <p style="text-align: center;margin: 0 auto" class="description">No modifique este valor a menos que este seguro, puede provocar que las tablas genéticas y la carga de toros deje de funcionar correctamente.</p>
+        </fieldset>
+        {{ form_row(edit_form.haverazaName) }}
+        {{ form_row(edit_form.haveactEnlace) }}
+        {{ form_row(edit_form.decorador) }}
+        {{ form_row(edit_form.publico) }}
+
+        <fieldset>
+            <legend >Redirección</legend>
+            {{ form_row(edit_form.redireccionarraza) }}
+            {{ form_row(edit_form.redirUrl) }}
+            {{ form_row(edit_form.redirnewWindow) }}
+
+
+        </fieldset>
+        {{ form_row(edit_form.guid) }}
+        {{ form_rest(edit_form) }}
+        {{ form_end(edit_form) }}
+    </fieldset>
+    <ul class="pager">
+        <li class="next"><a href="{{path('admin_raza')}}"><i class="fa fa-list"></i>
+                Listar Raza
+            </a></li>
+    </ul>
+{% endblock %}
+
+{% block custom_javascripts %}
+<script>
+
+
+        $('#editarArchivos').click(function(){
+           var param=$('#gema_gemabundle_raza_guid').val();
+            GetData('raza',param);
+        });
+
+</script>
+{% endblock %}

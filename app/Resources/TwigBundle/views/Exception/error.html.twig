@@ -1,0 +1,34 @@
+{% extends 'gemaBundle::layout.html.twig' %}
+{% block gema_breadcrumb %}
+    <li><a href="{{path('gema_home')}}">Tablero de Control</a></li>
+    <li class="active">{{ status_code }}</li>
+    {% endblock %}
+    {% block gema_page -%}
+    <div class="page-header">
+        <h2>{% if status_code == 403 %}Acceso Denegado{%endif%}{% if status_code == 404 %}¿Estás perdido(a)?{%endif%}{% if status_code == 500 %}Oops!... {%endif%}</h2>
+    </div>
+    <div class="row">
+        <div class="col-md-12 page-error">
+            <div class="number">
+                {{status_code}}
+            </div>
+            <div class="details">
+                <h3>Espera, ¿por qué estoy aquí?</h3>
+                <p>
+                    {% if status_code == 403 %}
+                        Bienvenido a la página 403. Ud está aquí porque no tiene acceso a la página que solicita.<br>
+                    {%endif%}
+                    {% if status_code == 404 %}
+                        Bienvenido a la página 404. Ud está aquí porque la página que solicita no existe.<br>
+                    {%endif%}
+                    {% if status_code == 500 %}
+                        Ud está aquí porque ha ocurrido un error en el servidor.<br>
+                    {%endif%}
+                    <a href="{{path("gema_home")}}">
+                        Regresar al Tablero de Control
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

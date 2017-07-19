@@ -1,0 +1,33 @@
+    {% extends 'gemaBundle::layout.html.twig' %}
+    {% form_theme edit_form 'gemaBundle:Form:theme.html.twig' %}
+
+    {% block gema_page -%}
+    <h4>Editar miembro del staff </h4>
+
+        <input type="button" class="btn btn-file" value="Editar Foto" id="editarArchivosp">
+        <br>
+    {{ form(edit_form) }}
+
+    <ul class="pager">
+        <li class="next"><a href="{{path('admin_staff')}}"><i class="fa fa-ban"></i>
+                Cancelar
+            </a></li>
+        <li class="next"><a href="{{path('admin_staff')}}"><i class="fa fa-list"></i>
+                Listado de Staff
+            </a></li>
+
+    </ul>
+    {% endblock %}
+
+
+    {% block custom_javascripts %}
+        <script>
+            $(document).ready(function(){
+                $('#gema_gemabundle_staff_provincia_chosen').hide();
+                var guid= $('#gema_gemabundle_staff_guid').val();
+                $('#editarArchivosp').click(function(){
+                    GetData('staff',guid);
+                });
+            });
+        </script>
+    {% endblock %}

@@ -1,0 +1,247 @@
+{% extends 'gemaBundle::clientlayout.html.twig' %}
+
+  {% block customstylesheets %}
+      <link href="{{ asset('bundles/gema/clientresources/css/style2.css')}}" rel="stylesheet">
+      {#<link href="{{ asset('bundles/gema/clientresources/css/style_002.css')}}" rel="stylesheet">#}
+      {#<link href="{{ asset('bundles/gema/clientresources/css/style_003.css')}}" rel="stylesheet">#}
+      <link href="{{ asset('bundles/gema/clientresources/css/custom.css')}}" rel="stylesheet">
+      {#<link href="{{ asset('bundles/gema/clientresources/css/style_003.css')}}" rel="stylesheet">#}
+      <link href="{{ asset('bundles/gema/clientresources/jquerybxslider/jquery.bxslider.css')}}" rel="stylesheet">
+      <link href="{{ asset('bundles/gema/clientresources/css/mycss.css')}}" rel="stylesheet">
+
+
+
+  {% endblock %}
+
+  {% block content %}
+      <br>
+
+      <div class="row">
+          <div class="col-sm-6 col-md-6 centrarin760" data-pg-collapsed>
+              <div class="thumbnail" data-pg-collapsed >
+
+                  <img src="{{ asset(imgprinc) }}" alt="" style="width: 100%;height: 380px">
+                  <div class="caption" style="background:#00a1e7">
+                      <div class="row" id="helper">
+                          <div class="col-md-6">
+                      <h3 class="l">BUSCAR TOROS DE CARNE</h3>
+                          </div>
+                           <div class="col-md-6">
+                             <div class="bull-search-container containerb">
+                                 <input type="text" id="datororo" class="textsearch" placeholder="Nombre, padre o abuelo materno">
+                                 <input type="button" class="sb" id="advancesearch" style="background-image:url({{asset('bundles/gema/clientresources/img/cow-icon-32.png')}})  ">
+                             </div>
+                           </div>
+                      </div>
+
+                      <div class="row">
+
+                          <div class="col-md-12">
+                              <p class="headinfo" id="razacarne">Ir directo a: &nbsp;
+                              {% for raza in carne %}
+                                  <a href="{{  path('gema_razalist', {'nombreraza': raza.nombre})  }}" class="abodydinfo"><span class="bodydinfo">{{ raza.nombre }}</span> </a>&nbsp;|
+                                  {% endfor %}
+                              </p>
+
+                            </div>
+                      </div>
+
+                      <div class="row">
+                          <div class="col-md-7">
+                          <h3 class="l">BUSCAR TOROS DE LECHE</h3>
+                          </div>
+
+                          </div>
+                      <div class="row">
+
+                          <div class="col-md-7">
+                              <p class="headinfo"><strong>Ir directo a: &nbsp;</strong>
+                                  {% for raza in leche %}
+                                      <a href="{{ raza.redirUrl }}" class="abodydinfo"><span class="bodydinfo">{{ raza.nombre }}</span> </a>&nbsp;|
+                                  {% endfor %}
+                              </p>
+
+                          </div>
+
+                          <div class="col-md-5">
+                              <a href="http://bs.altagenetics.com/argentina/BS/Advanced" target="" id="advancesearch2" class="btn busqavanz">Búsqueda Avanzada&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i></a>
+
+                      </div>
+
+                      </div>
+
+                      <div id="espaciador"></div>
+
+                  </div>
+              </div>
+          </div>
+
+          <div class="col-sm-6 col-md-6 " data-pg-collapsed="" style="padding: 0;">
+              <ul class="bxslider">
+                  {% for slide in sliders %}
+                  <li><img src="{{ asset(slide) }}" /></li>
+             {% endfor %}
+              </ul>
+
+              <div class="row">
+                   <div class="col-md-6 centrarin760">
+ <div class="thumbnail" data-pg-collapsed >
+                  <img src="{{ asset(redimg) }}" alt="Red de Ventas" style="height: 180px;width: 100%;">
+     <div class="caption" style="background:#00a1e7;text-align: center;margin:0 auto">
+         <div class="row">
+             <div class="col-md-12">
+                 <h3 class="l">RED DE VENTAS</h3>
+             </div>
+
+         </div>
+
+         <div class="row" style="padding-top: 34px;">
+             <div class="col-md-12">
+             <a href="{{  path('gema_redventas',{'codigo':-1}) }}" target="_self" class="btn busqavanz conozcamas">Conozca más aquí&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i></a>
+
+         </div>
+
+         </div>
+
+         <div class="row" style="padding-top: 33px;">
+
+             <div class="col-md-12 secondsquare" style="padding-bottom: 6px;">
+                 <p class="headinfo" style="text-align: center;margin: 0 auto"><strong>&nbsp;</strong>
+                     {% for d in distrib %}
+                      <span class="bodydinfo internaaaacdist">{{ d.nombre }}
+                          <textarea class="texto" style="display: none">{{ d.datos }}</textarea><textarea class="flag" style="display: none">{{ d.bandera }}</textarea></span></span>&nbsp;|
+                     {% endfor %}
+                 </p>
+
+             </div>
+
+
+
+
+
+         </div>
+
+
+
+     </div>
+
+                  </div>
+                  </div>
+
+                  {#Segundo recuadro chiquito#}
+                  <div class="col-md-6 centrarin760" >
+                      <div class="thumbnail" data-pg-collapsed >
+
+                          <img src="{{ asset(imgtopcatalog) }}" alt="Catalogos" style="height: 180px;width: 100%;">
+
+                          <div class="caption" style="background:#00a1e7">
+                              <div class="row">
+                                  <div class="col-md-12" style="text-align: center;margin: 0 auto">
+                                      <h3 class="l">DESCARGAR CATÁLOGOS</h3>
+                                  </div>
+
+                              </div>
+
+
+
+                              <div class="row" id="tercsquare" style="padding-top: 28px;text-align: center;margin: 0 auto;padding-bottom: 15px;">
+
+                                  {#Catalogo Carne#}
+                                  <div class="col-xs-6">
+                                     <a href="{{ asset(boletincarne) }}"> <img src="{{ asset(imgcarne) }}" alt="Catalogo Carne" class="imgcatalogdesc" ></a>
+
+                                  </div>
+                                  {#Catalogo Leche#}
+                                  <div class="col-xs-6">
+
+                                      <a href="{{ asset(boletinleche) }}">   <img src="{{ asset(imgleche) }}" alt="Catalogo Carne" class="imgcatalogdesc" ></a>
+
+                                  </div>
+
+
+
+                              </div>
+
+<div id="espaciador2"> </div>
+
+                          </div>
+
+                      </div>
+                  </div>
+
+              </div>
+
+          </div>
+      </div>
+
+
+
+<br>
+
+
+      <div class="vc_column-inner ">
+          <div class="wpb_wrapper"><div class="ozy-news-bar custom-news-bar">
+
+
+
+
+                  <ul><li class="newsbar-title myt"><h1 class="content-color-alternate myh1">NOVEDADES CIALE ALTA</h1><h2 class="content-color"></h2><a href="#" target="_self" class="btn seeall">VER TODAS<i class="fa fa-angle-right"></i></a></li>
+
+                      {% for n in noticias %}
+                          <li>
+                              <a class="title-link" href="#">
+                                  <h1 class="t fagobold">{{ n.titulo }}</h1></a><br>
+
+                                  {{ n.introduccion | raw }}
+
+                              <a class="news-readmore" style="margin-top: 10px" href="#">Leer mas &nbsp;&nbsp;&gt;</a>
+                          </li>
+                      {% endfor %}
+
+                     </ul>
+              </div></div>
+
+          <div style="margin-bottom: 50px;">&nbsp;</div>
+      </div>
+
+
+  {% endblock %}
+
+       {% block custom_javascripts %}
+           <script src="{{ asset('bundles/gema/clientresources/jquerybxslider/jquery.bxslider.min.js')}}"></script>
+           <script src="{{ asset('bundles/gema/js/uploader.js') }}"></script>
+           <script src="{{ asset('bundles/gema/js/buscadortoros.js') }}"></script>
+
+           <script>
+               $(document).ready(function(){
+                   $('.bxslider').bxSlider(
+                           {
+                               adaptiveHeight: true,
+//                               nextSelector: '#slider-next',
+//                               prevSelector: '#slider-prev',
+//                               nextText: 'Onward →',
+//                               prevText: '← Go back'
+
+                           }
+                   );
+
+                   $('#advancesearch').click(function(){
+                       var dato=$('#datororo').val();
+                       BuscarToros(dato);
+
+                      });
+
+                   $('.internaaaacdist').click(function(){
+                      // alert($(this).find('textarea.flag').text());
+                       vex.dialog.alert({ unsafeMessage:$(this).find('textarea.flag').text()+'<br>'+ $(this).find('textarea.texto').text()
+
+                       , className: 'vex-theme-wireframe' ,
+                           overlayClassName: 'success',
+                           contentClassName: 'borderblueclass',
+                           closeClassName: 'closebleclass'
+                       })
+                   });
+               });
+           </script>
+
+           {% endblock %}

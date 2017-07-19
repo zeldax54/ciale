@@ -1,0 +1,99 @@
+<nav role="navigation" class="navbar navbar-default navbar-static-top margin_bottom">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <!-- Collection of nav links and other content for toggling -->
+
+<div id="navbarCollapse" class="collapse navbar-collapse">
+    <ul class="nav navbar-nav">
+
+
+
+        {% if app.user and is_granted('ROLE_ADMINISTRADOR') %}
+            <li class="{% block gema_navbar_dashboard %}{% endblock %}">
+                <a href="{{path("gemaBundle_adminhome")}}"><i class="fa fa-dashboard icon-navbar fa-lg hidden-md"></i>Admin Home</a></li>
+
+
+
+
+            <li class="dropdown {% block gema_navbar_toros %}{% endblock %}">
+                <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="zmdi zmdi-menu icon-navbar fa-lg hidden-md"></i>Toros<b class="caret"></b></a>
+                <ul role="menu" class="dropdown-menu" >
+
+                    <li class="divider"></li>
+                    <li><a href="{{path("admin_tiporaza")}}"><i class="zmdi zmdi-menu icon-navbar fa-lg hidden-md"></i>Tipos de Raza</a></li>
+                    <li><a href="{{path("admin_raza")}}"><i class="zmdi zmdi-menu icon-navbar fa-lg hidden-md"></i>Razas</a></li>
+                    <li><a href="{{path("admin_toro_")}}"><i class="zmdi zmdi-menu icon-navbar fa-lg hidden-md"></i>Toros</a></li>
+                    <li class="divider"></li>
+
+                </ul>
+
+
+            </li>
+
+            <li class="{% block gema_navbar_library %}{% endblock %}">
+                <a href="#" id="library"><i class="fa fa-newspaper-o icon-navbar fa-lg hidden-md"></i>Librería</a></li>
+
+            <li class="dropdown {% block gema_navbar_configuracion %}{% endblock %}" id="asd3">
+                <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="zmdi zmdi-settings icon-navbar fa-lg hidden-md"></i>Configuraciones<b class="caret"></b></a>
+                <ul role="menu" class="dropdown-menu">
+                    <li><a href="{{path("admin_decorador")}}"><i class="zmdi zmdi-format-color-fill icon-navbar fa-lg"></i>Decoradores</a></li>
+
+
+                    <li><a href="#" id="princslider"><i class="zmdi zmdi-image icon-navbar fa-lg"></i>Slider Pagina Principal</a></li>
+                    <li><a href="#" id="mainpagepics"><i class="zmdi zmdi-image icon-navbar fa-lg"></i>Imagen Pagina Principal</a></li>
+                    <li><a href="#" id="imgredventas"><i class="zmdi zmdi-image icon-navbar fa-lg"></i>Imagen Red Ventas</a></li>
+                    <li><a href="#" id="imgtopcatalog"><i class="zmdi zmdi-image icon-navbar fa-lg"></i>Imagen Top Descargar Catálogo</a></li>
+                    <li><a href="#" id="imgscatalogCarne"><i class="zmdi zmdi-image icon-navbar fa-lg"></i>Imagen Descargar Catálogo Carne</a></li>
+                    <li><a href="#" id="imgcatalogLeche"><i class="zmdi zmdi-image icon-navbar fa-lg"></i>Imagen Descargar Catálogo Leche</a></li>
+                    <li><a href="#" id="watermark"><i class="zmdi zmdi-image icon-navbar fa-lg"></i>Marca de agua para Detalle del Toro</a></li>
+
+                </ul>
+            </li>
+
+            <li class="dropdown {% block gema_navbar_contenidos %}{% endblock %}">
+                <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="fa fa-hacker-news icon-navbar fa-lg hidden-md"></i>Contenido<b class="caret"></b></a>
+                <ul role="menu" class="dropdown-menu">
+                    <li><a  href="{{path("admin_distribuidor")}}"><i class="fa fa-user icon-navbar fa-lg"></i>Distribuidores Internacinales</a></li>
+                    <li><a href="{{path("boletin")}}"><i class="fa fa-newspaper-o icon-navbar fa-lg hidden-md"></i>Boletines</a></li>
+                    <li><a href="{{path("admin_noticias")}}"><i class="fa fa-paperclip icon-navbar fa-lg hidden-md"></i>Noticias</a></li>
+                    <li><a href="{{path("admin_datosoficina")}}"><i class="zmdi zmdi-local-post-office icon-navbar fa-lg hidden-md"></i>Datos de Oficina e Email</a></li>
+                    <li><a href="{{path("admin_staff")}}"><i class="zmdi zmdi-folder-person icon-navbar fa-lg hidden-md"></i>Red de Ventas</a></li>
+                    <li><a href="{{path("admin_vendedor")}}"><i class="zmdi zmdi-folder-person icon-navbar fa-lg hidden-md"></i>Vendedores</a></li>
+                </ul>
+
+            </li>
+
+            <li class="dropdown {% block gema_navbar_descargables %}{% endblock %}">
+                <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="fa fa-download icon-navbar fa-lg hidden-md"></i>Descargables<b class="caret"></b></a>
+                <ul role="menu" class="dropdown-menu">
+                    <li><a  href="#" id="bletincarne"><i class="fa fa-angle-down icon-navbar fa-lg"></i>Boletin de Carne</a></li>
+                    <li><a href="#" id="bletinleche"><i class="fa fa-caret-down icon-navbar fa-lg hidden-md"></i>Boletin de Leche</a></li>
+
+                </ul>
+
+            </li>
+
+            <li class="dropdown {% block gema_navbar_seguridad %}{% endblock %}">
+
+                <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="zmdi zmdi-shield-security icon-navbar fa-lg hidden-md"></i>Seguridad<b class="caret"></b></a>
+                <ul role="menu" class="dropdown-menu">
+
+                    <li class="divider"></li>
+                    <li><a href="{{path("usuario")}}"><i class="zmdi zmdi-accounts-add icon-navbar fa-lg"></i>Usuarios</a></li>
+                    <li class="divider"></li>
+                    <li><a href="{{path("traza")}}"><i class="zmdi zmdi-traffic icon-navbar fa-lg"></i>Trazas</a></li>
+                </ul>
+            </li>
+        {% endif %}
+    </ul>
+</div>
+</div>
+</nav>

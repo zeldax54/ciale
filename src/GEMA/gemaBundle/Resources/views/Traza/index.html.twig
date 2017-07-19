@@ -1,0 +1,55 @@
+{% extends 'gemaBundle::layout.html.twig' %}
+{% block gema_navbar_seguridad %}active{% endblock %}
+{% block gema_breadcrumb %}
+    <li><a href="#">Seguridad</a></li>
+    <li class="active">Trazas</li>
+    {% endblock %}
+{% block gema_page -%}
+<div class="page-header">
+        <h2>Trazas del Sistema</h2>
+    </div>
+    {% if entities is empty %}
+        <div class="bs-callout bs-callout-info">
+            <i class="fa fa-info-circle img-responsive info_icon"></i>
+            <h4>Aviso</h4>
+            <p>No existen registros de Trazas en la base de datos.</p>
+        </div>
+    {% else %}
+        <div class="table-responsive">
+            <table class="record_properties table table-hover table table-striped table-vmiddle" id="data-table-command" data-ajax="true" data-url="{{ path('traza') }}" >
+                <thead>
+                    <tr> 
+                        <th data-column-id="nivel" >Usuario</th>                                                                        
+                        <th data-column-id="accion" >Acci&oacute;n</th>                                                                        
+                        <th data-column-id="fecha" data-formatter="fecha" >Fecha</th>                   
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $("#data-table-command").bootgrid({
+            css: {
+                icon: 'md icon',
+                iconColumns: 'md-view-module',
+                iconDown: 'md-expand-more',
+                iconRefresh: 'md-refresh',
+                iconUp: 'md-expand-less'
+            },
+            formatters: {
+                "fecha": function(column, row) {
+                    var d = new Date(row.fecha.date);
+                    return "" + d.getDate() + "/" + (d.getMonth()+1) + "/" + d.getFullYear();
+                }
+            }, templates: {
+                loading: "<tr><td colspan='3' class=\"loading\"><div class='loading'><img src='{{ asset('bundles/gema/images/loading.gif') }}' class='img-responsive'></div></td></tr>"
+            }
+        });
+    </script>
+{% endblock  %}

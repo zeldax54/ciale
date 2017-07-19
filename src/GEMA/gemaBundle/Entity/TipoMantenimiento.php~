@@ -1,0 +1,167 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: hector.duran
+ * Date: 21/09/2016
+ * Time: 14:37
+ */
+
+namespace GEMA\gemaBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+/**
+ * TipoMantenimiento
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="GEMA\gemaBundle\Entity\TipoMantenimientoRepository")
+ * @UniqueEntity(fields="Tipo", message="Este Tipo de Mantenimiento ya ha sido registrada")
+ */
+
+class TipoMantenimiento
+{
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Tipo", type="string", length=255)
+     */
+    private $Tipo;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Agencia", inversedBy="tiposmantenimiento", cascade={"persist"})
+     */
+    private $agencias;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Codigo", type="integer", length=1,nullable=true)
+     */
+    private $Codigo;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->agencias = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set Tipo
+     *
+     * @param string $tipo
+     * @return TipoMantenimiento
+     */
+    public function setTipo($tipo)
+    {
+        $this->Tipo = $tipo;
+
+        return $this;
+    }
+
+    /**
+     * Get Tipo
+     *
+     * @return string 
+     */
+    public function getTipo()
+    {
+        return $this->Tipo;
+    }
+
+    /**
+     * Add agencias
+     *
+     * @param \GEMA\gemaBundle\Entity\Agencias $agencias
+     * @return TipoMantenimiento
+     */
+    public function addAgencia(\GEMA\gemaBundle\Entity\Agencias $agencias)
+    {
+        $this->agencias[] = $agencias;
+        return $this;
+    }
+
+    /**
+     * Remove agencias
+     *
+     * @param \GEMA\gemaBundle\Entity\Agencias $agencias
+     */
+    public function removeAgencia(\GEMA\gemaBundle\Entity\Agencias $agencias)
+    {
+        $this->agencias->removeElement($agencias);
+    }
+
+    /**
+     * Get agencias
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAgencias()
+    {
+        return $this->agencias;
+    }
+
+
+    public function __toString(){
+        return $this->getTipo();
+    }
+
+    /**
+     * Set Codigo
+     *
+     * @param integer $codigo
+     * @return TipoMantenimiento
+     */
+    public function setCodigo($codigo)
+    {
+        $this->Codigo = $codigo;
+
+        return $this;
+    }
+
+    /**
+     * Get Codigo
+     *
+     * @return integer 
+     */
+    public function getCodigo()
+    {
+        return $this->Codigo;
+    }
+
+    public function  isHere($idmtto)
+    {
+        foreach($this->agencias as $agencia){
+            foreach($agencia->getTiposmantenimiento() as $mtto)
+            {
+                if($agencia->ishere($mtto->getId())==false)
+                  if($mtto->getId()==$idmtto)
+                    return true;
+            }
+        }
+        return false;
+    }
+}

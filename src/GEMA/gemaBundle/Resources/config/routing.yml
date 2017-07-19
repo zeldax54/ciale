@@ -1,0 +1,140 @@
+gema_admin_distribuidorlocal:
+    resource: "@gemaBundle/Resources/config/routing/distribuidorlocal.yml"
+    prefix:   /admin/distribuidorlocal
+
+gema_admin_vendedor:
+    resource: "@gemaBundle/Resources/config/routing/vendedor.yml"
+    prefix:   /admin/vendedor
+
+gema_admin_staff:
+    resource: "@gemaBundle/Resources/config/routing/staff.yml"
+    prefix:   /admin/staff
+
+gema_admin_youtube:
+    resource: "@gemaBundle/Resources/config/routing/youtube.yml"
+    prefix:   /admin/youtube
+
+gema_admin_noticias:
+    resource: "@gemaBundle/Resources/config/routing/noticia.yml"
+    prefix:   /admin/noticias
+
+gema_admin_distribuidor:
+    resource: "@gemaBundle/Resources/config/routing/distribuidor.yml"
+    prefix:   /admin/distribuidor
+
+gema_admin_toro_:
+    resource: "@gemaBundle/Resources/config/routing/toro.yml"
+    prefix:   /admin/toro/
+
+gema_admin_raza:
+    resource: "@gemaBundle/Resources/config/routing/raza.yml"
+    prefix:   /admin/raza
+
+gema_admin_decorador:
+    resource: "@gemaBundle/Resources/config/routing/decorador.yml"
+    prefix:   /admin/decorador
+
+
+gema_loggedcheck:
+    pattern:  /loggedcheck
+    defaults: { _controller: gemaBundle:Default:loggedcheck }
+    
+gema_home:
+    pattern:  /
+    defaults: { _controller: gemaBundle:Default:index }
+
+gema_login:
+    pattern:  login
+    defaults: { _controller: gemaBundle:Seguridad:login }
+    
+gema_logout:
+    pattern:  admin/logout
+    defaults: { _controller: gemaBundle:Seguridad:logout }
+    
+gema_login_check:
+    pattern:  admin/login_check
+    defaults: { _controller: gemaBundle:Seguridad:securityCheck }
+    
+gemaBundle_usuario:
+    resource: "@gemaBundle/Resources/config/routing/usuario.yml"
+    prefix:   admin/usuario
+    
+gemaBundle_rol:
+    resource: "@gemaBundle/Resources/config/routing/rol.yml"
+    prefix:   admin/rol
+
+gemaBundle_traza:
+    resource: "@gemaBundle/Resources/config/routing/traza.yml"
+    prefix:   admin/traza
+
+gemaBundle_pagina:
+    resource: "@gemaBundle/Resources/config/routing/pagina.yml"
+    prefix:   /pagina
+
+gemaBundle_adminhome:
+    pattern:  /admin/
+    defaults: { _controller: gemaBundle:Default:index }
+
+gema_boletin:
+    resource: "@gemaBundle/Resources/config/routing/boletin.yml"
+    prefix:   admin/boletin
+
+gema_library:
+ pattern:  /{param}/{folder}/admin/library
+ defaults: { _controller: "gemaBundle:Library:LibraryPage" }
+
+gema_findfile:
+ pattern:  /{texto}/findfile
+ defaults: { _controller: "gemaBundle:Library:FindFile" }
+
+gema_pushfile:
+ pattern:  /{param}/{guidParam}/admin/pushfile
+ defaults: { _controller: "gemaBundle:Library:CopyFile" }
+
+gema_deletefile:
+ pattern:  /{folder}/{guidParam}/{filename}/admin/deletefile
+ defaults: { _controller: "gemaBundle:Library:DeleteFile" }
+
+gema_filesurl:
+ pattern:  /{param}/{folder}/admin/filesurl
+ defaults: { _controller: "gemaBundle:Library:LibraryPage" }
+
+gema_admin_tiporaza:
+    resource: "@gemaBundle/Resources/config/routing/tiporaza.yml"
+    prefix: admin/tiporaza
+
+gema_admin_uploadexcel:
+    pattern:  admin/uploadexcel
+    defaults: { _controller: gemaBundle:Uploader:upload }
+
+gema_admin_distribuidor:
+    resource: "@gemaBundle/Resources/config/routing/distribuidor.yml"
+    prefix: admin/distribuidor
+
+gema_razalist:
+    pattern:  /{nombreraza}/listraza
+    defaults: { _controller: "gemaBundle:Razalist:listRaza" }
+
+gema_torodetail:
+    pattern:  /{toroid}/torodetail
+    defaults: { _controller: "gemaBundle:Razalist:toroDetail" }
+
+gema_raza_tablas:
+    pattern:  /{id}/tablabyraza
+    defaults: { _controller: "gemaBundle:Uploader:findTablasByRaza" }
+
+gema_searchtoroscarne:
+    pattern:  /{dato}/{isfull}/busquedacarne
+    defaults: { _controller: "gemaBundle:Razalist:searchCarne" }
+
+gema_datosoficina:
+    resource: "@gemaBundle/Resources/config/routing/datosoficina.yml"
+    prefix:   admin/datosoficina
+
+gema_redventas:
+    pattern:  /{codigo}/redventas
+    defaults: { _controller: "gemaBundle:Redventas:inicio" }
+
+gema_mixed:
+    pattern:  /{idprovincia}/vendedores
+    defaults: { _controller: "gemaBundle:Staff:mixed" }

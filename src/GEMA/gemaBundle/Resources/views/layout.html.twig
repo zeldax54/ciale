@@ -1,0 +1,108 @@
+{% extends '::base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <header class="row gema_header">
+            <section class="col-md-9 gema_system">
+                <img src="{{asset('bundles/gema/images/_logo.png')}}" class="logo-gema" alt="" style="height: 40px">
+
+                {% if app.user and is_granted('ROLE_ADMINISTRADOR') %}
+            </section>
+            <section class="col-md-3 gema_user_info">
+                <div class="btn-group  pull-right">
+                    <button type="button" class="btn btn-default dropdown-toggle gema_user" data-toggle="dropdown">
+
+                        <i class="fa fa-user"></i>Bienvenido {% block gema_user %}{{app.user.username}}{% endblock %} <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" style="z-index: 10000">
+                        <li><a href="{{ path("gema_logout")}}"><i class="fa fa-sign-out"></i> Cerrar Sesión</a></li>
+                    </ul>
+                </div>
+
+            </section>
+            {% endif %}
+        </header>
+
+             {% include 'gemaBundle::menu.html.twig' %}
+
+        <ol class="breadcrumb">
+            {% block gema_breadcrumb %}
+            {% endblock %}
+        </ol>
+        <section class="gema_content margin_bottom">{% block gema_page %}{% endblock %}</section>
+        <footer class="gema_footer margin_bottom">
+        </footer>
+    </div>
+    <section class="copyright">
+        Centro Multimedia &copy; {{ 'now' | date('Y') }}
+    </section>
+
+
+
+
+{% endblock %}
+
+
+{% block javascripts -%}
+    {{ parent() }}
+<script>
+    $(document).ready(function(){
+
+
+        $('#library').click(function(){
+            GetData('library');
+        });
+
+        $('#princslider').click(function(){
+            GetData('mediainpage','princslider');
+        });
+
+        $('#mainpagepics').click(function(){
+            GetData('mediainpage','mainpagepics');
+        });
+
+        $('#imgredventas').click(function(){
+            GetData('mediainpage','imgredventas');
+        });
+
+        $('#imgtopcatalog').click(function(){
+            GetData('mediainpage','imgtopcatalog');
+        });
+        $('#imgscatalogCarne').click(function(){
+            GetData('mediainpage','imgscatalogCarne');
+        });
+        $('#imgcatalogLeche').click(function(){
+            GetData('mediainpage','imgcatalogLeche');
+        });
+
+        $('#watermark').click(function(){
+            GetData('mediainpage','watermark');
+        });
+
+        $('#bletincarne').click(function(){
+            GetData('descargables','boletincarne');
+        });
+
+        $('#bletinleche').click(function(){
+            GetData('descargables','boletinleche');
+        });
+
+
+    });
+
+
+
+
+
+
+
+
+</script>
+
+
+{% endblock %}
+
+
+

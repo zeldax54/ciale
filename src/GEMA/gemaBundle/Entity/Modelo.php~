@@ -1,0 +1,153 @@
+<?php
+
+namespace GEMA\gemaBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Modelo
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="GEMA\gemaBundle\Entity\ModeloRepository")
+ */
+class Modelo {
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Nb_Modelo", type="string", length=20)
+     */
+    private $Nb_Modelo;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Year", type="integer", length=4)
+     */
+    private $Year;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="GEMA\gemaBundle\Entity\Marca",inversedBy="modelos", cascade={"persist"})
+     */
+
+    private $marca;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="GEMA\gemaBundle\Entity\Vehiculo" , mappedBy="tipo", cascade={"persist", "remove"})
+     */
+    private $vehiculos;
+
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set Nb_Modelo
+     *
+     * @param string $nbModelo
+     * @return Modelo
+     */
+    public function setNbModelo($nbModelo)
+    {
+        $this->Nb_Modelo = $nbModelo;
+
+        return $this;
+    }
+
+    /**
+     * Get Nb_Modelo
+     *
+     * @return string 
+     */
+    public function getNbModelo()
+    {
+        return $this->Nb_Modelo;
+    }
+
+    /**
+     * Set marca
+     *
+     * @param \GEMA\gemaBundle\Entity\Marca $marca
+     * @return Modelo
+     */
+    public function setMarca(\GEMA\gemaBundle\Entity\Marca $marca = null)
+    {
+        $this->marca = $marca;
+
+        return $this;
+    }
+
+    /**
+     * Get marca
+     *
+     * @return \GEMA\gemaBundle\Entity\Marca 
+     */
+    public function getMarca()
+    {
+        return $this->marca;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->vehiculos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add vehiculos
+     *
+     * @param \GEMA\gemaBundle\Entity\Vehiculo $vehiculos
+     * @return Modelo
+     */
+    public function addVehiculo(\GEMA\gemaBundle\Entity\Vehiculo $vehiculos)
+    {
+        $this->vehiculos[] = $vehiculos;
+
+        return $this;
+    }
+
+    /**
+     * Remove vehiculos
+     *
+     * @param \GEMA\gemaBundle\Entity\Vehiculo $vehiculos
+     */
+    public function removeVehiculo(\GEMA\gemaBundle\Entity\Vehiculo $vehiculos)
+    {
+        $this->vehiculos->removeElement($vehiculos);
+    }
+
+    /**
+     * Get vehiculos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getVehiculos()
+    {
+        return $this->vehiculos;
+    }
+
+
+    public function __toString() {
+        return 'Marca:'.$this->getMarca()->getNbMarca() .', Modelo: '.$this->getNbModelo();
+    }
+}

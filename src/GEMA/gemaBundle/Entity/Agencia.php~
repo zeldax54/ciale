@@ -1,0 +1,111 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: hector.duran
+ * Date: 21/09/2016
+ * Time: 13:47
+ */
+
+namespace GEMA\gemaBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+/**
+ * Agencia
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="GEMA\gemaBundle\Entity\AgenciaRepository")
+ * @UniqueEntity(fields="Nb_Agencia", message="Esta Agencia ya ha sido registrada")
+ */
+class Agencia
+{
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Nb_Agencia", type="string", length=20)
+     */
+    private $Nb_Agencia;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Direccion", type="string", length=255)
+     */
+    private $Direccion;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="TipoMantenimiento", inversedBy="agencias", cascade={"persist"})
+     */
+    private $tiposmantenimiento;
+
+
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set Nb_Agencia
+     *
+     * @param string $nbAgencia
+     * @return Agencia
+     */
+    public function setNbAgencia($nbAgencia)
+    {
+        $this->Nb_Agencia = $nbAgencia;
+
+        return $this;
+    }
+
+    /**
+     * Get Nb_Agencia
+     *
+     * @return string 
+     */
+    public function getNbAgencia()
+    {
+        return $this->Nb_Agencia;
+    }
+
+    /**
+     * Set Direccion
+     *
+     * @param string $direccion
+     * @return Agencia
+     */
+    public function setDireccion($direccion)
+    {
+        $this->Direccion = $direccion;
+
+        return $this;
+    }
+
+    /**
+     * Get Direccion
+     *
+     * @return string 
+     */
+    public function getDireccion()
+    {
+        return $this->Direccion;
+    }
+}

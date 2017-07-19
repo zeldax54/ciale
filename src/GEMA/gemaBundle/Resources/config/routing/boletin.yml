@@ -1,0 +1,28 @@
+boletin:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:Boletin:index" }
+
+boletin_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:Boletin:show" }
+
+boletin_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:Boletin:new" }
+
+boletin_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:Boletin:create" }
+    requirements: { _method: post }
+
+boletin_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:Boletin:edit" }
+
+boletin_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:Boletin:update" }
+
+boletin_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:Boletin:delete" }

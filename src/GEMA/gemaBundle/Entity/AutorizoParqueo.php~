@@ -1,0 +1,327 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: hector.duran
+ * Date: 21/09/2016
+ * Time: 13:47
+ */
+
+namespace GEMA\gemaBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+/**
+ * AutorizoParqueo
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="GEMA\gemaBundle\Entity\AutorizoParqueoRepository")
+ * @UniqueEntity(fields="Numero", message="Este Autorizo ya ha sido registrada")
+ */
+class AutorizoParqueo
+{
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     * @Assert\NotBlank()
+     * @ORM\Column(name="Numero", type="string", length=13)
+     */
+    private $Numero;
+
+    /**
+     * @Assert\NotBlank()
+     * @ORM\ManyToOne(targetEntity="GEMA\gemaBundle\Entity\TipoAutorizo",inversedBy="id")
+     */
+    private $tiopoAutorizo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Emitidopor", type="string", length=255)
+     */
+    private $Emitidopor;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Organismo", type="string", length=255)
+     */
+    private $Organismo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Entidad", type="string", length=255)
+     */
+    private $Entidad;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="DirEntidad", type="string", length=255)
+     */
+    private $DirEntidad;
+
+    /**
+     * @Assert\NotBlank()
+     * @ORM\ManyToOne(targetEntity="GEMA\gemaBundle\Entity\Responsable",inversedBy="id")
+     */
+    private $Responsable;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cargoResponsable", type="string", length=255)
+     */
+    private $cargoResponsable;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_emision", type="date")
+     */
+    private $fecha_Emision;
+
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_recepcion", type="date")
+     */
+    private $fecha_Vencimiento;
+
+
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set Numero
+     *
+     * @param integer $numero
+     * @return AutorizoParqueo
+     */
+    public function setNumero($numero)
+    {
+        $this->Numero = $numero;
+
+        return $this;
+    }
+
+    /**
+     * Get Numero
+     *
+     * @return integer 
+     */
+    public function getNumero()
+    {
+        return $this->Numero;
+    }
+
+    /**
+     * Set tiopoAutorizo
+     *
+     * @param string $tiopoAutorizo
+     * @return AutorizoParqueo
+     */
+    public function setTiopoAutorizo($tiopoAutorizo)
+    {
+        $this->tiopoAutorizo = $tiopoAutorizo;
+
+        return $this;
+    }
+
+    /**
+     * Get tiopoAutorizo
+     *
+     * @return string 
+     */
+    public function getTiopoAutorizo()
+    {
+        return $this->tiopoAutorizo;
+    }
+
+    /**
+     * Set Emitidopor
+     *
+     * @param string $emitidopor
+     * @return AutorizoParqueo
+     */
+    public function setEmitidopor($emitidopor)
+    {
+        $this->Emitidopor = $emitidopor;
+
+        return $this;
+    }
+
+    /**
+     * Get Emitidopor
+     *
+     * @return string 
+     */
+    public function getEmitidopor()
+    {
+        return $this->Emitidopor;
+    }
+
+    /**
+     * Set Organismo
+     *
+     * @param string $organismo
+     * @return AutorizoParqueo
+     */
+    public function setOrganismo($organismo)
+    {
+        $this->Organismo = $organismo;
+
+        return $this;
+    }
+
+    /**
+     * Get Organismo
+     *
+     * @return string 
+     */
+    public function getOrganismo()
+    {
+        return $this->Organismo;
+    }
+
+    /**
+     * Set cargoResponsable
+     *
+     * @param string $cargoResponsable
+     * @return AutorizoParqueo
+     */
+    public function setCargoResponsable($cargoResponsable)
+    {
+        $this->cargoResponsable = $cargoResponsable;
+
+        return $this;
+    }
+
+    /**
+     * Get cargoResponsable
+     *
+     * @return string 
+     */
+    public function getCargoResponsable()
+    {
+        return $this->cargoResponsable;
+    }
+
+    /**
+     * Set fecha_Emision
+     *
+     * @param \DateTime $fechaEmision
+     * @return AutorizoParqueo
+     */
+    public function setFechaEmision($fechaEmision)
+    {
+        $this->fecha_Emision = $fechaEmision;
+
+        return $this;
+    }
+
+    /**
+     * Get fecha_Emision
+     *
+     * @return \DateTime 
+     */
+    public function getFechaEmision()
+    {
+        return $this->fecha_Emision;
+    }
+
+    /**
+     * Set fecha_Vencimiento
+     *
+     * @param \DateTime $fechaVencimiento
+     * @return AutorizoParqueo
+     */
+    public function setFechaVencimiento($fechaVencimiento)
+    {
+        $this->fecha_Vencimiento = $fechaVencimiento;
+
+        return $this;
+    }
+
+    /**
+     * Get fecha_Vencimiento
+     *
+     * @return \DateTime 
+     */
+    public function getFechaVencimiento()
+    {
+        return $this->fecha_Vencimiento;
+    }
+
+    /**
+     * Set Responsable
+     *
+     * @param \GEMA\gemaBundle\Entity\Responsable $responsable
+     * @return AutorizoParqueo
+     */
+    public function setResponsable(\GEMA\gemaBundle\Entity\Responsable $responsable = null)
+    {
+        $this->Responsable = $responsable;
+
+        return $this;
+    }
+
+    /**
+     * Get Responsable
+     *
+     * @return \GEMA\gemaBundle\Entity\Responsable 
+     */
+    public function getResponsable()
+    {
+        return $this->Responsable;
+    }
+
+    public function getResponsableName()
+    {
+        return $this->Responsable->getNbResponsable();
+    }
+
+    /**
+     * Set Entidad
+     *
+     * @param string $entidad
+     * @return AutorizoParqueo
+     */
+    public function setEntidad($entidad)
+    {
+        $this->Entidad = $entidad;
+
+        return $this;
+    }
+
+    /**
+     * Get Entidad
+     *
+     * @return string 
+     */
+    public function getEntidad()
+    {
+        return $this->Entidad;
+    }
+}

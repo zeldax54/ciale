@@ -1,0 +1,456 @@
+<?php
+
+namespace GEMA\gemaBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+/**
+ * Vehiculo
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="GEMA\gemaBundle\Entity\VehiculoRepository")
+ * @UniqueEntity(fields="chapa", message="Esta chapa ya ha sido registrada")
+ * @UniqueEntity(fields="no_inventario", message="Este Número de inventario ya ha sido registrado")
+ * @UniqueEntity(fields="responsable", message="Este Vehículo ya tiene Responsable")
+ */
+class Vehiculo {
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="chapa", type="string", length=7)
+     */
+    private $chapa;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="vin", type="string", length=12)
+     */
+    private $vin;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="opr_dan", type="string", length=12)
+     */
+    private $opr_dan;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="venc_lot", type="date")
+     */
+
+    private $venc_lot;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="venc_circulacion", type="date")
+     */
+    private $venc_circulacion;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="venc_ficav", type="date")
+     */
+    private $venc_ficav;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="no_inventario", type="string", length=8)
+     */
+    private $no_inventario;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="GEMA\gemaBundle\Entity\Tipo",inversedBy="vehiculos", cascade={"persist"})
+     */
+    private $tipo;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="GEMA\gemaBundle\Entity\Modelo",inversedBy="vehiculos", cascade={"persist"})
+     */
+    private $modelo;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="GEMA\gemaBundle\Entity\Clase",inversedBy="vehiculos", cascade={"persist"})
+     */
+    private $clase;
+
+    /**
+     * @ORM\OnetoOne(targetEntity="Responsable")
+     */
+    private $responsable;
+
+    /**
+     * @Assert\NotBlank()
+     * @ORM\OneToMany(targetEntity="GEMA\gemaBundle\Entity\Pieza" , mappedBy="vehiculo", cascade={"persist","remove"})
+     */
+    private $piezas;
+
+    /**
+     * @ORM\OneToMany(targetEntity="GEMA\gemaBundle\Entity\HojaRuta" , mappedBy="vehiculo", cascade={"persist","remove"})
+     */
+    private $hojasruta;
+
+
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set chapa
+     *
+     * @param string $chapa
+     * @return Vehiculo
+     */
+    public function setChapa($chapa)
+    {
+        $this->chapa = $chapa;
+
+        return $this;
+    }
+
+    /**
+     * Get chapa
+     *
+     * @return string 
+     */
+    public function getChapa()
+    {
+        return $this->chapa;
+    }
+
+    /**
+     * Set vin
+     *
+     * @param string $vin
+     * @return Vehiculo
+     */
+    public function setVin($vin)
+    {
+        $this->vin = $vin;
+
+        return $this;
+    }
+
+    /**
+     * Get vin
+     *
+     * @return string 
+     */
+    public function getVin()
+    {
+        return $this->vin;
+    }
+
+    /**
+     * Set opr_dan
+     *
+     * @param string $oprDan
+     * @return Vehiculo
+     */
+    public function setOprDan($oprDan)
+    {
+        $this->opr_dan = $oprDan;
+
+        return $this;
+    }
+
+    /**
+     * Get opr_dan
+     *
+     * @return string 
+     */
+    public function getOprDan()
+    {
+        return $this->opr_dan;
+    }
+
+    /**
+     * Set venc_lot
+     *
+     * @param \DateTime $vencLot
+     * @return Vehiculo
+     */
+    public function setVencLot($vencLot)
+    {
+        $this->venc_lot = $vencLot;
+
+        return $this;
+    }
+
+    /**
+     * Get venc_lot
+     *
+     * @return \DateTime 
+     */
+    public function getVencLot()
+    {
+        return $this->venc_lot;
+    }
+
+    /**
+     * Set venc_circulacion
+     *
+     * @param \DateTime $vencCirculacion
+     * @return Vehiculo
+     */
+    public function setVencCirculacion($vencCirculacion)
+    {
+        $this->venc_circulacion = $vencCirculacion;
+
+        return $this;
+    }
+
+    /**
+     * Get venc_circulacion
+     *
+     * @return \DateTime 
+     */
+    public function getVencCirculacion()
+    {
+        return $this->venc_circulacion;
+    }
+
+    /**
+     * Set venc_ficav
+     *
+     * @param \DateTime $vencFicav
+     * @return Vehiculo
+     */
+    public function setVencFicav($vencFicav)
+    {
+        $this->venc_ficav = $vencFicav;
+
+        return $this;
+    }
+
+    /**
+     * Get venc_ficav
+     *
+     * @return \DateTime 
+     */
+    public function getVencFicav()
+    {
+        return $this->venc_ficav;
+    }
+
+    /**
+     * Set no_inventario
+     *
+     * @param string $noInventario
+     * @return Vehiculo
+     */
+    public function setNoInventario($noInventario)
+    {
+        $this->no_inventario = $noInventario;
+
+        return $this;
+    }
+
+    /**
+     * Get no_inventario
+     *
+     * @return string 
+     */
+    public function getNoInventario()
+    {
+        return $this->no_inventario;
+    }
+
+    /**
+     * Set tipo
+     *
+     * @param \GEMA\gemaBundle\Entity\Tipo $tipo
+     * @return Vehiculo
+     */
+    public function setTipo(\GEMA\gemaBundle\Entity\Tipo $tipo = null)
+    {
+        $this->tipo = $tipo;
+
+        return $this;
+    }
+
+    /**
+     * Get tipo
+     *
+     * @return \GEMA\gemaBundle\Entity\Tipo 
+     */
+    public function getTipo()
+    {
+        return $this->tipo;
+    }
+
+    /**
+     * Set modelo
+     *
+     * @param \GEMA\gemaBundle\Entity\Modelo $modelo
+     * @return Vehiculo
+     */
+    public function setModelo(\GEMA\gemaBundle\Entity\Modelo $modelo = null)
+    {
+        $this->modelo = $modelo;
+
+        return $this;
+    }
+
+    /**
+     * Get modelo
+     *
+     * @return \GEMA\gemaBundle\Entity\Modelo 
+     */
+    public function getModelo()
+    {
+        return $this->modelo;
+    }
+
+    /**
+     * Set clase
+     *
+     * @param \GEMA\gemaBundle\Entity\Clase $clase
+     * @return Vehiculo
+     */
+    public function setClase(\GEMA\gemaBundle\Entity\Clase $clase = null)
+    {
+        $this->clase = $clase;
+
+        return $this;
+    }
+
+    /**
+     * Get clase
+     *
+     * @return \GEMA\gemaBundle\Entity\Clase 
+     */
+    public function getClase()
+    {
+        return $this->clase;
+    }
+
+    /**
+     * Set responsable
+     *
+     * @param \GEMA\gemaBundle\Entity\Responsable $responsable
+     * @return Vehiculo
+     */
+    public function setResponsable(\GEMA\gemaBundle\Entity\Responsable $responsable = null)
+    {
+        $this->responsable = $responsable;
+        return $this;
+    }
+
+    /**
+     * Get responsable
+     *
+     * @return \GEMA\gemaBundle\Entity\Responsable 
+     */
+    public function getResponsable()
+    {
+        return $this->responsable;
+    }
+
+    public function __toString()
+    {
+        return "Chapa:".$this->getChapa()." ".$this->getModelo();
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->piezas = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add piezas
+     *
+     * @param \GEMA\gemaBundle\Entity\Pieza $piezas
+     * @return Vehiculo
+     */
+    public function addPieza(\GEMA\gemaBundle\Entity\Pieza $piezas)
+    {
+        $this->piezas[] = $piezas;
+
+        return $this;
+    }
+
+    /**
+     * Remove piezas
+     *
+     * @param \GEMA\gemaBundle\Entity\Pieza $piezas
+     */
+    public function removePieza(\GEMA\gemaBundle\Entity\Pieza $piezas)
+    {
+        $this->piezas->removeElement($piezas);
+    }
+
+    /**
+     * Get piezas
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPiezas()
+    {
+        return $this->piezas;
+    }
+
+
+
+
+    /**
+     * Add hojasruta
+     *
+     * @param \GEMA\gemaBundle\Entity\HojaRuta $hojasruta
+     * @return Vehiculo
+     */
+    public function addHojasrutum(\GEMA\gemaBundle\Entity\HojaRuta $hojasruta)
+    {
+        $this->hojasruta[] = $hojasruta;
+
+        return $this;
+    }
+
+    /**
+     * Remove hojasruta
+     *
+     * @param \GEMA\gemaBundle\Entity\HojaRuta $hojasruta
+     */
+    public function removeHojasrutum(\GEMA\gemaBundle\Entity\HojaRuta $hojasruta)
+    {
+        $this->hojasruta->removeElement($hojasruta);
+    }
+
+    /**
+     * Get hojasruta
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getHojasruta()
+    {
+        return $this->hojasruta;
+    }
+}

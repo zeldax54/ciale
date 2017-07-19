@@ -1,0 +1,174 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: HL
+ * Date: 11/01/2017
+ * Time: 19:33
+ */
+
+
+namespace GEMA\gemaBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+/**
+ * Agencia
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="GEMA\gemaBundle\Entity\CambioPiezaepository")
+
+ */
+class CambioPieza
+{
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\ManyToOne(targetEntity="GEMA\gemaBundle\Entity\Vehiculo",inversedBy="id", cascade={"persist"})
+     */
+    private $vehiculo;
+
+    /**
+     * @var string
+     *
+     * @ORM\ManyToOne(targetEntity="GEMA\gemaBundle\Entity\Pieza",inversedBy="id", cascade={"persist"})
+     */
+    private $old_pieza;
+
+    /**
+     * @var string
+     *
+     * @ORM\ManyToOne(targetEntity="GEMA\gemaBundle\Entity\Pieza",inversedBy="id", cascade={"persist"})
+     */
+    private $newpieza;
+
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fechaCambio", type="datetime")
+     */
+    private $fechaCambio;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="info", type="string", length=255)
+     */
+    private $info;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set vehiculo
+     *
+     * @param \GEMA\gemaBundle\Entity\Vehiculo $vehiculo
+     * @return CambioPieza
+     */
+    public function setVehiculo(\GEMA\gemaBundle\Entity\Vehiculo $vehiculo = null)
+    {
+        $this->vehiculo = $vehiculo;
+
+        return $this;
+    }
+
+    /**
+     * Get vehiculo
+     *
+     * @return \GEMA\gemaBundle\Entity\Vehiculo 
+     */
+    public function getVehiculo()
+    {
+        return $this->vehiculo;
+    }
+
+    /**
+     * Set old_pieza
+     *
+     * @param \GEMA\gemaBundle\Entity\Pieza $oldPieza
+     * @return CambioPieza
+     */
+    public function setOldPieza(\GEMA\gemaBundle\Entity\Pieza $oldPieza = null)
+    {
+        $this->old_pieza = $oldPieza;
+
+        return $this;
+    }
+
+    /**
+     * Get old_pieza
+     *
+     * @return \GEMA\gemaBundle\Entity\Pieza 
+     */
+    public function getOldPieza()
+    {
+        return $this->old_pieza;
+    }
+
+    /**
+     * Set newpieza
+     *
+     * @param \GEMA\gemaBundle\Entity\Pieza $newpieza
+     * @return CambioPieza
+     */
+    public function setNewpieza(\GEMA\gemaBundle\Entity\Pieza $newpieza = null)
+    {
+        $this->newpieza = $newpieza;
+
+        return $this;
+    }
+
+    /**
+     * Get newpieza
+     *
+     * @return \GEMA\gemaBundle\Entity\Pieza 
+     */
+    public function getNewpieza()
+    {
+        return $this->newpieza;
+    }
+
+    /**
+     * Set fechaCambio
+     *
+     * @param \DateTime $fechaCambio
+     * @return CambioPieza
+     */
+    public function setFechaCambio($fechaCambio)
+    {
+        $this->fechaCambio = $fechaCambio;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaCambio
+     *
+     * @return \DateTime 
+     */
+    public function getFechaCambio()
+    {
+        return $this->fechaCambio;
+    }
+}

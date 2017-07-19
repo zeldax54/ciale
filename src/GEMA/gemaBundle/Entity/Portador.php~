@@ -1,0 +1,79 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: HL
+ * Date: 15/09/2016
+ * Time: 23:06
+ */
+
+namespace GEMA\gemaBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+/**
+ * Marca
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="GEMA\gemaBundle\Entity\PortadorRepository")
+ * @UniqueEntity(fields="Nb_Portador", message="Este Portador ya ha sido registrado")
+ */
+class Portador {
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Nb_Portador", type="string", length=20)
+     */
+    private $Nb_Portador;
+
+    /**
+     * @ORM\OneToMany(targetEntity="GEMA\gemaBundle\Entity\TipoTarjeta" , mappedBy="portador", cascade={"persist", "remove"})
+     */
+
+    private $tipostarjeta;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set Nb_Portador
+     *
+     * @param string $nbPortador
+     * @return Portador
+     */
+    public function setNbPortador($nbPortador)
+    {
+        $this->Nb_Portador = $nbPortador;
+
+        return $this;
+    }
+
+    /**
+     * Get Nb_Portador
+     *
+     * @return string 
+     */
+    public function getNbPortador()
+    {
+        return $this->Nb_Portador;
+    }
+}

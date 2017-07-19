@@ -1,0 +1,19 @@
+{% block extends %}
+{{ "{% extends 'gemaBundle::layout.html.twig' %}" }}
+{{ "{% form_theme form 'gemaBundle:Form:theme.html.twig' %}" }}
+
+{% endblock extends %}
+
+{% block body %}
+{{ "{% block gema_page -%}" }}
+    <h1>Crear {{ entity }}</h1>
+
+    {{ '{{ form(form) }}' }}
+
+    <ul class="pager">
+        <li class="next"><a href="{{ "{{path('"~route_name_prefix~"')}}" }}"><i class="fa fa-list"></i>
+                Listar {{entity}}
+            </a></li>
+    </ul>
+{{ "{% endblock %}" }}
+{% endblock body %}

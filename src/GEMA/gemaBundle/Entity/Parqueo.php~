@@ -1,0 +1,76 @@
+<?php
+
+namespace GEMA\gemaBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Parqueo
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="GEMA\gemaBundle\Entity\ParqueoRepository")
+ */
+class Parqueo {
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Lugar", type="string", length=30)
+     */
+    private $Lugar;
+
+    /**
+     * @ORM\OneToMany(targetEntity="GEMA\gemaBundle\Entity\Responsable" , mappedBy="parqueo", cascade={"persist", "remove"})
+     */
+
+    private $responsables;
+
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set Lugar
+     *
+     * @param string $lugar
+     * @return Parqueo
+     */
+    public function setLugar($lugar)
+    {
+        $this->Lugar = $lugar;
+
+        return $this;
+    }
+
+    /**
+     * Get Lugar
+     *
+     * @return string 
+     */
+    public function getLugar()
+    {
+        return $this->Lugar;
+    }
+
+    public function __toString() {
+        return $this->getLugar();
+    }
+}

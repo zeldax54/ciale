@@ -1,0 +1,14 @@
+{% extends "gemaBundle::layout.html.twig" %}
+{% block gema_navbar_dashboard %}active{% endblock %}
+{% block gema_page %}
+
+<h4>Bienvenido {{app.user.username}}</h4>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+
+    </script>
+{% endblock  %}

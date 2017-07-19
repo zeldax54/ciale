@@ -1,0 +1,10 @@
+traza:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:Traza:index" }
+
+traza_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:Traza:show" }
+
+
+

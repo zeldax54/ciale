@@ -1,0 +1,60 @@
+.wpb_bls_logo_item img,
+#wpb_logo_slider .owl-buttons div  {
+  transition: color linear 0.25s;
+  -webkit-transition: all 0.2s linear;
+  -moz-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+}
+.wpb_logo_title {
+  font-weight: lighter;
+  margin-top: 0 !important;
+  text-align: center;
+}
+.wpb_bls_logo_item img {
+  box-shadow: initial!important;
+  border-radius: 0!important;
+  position: inherit;
+  opacity: 1;
+  max-width: 100%;
+}
+#wpb_logo_slider.wpb_logo_slider_border .wpb_bls_logo_item img{
+  border: 1px solid rgba(0,0,0,0.1);
+}
+.wpb_bls_logo_item a {
+  display: block;
+  border: 0!important;
+}
+.wpb_bls_logo_item a:active,
+.wpb_bls_logo_item a:focus{
+  outline: 0
+}
+#wpb_logo_slider .owl-buttons div {
+  border-radius: 0;
+  margin: 0;
+  padding: 5px 10px;
+  display: inline-block;
+  opacity: 0.7;
+  color: #fff;
+  font-size: 14px;
+}
+#wpb_logo_slider .owl-buttons div:hover {
+  opacity: 1
+}
+.wpb_logo_slider .owl-buttons {
+  position: absolute;
+  top: 0;
+}
+.wpb_bls_logo_item {
+  margin: 4px;
+}
+
+/**
+ * Pagination Style
+ */
+
+#wpb_logo_slider.owl-theme .owl-controls .owl-page span {
+  border: 1px solid;
+  background: transparent;
+  opacity: 1;
+}

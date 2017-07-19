@@ -1,0 +1,28 @@
+admin_tiporaza:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:TipoRaza:index" }
+
+admin_tiporaza_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:TipoRaza:show" }
+
+admin_tiporaza_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:TipoRaza:new" }
+
+admin_tiporaza_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:TipoRaza:create" }
+    requirements: { _method: post }
+
+admin_tiporaza_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:TipoRaza:edit" }
+
+admin_tiporaza_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:TipoRaza:update" }
+
+admin_tiporaza_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:TipoRaza:delete" }

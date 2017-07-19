@@ -1,0 +1,28 @@
+usuario:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:Usuario:index" }
+
+usuario_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:Usuario:show" }
+
+usuario_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:Usuario:new" }
+
+usuario_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:Usuario:create" }
+    requirements: { _method: post }
+
+usuario_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:Usuario:edit" }
+
+usuario_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:Usuario:update" }
+
+usuario_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:Usuario:delete" }

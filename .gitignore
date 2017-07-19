@@ -1,0 +1,8 @@
+cache/
+config/parameters.yml
+log/
+.idea/
+*.log
+app/log
+/log
+.idea/workspace.xml

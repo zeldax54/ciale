@@ -1,0 +1,164 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: HL
+ * Date: 11/09/2016
+ * Time: 9:37
+ */
+
+
+namespace GEMA\gemaBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+/**
+ * Pieza
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="GEMA\gemaBundle\Entity\PiezaRepository")
+ *  @UniqueEntity(fields="Nb_Pieza", message="Esta Pieza ya ha sido registrada")
+ *  @UniqueEntity(fields="No_Serie", message="Este Nro de Serie ya ha sido registrado")
+ */
+class Pieza
+{
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Nb_Pieza", type="string", length=20)
+     */
+    private $Nb_Pieza;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="No_Serie", type="string", length=20)
+     */
+    private $No_Serie;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="GEMA\gemaBundle\Entity\Vehiculo" , inversedBy="piezas", cascade={"persist"})
+     */
+    private $vehiculo;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="GEMA\gemaBundle\Entity\Estado" , inversedBy="piezas", cascade={"persist"})
+     */
+    private $estado;
+
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set Nb_Pieza
+     *
+     * @param string $nbPieza
+     * @return Pieza
+     */
+    public function setNbPieza($nbPieza)
+    {
+        $this->Nb_Pieza = $nbPieza;
+
+        return $this;
+    }
+
+    /**
+     * Get Nb_Pieza
+     *
+     * @return string 
+     */
+    public function getNbPieza()
+    {
+        return $this->Nb_Pieza;
+    }
+
+    /**
+     * Set No_Serie
+     *
+     * @param string $noSerie
+     * @return Pieza
+     */
+    public function setNoSerie($noSerie)
+    {
+        $this->No_Serie = $noSerie;
+
+        return $this;
+    }
+
+    /**
+     * Get No_Serie
+     *
+     * @return string 
+     */
+    public function getNoSerie()
+    {
+        return $this->No_Serie;
+    }
+
+    /**
+     * Set vehiculo
+     *
+     * @param \GEMA\gemaBundle\Entity\Vehiculo $vehiculo
+     * @return Pieza
+     */
+    public function setVehiculo(\GEMA\gemaBundle\Entity\Vehiculo $vehiculo = null)
+    {
+        $this->vehiculo = $vehiculo;
+
+        return $this;
+    }
+
+    /**
+     * Get vehiculo
+     *
+     * @return \GEMA\gemaBundle\Entity\Vehiculo 
+     */
+    public function getVehiculo()
+    {
+        return $this->vehiculo;
+    }
+
+    /**
+     * Set estado
+     *
+     * @param \GEMA\gemaBundle\Entity\Estado $estado
+     * @return Pieza
+     */
+    public function setEstado(\GEMA\gemaBundle\Entity\Estado $estado = null)
+    {
+        $this->estado = $estado;
+
+        return $this;
+    }
+
+    /**
+     * Get estado
+     *
+     * @return \GEMA\gemaBundle\Entity\Estado 
+     */
+    public function getEstado()
+    {
+        return $this->estado;
+    }
+}

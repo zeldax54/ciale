@@ -1,0 +1,166 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: HL
+ * Date: 15/01/2017
+ * Time: 15:23
+ */
+
+namespace GEMA\gemaBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+/**
+ * Mantenimiento
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="GEMA\gemaBundle\Entity\MantenimientoRepository")
+ */
+class Mantenimiento
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @Assert\NotBlank()
+     * @ORM\ManyToOne(targetEntity="GEMA\gemaBundle\Entity\TipoMantenimiento",inversedBy="id")
+     */
+    private $tipo;
+
+    /**
+     * @Assert\NotBlank()
+     * @ORM\ManyToOne(targetEntity="GEMA\gemaBundle\Entity\Vehiculo",inversedBy="id")
+     */
+    private $vehiculo;
+
+    /**
+     * @Assert\NotBlank()
+     * @ORM\ManyToOne(targetEntity="GEMA\gemaBundle\Entity\Agencia",inversedBy="id")
+     */
+    private $agencia;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha", type="date")
+     */
+    private $fecha;
+
+    /**
+     * @var \float
+     *
+     * @ORM\Column(name="kilometros", type="float")
+     */
+    private $kilometros;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set tipo
+     *
+     * @param \GEMA\gemaBundle\Entity\TipoMantenimiento $tipo
+     * @return Mantenimiento
+     */
+    public function setTipo(\GEMA\gemaBundle\Entity\TipoMantenimiento $tipo = null)
+    {
+        $this->tipo = $tipo;
+
+        return $this;
+    }
+
+    /**
+     * Get tipo
+     *
+     * @return \GEMA\gemaBundle\Entity\TipoMantenimiento 
+     */
+    public function getTipo()
+    {
+        return $this->tipo;
+    }
+
+    /**
+     * Set vehiculo
+     *
+     * @param \GEMA\gemaBundle\Entity\Vehiculo $vehiculo
+     * @return Mantenimiento
+     */
+    public function setVehiculo(\GEMA\gemaBundle\Entity\Vehiculo $vehiculo = null)
+    {
+        $this->vehiculo = $vehiculo;
+
+        return $this;
+    }
+
+    /**
+     * Get vehiculo
+     *
+     * @return \GEMA\gemaBundle\Entity\Vehiculo 
+     */
+    public function getVehiculo()
+    {
+        return $this->vehiculo;
+    }
+
+    /**
+     * Set agencia
+     *
+     * @param \GEMA\gemaBundle\Entity\Agencia $agencia
+     * @return Mantenimiento
+     */
+    public function setAgencia(\GEMA\gemaBundle\Entity\Agencia $agencia = null)
+    {
+        $this->agencia = $agencia;
+
+        return $this;
+    }
+
+    /**
+     * Get agencia
+     *
+     * @return \GEMA\gemaBundle\Entity\Agencia 
+     */
+    public function getAgencia()
+    {
+        return $this->agencia;
+    }
+
+    /**
+     * Set fecha
+     *
+     * @param \DateTime $fecha
+     * @return Mantenimiento
+     */
+    public function setFecha($fecha)
+    {
+        $this->fecha = $fecha;
+
+        return $this;
+    }
+
+    /**
+     * Get fecha
+     *
+     * @return \DateTime 
+     */
+    public function getFecha()
+    {
+        return $this->fecha;
+    }
+}

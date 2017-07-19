@@ -1,0 +1,15 @@
+@font-face {  
+   font-family: "Fago-Bold";  
+    src: url( /cialesymf/web/bundles/gema/css/fonts/fago/FagoOffc-Bold.ttf ); /* IE */  
+    src: local("Fago-Bold"), url("/cialesymf/web/bundles/gema/css/fonts/fago/FagoOffc-Bold.ttf") format("truetype"); /*non-IE*/  
+   
+ 
+}
+
+@font-face {  
+   font-family: "Fago-normal";  
+    src: url( /cialesymf/web/bundles/gema/css/fonts/fago/FagoOffc.ttf ); /* IE */  
+    src: local("Fago-normal"), url("/cialesymf/web/bundles/gema/css/fonts/fago/FagoOffc.ttf") format("truetype"); /*non-IE*/  
+   
+ 
+}

@@ -1,0 +1,24 @@
+{% extends 'gemaBundle::layout.html.twig' %}
+{% block gema_navbar_seguridad %}active{% endblock %}
+{% block gema_breadcrumb %}
+    <li><a href="#">Seguridad</a></li>
+    <li><a href="{{path('usuario')}}">Usuarios</a></li>
+    <li class="active">Editar</li>
+{% endblock %}
+    {% block gema_page -%}
+    <div class="page-header">
+        <h2>Editar Usuario</h2>
+    </div>
+
+    {{ form(edit_form) }}
+
+    <ul class="pager">
+        <li class="next"><a href="{{path('usuario')}}"><i class="fa fa-ban"></i>
+                Cancelar
+            </a></li>
+            <li class="next"><a href="{{path('usuario')}}" class="m-r-10"><i class="fa fa-list"></i>
+                Listado de Usuarios
+            </a></li>
+
+    </ul>
+{% endblock %}

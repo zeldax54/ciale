@@ -1,0 +1,33 @@
+.hiderow{
+	display:none;
+}
+
+.showrow{
+	display:table;
+}
+
+.verticalalign{
+	vertical-align: middle !important;
+}
+
+.cabecerawith{
+/*	width:10% !important;*/
+}
+
+.header:hover{
+	 cursor: pointer;
+	 
+}
+a{
+	font-family:'Fago-bold';
+}
+
+td{
+	font-family:'Fago-normal';
+}
+b{
+	font-family:'Fago-normal';
+}
+label{
+	font-family:'Fago-normal';
+}

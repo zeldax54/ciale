@@ -1,0 +1,28 @@
+admin_raza:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:Raza:index" }
+
+admin_raza_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:Raza:show" }
+
+admin_raza_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:Raza:new" }
+
+admin_raza_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:Raza:create" }
+    requirements: { _method: post }
+
+admin_raza_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:Raza:edit" }
+
+admin_raza_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:Raza:update" }
+
+admin_raza_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:Raza:delete" }

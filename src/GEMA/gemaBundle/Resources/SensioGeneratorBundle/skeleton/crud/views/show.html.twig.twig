@@ -1,0 +1,55 @@
+{% block extends %}
+    {{ "{% extends 'gemaBundle::layout.html.twig' %}" }}
+{% endblock extends %}
+
+{% block body %}
+    {{ "{% block gema_page -%}" }}
+    <h2>{{ entity }}</h2>
+
+    <div class="table-responsive">
+        <table class="record_properties table table-hover">
+            <thead>
+                <tr>
+                    {%- for field, metadata in fields %}
+                    {% if field|upper != 'ID' %}
+                        <th>{{ field|capitalize }}</th>
+                        {% endif %}
+                        {%- endfor %}
+
+                    <th colspan="3">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {%- for field, metadata in fields %}
+                    {% if field|upper != 'ID' %}
+
+                        {%- if metadata.type in ['date', 'datetime'] %}
+
+                        <td>{{ '{{ entity.' ~ field|replace({'_': ''}) ~ '|date(\'Y-m-d H:i:s\') }}' }}</td>
+
+                        {%- else %}
+
+                        <td>{{ '{{ entity.' ~ field|replace({'_': ''}) ~ ' }}' }}</td>
+
+                        {%- endif %}
+
+                    {% endif %}
+                    {%- endfor %}
+                    {%- include "crud/views/others/actions.html.twig.twig" %}
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <ul class="pager">
+        <li class="next"><a href="{{ "{{path('"~route_name_prefix~"')}}" }}"><i class="fa fa-list"></i>
+                Listado de {{ entity }}
+            </a>
+        </li>
+    </ul>
+
+
+    {{ "{% endblock %}" }}
+{% endblock body %}

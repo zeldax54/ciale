@@ -1,0 +1,163 @@
+<?php
+
+namespace GEMA\gemaBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+/**
+ * HojaRuta
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="GEMA\gemaBundle\Entity\HojaRutaRepository")
+ * @UniqueEntity(fields="NoHoja", message="Este Numero de Hoja de Ruta ya ha sido registrado")
+ */
+class HojaRuta {
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     * @Assert\NotBlank()
+     * @Assert\Length(min = 5, max = 5)
+     * @ORM\Column(name="NoHoja", type="integer", length=5)
+     */
+    private $NoHoja;
+
+    /**
+     * @var string
+     * @Assert\NotBlank()
+     * @Assert\Length(min = 1, max = 10)
+     * @ORM\Column(name="Kilometraje_inicial", type="float", length=10)
+     */
+    private $Kilometraje_inicial;
+
+    /**
+     * @var string
+     * @Assert\NotBlank()
+     * @Assert\Length(min = 1, max = 10)
+     * @ORM\Column(name="Kilometraje_fin", type="float", length=10)
+     */
+    private $Kilometraje_fin;
+
+    /**
+     * @Assert\NotBlank()
+     * @ORM\ManyToOne(targetEntity="GEMA\gemaBundle\Entity\Vehiculo",inversedBy="hojasruta", cascade={"persist","remove"})
+     */
+
+    private $vehiculo;
+
+
+
+
+
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set NoHoja
+     * @return HojaRuta
+     */
+    public function setNoHoja($noHoja)
+    {
+        $this->NoHoja = $noHoja;
+
+        return $this;
+    }
+
+    /**
+     * Get NoHoja
+     *
+     * @return \int 
+     */
+    public function getNoHoja()
+    {
+        return $this->NoHoja;
+    }
+
+    /**
+     * Set Kilometraje_inicial
+     *
+     * @param float $kilometrajeInicial
+     * @return HojaRuta
+     */
+    public function setKilometrajeInicial($kilometrajeInicial)
+    {
+        $this->Kilometraje_inicial = $kilometrajeInicial;
+
+        return $this;
+    }
+
+    /**
+     * Get Kilometraje_inicial
+     *
+     * @return float 
+     */
+    public function getKilometrajeInicial()
+    {
+        return $this->Kilometraje_inicial;
+    }
+
+    /**
+     * Set Kilometraje_fin
+     *
+     * @param float $kilometrajeFin
+     * @return HojaRuta
+     */
+    public function setKilometrajeFin($kilometrajeFin)
+    {
+        $this->Kilometraje_fin = $kilometrajeFin;
+
+        return $this;
+    }
+
+    /**
+     * Get Kilometraje_fin
+     *
+     * @return float 
+     */
+    public function getKilometrajeFin()
+    {
+        return $this->Kilometraje_fin;
+    }
+
+    /**
+     * Set vehiculo
+     *
+     * @param \GEMA\gemaBundle\Entity\Vehiculo $vehiculo
+     * @return HojaRuta
+     */
+    public function setVehiculo(\GEMA\gemaBundle\Entity\Vehiculo $vehiculo = null)
+    {
+        $this->vehiculo = $vehiculo;
+
+        return $this;
+    }
+
+    /**
+     * Get vehiculo
+     *
+     * @return \GEMA\gemaBundle\Entity\Vehiculo 
+     */
+    public function getVehiculo()
+    {
+        return $this->vehiculo;
+    }
+}

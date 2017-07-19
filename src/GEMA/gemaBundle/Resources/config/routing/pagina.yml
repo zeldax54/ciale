@@ -1,0 +1,3 @@
+persona:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:Page:index" }

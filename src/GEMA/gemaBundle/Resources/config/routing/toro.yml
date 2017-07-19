@@ -1,0 +1,28 @@
+admin_toro_:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:Toro:index" }
+
+admin_toro__show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:Toro:show" }
+
+admin_toro__new:
+    pattern:  /{idraza}/new
+    defaults: { _controller: "gemaBundle:Toro:new" }
+
+admin_toro__create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:Toro:create" }
+    requirements: { _method: post }
+
+admin_toro__edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:Toro:edit" }
+
+admin_toro__update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:Toro:update" }
+
+admin_toro__delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:Toro:delete" }

@@ -1,0 +1,28 @@
+admin_datosoficina:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:DatosOficina:index" }
+
+admin_datosoficina_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:DatosOficina:show" }
+
+admin_datosoficina_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:DatosOficina:new" }
+
+admin_datosoficina_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:DatosOficina:create" }
+    requirements: { _method: post }
+
+admin_datosoficina_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:DatosOficina:edit" }
+
+admin_datosoficina_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:DatosOficina:update" }
+
+admin_datosoficina_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:DatosOficina:delete" }

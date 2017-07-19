@@ -1,0 +1,467 @@
+<?php
+
+namespace GEMA\gemaBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Annotations\Annotation\Enum;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * Persona
+ * TO-DO Modificar la forma de representar el sexo!!!
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="GEMA\gemaBundle\Entity\PersonaRepository")
+ * @ORM\HasLifecycleCallbacks() 
+ */
+class Persona {
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     * @Assert\NotBlank()
+     * @Assert\Length(min = 11, max = 11)
+     * @ORM\Column(name="cIdentidad", type="string", length=11)
+     */
+    private $cIdentidad;
+
+    /**
+     * @var string
+     * @Assert\NotBlank()
+     * @ORM\Column(name="nombre", type="string", length=255)
+     */
+    private $nombre;
+
+    /**
+     * @var string
+     * @Assert\NotBlank()
+     * @ORM\Column(name="apellidos", type="string", length=255)
+     */
+    private $apellidos;
+
+    /**
+     * @var string
+     * 
+     * @ORM\Column(name="sexo", type="string", length=255,nullable=true)
+     */
+    private $sexo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="direccion", type="text", nullable=true)
+     */
+    private $direccion;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="GEMA\gemaBundle\Entity\Cargo",inversedBy="personas", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $cargo;
+    
+    /**
+     * @var float
+     * @Assert\NotNull()
+     * @Assert\ Type(type="float")
+     * @ORM\Column(name="salario", type="float")
+     */
+    private $salario;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="gastoDia", type="float")
+     */
+    private $gastoDia;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="gastoHora", type="float",nullable=true)
+     */
+    private $gastoHora;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="gastoMinuto", type="float")
+     */
+    private $gastoMinuto;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="profesion", type="string", length=255, nullable=true)
+     */
+    private $profesion;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="GEMA\gemaBundle\Entity\Usuario",inversedBy="personas", cascade={"persist"}) 
+     */
+    private $usuario;
+
+    
+    /**
+     * @ORM\OneToMany(targetEntity="GEMA\gemaBundle\Entity\ProPer" , mappedBy="persona", cascade={"persist"}) 
+     */
+    protected $proPers;
+
+    /**
+     * @ORM\PreRemove
+     * Release all the children on remove
+     */
+//    public function preRemove() {
+//        foreach ($this->ordenesTrabajo as $child) {
+//            $child->setPersona(null);
+//        }
+//    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId() {
+        return $this->id;
+    }
+
+    /**
+     * Set cIdentidad
+     *
+     * @param string $cIdentidad
+     * @return Persona
+     */
+    public function setCIdentidad($cIdentidad) {
+        $this->cIdentidad = $cIdentidad;
+
+        return $this;
+    }
+
+    /**
+     * Get cIdentidad
+     *
+     * @return string 
+     */
+    public function getCIdentidad() {
+        return $this->cIdentidad;
+    }
+
+    /**
+     * Set nombre
+     *
+     * @param string $nombre
+     * @return Persona
+     */
+    public function setNombre($nombre) {
+        $this->nombre = $nombre;
+
+        return $this;
+    }
+
+    /**
+     * Get nombre
+     *
+     * @return string 
+     */
+    public function getNombre() {
+        return $this->nombre;
+    }
+
+    /**
+     * Set apellidos
+     *
+     * @param string $apellidos
+     * @return Persona
+     */
+    public function setApellidos($apellidos) {
+        $this->apellidos = $apellidos;
+
+        return $this;
+    }
+
+    /**
+     * Get apellidos
+     *
+     * @return string 
+     */
+    public function getApellidos() {
+        return $this->apellidos;
+    }
+
+    /**
+     * Set direccion
+     *
+     * @param string $direccion
+     * @return Persona
+     */
+    public function setDireccion($direccion) {
+        $this->direccion = $direccion;
+
+        return $this;
+    }
+
+    /**
+     * Get direccion
+     *
+     * @return string 
+     */
+    public function getDireccion() {
+        return $this->direccion;
+    }
+
+    /**
+     * Set cargo
+     *
+     * @param string $cargo
+     * @return Persona
+     */
+    public function setCargo($cargo) {
+        $this->cargo = $cargo;
+
+        return $this;
+    }
+
+    /**
+     * Get cargo
+     *
+     * @return string 
+     */
+    public function getCargo() {
+        return $this->cargo;
+    }
+    
+    /**
+     * Set salario
+     *
+     * @param float $salario
+     * @return Persona
+     */
+    public function setSalario($salario) {
+        $this->salario = $salario;
+
+        return $this;
+    }
+
+    /**
+     * Get salario
+     *
+     * @return float 
+     */
+    public function getSalario() {
+        return $this->salario;
+    }
+    
+    /**
+     * Set gastoDia
+     *
+     * @param float $gastoDia
+     * @return Persona
+     */
+    public function setGastoDia($gastoDia) {
+        $this->gastoDia = $gastoDia;
+
+        return $this;
+    }
+
+    /**
+     * Get gastoDia
+     *
+     * @return float 
+     */
+    public function getGastoDia() {
+        return $this->gastoDia;
+    }
+    
+    /**
+     * Set gastoHora
+     *
+     * @param float $gastoHora
+     * @return Persona
+     */
+    public function setGastoHora($gastoHora) {
+        $this->gastoHora = $gastoHora;
+
+        return $this;
+    }
+
+    /**
+     * Get gastoHora
+     *
+     * @return float 
+     */
+    public function getGastoHora() {
+        return $this->gastoHora;
+    }
+    
+    /**
+     * Set gastoMinuto
+     *
+     * @param float $gastoMinuto
+     * @return Persona
+     */
+    public function setGastoMinuto($gastoMinuto) {
+        $this->gastoMinuto = $gastoMinuto;
+
+        return $this;
+    }
+
+    /**
+     * Get gastoMinuto
+     *
+     * @return float 
+     */
+    public function getGastoMinuto() {
+        return $this->gastoMinuto;
+    }
+
+    /**
+     * Set profesion
+     *
+     * @param string $profesion
+     * @return Persona
+     */
+    public function setProfesion($profesion) {
+        $this->profesion = $profesion;
+
+        return $this;
+    }
+
+    /**
+     * Get profesion
+     *
+     * @return string 
+     */
+    public function getProfesion() {
+        return $this->profesion;
+    }
+
+    /**
+     * Set usuario
+     *
+     * @param \GEMA\gemaBundle\Entity\Usuario $usuario
+     * @return Persona
+     */
+    public function setUsuario(\GEMA\gemaBundle\Entity\Usuario $usuario = null) {
+        $this->usuario = $usuario;
+
+        return $this;
+    }
+
+    /**
+     * Get usuario
+     *
+     * @return \GEMA\gemaBundle\Entity\Usuario 
+     */
+    public function getUsuario() {
+        return $this->usuario;
+    }
+
+    public function __toString() {
+        return $this->getNombre();
+    }
+
+    /**
+     * Constructor
+     */
+    public function __construct() {
+        $this->ordenesTrabajo = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->usuarios = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add usuarios
+     *
+     * @param \GEMA\gemaBundle\Entity\Usuario $usuarios
+     * @return Persona
+     */
+    public function addUsuario(\GEMA\gemaBundle\Entity\Usuario $usuarios) {
+        $this->usuarios[] = $usuarios;
+
+        return $this;
+    }
+
+    /**
+     * Remove usuarios
+     *
+     * @param \GEMA\gemaBundle\Entity\Usuario $usuarios
+     */
+    public function removeUsuario(\GEMA\gemaBundle\Entity\Usuario $usuarios) {
+        $this->usuarios->removeElement($usuarios);
+    }
+
+    /**
+     * Get usuarios
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUsuarios() {
+        return $this->usuarios;
+    }
+
+
+
+
+    /**
+     * Set sexo
+     *
+     * @param string $sexo
+     * @return Persona
+     */
+    public function setSexo($sexo)
+    {
+        $this->sexo = $sexo;
+
+        return $this;
+    }
+
+    /**
+     * Get sexo
+     *
+     * @return string 
+     */
+    public function getSexo()
+    {
+        return $this->sexo;
+    }
+
+    /**
+     * Add proPers
+     *
+     * @param \GEMA\gemaBundle\Entity\ProPer $proPers
+     * @return Persona
+     */
+    public function addProPer(\GEMA\gemaBundle\Entity\ProPer $proPers)
+    {
+        $this->proPers[] = $proPers;
+
+        return $this;
+    }
+
+    /**
+     * Remove proPers
+     *
+     * @param \GEMA\gemaBundle\Entity\ProPer $proPers
+     */
+    public function removeProPer(\GEMA\gemaBundle\Entity\ProPer $proPers)
+    {
+        $this->proPers->removeElement($proPers);
+    }
+
+    /**
+     * Get proPers
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getProPers()
+    {
+        return $this->proPers;
+    }
+}

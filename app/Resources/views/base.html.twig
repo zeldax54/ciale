@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}CIALE ALTA.{% endblock %}</title>
+        {% block stylesheets %}
+            {#<link href="{{ asset('bundles/gema/css/bootstrap.css') }}" rel="stylesheet">#}
+            <link href="{{ asset('bundles/gema/bootstrap337/css/bootstrap.min.css') }}" rel="stylesheet">
+            <link href="{{ asset('bundles/gema/css/material-icons/material-design-iconic-font.min.css') }}" rel="stylesheet">
+            <link href="{{ asset('bundles/gema/css/material-design-iconic-font-v2.2.0/css/material-design-iconic-font.min.css') }}" rel="stylesheet" type="text/css"/>
+            <link href="{{ asset('bundles/gema/css/fonts/font-awesome-4.3.0/css/font-awesome.css') }}" rel="stylesheet"> 
+            <link href="{{ asset('bundles/gema/css/fullcalendar.min.css') }}" rel="stylesheet"> 
+            <link href="{{ asset('bundles/gema/css/jquery.bootgrid.min.css') }}" rel="stylesheet">
+            <link href="{{ asset('bundles/gema/js/snarl/snarl.min.css') }}" rel="stylesheet">
+            <link href="{{ asset('bundles/gema/css/animate.min.css') }}" rel="stylesheet">
+            <link href="{{ asset('bundles/gema/css/theme.css') }}" rel="stylesheet">
+            <link href="{{ asset('bundles/gema/css/app.min.1.css') }}" rel="stylesheet">
+            <link href="{{ asset('bundles/gema/css/app.min.2.css') }}" rel="stylesheet">
+            <link href="{{ asset('bundles/gema/js/growl/stylesheets/jquery.growl.css') }}" rel="stylesheet">
+            <link href="{{ asset('bundles/gema/css/dist/dropzone.css') }}" rel="stylesheet">
+
+
+
+            <!--[if lt IE 9]>
+                <script src="{{ asset('bundles/gema/js/html5shiv.js') }}"></script>
+                <script src="{{ asset('bundles/gema/js/respond.min.js') }}"></script>
+            <![endif]-->   
+        {% endblock %}
+        <link rel="shortcut icon" href="{{ asset('bundles/gema/images/ico/favicon1.png') }}">
+    </head>
+    <body class="{% block background %}midnightBlue{% endblock %}">
+    {% block content %}{% endblock %}
+    {% block javascripts %}
+
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+        <script src="{{ asset('bundles/gema/js/fullcalendar/moment2.11.0.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/gema/js/jquery-2.1.1.min.js') }}"></script>
+        {#<script type="text/javascript" src="{{ asset('bundles/gema/js/jquery2.1.4.js') }}"></script>#}
+        {#<script type="text/javascript" src="{{ asset('bundles/gema/js/jquery-3.2.1.min.js') }}"></script>#}
+        {#<script src="{{ asset('bundles/gema/js/highcharts/highcharts.js') }}"></script>#}
+        {#<script src="{{ asset('bundles/gema/js/highcharts/highcharts-3d.js') }}"></script>#}
+        {#<script type="text/javascript" src="{{ asset('bundles/gema/js/bootstrap.min.js') }}"></script>#}
+        <script type="text/javascript" src="{{ asset('bundles/gema/js/bootstrap3.min.js') }}"></script>
+        {#<script src="{{ asset('bundles/gema/bootstrap337/js/bootstrap.min.js') }}"></script>#}
+        <script src="{{ asset('bundles/gema/js/jquery.bootgrid.min.js') }}"></script>
+        <script src="{{ asset('bundles/gema/js/moment.min.js') }}"></script>
+        <script src="{{ asset('bundles/gema/js/nicescroll/jquery.nicescroll.min.js') }}"></script>        
+        <script src="{{ asset('bundles/gema/js/fullcalendar/fullcalendar.min.js') }}"></script>
+        <script src="{{ asset('bundles/gema/js/fullcalendar/lang-all.js') }}"></script>
+        <script src="{{ asset('bundles/gema/js/chosen/chosen.jquery.min.js') }}"></script>
+        <script src="{{ asset('bundles/gema/js/bootstrap-select/bootstrap-select.min.js') }}"></script>
+        <script src="{{ asset('bundles/gema/js/bootstrap-datetimepicker/moment-with-locales.js') }}"></script>
+        <script src="{{ asset('bundles/gema/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js') }}"></script>
+        {#<script src="{{ asset('bundles/gema/js/snarl/snarl.min.css') }}"></script>#}
+        <script src="{{ asset('bundles/gema/js/growl/javascripts/jquery.growl.js') }}"></script>
+        <script src="{{ asset('bundles/gema/js/app.js') }}"></script>
+        <script src="{{ asset('bundles/gema/js/dropzone.js') }}"></script>
+
+
+
+
+
+
+        <script src="{{ asset('bundles/gema/js/myframework.js') }}"></script>
+        <script src="{{ asset('bundles/gema/js/uploader.js') }}"></script>
+
+
+        <script>
+            window.setTimeout(function () {
+                $(".auto-dismiss").fadeTo(500, 0).slideUp(600, function () {
+                    $(this).remove();
+                });
+            }, 2900);
+        </script>
+    {% endblock %}
+    {% block custom_javascripts %}
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,45 @@
+    {% extends 'gemaBundle::layout.html.twig' %}
+
+    {% block gema_page -%}
+    <h2>Distribuidorlocal</h2>
+
+    <div class="table-responsive">
+        <table class="record_properties table table-hover">
+            <thead>
+                <tr>                                                                <th>Ciudad</th>
+                                                                    <th>Nombreveterinaria</th>
+                                                                    <th>Publico</th>
+                                                                    <th>Personal</th>
+                        
+                    <th colspan="3">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>                                        
+                        <td>{{ entity.ciudad }}</td>
+                                        
+                        <td>{{ entity.nombreveterinaria }}</td>
+                                        
+                        <td>{{ entity.publico }}</td>
+                                        
+                        <td>{{ entity.personal }}</td>
+                    
+    <td><a href="{{ path('admin_distribuidorlocal_show', { 'id': entity.id }) }}"><i class="fa fa-eye"></i> Mostrar</a></td>
+    <td><a href="{{ path('admin_distribuidorlocal_edit', { 'id': entity.id }) }}"><i class="fa fa-edit"></i> Editar</a></td>
+    <td><a href="{{ path('admin_distribuidorlocal_delete', { 'id': entity.id }) }}"><i class="fa fa-minus-circle"></i> Eliminar</a></td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <ul class="pager">
+        <li class="next"><a href="{{path('admin_distribuidorlocal')}}"><i class="fa fa-list"></i>
+                Listado de Distribuidorlocal
+            </a>
+        </li>
+    </ul>
+
+
+    {% endblock %}

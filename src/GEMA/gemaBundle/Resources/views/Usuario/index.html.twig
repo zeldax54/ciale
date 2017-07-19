@@ -1,0 +1,113 @@
+{% extends 'gemaBundle::layout.html.twig' %}
+{% block gema_navbar_seguridad %}active{% endblock %}
+{% block gema_breadcrumb %}
+    <li><a href="#">Seguridad</a></li>
+    <li class="active">Usuarios</li>
+    {% endblock %}
+    {% block gema_page -%}
+    <div class="page-header">
+        <h2>Usuario</h2>
+    </div>
+    {% for flashMessage in app.session.flashbag.get('notice') %} 
+        <div class="alert alert-success alert-dismissable auto-dismiss animated fadeIn m-b-5 m-t-10">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <strong>;)</strong> {{ flashMessage }}
+        </div>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('error') %} 
+        <div class="alert alert-danger alert-dismissable auto-dismiss animated fadeIn m-b-5 m-t-10">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <strong>;)</strong> {{ flashMessage }}
+        </div>
+    {% endfor %}
+    {% if entities is empty %}
+        <div class="bs-callout bs-callout-info">
+            <i class="fa fa-info-circle img-responsive info_icon"></i>
+            <h4>Aviso</h4>
+            <p>No existen usuarios definidos en la base de datos.</p>
+        </div>
+        <ul class="pager">
+            <li class="next">
+                <a href="{{ path('usuario_new') }}" class="btn-new"><i class="fa fa-plus-circle"></i>
+                    Nuevo Usuario
+                </a>
+            </li>
+        </ul>
+    {% else %}
+        <div class="table-responsive">
+            <table class="record_properties table table-hover table table-striped table-vmiddle" id="data-table-command" data-ajax="true" data-url="{{ path('usuario') }}" >
+                <thead>
+                    <tr>  
+                        <th data-column-id="usuario" data-formatter="usuarios">Usuario</th>  
+                        <th data-column-id="roles" data-formatter="roles">Rol</th>                                                                        
+                        <th colspan="3" data-formatter="commands" data-sortable="false" data-searchable="false">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Eliminar Registro</h4>
+                    </div>
+                    <div class="modal-body">
+                        ¿Está seguro que desea eliminar el registro definitivamente?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary eliminarRegistro">Aceptar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    {%endif%}
+
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $("#data-table-command").bootgrid({
+            css: {
+                icon: 'md icon',
+                iconColumns: 'md-view-module',
+                iconDown: 'md-expand-more',
+                iconRefresh: 'md-refresh',
+                iconUp: 'md-expand-less'
+            },
+            formatters: {
+                "commands": function (column, row) {
+                    return "<a href='" + Routing.generate('usuario_edit', {id: row.id}) + "'  class=\"btn btn-icon command-edit\" ><span class=\"md md-edit\"></span></a> " +
+                            "<a href='" + Routing.generate('usuario_delete', {id: row.id}) + "'  class=\"btn btn-icon command-delete\" ><span class=\"md md-delete\"></span></a>";
+                },
+                "roles": function (column, row) {
+                    return "" + row.roles.nombre;
+                }
+            }, templates: {
+                    header: "<div id=\"\{\{ctx.id\}\}\" class=\"\{\{css.header\}\}\"><div class=\"row\"><div class=\"col-sm-12 col-md-10 actionBar\"><p class=\"\{\{css.search\}\}\"></p><p class=\"\{\{css.actions\}\}\"></p></div><div class=\"col-sm-12 col-md-2 actionBar\"><a href=\"{{ path('usuario_new') }}\"><i class=\"fa fa-plus-circle\"></i>Nuevo Usuario</a></div></div></div>",
+                    loading: "<tr><td colspan='6' class=\"loading\"><div class='loading'><img src='{{ asset('bundles/gema/images/loading.gif') }}' class='img-responsive'></div></td></tr>"
+            }
+        }).on("loaded.rs.jquery.bootgrid", function (e)
+        {
+            $(".command-delete").on('click', function (evt) {
+                evt.preventDefault();
+                url = Routing.generate('usuario_delete', {id: $(this).data('id')});
+                $("#deleteModal").modal("show");
+            });
+
+            $(".eliminarRegistro").on("click", function (evt) {
+                window.location = url;
+            });
+
+        });;
+    </script>
+{% endblock  %}

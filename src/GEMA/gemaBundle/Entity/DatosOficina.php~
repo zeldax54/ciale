@@ -1,0 +1,40 @@
+<?php
+
+namespace GEMA\gemaBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+/**
+ * Distribuidor
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="GEMA\gemaBundle\Entity\DatosOficinaRepository")
+ * @ORM\Table(name="datosoficina")
+ * @UniqueEntity(fields="datosoficina", message="Estos datos ya existe")
+ * @ORM\HasLifecycleCallbacks()
+ */
+class DatosOficina
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var text
+     * @ORM\Column(name="datosoficina", type="text",nullable=false)
+     */
+    private $datosoficina;
+
+    /**
+     * @var text
+     * @ORM\Column(name="email", type="text",nullable=true)
+     */
+    private $email;
+}

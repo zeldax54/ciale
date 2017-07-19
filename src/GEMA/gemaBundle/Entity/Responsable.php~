@@ -1,0 +1,338 @@
+<?php
+
+namespace GEMA\gemaBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+
+
+
+/**
+ * Modelo
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="GEMA\gemaBundle\Entity\ResponsableRepository")
+ * @UniqueEntity(fields="Lic_Conduccion", message="Esta Licencia ya ha sido registrada")
+ * @UniqueEntity(fields="vehiculo", message="Esta vehiculo ya tiene responsable")
+ */
+class Responsable {
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Nb_Responsable", type="string", length=20)
+     */
+    private $Nb_Responsable;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Apellidos_Responsable", type="string", length=255)
+     */
+    private $Apellidos_Responsable;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Lic_Conduccion", type="string", length=11)
+     */
+    private $Lic_Conduccion;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="venc_licencia", type="date")
+     */
+
+    private $venc_licencia;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="direccion_particular", type="string", length=255)
+     */
+    private $direccion_particular;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="GEMA\gemaBundle\Entity\Area",inversedBy="responsables", cascade={"persist"})
+     */
+    private $area;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="GEMA\gemaBundle\Entity\Parqueo",inversedBy="responsables", cascade={"persist"})
+     */
+    private $parqueo;
+
+    /**
+     * @ORM\OneToOne(targetEntity="GEMA\gemaBundle\Entity\Vehiculo"))
+     */
+    private $vehiculo;
+
+    /**
+     * @ORM\OneToMany(targetEntity="GEMA\gemaBundle\Entity\TarjetaMagnetica" , mappedBy="responsable", cascade={"persist", "remove"})
+     */
+
+    private $tarjetas;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Cargo", type="string", length=255)
+     */
+    private $Cargo;
+
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set Nb_Responsable
+     *
+     * @param string $nbResponsable
+     * @return Responsable
+     */
+    public function setNbResponsable($nbResponsable)
+    {
+        $this->Nb_Responsable = $nbResponsable;
+        return $this;
+    }
+
+    /**
+     * Get Nb_Responsable
+     *
+     * @return string
+     */
+    public function getNbResponsable()
+    {
+        return $this->Nb_Responsable;
+    }
+
+    /**
+     * Set Apellidos_Responsable
+     *
+     * @param string $apellidosResponsable
+     * @return Responsable
+     */
+    public function setApellidosResponsable($apellidosResponsable)
+    {
+        $this->Apellidos_Responsable = $apellidosResponsable;
+
+        return $this;
+    }
+
+    /**
+     * Get Apellidos_Responsable
+     *
+     * @return string
+     */
+    public function getApellidosResponsable()
+    {
+        return $this->Apellidos_Responsable;
+    }
+
+    /**
+     * Set Lic_Conduccion
+     *
+     * @param string $licConduccion
+     * @return Responsable
+     */
+    public function setLicConduccion($licConduccion)
+    {
+        $this->Lic_Conduccion = $licConduccion;
+
+        return $this;
+    }
+
+    /**
+     * Get Lic_Conduccion
+     *
+     * @return string
+     */
+    public function getLicConduccion()
+    {
+        return $this->Lic_Conduccion;
+    }
+
+    /**
+     * Set venc_licencia
+     *
+     * @param \DateTime $vencLicencia
+     * @return Responsable
+     */
+    public function setVencLicencia($vencLicencia)
+    {
+        $this->venc_licencia = $vencLicencia;
+
+        return $this;
+    }
+
+    /**
+     * Get venc_licencia
+     *
+     * @return \DateTime
+     */
+    public function getVencLicencia()
+    {
+        return $this->venc_licencia;
+    }
+
+    /**
+     * Set direccion_particular
+     *
+     * @param string $direccionParticular
+     * @return Responsable
+     */
+    public function setDireccionParticular($direccionParticular)
+    {
+        $this->direccion_particular = $direccionParticular;
+
+        return $this;
+    }
+
+    /**
+     * Get direccion_particular
+     *
+     * @return string
+     */
+    public function getDireccionParticular()
+    {
+        return $this->direccion_particular;
+    }
+
+    /**
+     * Set area
+     *
+     * @param \GEMA\gemaBundle\Entity\Area $area
+     * @return Responsable
+     */
+    public function setArea(\GEMA\gemaBundle\Entity\Area $area = null)
+    {
+        $this->area = $area;
+
+        return $this;
+    }
+
+    /**
+     * Get area
+     *
+     * @return \GEMA\gemaBundle\Entity\Area
+     */
+    public function getArea()
+    {
+        return $this->area;
+    }
+
+    /**
+     * Set parqueo
+     *
+     * @param \GEMA\gemaBundle\Entity\Parqueo $parqueo
+     * @return Responsable
+     */
+    public function setParqueo(\GEMA\gemaBundle\Entity\Parqueo $parqueo = null)
+    {
+        $this->parqueo = $parqueo;
+
+        return $this;
+    }
+
+    /**
+     * Get parqueo
+     *
+     * @return \GEMA\gemaBundle\Entity\Parqueo
+     */
+    public function getParqueo()
+    {
+        return $this->parqueo;
+    }
+
+    /**
+     * Set vehiculo
+     *
+     * @param \GEMA\gemaBundle\Entity\Vehiculo $vehiculo
+     * @return Responsable
+     */
+    public function setVehiculo(\GEMA\gemaBundle\Entity\Vehiculo $vehiculo = null)
+    {
+        $this->vehiculo = $vehiculo;
+
+        return $this;
+    }
+
+    /**
+     * Get vehiculo
+     *
+     * @return \GEMA\gemaBundle\Entity\Vehiculo
+     */
+    public function getVehiculo()
+    {
+        return $this->vehiculo;
+    }
+
+
+    public function __toString()
+    {
+        return $this->getNbResponsable()." ".$this->getApellidosResponsable();
+    }
+
+
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->tarjetas = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add tarjetas
+     *
+     * @param \GEMA\gemaBundle\Entity\TarjetaMagnetica $tarjetas
+     * @return Responsable
+     */
+    public function addTarjeta(\GEMA\gemaBundle\Entity\TarjetaMagnetica $tarjetas)
+    {
+        $this->tarjetas[] = $tarjetas;
+
+        return $this;
+    }
+
+    /**
+     * Remove tarjetas
+     *
+     * @param \GEMA\gemaBundle\Entity\TarjetaMagnetica $tarjetas
+     */
+    public function removeTarjeta(\GEMA\gemaBundle\Entity\TarjetaMagnetica $tarjetas)
+    {
+        $this->tarjetas->removeElement($tarjetas);
+    }
+
+    /**
+     * Get tarjetas
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTarjetas()
+    {
+        return $this->tarjetas;
+    }
+}

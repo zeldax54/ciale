@@ -1,0 +1,105 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: hector.duran
+ * Date: 21/09/2016
+ * Time: 13:47
+ */
+
+namespace GEMA\gemaBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+/**
+ * TipoAutorizo
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="GEMA\gemaBundle\Entity\TipoAutorizoRepository")
+ * @UniqueEntity(fields="Codigo", message="Esta Entidad ya ha sido registrada")
+ */
+class TipoAutorizo
+{
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tipo", type="string",length=255)
+     */
+    private $tipo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="codigo", type="integer")
+     */
+    private $codigo;
+
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set tipo
+     *
+     * @param integer $tipo
+     * @return TipoAutorizo
+     */
+    public function setTipo($tipo)
+    {
+        $this->tipo = $tipo;
+
+        return $this;
+    }
+
+    /**
+     * Get tipo
+     *
+     * @return integer 
+     */
+    public function getTipo()
+    {
+        return $this->tipo;
+    }
+
+    /**
+     * Set codigo
+     *
+     * @param integer $codigo
+     * @return TipoAutorizo
+     */
+    public function setCodigo($codigo)
+    {
+        $this->codigo = $codigo;
+
+        return $this;
+    }
+
+    /**
+     * Get codigo
+     *
+     * @return integer 
+     */
+    public function getCodigo()
+    {
+        return $this->codigo;
+    }
+}

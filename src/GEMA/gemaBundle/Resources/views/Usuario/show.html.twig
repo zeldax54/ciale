@@ -1,0 +1,39 @@
+{% extends 'gemaBundle::layout.html.twig' %}
+
+{% block gema_page -%}
+    <h3>Usuario</h3>
+    {% for flashMessage in app.session.flashbag.get('notice') %} 
+        <div class="alert alert-success alert-dismissable animated fadeIn">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <strong>;)</strong> {{ flashMessage }}
+        </div>
+    {% endfor %}
+    <div class="table-responsive">
+        <table class="record_properties table table-hover">
+            <thead>
+                <tr>                                 
+                    <th>Usuario</th>
+                    <th colspan="2">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>                          
+                    <td>{{ entity.usuario }}</td>
+                    <td><a href="{{ path('usuario_edit', { 'id': entity.id }) }}"><i class="fa fa-edit"></i> Editar</a></td>
+                    <td><a href="{{ path('usuario_delete', { 'id': entity.id }) }}"><i class="fa fa-minus-circle"></i> Eliminar</a></td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <ul class="pager">
+        <li class="next"><a href="{{path('usuario')}}"><i class="fa fa-list"></i>
+                Listado de Usuarios
+            </a>
+        </li>
+    </ul>
+
+
+{% endblock %}

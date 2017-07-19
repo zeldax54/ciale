@@ -1,0 +1,54 @@
+{% extends 'gemaBundle::layout.html.twig' %}
+{% form_theme form 'gemaBundle:Form:theme.html.twig' %}
+
+
+{% block gema_page -%}
+
+<fieldset>
+    <legend>Nueva Raza</legend>
+
+    {{ form_start(form) }}
+    <label class="col-md-2 control-label"><strong> Archivos de la Raza</strong></label>
+    <div id="myUploadDropZoneRaza" class="dropzone"> </div>
+    {{ form_row(form.tiporaza) }}
+    {{ form_row(form.nombre) }}
+    {{ form_row(form.descripcion) }}
+    {{ form_row(form.nombretablagenetica) }}
+    <fieldset style="background: #eee">
+        <legend style="background: #eee;text-align: center;margin: 0 auto">Tipo de tablas geneticas a utilizar</legend>
+        {{ form_row(form.tipotabla) }}
+        <p style="text-align: center;margin: 0 auto" class="description">No modifique este valor a menos que este seguro, puede provocar que las tablas genéticas y la carga de toros deje de funcionar correctamente.</p>
+    </fieldset>
+    {{ form_row(form.haverazaName) }}
+    {{ form_row(form.haveactEnlace) }}
+    {{ form_row(form.decorador) }}
+    {{ form_row(form.publico) }}
+
+    <fieldset style="background: #eee">
+        <legend style="background: #eee;text-align: center;margin: 0 auto">Redirección</legend>
+        {{ form_row(form.redireccionarraza) }}
+        {{ form_row(form.redirUrl) }}
+        {{ form_row(form.redirnewWindow) }}
+
+
+        </fieldset>
+    {{ form_row(form.guid) }}
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+</fieldset>
+    <ul class="pager">
+        <li class="next"><a href="{{path('admin_raza')}}"><i class="fa fa-list"></i>
+                Listar Raza
+            </a></li>
+    </ul>
+{% endblock %}
+
+{% block custom_javascripts %}
+    <script>
+        $(document).ready(function () {
+            var guid='{{ guid }}';
+            $('#gema_gemabundle_raza_guid').attr('value',guid);
+            StartDropZone('myUploadDropZoneRaza','raza',guid);
+        }) ;
+    </script>
+{% endblock %}

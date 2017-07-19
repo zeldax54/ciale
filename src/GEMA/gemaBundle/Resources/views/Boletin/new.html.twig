@@ -1,0 +1,88 @@
+{% extends 'gemaBundle::layout.html.twig' %}
+
+{% block gema_navbar_boletin %}active{% endblock %}
+{% form_theme form 'gemaBundle:Form:theme.html.twig' %}
+
+
+{% block gema_page -%}
+    {#<input type="button" value="CALL" id="myid">#}
+
+
+    <h4 style="font-style: italic">Crear Boletin</h4>
+
+    {{ form_start(form) }}
+    {{ form_row(form.titulo) }}
+    {{ form_row(form.introduccion) }}
+    <div id="images" name="images" style="display: none"></div>
+    <div id="nombresf" name="nombresf" style="display: none"></div>
+<label class="col-md-2 control-label"><strong> Imagenes</strong></label>
+    <div id="myDopZone" class="dropzone"> </div>
+
+
+
+
+    {{ form_end(form) }}
+
+
+    <ul class="pager">
+        <li class="next"><a href="{{path('boletin')}}"><i class="fa fa-list"></i>
+                Listar Boletin
+            </a></li>
+    </ul>
+{% endblock %}
+
+{% block custom_javascripts %}
+<script>
+
+    $('#myid').click(function(){
+
+        GetData('gema_library');
+    });
+
+
+
+    $(document).ready(function () {
+
+      var postdata="{{ app.request.uri }}";
+
+        Dropzone.options.myDopZone = {
+
+            init: function() {
+
+                this.on("thumbnail", function(file) {
+
+                    if(file.accepted===true)
+                    {
+                        var files=this.getAcceptedFiles();
+                        CreateData(files,'images','nombresf');
+
+                    }
+                });
+                this.on("removedfile", function() {
+                    var files=this.getAcceptedFiles();
+                    CreateData(files,'images','nombresf');
+                });
+
+            },
+
+            paramName: "file", // The name that will be used to transfer the file
+            maxFilesize: 4, // MB
+             url:postdata,
+            maxFiles:5,
+            addRemoveLinks:true,
+            acceptedFiles:".jpg,.png,.gif",
+            dictRemoveFile:"Eliminar esta imagen",
+            dictDefaultMessage:"Seleccione imagenes para este Boletín. Máximo 5 imagenes." +
+            "\n"+"  Recuerde que la primer imagen que este cargada será la que se mostrará como portada, el resto serán mostradas en la galería de imágenes.",
+            dictFileTooBig:"Imagen demasiado grande.Máximo 4 MB permitidos.",
+            dictMaxFilesExceeded:"Ha sobrepasado el número de Imaganes",
+            accept: function(file, done) {
+                if (file.name == "justinbieber.jpg") {
+                    done("Naha, you don't.");
+                }
+                else { done(); }
+            }
+        };
+    });
+</script>
+{% endblock %}
