@@ -1091,13 +1091,35 @@ text-decoration:none;
 .borderblueclass button{
 	background:#00A1E7 !important;
 }
-
-/*@media (max-width:341px){
-	#infocontainer{
-		margin-right: 31% !important;
+@media (max-width:991px){
+	.lastrow{
+		padding-left:0px !important;
 	}
-}*/
+}
 
+ 
+@media screen 
+  and (min-width: 767px) 
+  and (max-width: 991px){
+	.centrarin760{
+		width:50% !important;
+	}
+	.imgcatalogdesc{
+		width:80% !important;
+	}
+	#flagitid{
+		padding-top: 18px !important;
+	}
+	
+	#tercsquare{
+		padding-top: 41px !important;
+	}
+	#flagit3id{
+		padding-top: 16px !important;
+	}
+}
+
+ 
 
  
 
