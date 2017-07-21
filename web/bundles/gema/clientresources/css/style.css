@@ -1117,7 +1117,50 @@ text-decoration:none;
 	#flagit3id{
 		padding-top: 16px !important;
 	}
+	#princimg{
+		height: 330px !important;
+	}
 }
+
+
+.myh1{
+	font-family:'Fago-Bold';
+}
+
+@media (min-width:992px){
+	.ozy-news-bar > ul > li:nth-child(1) {
+   margin-left: -81px !important;
+}
+
+.ozy-news-bar > ul > li:nth-child(2) {
+   margin-left: 53px !important;
+}
+
+.ozy-news-bar > ul > li:nth-child(3) {
+    margin-left: 28px !important;
+}
+}
+
+/*@media (max-width:1199px){
+	.imgcatalogdesc{
+		width:128% !important;
+	}
+}*/
+
+.imgdynamicli{
+	width: 85px !important;
+height: 60px !important;
+margin-left: -15px;
+}
+.dynamicul{
+	background:white;
+}
+.dynamicliscontainer :hover{
+	font-size:17px;
+}
+
+
+
 
  
 

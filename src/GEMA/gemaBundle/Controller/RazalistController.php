@@ -204,6 +204,31 @@ class RazalistController extends Controller
     }
 
 
+    public function searchcarnev2Action($dato){
+
+        $em = $this->getDoctrine()->getManager();
+        $helper=new MyHelper();
+        $toros=$em->getRepository('gemaBundle:Toro')->torosbyLike($dato);
+        if(count($toros)==0)
+            return new JsonResponse(0);
+        $bulls=array();
+        foreach($toros as $t){
+            $img=$helper->randomPic('toro'.DIRECTORY_SEPARATOR.$t->getGuid().'P'.DIRECTORY_SEPARATOR);
+            if($img==null)
+                $img=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'toro.png');
+         $bulls[]=array(
+             'id'=>$t->getId(),
+             'apodo'=>$t->getApodo(),
+             'nombreraza'=>$t->getRaza()->getNombre(),
+             'nombretoro'=>$t->getNombre(),
+             'imagen'=>DIRECTORY_SEPARATOR.'web'.DIRECTORY_SEPARATOR.$img
+             );
+        }
+        return new JsonResponse($bulls);
+
+    }
+
+
 
     function ConceptPlus($helper,$cp){
         if($cp==false)

@@ -138,3 +138,7 @@ gema_redventas:
 gema_mixed:
     pattern:  /{idprovincia}/vendedores
     defaults: { _controller: "gemaBundle:Staff:mixed" }
+
+gema_searchtoroscarnelike:
+    pattern:  /{dato}/busquedacarnelike
+    defaults: { _controller: "gemaBundle:Razalist:searchcarnev2" }

@@ -78,4 +78,20 @@ class ToroRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function torosbyLike($dato){
+        $qb = new QueryBuilder($this->getEntityManager());
+        $qb
+            ->select("T","R")
+            ->from($this->getClassName(), "T")
+            ->leftJoin('T.raza', "R")
+            ->where("T.nombre like '%".$dato."%'")
+            ->orWhere("T.padre like '%".$dato."%'")
+            ->orWhere("T.padremadre like '%".$dato."%'")
+            ->orWhere("T.apodo like '%".$dato."%'")
+            ->orWhere("R.nombre like '%".$dato."%'")
+        ;
+        return $qb->getQuery()->getResult();
+
+    }
+
 }

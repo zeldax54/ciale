@@ -41,3 +41,77 @@ function BuscarToros(dato){
     });
 
 }
+
+  function buscarTorosLike(dato,parentid,divparent,customheight){
+     var url = Routing.generate('gema_searchtoroscarnelike',{dato:dato});
+      var getUrl = window.location;
+      var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+      $.ajax({
+          type: 'POST',
+          url: url,
+          success: function (data) {
+              if(data[0]!==0){
+                  if(document.getElementById("uldin")==null)
+                {
+                    var elemDiv = document.createElement('ul');
+                    elemDiv.id = 'uldin';
+                   // elemDiv.setAttribute("style", "display:none");
+
+                    document.getElementById(divparent).appendChild(elemDiv);
+                }
+                  var ulContainer=  $('#uldin');
+                  ulContainer.empty();
+                   ulContainer.prop('class','nav navbar-nav dynamicul');
+
+                  var ulParent=$('#'+parentid);
+                  var width=ulParent.css('width').replace(/[^-\d\.]/g, '');
+                  ulContainer.css('width',parseFloat(width)+ + parseFloat(50));
+                  ulContainer.css('position','absolute');
+                  ulContainer.css('z-index','10000');
+                  var offset=ulParent.css('height').replace(/[^-\d\.]/g, '');
+                  var top= ulParent.offset().top + parseFloat(offset);
+                  var left= ulParent.offset().left;
+                  ulContainer.offset({top:top,left:left})
+
+                  var lis='';
+                  for (var f = 0; f < data.length; f++) {
+                      var torodetalleruta=Routing.generate('gema_torodetail',{toroid:data[f].id});
+                      lis+='<li class="menu-items dynamicliscontainer" >' +
+                          '<a href="'+torodetalleruta+'">' +
+                          '<div><div class="col-xs-4"><img class="imgdynamicli" src="'+baseUrl+data[f].imagen+'">' +
+                          '</div>' +
+                          '<div class="col-xs-8">'+
+                          '<strong>'+data[f].apodo+'</strong><br>' +
+                          '<span>'+data[f].nombreraza+'</span><br>' +
+                          '<span style="font-size: 11px">'+data[f].nombretoro+'</span>' +
+                          '</div></div></a></li>';
+
+                  }
+                  lis+='';
+                  ulContainer.append(lis);
+                  if(ulContainer.find('li').length>1)
+                  {
+                      ulContainer.css('height',customheight);
+                      ulContainer.css('overflow','scroll');
+                  }
+                  else{
+                      ulContainer.css('height','auto');
+                  }
+                  ulParent.focusout(function(){
+                      ulContainer.remove();
+                      $($(this).prop('value',''));
+                  });
+
+              }
+              if(data===0){
+                  $('#uldin').remove();
+              }
+
+
+          },
+          error: function (req, stat, err) {
+
+          }
+      });
+
+   }

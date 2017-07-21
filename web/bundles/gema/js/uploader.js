@@ -6,9 +6,9 @@ function GetData(folder,param)
         type: 'GET',
         url: url,
         success: function (data) {
-            reload_js('/cialesymf/web/bundles/gema/js/bootstrap3.min.js');
-
-
+            var getUrl = window.location;
+            var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+            reload_js(baseUrl+'/web/bundles/gema/js/bootstrap3.min.js');
             InModalChargeView(data);
 
         },
@@ -29,6 +29,7 @@ function InModalChargeView(data) {
 function AddChargeModal(data){
 
     if(document.getElementById("modalcontainer")==null){
+
         var elemDiv = document.createElement('div');
         elemDiv.id = 'modalcontainer';
         document.getElementsByTagName('body')[0].appendChild(elemDiv);

@@ -20,16 +20,16 @@
           <div class="col-sm-6 col-md-6 centrarin760" data-pg-collapsed>
               <div class="thumbnail" data-pg-collapsed >
 
-                  <img src="{{ asset(imgprinc) }}" alt="" style="width: 100%;height: 380px">
+                  <img id="princimg" src="{{ asset(imgprinc) }}" alt="" style="width: 100%;height: 380px">
                   <div class="caption" style="background:#00a1e7">
                       <div class="row" id="helper">
                           <div class="col-md-6">
                       <h3 class="l">BUSCAR TOROS DE CARNE</h3>
                           </div>
                            <div class="col-md-6">
-                             <div class="bull-search-container containerb">
-                                 <input type="text" id="datororo" class="textsearch" placeholder="Nombre, padre o abuelo materno">
-                                 <input type="button" class="sb" id="advancesearch" style="background-image:url({{asset('bundles/gema/clientresources/img/cow-icon-32.png')}})  ">
+                             <div class="bull-search-container containerb" id="dinamiculcontp">
+                                 <input type="text" id="datororo" class="textsearch" placeholder="Nombre, padre o abuelo materno" autocomplete="off">
+                                 <input type="button" class="sb" id="advancesearch" style="display: none;background-image:url({{asset('bundles/gema/clientresources/img/cow-icon-32.png')}})  ">
                              </div>
                            </div>
                       </div>
@@ -201,7 +201,7 @@
                      </ul>
               </div></div>
 </div>
-          <div style="margin-bottom: 50px;">&nbsp;</div>
+          <div style="margin-bottom: 75px !important;">&nbsp;</div>
       </div>
 
   {% endblock %}
@@ -224,11 +224,18 @@
                            }
                    );
 
-                   $('#advancesearch').click(function(){
-                       var dato=$('#datororo').val();
-                       BuscarToros(dato);
+//                   $('#advancesearch').click(function(){
+//                       var dato=$('#datororo').val();
+//                       BuscarToros(dato);
+//
+//                      });
 
-                      });
+                   $('#datororo').keyup(function(){
+                     if($(this).val().length>1)
+                     {
+                         buscarTorosLike($(this).val(),'datororo','dinamiculcontp','148px');
+                     }
+                   });
 
                    $('.internaaaacdist').click(function(){
                       // alert($(this).find('textarea.flag').text());

@@ -37,4 +37,6 @@ function BuscarToros(dato){
         }
     });
 
+
+
 }
