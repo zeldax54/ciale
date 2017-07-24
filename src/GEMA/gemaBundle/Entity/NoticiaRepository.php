@@ -58,4 +58,24 @@ class NoticiaRepository extends EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function first10($tipo,$start,$end) {
+        $qb = new QueryBuilder($this->getEntityManager());
+        $qb
+            ->select("A","C")
+            ->from($this->getClassName(), "A")
+             ->leftJoin("A.categoria", "C");
+
+
+        if($tipo!='Todas')
+        {
+            $qb->where("C.nombre='".$tipo."'");
+        }
+        $qb->orderBy('A.fechanoticia','desc')
+        ->setFirstResult($start)
+            ->setMaxResults($end);
+        return $qb->getQuery()->getResult();
+    }
+
+
 }

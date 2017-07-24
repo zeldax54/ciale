@@ -1,0 +1,19 @@
+h4{
+	font-family:'Fago-Bold' !important;
+}
+.noticiastitle{
+	color:#2FA7E4;
+}
+p,span{
+	font-family:'Fago-normal' !important;
+}
+.vc_active{
+	background:#0172BC !important;
+	
+}
+.vc_active span{
+	color:white !important;
+}
+a:hover{
+	text-decoration:none;
+}

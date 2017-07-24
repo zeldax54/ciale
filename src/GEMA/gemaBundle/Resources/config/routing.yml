@@ -142,3 +142,11 @@ gema_mixed:
 gema_searchtoroscarnelike:
     pattern:  /{dato}/busquedacarnelike
     defaults: { _controller: "gemaBundle:Razalist:searchcarnev2" }
+
+gema_clientnews:
+    pattern:  /{tipo}/{start}/{end}/news
+    defaults: { _controller: "gemaBundle:Clientnews:clientnoticias" }
+
+gema_clientsinglenews:
+    pattern:  /{id}/new
+    defaults: { _controller: "gemaBundle:Clientnews:clientsinflenoticia" }

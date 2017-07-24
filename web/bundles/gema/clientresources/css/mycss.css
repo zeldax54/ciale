@@ -151,7 +151,7 @@ margin-left: -55px;
 .textsearch{
     background: #00a1e7;
     border-radius: 18px 18px 18px 18px;
-    width: 90%;
+    width: 99%;
     color: white;
     font-weight: 700;
     padding-left: 9px;
@@ -282,6 +282,10 @@ h3{
 text-align: center !important;
 margin: 0 auto !important;
 padding-bottom: 57px !important;
+	}
+	
+	.imgcatalogdesc{
+		width: 123% !important;
 	}
 	
 	

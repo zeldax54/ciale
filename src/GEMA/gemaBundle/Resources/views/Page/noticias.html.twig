@@ -1,0 +1,176 @@
+{% extends 'gemaBundle::clientlayout.html.twig' %}
+
+  {% block customstylesheets %}
+	  <link href="{{ asset('bundles/gema/clientresources/css/js_composer.css')}}" rel="stylesheet">
+	  {#<link href="{{ asset('bundles/gema/clientresources/css/style_003.css')}}" rel="stylesheet">#}
+	  <link href="{{ asset('bundles/gema/clientresources/css/noticias.css')}}" rel="stylesheet">
+	  {#<link href="{{ asset('bundles/gema/clientresources/css/style_002.css')}}" rel="stylesheet">#}
+	  {#<link href="{{ asset('bundles/gema/clientresources/css/themes.css')}}" rel="stylesheet">#}
+	  {#<link href="{{ asset('bundles/gema/clientresources/css/prettyPhoto.css')}}" rel="stylesheet">#}
+
+
+
+	  {% endblock %}
+  {% block content %}
+	  <div class="container no-sidebar no-sidebar ">
+
+		  <div id="content" class="no-sidebar no-sidebar ">
+			  <div id="post-381" class="page post-381 type-page status-publish hentry">
+				  <article>
+
+
+					  <div class="post-content page-content">
+						  <div class="vc_row wpb_row vc_row-fluid"><div class="parallax-wrapper"><div class="wpb_column vc_column_container vc_col-sm-12"><div class="vc_column-inner "><div class="wpb_wrapper"><!-- vc_grid start -->
+											  <div class="vc_grid-container-wrapper vc_clearfix">
+												  <div class="vc_grid-container vc_clearfix wpb_content_element vc_masonry_grid">
+													  <style type="text/css" data-type="vc_shortcodes-custom-css">.vc_custom_1419328663991{background-color: #f4f4f4 !important;}</style><style type="text/css">
+														  img.wp-smiley,
+														  img.emoji {
+															  display: inline !important;
+															  border: none !important;
+															  box-shadow: none !important;
+															  height: 1em !important;
+															  width: 1em !important;
+															  margin: 0 .07em !important;
+															  vertical-align: -0.1em !important;
+															  background: none !important;
+															  padding: 0 !important;
+														  }
+													  </style>
+
+
+
+													  <ul class="vc_grid-filter vc_clearfix vc_grid-filter-default vc_grid-filter-size-md vc_grid-filter-center vc_grid-filter-color-grey" data-vc-grid-filter="category">
+                                                          <li class="vc_active vc_grid-filter-item linavo" href="{{  path('gema_clientnews',{'tipo':tiposelected,'start':0,'end':10})  }}"><span data-vc-grid-filter-value="*">{{ tiposelected }}</span></li>
+
+			{% for tipo in tiposnoticias %}
+			<li class="vc_grid-filter-item linavo" href="{{  path('gema_clientnews',{'tipo':tipo.nombre,'start':0,'end':10})  }}"><span data-vc-grid-filter-value=".vc_grid-term-3">{{ tipo.nombre }}</span></li>
+			{% endfor %}
+
+
+
+				</ul>
+
+                                                      {% if noticias|length==0 %}
+                                                          <div  style="text-align: center">
+                                                          <h4 class="noticiastitle">No hay mas noticias para mostrar</h4>
+                                                          <a style="font-family: 'Fago-normal';font-weight: bold" href="{{  path('gema_clientnews',{'tipo':tiposelected,'start':0,'end':10})  }}">Volver al inicio de noticias de {{ tiposelected }}</a>
+                                                              </div>
+                                                      {% endif %}
+													  <div class="vc_grid-filter-select vc_grid-filter-center vc_grid-filter-color-grey" data-vc-grid-filter-select="category">
+														  <div class="vc_grid-styled-select"><select data-filter="category">
+																  <option class="vc_active" value="*" selected="selected">All&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+																  <option value=".vc_grid-term-2">Advantage&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option><option value=".vc_grid-term-3">Alta News&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option><option value=".vc_grid-term-42">Dairy Basics&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option><option value=".vc_grid-term-17">Dairy News&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>			</select><i class="vc_arrow-icon-navicon"></i>
+														  </div>
+													  </div>
+
+
+													      <div class="vc_grid vc_row vc_grid-gutter-30px vc_pageable-wrapper vc_hook_hover" data-vc-pageable-content="true">
+															  <div class="vc_pageable-slide-wrapper vc_clearfix" data-vc-grid-content="true" style="position: relative;">
+
+
+																  {% for noticia in noticias %}
+																	  <div class="col-md-4 portadaparent" data-pg-collapsed="" style="margin-bottom: 1em;text-align: center">
+																		  <a href="{{ path('gema_clientsinglenews',{'id':noticia.id}) }}"><img data-src="" class="portadaimg" src="{{ asset(noticia.portada) }}" alt="noticia" style="max-width: 100%;height: 180px"></a>
+																		  <div class="caption" style="text-align: center;margin:0 auto">
+																			  <div class="row"><br>
+                                                                                <div>  <span class="" style="font-family: Fago-Bold !important;">{{ noticia.fechanoticia|date('d-M-Y')  }}</span></div>
+																				  <div class="col-md-12" style="height: 15px">
+																					 <a  href="{{ path('gema_clientsinglenews',{'id':noticia.id}) }}"> <h4 class="noticiastitle">{{ noticia.titulo }}</h4></a>
+
+																				  </div>
+
+																			  </div>
+
+																			  <div class="row" style="padding-top: 20px;" >
+                                                                                  <div class="row">
+                                                                                      <div class="col-md-12" style="width: 90%;/*! text-align: justify; *//*! margin: 0 auto; */margin-left: 1em;">
+																				 {{ noticia.introduccion |raw }}
+
+																			  </div>
+																			  </div>
+
+																			    </div>
+
+
+
+
+
+																		  </div>
+
+																	  </div>
+
+
+
+                                                                  {% endfor %}
+
+
+
+
+
+															  </div>
+                                                              {% if noticias|length!=0 %}
+                                                 <div class="vc_pageable-load-more-btn" data-vc-grid-load-more-btn="true"><div class="vc_btn3-container  vc_grid-btn-load_more vc_btn3-center"><a href="#" id="loadmore" class="vc_general vc_btn3  vc_btn3-size-md vc_btn3-shape-square vc_btn3-style-custom vc_btn3-block vc_btn3-icon-left" style="background-color: rgb(3, 70, 148); color: rgb(255, 255, 255); display: block;"><i class="vc_btn3-icon fa fa-adjust"></i> Load more</a></div></div></div><div class="vc_grid-loading"></div></div>
+											  </div><!-- vc_grid end -->
+										  </div></div>{% endif %}
+                                  </div>
+                              </div></div>
+						  <span class="cp-load-after-post"></span>                                    </div><!--.post-content .page-content -->
+				  </article>
+
+			  </div><!--#post-# .post-->
+
+
+		  </div><!--#content-->
+		  <div class="clear"></div>
+
+	  </div>
+
+
+
+
+{% endblock %}
+
+    {% block custom_javascripts %}
+		{#<script src="{{ asset('bundles/gema/clientresources/imagecover/js/image-cover.js')}}"></script>#}
+		<script src="{{ asset('bundles/gema/clientresources/responsiveimg/js/responsiveImg.js')}}"></script>
+		<script>
+//            $('.portadaparent').cover(
+//                    {
+//                        target: '.portadaimg'
+//                    }
+//            );
+
+        var getUrl = window.location;
+        var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+        var urlphp=baseUrl+'/web/js/responsiveImg.js.php';
+
+
+           $(".portadaimg").responsiveImg(
+
+                   {
+
+                       srcAttribute : "src",
+                       pathToPHP : urlphp,
+                       createNewImages : true,
+                       jpegQuality : 90,
+                       callback:false
+                   }
+           );
+
+
+$('.linavo').click(function(){
+
+   window.location=$(this).attr('href');
+});
+
+$('#loadmore').click(function(){
+var start={{ end }};
+var end={{ end+end }};
+    var selected='{{ tiposelected }}';
+    var ruta=Routing.generate('gema_clientnews',{tipo:selected,start:start,end:end});
+    window.location=ruta;
+});
+        </script>
+
+	{% endblock %}

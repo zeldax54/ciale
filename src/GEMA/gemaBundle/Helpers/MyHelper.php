@@ -93,6 +93,12 @@ class MyHelper
 
     }
 
+    function Kernelurl()
+    {
+        global $kernel;
+       return $kernel->getRootDir();
+    }
+
     function randomPic($folder)
     {
         global $kernel;

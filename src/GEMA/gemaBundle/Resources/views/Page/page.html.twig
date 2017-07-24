@@ -28,7 +28,7 @@
                           </div>
                            <div class="col-md-6">
                              <div class="bull-search-container containerb" id="dinamiculcontp">
-                                 <input type="text" id="datororo" class="textsearch" placeholder="Nombre, padre o abuelo materno" autocomplete="off">
+                                 <input type="text" id="datororo" class="textsearch" placeholder="Apodo,nombre,padre o abuelo materno" autocomplete="off">
                                  <input type="button" class="sb" id="advancesearch" style="display: none;background-image:url({{asset('bundles/gema/clientresources/img/cow-icon-32.png')}})  ">
                              </div>
                            </div>
@@ -148,13 +148,13 @@
 
                                   {#Catalogo Carne#}
                                   <div class="col-xs-6">
-                                     <a href="{{ asset(boletincarne) }}"> <img src="{{ asset(imgcarne) }}" alt="Catalogo Carne" class="imgcatalogdesc" ></a>
+                                     <a href="{{ asset(boletincarne) }}"> <img src="{{ asset(imgcarne) }}" alt="Catalogo Carne" class="imgcatalogdesc imageresponsiveselect" ></a>
 
                                   </div>
                                   {#Catalogo Leche#}
                                   <div class="col-xs-6">
 
-                                      <a href="{{ asset(boletinleche) }}">   <img src="{{ asset(imgleche) }}" alt="Catalogo Carne" class="imgcatalogdesc" ></a>
+                                      <a href="{{ asset(boletinleche) }}">   <img src="{{ asset(imgleche) }}" alt="Catalogo Carne" class="imgcatalogdesc imageresponsiveselect" ></a>
 
                                   </div>
 
@@ -178,18 +178,18 @@
 
 <br>
 
-      <div class="row lastrow" style="padding-left:101px">
+      <div class="row lastrow" style="padding-left:101px;padding-bottom: 50px">
       <div class="vc_column-inner ">
           <div class="wpb_wrapper"><div class="ozy-news-bar custom-news-bar">
 
 
 
 
-                  <ul><li class="newsbar-title myt"><h1 class="content-color-alternate myh1">NOVEDADES CIALE ALTA</h1><h2 class="content-color"></h2><a href="#" target="_self" class="btn seeall">VER TODAS<i class="fa fa-angle-right"></i></a></li>
+                  <ul><li class="newsbar-title myt"><h1 class="content-color-alternate myh1">NOVEDADES CIALE ALTA</h1><h2 class="content-color"></h2><a href="{{  path('gema_clientnews',{'tipo':'Todas','start':0,'end':10})  }}" target="_self" class="btn seeall">VER TODAS<i class="fa fa-angle-right"></i></a></li>
 
                       {% for n in noticias %}
                           <li>
-                              <a class="title-link" href="#">
+                              <a class="title-link" href="{{ path('gema_clientsinglenews',{'id':n.id}) }}">
                                   <h1 class="t fagobold">{{ n.titulo }}</h1></a><br>
 
                                   {{ n.introduccion | raw }}
@@ -200,9 +200,9 @@
 
                      </ul>
               </div></div>
-</div>
-          <div style="margin-bottom: 75px !important;">&nbsp;</div>
-      </div>
+           </div>
+
+         </div>
 
   {% endblock %}
 
@@ -210,6 +210,7 @@
            <script src="{{ asset('bundles/gema/clientresources/jquerybxslider/jquery.bxslider.min.js')}}"></script>
            <script src="{{ asset('bundles/gema/js/uploader.js') }}"></script>
            <script src="{{ asset('bundles/gema/js/buscadortoros.js') }}"></script>
+           <script src="{{ asset('bundles/gema/clientresources/responsiveimg/js/responsiveImg.js')}}"></script>
 
            <script>
                $(document).ready(function(){
@@ -223,12 +224,21 @@
 
                            }
                    );
+                   var getUrl = window.location;
+                   var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+                   var urlphp=baseUrl+'/web/js/responsiveImg.js.php';
+                   $(".imageresponsiveselect").responsiveImg(
 
-//                   $('#advancesearch').click(function(){
-//                       var dato=$('#datororo').val();
-//                       BuscarToros(dato);
+                           {
+
+                               srcAttribute : "src",
+                               pathToPHP : urlphp,
+                               createNewImages : true,
+                               jpegQuality : 90,
+                               callback:false
+                           }
+                   );
 //
-//                      });
 
                    $('#datororo').keyup(function(){
                      if($(this).val().length>1)

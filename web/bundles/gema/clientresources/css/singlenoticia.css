@@ -1,0 +1,11 @@
+.titulo{
+	font-family:'Fago-Bold';
+	text-align:center;
+	font-size:210%;
+	color:#2C3287;
+	
+}
+
+.fancybox-image{
+	border:2px solid white !important;
+}

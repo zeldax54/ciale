@@ -65,7 +65,7 @@ function BuscarToros(dato){
 
                   var ulParent=$('#'+parentid);
                   var width=ulParent.css('width').replace(/[^-\d\.]/g, '');
-                  ulContainer.css('width',parseFloat(width)+ + parseFloat(50));
+                  ulContainer.css('width',parseFloat(width)+ + parseFloat(10));
                   ulContainer.css('position','absolute');
                   ulContainer.css('z-index','10000');
                   var offset=ulParent.css('height').replace(/[^-\d\.]/g, '');
@@ -89,6 +89,7 @@ function BuscarToros(dato){
                   }
                   lis+='';
                   ulContainer.append(lis);
+                  ulContainer.show();
                   if(ulContainer.find('li').length>1)
                   {
                       ulContainer.css('height',customheight);
@@ -97,14 +98,21 @@ function BuscarToros(dato){
                   else{
                       ulContainer.css('height','auto');
                   }
-                  ulParent.focusout(function(){
+                  $(window).unbind( "click" );
+                  $(window).click(function() {
                       ulContainer.remove();
-                      $($(this).prop('value',''));
                   });
+                  //ulParent.focusout(function(){
+                  //   // if(ulContainer.find('li').length==0){
+                  //
+                  //        ulContainer.hide();
+                  //
+                  //  //  }
+                  //});
 
               }
               if(data===0){
-                  $('#uldin').remove();
+                  ulContainer.remove();
               }
 
 
