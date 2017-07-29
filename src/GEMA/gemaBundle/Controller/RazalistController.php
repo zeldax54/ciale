@@ -18,17 +18,57 @@ class RazalistController extends Controller
 {
 
 
-    function listRazaAction($nombreraza)
+    function listRazaAction($id,$isfather)
     {
+
         $helper=new MyHelper();
         $em = $this->getDoctrine()->getManager();
-        $toros=$em->getRepository('gemaBundle:Toro')->torosByRazaName($nombreraza);
-        $raza=$em->getRepository('gemaBundle:Raza')->findRazabyName($nombreraza);
+      //  $tablasrepo=$em->getRepository('gemaBundle:Tabla');
+        if($isfather==1)
+        {
+            $father=$em->getRepository('gemaBundle:Razafather')->find($id);
+            $razas=$father->getRazas();
 
-        $razas=$em->getRepository('gemaBundle:Raza')->findallBut($raza->getId(),
-            $raza->getTipoRaza()->getId());
+            $toros=$em->getRepository('gemaBundle:Toro')->torosbyRazas($razas);
+            $nombreraza=$father->getNombre();
+            $tablas=array();
+            $mocho=false;
 
-        $tablas=$raza->getTipotabla()->getTablas();
+            foreach($razas as $r){
+                $tablasch=$r->getTipotabla()->getTablas();
+                foreach($tablasch as $t)
+                {
+                    $t->toros=$r->getToros();
+                    $tablas[]=$t;
+                }
+                if($r->getMocho()==true)
+                    $mocho=true;
+            }
+            $fathersmenu=$em->getRepository('gemaBundle:Razafather')->findbynotId($id);
+            $razasmenu=$em->getRepository('gemaBundle:Raza')->findBy(array(
+                'father'=>null,
+                'tiporaza'=>1
+            ));
+
+        }
+        else{
+            $raza=$em->getRepository('gemaBundle:Raza')->find($id);
+            $toros=$raza->getToros();
+            $nombreraza=$raza->getNombre();
+            $tablas=$raza->getTipotabla()->getTablas();
+            foreach($tablas as $t)
+            {
+                $t->toros=$raza->getToros();
+
+            }
+            $mocho=$raza->getMocho();
+
+            $fathersmenu=$em->getRepository('gemaBundle:Razafather')->findAll();
+            $razasmenu=$em->getRepository('gemaBundle:Raza')->Notid($id,$raza->getTiporaza()->getId());
+        }
+
+
+
         foreach($toros as $toro)
         {
 
@@ -44,19 +84,26 @@ class RazalistController extends Controller
             $toro->nacionalidadflag=$this->Nacionalidad($helper,$toro->getNacionalidad());
             $toro->conceptplusflag=$this->ConceptPlus($helper,$toro->getCP());
             $toro->tablasflag=json_decode($toro->getTablagenetica(),true);
-//            print_r($toro->getTablagenetica());die();
+
         }
+
+
+
         return $this->render('gemaBundle:Page:tablaraza.html.twig', array(
                 'toros'=>$toros,
-                'raza'=>$nombreraza,
+                'razaname'=>$nombreraza,
                 'tablas'=>$tablas,
-                 'mocho'=>$raza->getMocho(),
-                'razas'=>$razas
+                'mocho'=>$mocho,
+                'fathersmenu'=>$fathersmenu,
+                'razasmenu'=>$razasmenu
+               // 'razas'=>$razas
 
 
             )
         );
     }
+
+
 
     function toroDetailAction($toroid){
 
@@ -67,6 +114,16 @@ class RazalistController extends Controller
 
         $helper=new MyHelper();
         $img=$helper->randomPic('toro'.DIRECTORY_SEPARATOR.$toro->getGuid().'P'.DIRECTORY_SEPARATOR);
+
+          $razafather=$toro->getRaza()->getFather();
+        if($razafather==null)
+            $razafather=$toro->getRaza();
+
+          $fathersmenu=$em->getRepository('gemaBundle:Razafather')->findAll();
+          $razasmenu=$em->getRepository('gemaBundle:Raza')->findBy(array(
+              'father'=>null,
+              'tiporaza'=>1
+          ));
 
         if($img==null)
             $img=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'toro.png');
@@ -89,7 +146,7 @@ class RazalistController extends Controller
             $mediaInpage[]=array(
                 'tipo'=>'video',
                 'url'=> $y->getUrl(),
-                'representacion'=>$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'video.png')
+                'representacion'=>$helper->videosPic($y->getUrl())
             );
         }
 
@@ -150,7 +207,10 @@ class RazalistController extends Controller
                 'tabla'=>$tabla,
                 'tablagennombre'=>$tablagennombre,
                 'mediatoro'=>$lis,
-                'razas'=>$razas
+                'razas'=>$razas,
+                'father'=>$razafather,
+                'fathersmenu'=>$fathersmenu,
+                'razasmenu'=>$razasmenu
 
             )
         );
@@ -240,9 +300,9 @@ class RazalistController extends Controller
     {
 
        if($nacionalidad==null)
-            return null;    ;
-        if(strcmp($nacionalidad,'ARG'))
-            $nacionalidad='Argentina';
+            return null;
+        $nacionalidad=str_replace(' ', '', $nacionalidad);
+
         return $helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,$nacionalidad.'.jpg');
     }
 

@@ -68,10 +68,10 @@ doctrine:
 
 # Swiftmailer Configuration
 swiftmailer:
-    transport: "%mailer_transport%"
-    host:      "%mailer_host%"
-    username:  "%mailer_user%"
-    password:  "%mailer_password%"
+    transport: smtp
+    host:      smtp.mandrillapp.com
+    username:  contactos@ciale.com
+    password:  jMRgiRPG1GcL7A_qmxMSDQ
     spool:     { type: memory }
 
 ivory_ck_editor:
@@ -80,3 +80,9 @@ ivory_ck_editor:
         my_config:
             filebrowserBrowseRoute: "gema_filesurl"
             filebrowserBrowseRouteParameters: { folder: "library",param:"0" }
+
+services:
+ twig.extension.text:
+     class: Twig_Extensions_Extension_Text
+     tags:
+         - { name: twig.extension }

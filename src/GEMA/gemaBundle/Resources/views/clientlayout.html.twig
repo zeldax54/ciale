@@ -18,6 +18,7 @@
             <link href="{{ asset('bundles/gema/clientresources/vex/css/vex-theme-default.css')}}" rel="stylesheet">
             <link href="{{ asset('bundles/gema/clientresources/vex/css/vex-theme-os.css')}}" rel="stylesheet">
             <link href="{{ asset('bundles/gema/clientresources/vex/css/vex-theme-wireframe.css')}}" rel="stylesheet">
+            <link href="{{ asset('bundles/gema/clientresources/vex/css/vex-theme-top.css')}}" rel="stylesheet">
             <style type="text/css">
                 @font-face {
                     font-family: 'Fago-Bold';
@@ -54,15 +55,13 @@
 
     <ul class="top-navegacion navbar-fixed-top">
         <div class="container">
-            <li>
-                <a href="#">Alta</a>
-            </li>
-            <li>
-                <a href="#">Koepon</a>
-            </li>
-            <li class="pull-right">
-                <a href="#">Webmail</a>
-            </li>
+             <p id="firstheader"> <i class="fa fa-map-marker"></i>  AV. L. N. Alem 901, Cap. Sarmiento, prov. de Buenos Aires, Argentina&nbsp;&nbsp;&nbsp;<i class="fa fa-inbox"></i>&nbsp;&nbsp;info@ciale.com
+                 &nbsp;&nbsp;&nbsp;Tel./Fax:&nbsp;02478-481425/481013&nbsp;&nbsp;<i class="fa fa-mobile">&nbsp;
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</i> <a  href="http://www.youtube.com/channel/UCymYBA0Sw2_fX-wlrbZHIFQ"> <i class="fa fa-youtube"></i></a>
+                 &nbsp;&nbsp;<a href="https://www.linkedin.com/company/ciale-alta"> <i  class="fa fa-linkedin"></i></a>
+                 &nbsp;&nbsp; <i class="fa fa-twitter"></i>
+                 &nbsp;&nbsp; <a href="https://www.facebook.com/CIALE.Alta.Genetics/"><i  class="fa fa-facebook"></i></a>
+                 &nbsp;&nbsp; <a href="{{  path('gema_mailindex')  }}"> <i class="fa fa-envelope-o"></i></a><p>
         </div>
     </ul>
 
@@ -89,23 +88,36 @@
                     <div class="collapse navbar-collapse navbar-ex1-collapse">
                         <ul class="nav navbar-nav">
                             <li class="menu-items active"><a href="{{path("homepage")}}">PRINCIPAL <span class="sr-only">(current)</span></a></li>
-                            <li class="menu-items"><a href="#">LA EMPRESA</a></li>
+                            <li class="menu-items"><a href="{{  path('gema_clientcontenido',{'nombre':'NUESTRA FILOSOFÍA'})  }}">LA EMPRESA</a></li>
                             <li class="menu-items"><a href="{{  path('gema_redventas',{'codigo':-1}) }}">RED DE VENTAS</a></li>
                             <li class="menu-items dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">NOTICIAS Y EVENTOS&nbsp;<i class="fa fa-plus"></i><i class="fa fa-minus"></i></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#">Alta ADVANTAGE</a></li>
-                                    <li><a href="#">AltaU</a></li>
-                                    <li><a href="#">Alta ADVANTAGE SHOWCASE</a></li>
-                                    <li><a href="#">Alta JERSEY DRIVEN</a></li>
-                                    <li><a href="#">Concept PLUS</a></li>
-                                    <li><a href="#">Alta GPS</a></li>
-                                    <li><a href="#">DAIRY MANAGER SCHOOL</a></li>
+                                    <li><a href="{{  path('gema_clientnews',{'tipo':'Leche Nacional','start':0,'end':9})  }}">Leche Nacional</a></li>
+                                    <li><a href="http://web.altagenetics.com/us/AltaNews/">Leche Internacional</a></li>
+                                    <li><a href="{{  path('gema_clientnews',{'tipo':'Carne','start':0,'end':9})  }}">Carne</a></li>
+                                    <li><a href="{{  path('gema_clientnews',{'tipo':'Sin Categoría','start':0,'end':9})  }}">Sin Categoría</a></li>
+                                    <li><a href="{{  path('gema_clientnews',{'tipo':'Todas','start':0,'end':9})  }}">Todas</a></li>
+
                                 </ul>
                             </li>
-                            <li class="menu-items"><a href="#">INFORMACIÓN</a></li>
-                            <li class="menu-items"><a href="#">LECHE</a></li>
-                            <li class="menu-items"><a href="#">CONTACTOS</a></li>
+                            <li class="menu-items dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Información&nbsp;<i class="fa fa-plus"></i><i class="fa fa-minus"></i></a>
+                                <ul class="dropdown-menu">
+                                    <li class="menu-items"><a href="{{  path('gema_clientsboletines',{'start':0,'end':8})  }}">Boletín Alta School</a></li>
+                                    <li class="menu-items"><a href="http://web.altagenetics.com/espanol/DairyBasics/Category/34">Genética de Leche</a></li>
+                                    <li class="menu-items"><a href="{{  path('gema_clientcontenido',{'nombre':'Genética de Carne'})  }}">Genética de Carne</a></li>
+
+                                    <li class="menu-items"><a href="http://web.altagenetics.com/espanol/DairyBasics/Category/30">Reproducción e Inseminación</a></li>
+                                    <li class="menu-items"><a href="http://web.altagenetics.com/espanol/DairyBasics/Category/36">Alimentación y Nutrición</a></li>
+                                    <li class="menu-items"><a href="http://web.altagenetics.com/espanol/DairyBasics/Category/37">Salud de Tambo</a></li>
+
+                                </ul>
+                            </li>
+                            <li class="menu-items"><a href="{{  path('gema_prodprog')  }}">Productos y Programas</a></li>
+
+                            <li class="menu-items"><a href="{{  path('gema_mailindex')  }}">CONTACTO</a></li>
+
                             {#<li class="menu-items"><button class="btn btn-default" style="border-radius:50%;border-color:#133775"><i class="fa fa-search"></i></button></li>#}
                         </ul>
                     </div><!-- /.navbar-collapse -->
@@ -167,54 +179,76 @@
         <div class="footer-superior">
             <div class="container">
                 <div class="row primera-linea">
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="col-lg-6 col-md-3 col-sm-6 col-xs-12">
                         <img src="{{ asset('bundles/gema/clientresources/img/logoBlanco.png')}}" class="img-responsive" alt="Alta Sciele" style="margin-top: 1em"/>
                     </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                        <ul>
-                            <li class="enlace-footer">
-                               LA EMPRESA
-                            </li>
-                         <li class="enlace-footer">
-                             <a href="{{  path('gema_redventas',{'codigo':-1}) }}" class="footera">RED DE VENTAS</a>
-                            </li>
-                            <li class="enlace-footer">
-                                NOTICIAS Y EVENTOS
-                            </li>
-                            <li class="enlace-footer">
-                                INFORMACIÓN +
-                            </li>
-                            <li class="enlace-footer">
-                                CONTACTO
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <div class="row">
-                            <b class="enlace-footer" style="margin-top:20px;margin-bottom:15px;">
-                                BUSCAR TOROS DE CARNE<br>
-                            </b>
+                    <div class="col-lg-2 col-md-5 col-sm-6 col-xs-12 footerdiv">
+                        <div>
+                            <a href="{{path("homepage")}}" class="">PRINCIPAL</a>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 columna-busqueda">
-                                <a href="http://bs.altagenetics.com/argentina/BS/Advanced">
-                                <button class="btn btn-primary">
-                                    búsqueda Avanzada >
-                                </button></a>
+                             <div>
+                            <a href="{{  path('gema_redventas',{'codigo':-1}) }}">LA EMPRESA</a>
+                             </div>
 
+                           <div>
+                             <a href="{{  path('gema_redventas',{'codigo':-1}) }}" class="">RED DE VENTAS</a>
                             </div>
+                        <div>
+                            <a href="{{  path('gema_clientnews',{'tipo':'Todas','start':0,'end':9})  }}">NOTICIAS Y EVENTOS</a>
+                        </div>
 
-                            <div class="col-lg-12 col-md-12 col-sm-6 col-xs-6 columna-busqueda">
-                                <br>
+
+
+                    </div>
+                    <div class="col-lg-4 col-md-5 col-sm-6 col-xs-12 footerdiv">
+                        <div> <a href="{{  path('gema_clientsboletines',{'start':0,'end':8})  }}"> INFORMACIÓN </a> </div>
+                        <div>
+                            <a href="{{  path('gema_prodprog')  }}">PRODUCTOS Y PROGRAMAS</a>
+                        </div>
+                        <div>
+                            <a href="{{  path('gema_mailindex')  }}">CONTACTO</a>
+                        </div>
+
+                        {#<div>#}
+                            {#<a href="{{  path('gema_redventas',{'codigo':-1}) }}" class="">RED DE VENTAS</a>#}
+                        {#</div>#}
+                        {#<div>#}
+                            {#<a class="">NOTICIAS Y EVENTOS</a>#}
+                        {#</div>#}
+                        {#<div> <a class="enlace-footer"> INFORMACIÓN </a> </div>#}
+
+
+                    </div>
+
+
+
+
+                    {#<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">#}
+                        {#<div class="row">#}
+                            {#<b class="enlace-footer" style="margin-top:20px;margin-bottom:15px;">#}
+                                {#BUSCAR TOROS DE CARNE<br>#}
+                            {#</b>#}
+                        {#</div>#}
+                        {#<div class="row">#}
+                            {#<div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 columna-busqueda">#}
+                                {#<a href="http://bs.altagenetics.com/argentina/BS/Advanced">#}
+                                {#<button class="btn btn-primary">#}
+                                    {#búsqueda Avanzada >#}
+                                {#</button></a>#}
+
+                            {#</div>#}
+
+                            {#<div class="col-lg-12 col-md-12 col-sm-6 col-xs-6 columna-busqueda">#}
+                                {#<br>#}
                                 {#<div class="input-group">#}
                                     {#<input id="imput-busqueda" type="text" class="form-control">#}
 								  {#<span class="input-group-btn">#}
 									{#<button id="imput-boton" class="btn btn-default" type="button"><img id="btn-center" src="{{ asset('bundles/gema/clientresources/img/bt_buscar.png')}}"></button>#}
 								  {#</span>#}
                                 {#</div>#}
-                            </div>
-                        </div>
-                    </div>
+                            {#</div>#}
+                        {#</div>#}
+                    {#</div>#}
                 </div>
             </div>
         </div>
@@ -229,11 +263,11 @@
                         <img src="{{ asset('bundles/gema/clientresources/img/5l.jpg')}}" class="patrocinadores">
                     </div>
                     <div class="col-lg-6 col-md-5 col-sm-12 col-xs-12">
-                        <i class="fa fa-youtube fa-2x enlace-redes"></i>
-                        <i class="fa fa-linkedin fa-2x enlace-redes"></i>
+                       <a  href="http://www.youtube.com/channel/UCymYBA0Sw2_fX-wlrbZHIFQ"> <i class="fa fa-youtube fa-2x enlace-redes"></i></a>
+                       <a href="https://www.linkedin.com/company/ciale-alta"> <i  class="fa fa-linkedin fa-2x enlace-redes"></i></a>
                         <i class="fa fa-twitter fa-2x enlace-redes"></i>
-                        <i class="fa fa-facebook fa-2x enlace-redes"></i>
-                        <i class="fa fa-envelope-o fa-2x enlace-redes"></i>
+                        <a href="https://www.facebook.com/CIALE.Alta.Genetics/"><i  class="fa fa-facebook fa-2x enlace-redes"></i></a>
+                        <a href="{{  path('gema_mailindex')  }}"> <i class="fa fa-envelope-o fa-2x enlace-redes"></i></a>
                     </div>
                 </div>
             </div>
@@ -241,7 +275,7 @@
 
 
         <div class="footer-inferior">
-            <div class="container">
+            <div class="container" style="font-family: Fago-normal">
                 &copy; 2017 - CIALE Alta - All Rights Reserved
             </div>
         </div>

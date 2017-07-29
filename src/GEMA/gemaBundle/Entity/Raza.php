@@ -122,6 +122,12 @@ class Raza
      */
     private $mocho;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="GEMA\gemaBundle\Entity\Razafather",inversedBy="razas", cascade={"persist"})
+     */
+
+    private $father;
+
 
 
     public function __toString()
@@ -544,5 +550,28 @@ class Raza
     public function getMocho()
     {
         return $this->mocho;
+    }
+
+    /**
+     * Set father
+     *
+     * @param \GEMA\gemaBundle\Entity\Razafather $father
+     * @return Raza
+     */
+    public function setFather(\GEMA\gemaBundle\Entity\Razafather $father = null)
+    {
+        $this->father = $father;
+
+        return $this;
+    }
+
+    /**
+     * Get father
+     *
+     * @return \GEMA\gemaBundle\Entity\Razafather 
+     */
+    public function getFather()
+    {
+        return $this->father;
     }
 }

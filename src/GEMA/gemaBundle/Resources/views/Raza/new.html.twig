@@ -10,6 +10,7 @@
     {{ form_start(form) }}
     <label class="col-md-2 control-label"><strong> Archivos de la Raza</strong></label>
     <div id="myUploadDropZoneRaza" class="dropzone"> </div>
+    {{ form_row(form.father) }}
     {{ form_row(form.tiporaza) }}
     {{ form_row(form.nombre) }}
     {{ form_row(form.descripcion) }}
@@ -23,6 +24,7 @@
     {{ form_row(form.haveactEnlace) }}
     {{ form_row(form.decorador) }}
     {{ form_row(form.publico) }}
+
 
     <fieldset style="background: #eee">
         <legend style="background: #eee;text-align: center;margin: 0 auto">Redirección</legend>

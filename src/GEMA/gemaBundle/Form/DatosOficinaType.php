@@ -22,12 +22,7 @@ class DatosOficinaType extends AbstractType
                 ),
                 'label'=>'Datos de la Oficina'
             ))
-            ->add('email', CKEditorType::class, array(
-                'config' => array(
-                    'language' => 'es',
-                ),
-                'label'=>'Email para enviar CCO de los mensajes de contacto en la red'
-            ));
+            ->add('email');
     }
     
     /**

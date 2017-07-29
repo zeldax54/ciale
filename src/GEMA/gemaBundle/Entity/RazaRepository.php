@@ -18,27 +18,30 @@ class RazaRepository extends EntityRepository
 
         $em = $this->getEntityManager();
         $qb = $em->createQueryBuilder();
-        $qb->addSelect('U')
+        $qb->addSelect('U','F')
             ->from($this->getClassName(), 'U');
+
         return $qb;
     }
 
     public function filtrar(Request $request) {
         $qb = new QueryBuilder($this->getEntityManager());
         $qb
-            ->select("B")
-            ->from($this->getClassName(), "B");
+            ->select("B","F")
+            ->from($this->getClassName(), "B")
+            ->leftJoin("B.father", "F");
 
 
         if ($request->request->get("searchPhrase") != null) {
             $search = $request->request->get("searchPhrase");
             $qb->where($qb->expr()->like("B.nombre", $qb->expr()->literal("%" . $search . "%")));
+            $qb->where($qb->expr()->like("F.nombre", $qb->expr()->literal("%" . $search . "%")));
 
         }
         if ($request->request->get("sort") != null) {
             $orden = $request->request->get("sort");
             foreach ($orden as $key => $value) {
-                $qb->orderBy("B." . $key, $value);
+                $qb->orderBy("B.nombre" . $key, $value);
             }
         }
         return $qb;
@@ -64,6 +67,29 @@ class RazaRepository extends EntityRepository
             ->leftJoin("R.tiporaza", "T")
             ->where("R.id <>'".$razaId."'")
             ->andWhere("T.id='".$tiporazaid."'");
+        return $qb->getQuery()->getResult();
+    }
+
+    public function Fatherempty(){
+        $qb = new QueryBuilder($this->getEntityManager());
+        $qb
+            ->select("R")
+            ->from($this->getClassName(), "R")
+            ->where("R.father is null");
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function Notid($id,$tipoid){
+        $qb = new QueryBuilder($this->getEntityManager());
+        $qb
+            ->select("R")
+            ->from($this->getClassName(), "R")
+            ->leftJoin("R.tiporaza", "T")
+            ->where("R.id <> '".$id."'")
+            ->andwhere("R.father is null")
+            ->andWhere("T.id='".$tipoid."'");;
+
         return $qb->getQuery()->getResult();
     }
 

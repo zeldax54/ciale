@@ -5,24 +5,28 @@
 
 
 {% block gema_page -%}
-    {#<input type="button" value="CALL" id="myid">#}
 
 
     <h4 style="font-style: italic">Crear Boletin</h4>
 
-    {{ form_start(form) }}
-    {{ form_row(form.titulo) }}
-    {{ form_row(form.introduccion) }}
-    <div id="images" name="images" style="display: none"></div>
-    <div id="nombresf" name="nombresf" style="display: none"></div>
-<label class="col-md-2 control-label"><strong> Imagenes</strong></label>
-    <div id="myDopZone" class="dropzone"> </div>
+        <fieldset style="background: #63BFE8;width: 50%;text-align: center;">
+            <h4>Media</h4>
+    <div class="form-group"> <input type="button" class="btn btn-file" value="Imagen(es) para la Portada" id="editarArchivos">
+        <input type="button" class="btn btn-file" value="Imagen(es) para la Galería" id="editarArchivosg"></div>
 
 
+            <table id="tabla" style="background:#63BFE8" class="table table-hover table table-striped  tablagen">
+                <thead>
+                <tr data-tabullet-map="id">
+                    <th data-tabullet-map="video">Videos(url)</th>
+                    <th width="50" data-tabullet-type="edit"></th>
+                    <th width="50" data-tabullet-type="delete"></th>
+                </tr>
+                </thead>
 
-
-    {{ form_end(form) }}
-
+            </table>
+</fieldset>
+    {{ form(form) }}
 
     <ul class="pager">
         <li class="next"><a href="{{path('boletin')}}"><i class="fa fa-list"></i>
@@ -32,57 +36,21 @@
 {% endblock %}
 
 {% block custom_javascripts %}
-<script>
+    <script src="{{ asset('bundles/gema/js/Tabullet.js') }}"></script>
+    <script src="{{ asset('bundles/gema/js/TableToJson/jquery.tabletojson.js') }}"></script>
+    <script src="{{ asset('bundles/gema/js/youtube.js') }}"></script>
+    <script>
 
-    $('#myid').click(function(){
+            var guid = '{{ guid }}';
+            $('#gema_gemabundle_boletin_guid').attr('value', guid);
+            $('#editarArchivos').click(function(){
+                GetData('boletin',guid);
+            });
+            $('#editarArchivosg').click(function(){
+                GetData('boletin',guid+"G");
+            });
+            Initializate('gema_gemabundle_boletin_youtube');
 
-        GetData('gema_library');
-    });
 
-
-
-    $(document).ready(function () {
-
-      var postdata="{{ app.request.uri }}";
-
-        Dropzone.options.myDopZone = {
-
-            init: function() {
-
-                this.on("thumbnail", function(file) {
-
-                    if(file.accepted===true)
-                    {
-                        var files=this.getAcceptedFiles();
-                        CreateData(files,'images','nombresf');
-
-                    }
-                });
-                this.on("removedfile", function() {
-                    var files=this.getAcceptedFiles();
-                    CreateData(files,'images','nombresf');
-                });
-
-            },
-
-            paramName: "file", // The name that will be used to transfer the file
-            maxFilesize: 4, // MB
-             url:postdata,
-            maxFiles:5,
-            addRemoveLinks:true,
-            acceptedFiles:".jpg,.png,.gif",
-            dictRemoveFile:"Eliminar esta imagen",
-            dictDefaultMessage:"Seleccione imagenes para este Boletín. Máximo 5 imagenes." +
-            "\n"+"  Recuerde que la primer imagen que este cargada será la que se mostrará como portada, el resto serán mostradas en la galería de imágenes.",
-            dictFileTooBig:"Imagen demasiado grande.Máximo 4 MB permitidos.",
-            dictMaxFilesExceeded:"Ha sobrepasado el número de Imaganes",
-            accept: function(file, done) {
-                if (file.name == "justinbieber.jpg") {
-                    done("Naha, you don't.");
-                }
-                else { done(); }
-            }
-        };
-    });
-</script>
+    </script>
 {% endblock %}

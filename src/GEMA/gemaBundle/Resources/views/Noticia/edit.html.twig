@@ -3,9 +3,27 @@
 
     {% block gema_page -%}
     <h1>Editar Noticia </h1>
-        <div class="form-group"> <input type="button" class="btn btn-file" value="Imagen(es) para la Portada" id="editarArchivos">
-            <input type="button" class="btn btn-file" value="Imagen(es) para la Galería" id="editarArchivosg"></div>
+
+        <fieldset style="background: #63BFE8;width: 50%;text-align: center;">
+            <h4>Media</h4>
+            <div class="form-group"> <input type="button" class="btn btn-file" value="Imagen(es) para la Portada" id="editarArchivos">
+                <input type="button" class="btn btn-file" value="Imagen(es) para la Galería" id="editarArchivosg"></div>
+
+
+            <table id="tabla" style="background:#63BFE8" class="table table-hover table table-striped  tablagen">
+                <thead>
+                <tr data-tabullet-map="id">
+                    <th data-tabullet-map="video">Videos(url)</th>
+                    <th width="50" data-tabullet-type="edit"></th>
+                    <th width="50" data-tabullet-type="delete"></th>
+                </tr>
+                </thead>
+
+            </table>
+        </fieldset>
     {{ form(edit_form) }}
+
+
 
     <ul class="pager">
         <li class="next"><a href="{{path('admin_noticias')}}"><i class="fa fa-ban"></i>
@@ -19,6 +37,9 @@
     {% endblock %}
 
     {% block custom_javascripts %}
+        <script src="{{ asset('bundles/gema/js/Tabullet.js') }}"></script>
+        <script src="{{ asset('bundles/gema/js/TableToJson/jquery.tabletojson.js') }}"></script>
+        <script src="{{ asset('bundles/gema/js/youtube.js') }}"></script>
     <script>
         var param=$('#gema_gemabundle_noticia_guid').val();
         $('#editarArchivos').click(function(){
@@ -28,5 +49,7 @@
         $('#editarArchivosg').click(function(){
             GetData('noticia',param+"G");
         });
+
+        Initializate('gema_gemabundle_noticia_youtube');
         </script>
     {% endblock %}

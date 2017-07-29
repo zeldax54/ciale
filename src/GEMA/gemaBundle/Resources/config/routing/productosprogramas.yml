@@ -1,0 +1,28 @@
+admin_productosprogramas:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:Productosprogramas:index" }
+
+admin_productosprogramas_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:Productosprogramas:show" }
+
+admin_productosprogramas_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:Productosprogramas:new" }
+
+admin_productosprogramas_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:Productosprogramas:create" }
+    requirements: { _method: post }
+
+admin_productosprogramas_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:Productosprogramas:edit" }
+
+admin_productosprogramas_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:Productosprogramas:update" }
+
+admin_productosprogramas_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:Productosprogramas:delete" }

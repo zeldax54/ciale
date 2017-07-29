@@ -62,6 +62,7 @@ class ToroRepository extends EntityRepository
             ->from($this->getClassName(), "A")
             ->leftJoin('A.raza', "R")
             ->where("R.nombre='".$nombre."'");
+               $qb->orderBy('A.apodo',"ASC");
         return $qb->getQuery()->getResult();
     }
 
@@ -94,4 +95,28 @@ class ToroRepository extends EntityRepository
 
     }
 
+
+
+    public function torosbyRazas($razas){
+        $qb = new QueryBuilder($this->getEntityManager());
+        $qb
+            ->select("A","R")
+            ->from($this->getClassName(), "A")
+            ->leftJoin('A.raza', "R");
+
+        foreach($razas as $r)
+        {
+            $qb->orWhere("R.id='".$r->getId()."'");
+        }
+        $qb->orderBy('A.apodo',"ASC");
+        return $qb->getQuery()->getResult();
+
+    }
+
+//
+//    public function torosbyTabla($tablaid){
+//        $em = $this->getDoctrine()->getManager();
+//        return null;
+//
+//    }
 }

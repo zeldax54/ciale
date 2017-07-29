@@ -3,15 +3,100 @@
   {% block customstylesheets %}
 	  <link href="{{ asset('bundles/gema/clientresources/mapa/jquery-jvectormap-2.0.3.css')}}" rel="stylesheet">
 	  <link href="{{ asset('bundles/gema/css/jquery.bootgrid.min.css') }}" rel="stylesheet">
-
+	  <link href="{{ asset('bundles/gema/clientresources/css/contactcss.css')}}" rel="stylesheet">
 
 
 	  <style>
-
+.maxwidth{
+	width: 60% !important;
+}
 
 	  </style>
 	  {% endblock %}
   {% block content %}
+	  <img id="mygif" src="{{ asset(gife) }}" style="display: none">
+	  <div id="formcontainer" style="width: 70%;display: none">
+		  <h3 style="font-family: 'Fago-Bold';color:#254389">Contacte con este vendedor</h3>
+		  <form name="form" method="post" id="sendform" action="{{ path('gema_sellermail') }}">
+			  <div id="form">
+				  <div class="form-group"><label  class="required col-md-2 control-label" >Nombre</label>
+					  <div class="col-md-10">
+						  <input class="form-control" id="nombre" name="nombre" required="required" maxlength="255" type="text">
+					  </div>
+				  </div>
+
+				  <div class="form-group"><label  class="col-md-2 control-label">Apellido</label>
+					  <div class="col-md-10">
+						  <input class="form-control" id="apellido" name="apellido"  maxlength="255" type="text">
+					  </div>
+				  </div>
+
+				  <div class="form-group"><label  class="col-md-2 control-label">Direccion</label>
+					  <div class="col-md-10">
+						  <input class="form-control" id="direccion" name="direccion"   type="text">
+					  </div>
+				  </div>
+
+				  <div class="form-group"><label  class=" col-md-2 control-label">Localidad</label>
+					  <div class="col-md-10">
+						  <input class="form-control" id="localidad" name="localidad"   type="text">
+					  </div>
+				  </div>
+
+				  <div class="form-group"><label  class=" col-md-2 control-label">Provincia</label>
+					  <div class="col-md-10">
+						  <input class="form-control" id="provincia" name="provincia"   type="text">
+					  </div>
+				  </div>
+
+				  <div class="form-group"><label  class=" col-md-2 control-label">Codigo Postal</label>
+					  <div class="col-md-10">
+						  <input class="form-control" id="codigopostal" name="codigopostal"   type="text">
+					  </div>
+				  </div>
+
+				  <div class="form-group"><label  class="required col-md-2 control-label">Email</label>
+					  <div class="col-md-10">
+						  <input class="form-control" id="email" name="email" required   type="email">
+					  </div>
+				  </div>
+
+				  <div class="form-group"><label  class="required col-md-2 control-label">Teléfono</label>
+					  <div class="col-md-10">
+						  <input class="form-control" id="telefono" name="telefono" required   type="number">
+					  </div>
+				  </div>
+
+				  <div class="form-group"><label  class=" col-md-2 control-label">Empresa</label>
+					  <div class="col-md-10">
+						  <input class="form-control" id="empresa" name="empresa"    type="text">
+					  </div>
+				  </div>
+
+				  <div class="form-group"><label  class=" col-md-2 control-label">Consulta</label>
+					  <div class="col-md-10">
+						  <textarea class="form-control" id="consulta" name="consulta" ></textarea>
+					  </div>
+				  </div>
+
+				  <div class="form-group" style="display: none"><label  class=" col-md-2 control-label">Destino</label>
+					  <div class="col-md-10">
+						  <input class="form-control destino" id="destino" name="destino"    type="text">
+					  </div>
+				  </div>
+
+			  </div>
+
+
+
+
+			  <div class="col-md-offset-2 col-md-10">
+				  <button title="Enviar Correo" class="btn btn-default" type="submit" id="bsubmit" name="bsubmit">Enviar</button>
+
+			  </div>
+
+		  </form>
+	  </div>
 	  <div style="height: 20px !important;"></div>
 
 			<div class="row">
@@ -59,7 +144,7 @@
 											<em class="redventastext">{{ s.ciudad }}</em><br>
 										{% endif %}
 											<span class="redventastext">{{ s.telefono }}</span><br>
-											<a href="/red-de-ventas/contactar-vendedor/32" title="Contactarse" class="redventastext">{{ s.email }}</a>
+											<a href="#" title="Contactarse" class="redventastext redmail">{{ s.email }}</a>
 
 								</p>
 									</div>
@@ -171,6 +256,79 @@
 
 
 						});
+
+			});
+
+
+			$('.redmail').click(function(){
+
+				$('#destino').attr('value',$(this).html());
+            var form=$('#formcontainer');
+					form.find('form').attr('id','newform');
+					form.find('button').attr('id','newbsubmit');
+
+				var codigo=form.html();
+
+				vex.dialog.alert({ unsafeMessage:codigo
+
+					, className: 'vex-theme-top' ,
+					overlayClassName: 'success',
+					contentClassName: 'borderblueclass maxwidth',
+					closeClassName: 'closebleclass'
+				});
+
+				$('option').mousedown(function(e) {
+					e.preventDefault();
+					$(this).prop('selected', !$(this).prop('selected'));
+					return false;
+				});
+
+				$("form").on('submit',(function(e){
+					e.preventDefault();
+					$('#newbsubmit').hide();
+					var src=$('#mygif').attr('src');
+					vex.dialog.alert({ unsafeMessage:'<div style="text-align: center">' +
+					'<h5 style="font-family: Fago-Bold">Enviando mensaje</h5>'+
+					'<img width="200px" height="200px" src="'+src+'"><div>'
+
+						, className: 'vex-theme-wireframe' ,
+						overlayClassName: 'success',
+						contentClassName: 'borderblueclass errormaxwidth',
+						closeClassName: 'closebleclass'
+					});
+					$.ajax({
+						url: Routing.generate('gema_sendmail'),
+						type: "POST",
+						data:  new FormData(this),
+						contentType: false,
+						cache: false,
+						processData:false,
+						success: function(data){
+							vex.closeTop();
+							vex.dialog.alert({ unsafeMessage:'<span>'+data[1]+'</span>'
+
+								, className: 'vex-theme-wireframe' ,
+								overlayClassName: 'success',
+								contentClassName: 'borderblueclass maxwidth',
+								closeClassName: 'closebleclass',
+
+							});
+
+							$('#newbsubmit').show();
+						},
+						error: function(error,stat, err){
+							vex.closeTop();
+							vex.dialog.alert({ unsafeMessage:err+'.Intente mas tarde'
+
+								, className: 'vex-theme-wireframe' ,
+								overlayClassName: 'success',
+								contentClassName: 'borderblueclass errormaxwidth',
+								closeClassName: 'closebleclass'
+							})
+							$('#newbsubmit').show();
+						}
+					});
+				}));
 
 			});
 

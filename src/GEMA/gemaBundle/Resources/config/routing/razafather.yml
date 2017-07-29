@@ -1,0 +1,28 @@
+admin_razafather:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:Razafather:index" }
+
+admin_razafather_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:Razafather:show" }
+
+admin_razafather_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:Razafather:new" }
+
+admin_razafather_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:Razafather:create" }
+    requirements: { _method: post }
+
+admin_razafather_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:Razafather:edit" }
+
+admin_razafather_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:Razafather:update" }
+
+admin_razafather_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:Razafather:delete" }

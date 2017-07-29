@@ -25,7 +25,7 @@ class ClientnewsController  extends Controller
         $noticias = $em->getRepository('gemaBundle:Noticia')->first10($tipo,$start,$end);
         $helper=new MyHelper();
         foreach($noticias as $noticia)
-         $noticia->portada= $img=$helper->randomPic('noticia'.DIRECTORY_SEPARATOR.$noticia->getGuid().DIRECTORY_SEPARATOR);
+         $noticia->portada= $helper->randomPic('noticia'.DIRECTORY_SEPARATOR.$noticia->getGuid().DIRECTORY_SEPARATOR);
 
         if($tipo!='Todas')
         {
@@ -40,7 +40,7 @@ class ClientnewsController  extends Controller
      //   print(count($noticias));die();
 
         if(count($noticias)==0)
-        { $start=0;$end=10;}
+        { $start=0;$end=9;}
 
         return $this->render('gemaBundle:Page:noticias.html.twig', array(
             'noticias' => $noticias,
@@ -56,53 +56,9 @@ class ClientnewsController  extends Controller
          $em = $this->getDoctrine()->getManager();
          $noticia = $em->getRepository('gemaBundle:Noticia')->find($id);
          $helper=new MyHelper();
-         $mediaInpage=array();
          $medianews=$helper->filesInFolder('noticia'.DIRECTORY_SEPARATOR.$noticia->getGuid().'G'.DIRECTORY_SEPARATOR);
-         if(count($medianews)>0)
-             foreach($medianews as $mt){
-                 $mediaInpage[]=array(
-                     'tipo'=>'img',
-                     'url'=> $mt,
-                     'representacion'=>$mt
-                 );
-             }
-         $lis=array();
-         if(count($mediaInpage)>0)
-         {
-             $claves_aleatorias = array_rand($mediaInpage, count($mediaInpage));
-             $finalmedia=array();
-             foreach($claves_aleatorias as $clave)
-             {
-                 $finalmedia[]=$mediaInpage[$clave];
-             }
-             $flag=0;
-             $flaadd=0;
-
-             shuffle ($mediaInpage);
-             for($i=0;$i<count($mediaInpage);$i++)
-             {
-                 if($mediaInpage[$i]['tipo']=='video')
-                 {
-                     $lis[$flaadd][]=array(
-
-                         'rep'=>$mediaInpage[$i]['representacion'],
-                         'url'=>$mediaInpage[$i]['url']
-
-                     );
-                 }
-                 else{
-                     $lis[$flaadd][] =array(
-
-                         'rep'=>$mediaInpage[$i]['representacion'],
-                         'url'=>$mediaInpage[$i]['representacion']
-
-                     );
-                 }
-                 $flag++;
-                 if($flag==40)
-                     $flaadd++;
-             }
-         }
+         $youtubes=$noticia->getYoutube();
+         $lis=$helper->generateMedias($medianews,$youtubes,40);
 
          $noticia->portada= $img=$helper->randomPic('noticia'.DIRECTORY_SEPARATOR.$noticia->getGuid().DIRECTORY_SEPARATOR);
          return $this->render('gemaBundle:Page:noticia.html.twig', array(
@@ -110,5 +66,38 @@ class ClientnewsController  extends Controller
              'mediainpage'=>$lis
          ));
      }
+    public function clienlistboletinesAction($start,$end){
+
+        $em = $this->getDoctrine()->getManager();
+        $boletines = $em->getRepository('gemaBundle:Boletin')->first10($start,$end);
+        $helper=new MyHelper();
+        foreach($boletines as $boletin)
+            $boletin->portada= $img=$helper->randomPic('boletin'.DIRECTORY_SEPARATOR.$boletin->getGuid().DIRECTORY_SEPARATOR);
+        if(count($boletines)==0)
+        { $start=0;$end=9;}
+
+        return $this->render('gemaBundle:Page:boletines.html.twig', array(
+            'boletines' => $boletines,
+            'start'=>$start,
+            'end'=>$end
+        ));
+
+    }
+
+    public function clientboletinAction($id){
+        $em = $this->getDoctrine()->getManager();
+        $boletin = $em->getRepository('gemaBundle:Boletin')->find($id);
+        $helper=new MyHelper();
+        $medianews=$helper->filesInFolder('noticia'.DIRECTORY_SEPARATOR.$boletin->getGuid().'G'.DIRECTORY_SEPARATOR);
+        $youtubes=$boletin->getYoutube();
+        $lis=$helper->generateMedias($medianews,$youtubes,40);
+
+        $boletin->portada= $img=$helper->randomPic('noticia'.DIRECTORY_SEPARATOR.$boletin->getGuid().DIRECTORY_SEPARATOR);
+        return $this->render('gemaBundle:Page:noticia.html.twig', array(
+            'noticia' => $boletin,
+            'mediainpage'=>$lis,
+            'isboletin'=>true
+        ));
+    }
 
 }

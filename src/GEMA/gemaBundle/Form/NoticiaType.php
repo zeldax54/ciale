@@ -49,6 +49,16 @@ class NoticiaType extends AbstractType
                     'style'=>'display:none'
                 )
             ))
+            ->add('youtube',null,array(
+                'label_attr'=>array(
+                    'style'=>'display:none'
+                ),
+                'attr'=>array(
+                    'style'=>'display:none',
+                'autocomplete'=>'off'
+                ),
+
+            ))
 
         ;
     }

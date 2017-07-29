@@ -1,0 +1,39 @@
+<?php
+
+namespace GEMA\gemaBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+/**
+ * Singlehtml
+ *
+ * @ORM\Table(name="singlehtml")
+ * @ORM\Entity(repositoryClass="GEMA\gemaBundle\Entity\SinglehtmlRepository")
+ * @UniqueEntity(fields="nombre", message="Este html ya existe"))
+ * @ORM\HasLifecycleCallbacks()
+ */
+class Singlehtml
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     * @ORM\Column(name="nombre", type="string", length=255)
+     */
+    private $nombre;
+
+    /**
+     * @var text
+     * @ORM\Column(name="html", type="text",nullable=true)
+     */
+    private $html;
+}

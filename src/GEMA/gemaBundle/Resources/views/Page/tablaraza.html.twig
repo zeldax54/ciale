@@ -20,14 +20,28 @@
 								<div class="col-lg-2 col-md-2 col-sm-2 col-xs-9">
 									<div class="btn-group">
 									  <button type="button" class="btn btn-xs dropdown-toggle btn-toro" data-toggle="dropdown">
-										{{ raza }} <span class="caret"></span>
+										{{ razaname }} <span class="caret"></span>
 									  </button>
                                         <ul class="dropdown-menu" style="background: #B14E0A">
+											{% if fathersmenu  is defined %}
 
-                                            {% for r in razas %}
-                                                <li><a style="color:white" class="" href=" {{  path('gema_razalist', {'nombreraza': r.nombre})  }} ">{{ r.nombre }}&nbsp;&nbsp;&nbsp;</a></li>
-                                                <li class="divider"></li>
-                                            {% endfor %}
+												{% for r in fathersmenu %}
+												<li><a style="color:white" class="" href=" {{  path('gema_razalist', {'id': r.id,'isfather':1})  }} ">{{ r.nombre }}&nbsp;&nbsp;&nbsp;</a></li>
+												<li class="divider"></li>
+												{% endfor %}
+											{% endif %}
+
+											{% if razasmenu is defined %}
+												{% for r in razasmenu %}
+													<li><a style="color:white" class="" href=" {{  path('gema_razalist', {'id': r.id,'isfather':0})  }} ">{{ r.nombre }}&nbsp;&nbsp;&nbsp;</a></li>
+													<li class="divider"></li>
+												{% endfor %}
+											{% endif %}
+
+                                            {#{% for r in razas %}#}
+                                                {#<li><a style="color:white" class="" href=" {{  path('gema_razalist', {'id': r.id,'isfather':0})  }} ">{{ r.nombre }}&nbsp;&nbsp;&nbsp;</a></li>#}
+                                                {#<li class="divider"></li>#}
+                                            {#{% endfor %}#}
                                         </ul>
 									</div>
 								</div>
@@ -36,16 +50,16 @@
                 <div >
 
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                        <button type="submit" class="btn btn-warning btn-sm">Generar PDF</button>
+                        {#<button type="submit" class="btn btn-warning btn-sm">Generar PDF</button>#}
                     </div>
                     <div class="col-lg-7 col-md-6 col-sm-9 col-xs-7">
-                        <div class="form-group buscador">
-                            <em><input id="datostext" type="text" class="form-control" placeholder="Buscar por Nombre, Prefijo o padre ..."></em>
+                        <div class="form-group buscador" id="padredatostext">
+                            <em><input autocomplete="off" id="datostext" type="text" class="form-control" placeholder="Buscar por Nombre, Prefijo o padre ..."></em>
                         </div>
                     </div>
-                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
-                        <a href="#" id="buscartoros"><img class="" src="{{ asset('bundles/gema/clientresources/img/bt_buscar.png')}}"></a>
-                    </div>
+                    {#<div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">#}
+                        {#<a href="#" id="buscartoros"><img class="" src="{{ asset('bundles/gema/clientresources/img/bt_buscar.png')}}"></a>#}
+                    {#</div>#}
 
                 </div>
 
@@ -79,14 +93,24 @@
                                     <!-- Split button -->
                                     <div class="btn-group">
 										<span  class="btn btn-xs dropdown-toggle btn-toro mybtn" data-toggle="dropdown">
-											{{ raza }}&nbsp;&nbsp;&nbsp;
+											{{ razaname }}&nbsp;&nbsp;&nbsp;
 											<span class="caret"></span>
 										</span>
                                         <ul class="dropdown-menu" style="background: #B14E0A;/">
-                                            {% for r in razas %}
-                                                <li><a class="mya" href=" {{  path('gema_razalist', {'nombreraza': r.nombre})  }} ">{{ r.nombre }}&nbsp;&nbsp;&nbsp;</a></li>
-                                                <li class="divider"></li>
-                                            {% endfor %}
+											{% if fathersmenu  is defined %}
+
+												{% for r in fathersmenu %}
+													<li><a style="color:white" class="" href=" {{  path('gema_razalist', {'id': r.id,'isfather':1})  }} ">{{ r.nombre }}&nbsp;&nbsp;&nbsp;</a></li>
+													<li class="divider"></li>
+												{% endfor %}
+											{% endif %}
+
+											{% if razasmenu is defined %}
+												{% for r in razasmenu %}
+													<li><a style="color:white" class="" href=" {{  path('gema_razalist', {'id': r.id,'isfather':0})  }} ">{{ r.nombre }}&nbsp;&nbsp;&nbsp;</a></li>
+													<li class="divider"></li>
+												{% endfor %}
+											{% endif %}
                                         </ul>
                                     </div>
                                 </li>
@@ -99,17 +123,17 @@
 						  <div class="navbar-form navbar-right">
 
 							<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-								<button id="btn-pdf" type="submit" class="btn btn-warning btn-sm">Generar PDF</button>
+								{#<button id="btn-pdf" type="submit" class="btn btn-warning btn-sm">Generar PDF</button>#}
 							</div>
 							<div class="col-lg-7 col-md-6 col-sm-9 col-xs-9">
-								<div class="form-group buscador">
-								  <em><input type="text" id="datostextresp" class="form-control" placeholder="Buscar por Nombre, Prefijo o padre ..."></em>
+								<div class="form-group" id="padredatostextresp">
+								  <em><input autocomplete="off" type="text" id="datostextresp" class="form-control" placeholder="Buscar por Nombre, Prefijo o padre ..."></em>
 								</div>
 							</div>
- 							<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+ 							{#<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">#}
 								{#Boton Buscar#}
-								<a href="#"><img class="btn-buscar-logo" id="buscartorosresp" src="{{ asset('bundles/gema/clientresources/img/bt_buscar.png')}}"></a>
-     						</div>
+								{#<a href="#"><img class="btn-buscar-logo" id="buscartorosresp" src="{{ asset('bundles/gema/clientresources/img/bt_buscar.png')}}"></a>#}
+     						{#</div>#}
 
 						  </div>
 
@@ -134,36 +158,36 @@
 
 		<div id="myTabContent" class="tab-content">
 			<div class="tab-pane fade in active" id="todos">
-			  	
+
 				<form class="form-inline" role="form">
 				  	<div class="row">
 
-						<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+						<div class="col-lg-6 col-md-6 col-sm-2 col-xs-2">
 							<div class="form-group">
-								<b>Nombre:</b>
-				  			</div>
+								<b>Búsqueda:</b>
+								<label class="sr-only" for="exampleInputNombre2">Búsqueda:</label>
+								<input type="text" class="form-control  exampleInput searchelement todos" autocomplete="off" id="searchinrazaAllT" familyid="todos" placeholder="Nombre del toro,apodo,padre o madre">
+
+								</div>
 						</div>
 						<div class="col-lg-4 col-md-4 col-sm-8 col-xs-8">
-							<div class="form-group">
-								<label class="sr-only" for="exampleInputNombre2">Nombre</label>
-								<input type="text" class="form-control  exampleInput searchelement todos" autocomplete="off" id="searchinrazaAllT" familyid="todos" placeholder="Nombre del toro,apodo,padre o madre">
-							</div>
-						</div>	
+
+						</div>
 						<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
 							{#<div class="form-group" style="float:left">#}
 								{#<button id="boton-der" type="submit" class="btn">Buscar</button>#}
 							{#</div>#}
 							<div class="form-group" style="margin-left:5px;">
 								<button id="boton-izq" familyid="todos" class="btn cleaner todos">Limpiar Filtros</button>
-				  			</div>			
-						</div>	
+				  			</div>
+						</div>
 
 					</div>
-					
+
 					<div class="row">
 
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-							
+
 							<div class="checkbox">
 								<label>
 								  <b> Facilidad de parto 15 M &nbsp;</b><input id="fp15" familyid="todos" class="todos" autocomplete="off" type="checkbox" style="margin:0;width:auto">
@@ -196,7 +220,7 @@
 								</label>
 							</div>
 							{% endif %}
-						</div>			
+						</div>
 
 					</div>
 
@@ -207,8 +231,8 @@
 
 						<button class="btn btn-sm todos cleanselection"  familyid="todos" >Limpiar Selección</button>
 						<button class="btn btn-sm todos comparer" familyid="todos" >Comparar</button>
-						<button class="btn btn-sm todos" familyid="todos" >Exportar para Excel</button>
-						<button class="btn btn-sm todos" familyid="todos" >Imprimir Catálogo</button>
+						{#<button class="btn btn-sm todos" familyid="todos" >Exportar para Excel</button>#}
+						{#<button class="btn btn-sm todos" familyid="todos" >Imprimir Catálogo</button>#}
 						<b id="cantmsj"  familyid="todos" class="todos">{{ toros|length }} toros en lista</b>
 
 					</div>
@@ -252,13 +276,13 @@
 
 								<tr class="{{ cycle(["even", "odd"], loop.index) }}">
 									<td><input type="checkbox" class="listcheck" autocomplete="off"></td>
-									<td><a href="{{ path('gema_torodetail', {'toroid':toro.id}) }}"><img src="{{ asset(toro.imgprincipal) }}"  width="100px" height="74px"></a></td>
+									<td><a href="{{ path('gema_torodetail', {'toroid':toro.id}) }}"><img class="toroimg" src="{{ asset(toro.imgprincipal) }}"  width="100px" height="74px"></a></td>
 									<td class="hiderow originalhiddennombre verticalalign">{{ toro.nombre }}</td>
 									<td class="hiderow originalhiddenmadre verticalalign">{{ toro.madre }}</td>
 									<td class="verticalalign" style="text-align: left">{{ toro.apodo|upper }}</td>
 									<td data-nuevo="{{ toro.nuevo }}" class="verticalalign">{{ toro.nuevoflag | raw }}</td>
 									{% if toro.facilidadparto is not null %}
-									<td data-fp="{{ toro.facilidadparto }}" class="verticalalign"><img src="{{ asset(toro.facilidadglag) }}" width="50%" style="width: 44%;"></td>
+									<td data-fp="{{ toro.facilidadparto }}" class="verticalalign"><img src="{{ asset(toro.facilidadglag) }}"  style="width: 44%;height: 40%;"></td>
 										{% else %}
 										<td data-p="0" class="verticalalign"></td>
 										{% endif %}
@@ -306,15 +330,16 @@
 					<form class="form-inline" role="form">
 						<div class="row">
 
-							<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+							<div class="col-lg-6 col-md-6 col-sm-2 col-xs-2">
 								<div class="form-group">
-									<b>Nombre:</b>
+									<b>Búsqueda:</b>
+									<label class="sr-only" for="exampleInputNombre2">Nombre</label>
+									<input type="text" class="form-control  exampleInput searchelement {{ 'family'~tabla.id }}" autocomplete="off" id="searchinrazaAllT" familyid="{{ 'family'~tabla.id }}" placeholder="Nombre del toro,apodo,padre o madre">
 								</div>
 							</div>
 							<div class="col-lg-4 col-md-4 col-sm-8 col-xs-8">
 								<div class="form-group">
-									<label class="sr-only" for="exampleInputNombre2">Nombre</label>
-									<input type="text" class="form-control  exampleInput searchelement {{ 'family'~tabla.id }}" autocomplete="off" id="searchinrazaAllT" familyid="{{ 'family'~tabla.id }}" placeholder="Nombre del toro,apodo,padre o madre">
+
 								</div>
 							</div>
 							<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
@@ -375,9 +400,9 @@
 
 							<button class="btn btn-sm cleanselection {{ 'family'~tabla.id }}" familyid="{{ 'family'~tabla.id }}"  >Limpiar Selección</button>
 							<button class="btn btn-sm comparer {{ 'family'~tabla.id }}"  familyid="{{ 'family'~tabla.id }}" >Comparar</button>
-							<button class="btn btn-sm {{ 'family'~tabla.id }}" familyid="{{ 'family'~tabla.id }}" >Exportar para Excel</button>
-							<button class="btn btn-sm {{ 'family'~tabla.id }}" familyid="{{ 'family'~tabla.id }}" >Imprimir Catálogo</button>
-							<b id="cantmsj"  familyid="{{ 'family'~tabla.id }}" class="{{ 'family'~tabla.id }}">{{ toros|length }} toros en lista</b>
+							{#<button class="btn btn-sm {{ 'family'~tabla.id }}" familyid="{{ 'family'~tabla.id }}" >Exportar para Excel</button>#}
+							{#<button class="btn btn-sm {{ 'family'~tabla.id }}" familyid="{{ 'family'~tabla.id }}" >Imprimir Catálogo</button>#}
+							<b id="cantmsj"  familyid="{{ 'family'~tabla.id }}" class="{{ 'family'~tabla.id }}">{{ tabla.toros|length }} toros en lista</b>
 
 						</div>
 
@@ -410,14 +435,14 @@
 								</thead>
 								<tbody>
 
-								{% for toro in toros %}
+								{% for toro in tabla.toros %}
 
 									<tr class="{{ cycle(["even", "odd"], loop.index) }}">
 										<td><input type="checkbox" class="listcheck" autocomplete="off"></td>
-										<td><a href="{{ path('gema_torodetail', {'toroid':toro.id}) }}"><img src="{{ asset(toro.imgprincipal) }}" width="100px" height="74px"></a></td>
+										<td><a href="{{ path('gema_torodetail', {'toroid':toro.id}) }}"><img class="toroimg" src="{{ asset(toro.imgprincipal) }}" width="100px" height="81px"></a></td>
 										<td class="hiderow originalhiddennombre verticalalign">{{ toro.nombre }}</td>
 										<td class="hiderow originalhiddenmadre verticalalign">{{ toro.madre }}</td>
-										<td class="verticalalign">{{ toro.apodo|upper }}<br>{{ toro.padre }}<br>{{ toro.padremadre }}</td>
+										<td class="verticalalign toroapodo">{{ toro.apodo|upper }}<br>{{ toro.padre }}<br>{{ toro.padremadre|truncate(5,true) }}</td>
 										<td data-nuevo="{{ toro.nuevo }}" class="verticalalign">{{ toro.nuevoflag | raw }}</td>
 										{% if toro.facilidadparto is not null %}
 											<td data-fp="{{ toro.facilidadparto }}" class="verticalalign">{{ toro.facilidadparto }}M</td>
@@ -480,16 +505,39 @@
  {% block custom_javascripts %}
 	 {#<script src="{{ asset('bundles/gema/clientresources/jquerybootgrid/jquery.bootgrid.min.js')}}"></script>#}
 	 <script src="{{ asset('bundles/gema/clientresources/jquerytablesorter/jquery.tablesorter.js') }}"></script>
-	 <script src="{{ asset('bundles/gema/clientresources/jquery.stickytableheaders.js') }}"></script>
+	 <script src="{{ asset('bundles/gema/clientresources/stickytableheader/jquery.stickytableheaders.js') }}"></script>
 	 <script src="{{ asset('bundles/gema/js/buscadortoros.js') }}"></script>
 	 <script src="{{ asset('bundles/gema/clientresources/ash/ash.js') }}"></script>
+	 {#<script src="{{ asset('bundles/gema/clientresources/sticky/jquery.scroltable.min.js') }}"></script>#}
+<script>
+	function ResetOddEven(table){
 
+		var loop=0;
+		table.find('tr:visible').not('.cabecera').each(function(){
+			var r=$(this);
+			if(loop%2==0){
+				r.removeClass("odd").removeClass("even").removeClass("myodd").removeClass("myeven");
+				r.addClass("myodd");
+			}
+			else {
+				r.removeClass("odd").removeClass("even").removeClass("myeven").removeClass("myodd");
+				r.addClass("myeven");
+
+			}
+			loop++;
+
+		});
+
+	}
+</script>
 	 <script>
 
 		 $(document).ready(function(){
 
              $('.table').each(function(){
-                 $(this).tablesorter( {sortList: [[2,1]],
+                 $(this).tablesorter(
+						 {
+//							 sortList: [[2,1]],
                              // pass the headers argument and assing a object
                              headers: {
                                  // assign the secound column (we start counting zero)
@@ -499,17 +547,42 @@
                                  },
                                  // assign the third column (we start counting zero)
                                  1: {  sorter: false    }
-                             }
+                             },
+
                  }
                  );
 //                 $(this).fixedHeaderTable({ footer: true, cloneHeadToFoot: true, fixedColumn: false });
              });
-             $("table").stickyTableHeaders({fixedOffset: $('.top-navegacion.navbar-fixed-top')
+             $("table").stickyTableHeaders(
+					 {
+						 fixedOffset: $('.top-navegacion.navbar-fixed-top'),
+//						 cacheHeaderHeight: true,
 
 
-             });
+
+					 }
+			 );
+
+
+			 $('table').each(function(){
+
+				 ResetOddEven($(this));
+			 });
 
          });
+
+		 $('.tabla-lista-busqueda').scroll(function(){
+			 $("table").stickyTableHeaders(
+					 {
+						 fixedOffset: $('.top-navegacion.navbar-fixed-top'),
+//						 cacheHeaderHeight: true,
+
+
+
+					 }
+			 );
+		 });
+
          $('.table th').click(function(){//
              var namecol=$(this).html();
              if($(this).find('.headcheck').length==0)
@@ -652,6 +725,8 @@
 				 $('.originalhiddennombre').show();
 			 $('.'+familyId+'#cantmsj').html(table.find('tr:visible').not('.cabecera').length + ' toros en la lista');
 
+			ResetOddEven(table);
+
 		 }
 
 
@@ -706,26 +781,26 @@
 
      <script>
 
-             $('#buscartorosresp').click(function(){
-                 var dato=$('#datostextresp').val();
-                 BuscarToros(dato);
-
-             });
-
-             $('#buscartoros').click(function(){
-                 var dato=$('#datostext').val();
-                 BuscarToros(dato);
-
-             });
-
-             $('#datostext').keyup(function(e){
-                 if(e.keyCode == 13)
-                     BuscarToros($(this).val());
-             });
-             $('#datostextresp').keyup(function(e){
-                 if(e.keyCode == 13)
-                     BuscarToros($(this).val());
-             });
+//             $('#buscartorosresp').click(function(){
+//                 var dato=$('#datostextresp').val();
+//                 BuscarToros(dato);
+//
+//             });
+//
+//             $('#buscartoros').click(function(){
+//                 var dato=$('#datostext').val();
+//                 BuscarToros(dato);
+//
+//             });
+//
+//             $('#datostext').keyup(function(e){
+//                 if(e.keyCode == 13)
+//                     BuscarToros($(this).val());
+//             });
+//             $('#datostextresp').keyup(function(e){
+//                 if(e.keyCode == 13)
+//                     BuscarToros($(this).val());
+//             });
 
              var arraypos=[];
              //Pruebas comprimidas
@@ -756,4 +831,24 @@
              });
 
      </script>
+
+	 <script>
+		 $('#datostextresp').keyup(function(){
+			 if($(this).val().length>1)
+			 {
+				 buscarTorosLike($(this).val(),'datostextresp','padredatostextresp','800px','padredatostextresp');
+			 }
+		 });
+
+		 $('#datostext').keyup(function(){
+			 if($(this).val().length>1)
+			 {
+				 buscarTorosLike($(this).val(),'datostext','padredatostext','300px','padredatostext',true);
+			 }
+		 });
+
+
+	 </script>
+
+
  {% endblock %}

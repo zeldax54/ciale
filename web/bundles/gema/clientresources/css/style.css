@@ -200,6 +200,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#034694', end
 	color:#9B4F19;	
 	margin-left:15px;
 	height:25px;
+	margin-top: 20px;
 }
 .container.wrapped-container .encabezado-area.encabezado-izq{
 	margin-right:20px;
@@ -245,7 +246,7 @@ td{
 	/*width:70%;*/
 	margin:0 auto;
 	border:none;
-	overflow:scroll;
+	overflow:auto;
 	margin-bottom:20px;
 }
 #tabla-infeior .table tr td{
@@ -371,8 +372,10 @@ form.form-inline .row:last-child{
 	margin-bottom:0;
 }
 form.form-inline .row input{
-	width:300px;
-	border-radius:9px;
+	width: 336px;
+border-radius: 5px;
+height: 31px;
+font-size: 13px;
 }
 form.form-inline .row button{
 	border-radius:9px;
@@ -395,7 +398,7 @@ form.form-inline .row button{
 	font-weight:500;
 }
 .tabla-lista-busqueda{	
-	overflow:scroll;
+	overflow:auto;
 	margin-bottom:20px;
 }
 table#lista-busqueda{
@@ -1098,29 +1101,7 @@ text-decoration:none;
 }
 
  
-@media screen 
-  and (min-width: 767px) 
-  and (max-width: 991px){
-	.centrarin760{
-		width:50% !important;
-	}
-	.imgcatalogdesc{
-		width:80% !important;
-	}
-	#flagitid{
-		padding-top: 18px !important;
-	}
-	
-	#tercsquare{
-		padding-top: 41px !important;
-	}
-	#flagit3id{
-		padding-top: 16px !important;
-	}
-	#princimg{
-		height: 330px !important;
-	}
-}
+
 
 
 .myh1{
@@ -1158,6 +1139,32 @@ margin-left: -15px;
 .dynamicliscontainer :hover{
 	font-size:17px;
 }
+
+@media (max-width:767px){
+	.top-navegacion {
+    height: auto}
+}
+
+@media (max-width:494px){
+	.top-navegacion {
+    height: auto}
+}
+
+#firstheader{
+	font-family: 'Fago-normal';
+	font-size:14px;
+}
+#firstheader a{
+	color:white;
+}
+
+
+#firstheader {
+	text-align:justify;
+	margin: 0px !important;
+}
+
+
 
 
 

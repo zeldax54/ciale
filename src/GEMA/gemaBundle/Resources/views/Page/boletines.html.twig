@@ -1,0 +1,160 @@
+{% extends 'gemaBundle::clientlayout.html.twig' %}
+
+  {% block customstylesheets %}
+	  <link href="{{ asset('bundles/gema/clientresources/css/js_composer.css')}}" rel="stylesheet">
+	  {#<link href="{{ asset('bundles/gema/clientresources/css/style_003.css')}}" rel="stylesheet">#}
+	  <link href="{{ asset('bundles/gema/clientresources/css/noticias.css')}}" rel="stylesheet">
+	  {#<link href="{{ asset('bundles/gema/clientresources/css/style_002.css')}}" rel="stylesheet">#}
+	  {#<link href="{{ asset('bundles/gema/clientresources/css/themes.css')}}" rel="stylesheet">#}
+	  {#<link href="{{ asset('bundles/gema/clientresources/css/prettyPhoto.css')}}" rel="stylesheet">#}
+
+
+
+	  {% endblock %}
+  {% block content %}
+	  <div class="container no-sidebar no-sidebar ">
+
+		  <div id="content" class="no-sidebar no-sidebar ">
+			  <div id="post-381" class="page post-381 type-page status-publish hentry">
+				  <article>
+
+<h4 style="text-align: center;font-family: Fago-Bold;color: #254396;font-size: 20px">Boletín Alta School</h4>
+					  <div class="post-content page-content">
+						  <div class="vc_row wpb_row vc_row-fluid"><div class="parallax-wrapper"><div class="wpb_column vc_column_container vc_col-sm-12"><div class="vc_column-inner "><div class="wpb_wrapper"><!-- vc_grid start -->
+											  <div class="vc_grid-container-wrapper vc_clearfix">
+												  <div class="vc_grid-container vc_clearfix wpb_content_element vc_masonry_grid">
+													  <style type="text/css" data-type="vc_shortcodes-custom-css">.vc_custom_1419328663991{background-color: #f4f4f4 !important;}</style><style type="text/css">
+														  img.wp-smiley,
+														  img.emoji {
+															  display: inline !important;
+															  border: none !important;
+															  box-shadow: none !important;
+															  height: 1em !important;
+															  width: 1em !important;
+															  margin: 0 .07em !important;
+															  vertical-align: -0.1em !important;
+															  background: none !important;
+															  padding: 0 !important;
+														  }
+													  </style>
+
+
+
+
+                                                      {% if boletines|length==0 %}
+                                                          <div  style="text-align: center">
+                                                          <h4 class="noticiastitle">No hay mas boletines para mostrar</h4>
+                                                          <a style="font-family: 'Fago-normal';font-weight: bold" href="{{  path('gema_clientsboletines',{'start':0,'end':9})  }}">Volver al inicio de Boletines</a>
+                                                              </div>
+                                                      {% endif %}
+
+
+
+													      <div class="vc_grid vc_row vc_grid-gutter-30px vc_pageable-wrapper vc_hook_hover" data-vc-pageable-content="true">
+															  <div class="vc_pageable-slide-wrapper vc_clearfix" data-vc-grid-content="true" style="position: relative;">
+
+
+																  {% for boletin in boletines %}
+																	  <div class="col-md-6 portadaparent" data-pg-collapsed="" style="margin-bottom: 5em;text-align: center">
+
+																		  <div class="caption" style="text-align: center;margin:0 auto">
+																			  <div class="row"><br>
+                                                                                <div>  <span class="" style="font-family: Fago-Bold !important;">{{ boletin.fechaboletin|date('d-M-Y')  }}</span></div>
+																				  <div class="col-md-12" style="height: 15px">
+																					  <a href="{{ path('gema_clientboletin',{'id':boletin.id}) }}"><h4 class="noticiastitle">{{ boletin.titulo }}</h4></a>
+
+																				  </div>
+
+																			  </div>
+
+																			  <div class="row" style="padding-top: 20px;" >
+                                                                                  <div class="row">
+                                                                                      <div class="col-md-12 resumenot"  style="width: 90%;height: 150px;margin-left: 0em;"><br>
+																						  <a href="{{ path('gema_clientboletin',{'id':boletin.id}) }}"><img data-src="" class="portadaimg" src="{{ asset(boletin.portada) }}"  alt="" style="max-width: 126px;height: 114px;margin-right: 2%;" align="left"></a>
+																				 {{ (boletin.introduccion|striptags|slice(0, 250)~'...')|raw }}
+																						  <a  href="{{ path('gema_clientboletin',{'id':boletin.id}) }}"></a>
+
+																			  </div>
+																			  </div>
+
+																			    </div>
+
+
+
+
+
+																		  </div>
+
+																	  </div>
+
+
+
+                                                                  {% endfor %}
+
+
+
+
+
+															  </div>
+                                                              {% if boletines|length!=0 %}
+                                                 <div class="vc_pageable-load-more-btn" data-vc-grid-load-more-btn="true"><div class="vc_btn3-container  vc_grid-btn-load_more vc_btn3-center"><a href="#" id="loadmore" class="vc_general vc_btn3  vc_btn3-size-md vc_btn3-shape-square vc_btn3-style-custom vc_btn3-block vc_btn3-icon-left" style="background-color: rgb(3, 70, 148); color: rgb(255, 255, 255); display: block;"><i class="vc_btn3-icon fa fa-adjust"></i>Cargar Más</a></div></div></div><div class="vc_grid-loading"></div></div>
+											  </div><!-- vc_grid end -->
+										  </div></div>{% endif %}
+                                  </div>
+                              </div></div>
+						  <span class="cp-load-after-post"></span>                                    </div><!--.post-content .page-content -->
+				  </article>
+
+			  </div><!--#post-# .post-->
+
+
+		  </div><!--#content-->
+		  <div class="clear"></div>
+
+	  </div>
+
+
+
+
+{% endblock %}
+
+    {% block custom_javascripts %}
+		{#<script src="{{ asset('bundles/gema/clientresources/imagecover/js/image-cover.js')}}"></script>#}
+		<script src="{{ asset('bundles/gema/clientresources/responsiveimg/js/responsiveImg.js')}}"></script>
+		<script>
+//            $('.portadaparent').cover(
+//                    {
+//                        target: '.portadaimg'
+//                    }
+//            );
+
+        var getUrl = window.location;
+        var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+        var urlphp=baseUrl+'/web/js/responsiveImg.js.php';
+
+
+           $(".portadaimg").responsiveImg(
+
+                   {
+
+                       srcAttribute : "src",
+                       pathToPHP : urlphp,
+                       createNewImages : true,
+                       jpegQuality : 90,
+                       callback:false
+                   }
+           );
+
+
+
+
+$('#loadmore').click(function(){
+var start={{ end }};
+var end={{ end+end }};
+
+ var ruta=Routing.generate('gema_clientsboletines',{start:start,end:end});
+ window.location=ruta;
+});
+        </script>
+
+	{% endblock %}

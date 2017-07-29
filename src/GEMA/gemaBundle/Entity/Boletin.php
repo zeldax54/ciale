@@ -70,6 +70,19 @@ class Boletin {
     private $publico;
 
     /**
+     * @var text
+     * @ORM\Column(name="youtube", type="text",nullable=true)
+     */
+    private $youtube;
+
+
+    /**
+     * @ORM\Column(name="guid", type="string",length=255 ,nullable=false)
+     */
+    private $guid;
+
+
+    /**
      * Get id
      *
      * @return integer 
@@ -278,5 +291,51 @@ class Boletin {
     public function getPublico()
     {
         return $this->publico;
+    }
+
+    /**
+     * Set youtube
+     *
+     * @param string $youtube
+     * @return Boletin
+     */
+    public function setYoutube($youtube)
+    {
+        $this->youtube = $youtube;
+
+        return $this;
+    }
+
+    /**
+     * Get youtube
+     *
+     * @return string 
+     */
+    public function getYoutube()
+    {
+        return $this->youtube;
+    }
+
+    /**
+     * Set guid
+     *
+     * @param string $guid
+     * @return Boletin
+     */
+    public function setGuid($guid)
+    {
+        $this->guid = $guid;
+
+        return $this;
+    }
+
+    /**
+     * Get guid
+     *
+     * @return string 
+     */
+    public function getGuid()
+    {
+        return $this->guid;
     }
 }

@@ -1,0 +1,28 @@
+admin_correo:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:Correo:index" }
+
+admin_correo_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:Correo:show" }
+
+admin_correo_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:Correo:new" }
+
+admin_correo_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:Correo:create" }
+    requirements: { _method: post }
+
+admin_correo_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:Correo:edit" }
+
+admin_correo_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:Correo:update" }
+
+admin_correo_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:Correo:delete" }

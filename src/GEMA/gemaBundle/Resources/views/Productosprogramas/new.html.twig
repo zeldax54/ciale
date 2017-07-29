@@ -1,0 +1,38 @@
+{% extends 'gemaBundle::layout.html.twig' %}
+{% form_theme form 'gemaBundle:Form:theme.html.twig' %}
+
+
+{% block gema_page -%}
+    <h4>Crear Productosprogramas</h4>
+    <fieldset style="background: #63BFE8;width: 50%;text-align: center;margin: 0 auto">
+        <h4>Media</h4>
+        <div class="form-group"> <input type="button" class="btn btn-file" value="Logo" id="editarlogo">
+            <input type="button" class="btn btn-file" value="Otras" id="editarArchivos"></div>
+
+    </fieldset>
+    {{ form(form) }}
+
+    <ul class="pager">
+        <li class="next"><a href="{{path('admin_productosprogramas')}}"><i class="fa fa-list"></i>
+                Listar Productosprogramas
+            </a></li>
+    </ul>
+{% endblock %}
+
+
+{% block custom_javascripts %}
+    <script>
+
+        var guid = '{{ guid }}';
+        $('#gema_gemabundle_productosprogramas_guid').attr('value',guid);
+        $('#editarlogo').click(function(){
+            GetData('productoprograma',guid+'L');
+        });
+        $('#editarArchivos').click(function(){
+            GetData('productoprograma',guid);
+        });
+
+
+
+    </script>
+{% endblock %}

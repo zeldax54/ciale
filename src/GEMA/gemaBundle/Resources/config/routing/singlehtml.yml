@@ -1,0 +1,28 @@
+admin_singlehtml:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:Singlehtml:index" }
+
+admin_singlehtml_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:Singlehtml:show" }
+
+admin_singlehtml_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:Singlehtml:new" }
+
+admin_singlehtml_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:Singlehtml:create" }
+    requirements: { _method: post }
+
+admin_singlehtml_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:Singlehtml:edit" }
+
+admin_singlehtml_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:Singlehtml:update" }
+
+admin_singlehtml_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:Singlehtml:delete" }

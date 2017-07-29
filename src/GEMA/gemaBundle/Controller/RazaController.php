@@ -211,7 +211,7 @@ class RazaController extends Controller
  
 
     
-    return $this->redirect($this->generateUrl('admin_raza_edit', array('id' => $id)));
+    return $this->redirect($this->generateUrl('admin_raza'));
   
 }
     /**

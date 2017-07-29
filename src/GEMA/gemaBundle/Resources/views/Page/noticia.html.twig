@@ -11,7 +11,11 @@
   {% block content %}
 <div class="row">
     <div class="col-md-12" style="text-align: center;margin: 0 auto">
-        {{ noticia.fechanoticia|date('d-M-Y') }}
+        {% if isboletin is defined %}
+        {{ noticia.fechaboletin|date('d-M-Y') }}
+            {% else %}
+                {{ noticia.fechanoticia|date('d-M-Y') }}
+        {% endif %}
         <div><p class="titulo">{{ noticia.titulo }}</p></div>
        <div class="col-md-12" style="text-align: center"> {{ noticia.introduccion|raw }}</div><br>
     <img class="portadaimg"   style="max-width: 80%" src="{{ asset(noticia.portada) }}" alt="Img"><br>

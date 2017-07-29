@@ -86,10 +86,48 @@ class MyHelper
         $ficheros = array_diff(scandir($path), array('.', '..'));
        foreach($ficheros as $f)
        {
-           if(mb_strtolower($f)==mb_strtolower($picName))
+           if(mb_strtolower($f)===mb_strtolower($picName))
                return $this->FileExt($f,$rutafolder,self::mediaFolder);
        }
         return null;
+
+    }
+
+    function videosPic($videourl){
+
+        preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $videourl, $match);
+        $youtube_id = $match[1];
+        $ruta=$this->directPic('minyoutube'.DIRECTORY_SEPARATOR,$youtube_id.'.jpg');
+        if($ruta==null){
+
+            $urlapi='https://img.youtube.com/vi/'.$youtube_id.'/sddefault.jpg';
+            global $kernel;
+            $path = $kernel->getRootDir() . DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'web'.DIRECTORY_SEPARATOR.'minyoutube'.DIRECTORY_SEPARATOR.$youtube_id.'.jpg';
+            copy($urlapi,$path);
+            return $path;
+        }
+
+        return $ruta;
+    }
+
+    function generateThumb($videourl){
+
+        try{
+
+            preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $videourl, $match);
+            $youtube_id = $match[1];
+            $ruta=$this->directPic('minyoutube'.DIRECTORY_SEPARATOR,$youtube_id);
+            if($ruta==null){
+
+                $urlapi='https://img.youtube.com/vi/'.$youtube_id.'/sddefault.jpg';
+                global $kernel;
+                $path = $kernel->getRootDir() . DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'web'.DIRECTORY_SEPARATOR.'minyoutube'.DIRECTORY_SEPARATOR.$youtube_id.'.jpg';
+                copy($urlapi,$path);
+                return $path;
+            }
+        }catch(\Exception $e){
+            return false;
+        }
 
     }
 
@@ -153,6 +191,76 @@ class MyHelper
          }
          return $mediaFolder.'default.png';
      }
+
+
+    /**
+     * @param $pictures array
+     * @param $videos array
+     * @param $agrupador int  Numero de elementos a mostrar en una pantalla del slider
+     * @return array
+     */
+    public function generateMedias($pictures, $videos, $agrupador){
+        $mediaInpage=array();
+       if($videos!=null){
+           $videos=json_decode($videos,true);
+           foreach($videos as $y)
+           {
+               $mediaInpage[]=array(
+                   'tipo'=>'video',
+                   'url'=> $y,
+                   'representacion'=>$this->directPic('genericfiles'.DIRECTORY_SEPARATOR,'video.png')
+               );
+           }
+       }
+        if(count($pictures)>0)
+            foreach($pictures as $mt){
+                $mediaInpage[]=array(
+                    'tipo'=>'img',
+                    'url'=> $mt,
+                    'representacion'=>$mt
+                );
+            }
+        $lis=array();
+        if(count($mediaInpage)>0)
+        {
+            $claves_aleatorias = array_rand($mediaInpage, count($mediaInpage));
+            $finalmedia=array();
+            foreach($claves_aleatorias as $clave)
+            {
+                $finalmedia[]=$mediaInpage[$clave];
+            }
+            $flag=0;
+            $flaadd=0;
+
+            shuffle ($mediaInpage);
+            for($i=0;$i<count($mediaInpage);$i++)
+            {
+                if($mediaInpage[$i]['tipo']=='video')
+                {
+                    $lis[$flaadd][]=array(
+
+                        'rep'=>$mediaInpage[$i]['representacion'],
+                        'url'=>$mediaInpage[$i]['url']
+
+                    );
+                }
+                else{
+                    $lis[$flaadd][] =array(
+
+                        'rep'=>$mediaInpage[$i]['representacion'],
+                        'url'=>$mediaInpage[$i]['representacion']
+
+                    );
+                }
+                $flag++;
+                if($flag==$agrupador)
+                    $flaadd++;
+            }
+        }
+
+        return $lis;
+
+    }
 
 
 }

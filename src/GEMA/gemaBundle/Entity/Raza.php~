@@ -122,6 +122,12 @@ class Raza
      */
     private $mocho;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="GEMA\gemaBundle\Entity\Razafather",inversedBy="razas", cascade={"persist"})
+     */
+
+    private $father;
+
 
 
     public function __toString()

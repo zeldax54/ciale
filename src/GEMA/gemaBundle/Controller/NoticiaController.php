@@ -60,8 +60,6 @@ class NoticiaController extends Controller
             $this->get("gema.utiles")->traza($accion);
             $em->persist($entity);
             $em->flush();
-
-            $helper->CreateDir( $webPath=$this->get('kernel')->getRootDir().'/../web/','noticia',$entity->getGuid());
             return $this->redirect($this->generateUrl('admin_noticias'));
         }
 

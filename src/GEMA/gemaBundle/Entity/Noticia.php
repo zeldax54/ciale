@@ -70,6 +70,13 @@ class Noticia {
     private $publico;
 
     /**
+     * @var text
+     * @ORM\Column(name="youtube", type="text",nullable=true)
+     */
+    private $youtube;
+
+
+    /**
      * @ORM\Column(name="guid", type="string",length=255 ,nullable=false)
      */
     private $guid;
@@ -245,5 +252,28 @@ class Noticia {
     public function getGuid()
     {
         return $this->guid;
+    }
+
+    /**
+     * Set youtube
+     *
+     * @param string $youtube
+     * @return Noticia
+     */
+    public function setYoutube($youtube)
+    {
+        $this->youtube = $youtube;
+
+        return $this;
+    }
+
+    /**
+     * Get youtube
+     *
+     * @return string 
+     */
+    public function getYoutube()
+    {
+        return $this->youtube;
     }
 }

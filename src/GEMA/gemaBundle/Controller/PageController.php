@@ -13,13 +13,21 @@ class PageController extends Controller {
             $reporaza = $em->getRepository('gemaBundle:Raza');
             $repodistribuidores = $em->getRepository('gemaBundle:Distribuidor');
             $distribuidores=$repodistribuidores->findAll();
-            $carne=$reporaza->findBy(array(
-             'tiporaza'=>1
-            ));
+
+           $fathers=$em->getRepository('gemaBundle:Razafather')->findAll();
+           $razasnofather=$em->getRepository('gemaBundle:Raza')->findBy(array(
+               'father'=>null,
+                'tiporaza'=>1
+           ));
+
+
+
+
 
         $leche=$reporaza->findBy(array(
             'tiporaza'=>3
         ));
+
         $helper=new MyHelper();
         $sliders=$helper->filesInFolder('mediainpage'.DIRECTORY_SEPARATOR.'princslider'.DIRECTORY_SEPARATOR);
         $princimg=$helper->randomPic('mediainpage'.DIRECTORY_SEPARATOR.'mainpagepics'.DIRECTORY_SEPARATOR);
@@ -33,14 +41,21 @@ class PageController extends Controller {
         $noticias = $em->getRepository('gemaBundle:Noticia')->lastthree();
 
         return $this->render('gemaBundle:Page:page.html.twig', array(
-'carne'=>$carne,'leche'=>$leche,'sliders'=>$sliders,'imgprinc'=>$princimg,'redimg'=>$redventasimg,
-                'distrib'=>$distribuidores,'imgtopcatalog'=>$imagetopdesccatalog,
-                'imgcarne'=>$imagecatalogCarne,'imgleche'=>$imagecatalogLeche,
+                'fathers'=>$fathers,
+                'razasnofather'=>$razasnofather
+                ,'leche'=>$leche,
+                'sliders'=>$sliders,
+                'imgprinc'=>$princimg,
+                'redimg'=>$redventasimg,
+                'distrib'=>$distribuidores,
+                'imgtopcatalog'=>$imagetopdesccatalog,
+                'imgcarne'=>$imagecatalogCarne,
+                'imgleche'=>$imagecatalogLeche,
                 'noticias'=>$noticias,
                 'boletincarne'=>$boletincarne,
                 'boletinleche'=>$boletinleche
                 )
-                );
+      );
     }
 
 

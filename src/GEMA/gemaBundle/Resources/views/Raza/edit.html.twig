@@ -9,6 +9,7 @@
 
         {{ form_start(edit_form) }}
         <div class="form-group"> <input type="button" class="btn btn-file" value="Editar Archivos" id="editarArchivos"></div>
+        {{ form_row(edit_form.father) }}
         {{ form_row(edit_form.tiporaza) }}
         {{ form_row(edit_form.nombre) }}
         {{ form_row(edit_form.descripcion) }}

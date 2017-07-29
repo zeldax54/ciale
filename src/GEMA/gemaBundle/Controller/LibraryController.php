@@ -47,10 +47,12 @@ class LibraryController extends Controller
         {
             $alldata=array(
                 0=>'raza',
-                1=>'boletines',
+                1=>'boletin',
                 2=>'toro',
                 3=>'mediainpage',
-                4=>'staff');
+                4=>'staff',
+                5=>'archivos',
+                6=>'productoprograma');
 
             foreach($alldata as $data)
             {
@@ -122,6 +124,17 @@ class LibraryController extends Controller
             return $mediaFolder.'default.png';
     }
 
+    private function SaberExt($filename){
+        $split  = explode('.',$filename);
+        return $split[count($split)-1];
+    }
+
+    private function isImg($ext){
+        if(array_search($ext,self::$imagenes)!==false)
+            return true;
+        return false;
+    }
+
 
     public function FilesUrlAction(){
         exit();
@@ -150,6 +163,29 @@ class LibraryController extends Controller
         }
         $fileName=$_FILES['file']['name'];
         if (move_uploaded_file($_FILES['file']['tmp_name'], $webPath.$fileName)) {
+
+            $ext=$this->SaberExt($fileName);
+
+            if($this->isImg($ext)==true){
+                $helper=new MyHelper();
+                $marcaguapic= $helper->randomPic('mediainpage'.DIRECTORY_SEPARATOR.'watermark'.DIRECTORY_SEPARATOR);
+                $estampa = imagecreatefrompng($marcaguapic);
+               if($ext=='jpg' )
+                   $im = imagecreatefromjpeg($webPath.$fileName);
+                if($ext=='png' )
+                    $im = imagecreatefrompng($webPath.$fileName);
+
+                $margen_dcho = 10;
+                $margen_inf = 0;
+                $sx = imagesx($estampa);
+                $sy = imagesy($estampa);
+                imagecopy($im, $estampa, imagesx($im) - $sx - $margen_dcho, imagesy($im) - $sy - $margen_inf, 0, 0, imagesx($estampa), imagesy($estampa));
+                imagepng($im,$webPath.$fileName);
+                imagedestroy($im);
+
+            }
+
+
             $final=array(
                 0=>$this->getRequest()->getBasePath().'/'.$folderFull.$_FILES['file']['name'],
                 1=>$this->getRequest()->getBasePath().'/'.$this->FileExt($_FILES['file']['name'],$folderFull,self::mediaFolder),
@@ -210,42 +246,6 @@ class LibraryController extends Controller
     }
 
 
-//    public function FindFileAction($texto)
-//    {
-//
-//            $webPath = $this->get('kernel')->getRootDir() . '/../web/library';
-//            $ficheros = array_diff(scandir($webPath), array('.', '..'));
-//            $final=array();
-//
-//            if($texto!="-1")
-//            foreach($ficheros as $fichero)
-//            {
-//                if(strpos(strtolower($fichero),strtolower($texto))!==false)
-//                {
-//                    $final[]= array( 0=>$fichero,
-//                        1=>$this->FileExt($fichero,self::libraryFolder,self::mediaFolder));
-//                }
-//            }
-//            else
-//                foreach($ficheros as $fichero)
-//            {
-//                $final[]=array(
-//                    0=>$fichero,
-//                    1=>$this->FileExt($fichero,self::libraryFolder,self::mediaFolder)
-//                );
-//            }
-//
-//            $archivosJSON = array();
-//            foreach ($final as $f ) {
-//                $archivosJSON[] = array(
-//                    'nombre' => $f[0],
-//                    'imagen' => $f[1]
-//                );
-//            }
-//
-//            return new JsonResponse($archivosJSON);
-//
-//
-//    }
+
 
 }

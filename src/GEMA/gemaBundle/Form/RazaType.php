@@ -134,6 +134,9 @@ class RazaType extends AbstractType
             ->add('mocho',null,array(
                 'label'=>'Mocho(toros de esta raza contienen mocho)'
             ))
+            ->add('father',null,array(
+                'label'=>'Raza Padre'
+            ))
 
         ;
     }

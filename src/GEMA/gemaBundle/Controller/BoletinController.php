@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use GEMA\gemaBundle\Entity\Boletin;
 use GEMA\gemaBundle\Form\BoletinType;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use GEMA\gemaBundle\Helpers\MyHelper;
 
 /**
  * Boletin controller.
@@ -49,12 +50,10 @@ class BoletinController extends Controller
     public function createAction(Request $request)
     {
 
-
         $entity = new Boletin();
-
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-
+        $helper=new MyHelper();
         if ($form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
@@ -62,36 +61,12 @@ class BoletinController extends Controller
             $this->get("gema.utiles")->traza($accion);
             $em->persist($entity);
             $em->flush();
-            //
-            $archivos= $request->request->get('textareas');
-            $nombres= $request->request->get('nombresarray');
-
-            for($i=0;$i<count($archivos);$i++)
-            {
-                $webPath = $this->get('kernel')->getRootDir().'/../web/boletines/'.$entity->getId();
-                $foto=$archivos[$i];
-                $nombrefoto=$nombres[$i];
-                $baseFromJavascript=$foto;
-                $base_to_php = explode(',', $baseFromJavascript);
-                $data = base64_decode($base_to_php[1]);
-                if (!file_exists($webPath)) {
-                    mkdir($webPath, 0777, true);
-                }
-
-                $webPath=$webPath.'/'.$nombrefoto;
-                file_put_contents($webPath,$data);
-            }
-
-            //
             return $this->redirect($this->generateUrl('boletin'));
         }
-
-
-
-    
        return $this->render('gemaBundle:Boletin:new.html.twig', array(
                     'entity' => $entity,
                     'form' => $form->createView(),
+           'guid'=>$helper->GUID()
         ));
     }
 
@@ -123,11 +98,12 @@ class BoletinController extends Controller
         $entity = new Boletin();
 
         $form   = $this->createCreateForm($entity);
-
+        $helper=new MyHelper();
     
         return $this->render('gemaBundle:Boletin:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'guid'=> $helper->GUID(),
         ));
     }
 
@@ -238,29 +214,19 @@ class BoletinController extends Controller
             
         $accion = 'Boletin Borrado';
         $this->get("gema.utiles")->traza($accion);
-        $ident=$entity->getId();
 
-        $webPath = $this->get('kernel')->getRootDir().'/../web/boletines/'.$ident;
+        $guid=$entity->getGuid();
+        $webPath = $this->get('kernel')->getRootDir().'/../web/boletin/'.$guid;
+        $webPathg = $this->get('kernel')->getRootDir().'/../web/boletin/'.$guid.'G';
             $em->remove($entity);
             $em->flush();
-if(file_exists($webPath))
-        $this->_remove_path($webPath);
-
+        $helper=new MyHelper();
+        $helper->RemoveFolder($webPath);
+        $helper->RemoveFolder($webPathg);
         return $this->redirect($this->generateUrl('boletin'));
     }
 
-    function _remove_path($folder){
-        $files = glob( $folder . DIRECTORY_SEPARATOR . '*');
-        foreach( $files as $file ){
-            if($file == '.' || $file == '..'){continue;}
-            if(is_dir($file)){
-                $this->_remove_path( $file );
-            }else{
-                unlink( $file );
-            }
-        }
-        rmdir( $folder );
-    }
+
 
     /**
      * Creates a form to delete a Boletin entity by id.

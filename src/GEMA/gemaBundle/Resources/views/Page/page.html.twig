@@ -20,7 +20,7 @@
           <div class="col-sm-6 col-md-6 centrarin760" data-pg-collapsed>
               <div class="thumbnail" data-pg-collapsed >
 
-                  <img id="princimg" src="{{ asset(imgprinc) }}" alt="" style="width: 100%;height: 380px">
+                  <img id="princimg" class="" src="{{ asset(imgprinc) }}" alt="" style="width: 100%;height: 380px">
                   <div class="caption" style="background:#00a1e7">
                       <div class="row" id="helper">
                           <div class="col-md-6">
@@ -38,8 +38,11 @@
 
                           <div class="col-md-12">
                               <p class="headinfo" id="razacarne">Ir directo a: &nbsp;
-                              {% for raza in carne %}
-                                  <a href="{{  path('gema_razalist', {'nombreraza': raza.nombre})  }}" class="abodydinfo"><span class="bodydinfo">{{ raza.nombre }}</span> </a>&nbsp;|
+                              {% for raza in fathers %}
+                                  <a href="{{  path('gema_razalist', {'id': raza.id,'isfather':1})  }}" class="abodydinfo"><span class="bodydinfo">{{ raza.nombre }}</span> </a>&nbsp;|
+                                  {% endfor %}
+                                  {% for raza in razasnofather %}
+                                      <a href="{{  path('gema_razalist', {'id': raza.id,'isfather':0})  }}" class="abodydinfo"><span class="bodydinfo">{{ raza.nombre }}</span> </a>&nbsp;|
                                   {% endfor %}
                               </p>
 
@@ -95,7 +98,7 @@
 
          </div>
 
-         <div class="row" style="padding-top: 34px;" id="flagit3id">
+         <div class="row" style="padding-top: 33px;" id="flagit3id">
              <div class="col-md-12">
              <a href="{{  path('gema_redventas',{'codigo':-1}) }}" target="_self" class="btn busqavanz conozcamas">Conozca más aquí&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i></a>
 
@@ -185,16 +188,16 @@
 
 
 
-                  <ul><li class="newsbar-title myt"><h1 class="content-color-alternate myh1">NOVEDADES CIALE ALTA</h1><h2 class="content-color"></h2><a href="{{  path('gema_clientnews',{'tipo':'Todas','start':0,'end':10})  }}" target="_self" class="btn seeall">VER TODAS<i class="fa fa-angle-right"></i></a></li>
+                  <ul><li class="newsbar-title myt"><h1 class="content-color-alternate myh1">NOVEDADES CIALE ALTA</h1><h2 class="content-color"></h2><a href="{{  path('gema_clientnews',{'tipo':'Todas','start':0,'end':9})  }}" target="_self" class="btn seeall">VER TODAS<i class="fa fa-angle-right"></i></a></li>
 
                       {% for n in noticias %}
                           <li>
-                              <a class="title-link" href="{{ path('gema_clientsinglenews',{'id':n.id}) }}">
-                                  <h1 class="t fagobold">{{ n.titulo }}</h1></a><br>
+                              <div style="/*height: 113px!important;*/"> <a class="title-link" href="{{ path('gema_clientsinglenews',{'id':n.id}) }}">
+                                  <h1 class="t fagobold">{{ n.titulo }}</h1></a></div><br>
 
-                                  {{ n.introduccion | raw }}
+                                  {{ n.introduccion|raw   }}<br>
 
-                              <a class="news-readmore" style="margin-top: 10px" href="#">Leer mas &nbsp;&nbsp;&gt;</a>
+                              <a class="news-readmore" style="margin-top: 10px;font-family: Fago-bold;font-size: 14px" href="{{ path('gema_clientsinglenews',{'id':n.id}) }}">Leer mas &nbsp;&nbsp;&gt;</a>
                           </li>
                       {% endfor %}
 
@@ -243,7 +246,7 @@
                    $('#datororo').keyup(function(){
                      if($(this).val().length>1)
                      {
-                         buscarTorosLike($(this).val(),'datororo','dinamiculcontp','148px');
+                         buscarTorosLike($(this).val(),'datororo','dinamiculcontp','400px');
                      }
                    });
 

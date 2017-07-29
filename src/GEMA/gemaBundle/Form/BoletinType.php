@@ -16,23 +16,16 @@ class BoletinType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('titulo', CKEditorType::class, array(
-                'config' => array(
-                    'uiColor' => '#e0833d',
-                    'language' => 'es',
-
-                    //...
-                ),
-            ))
+            ->add('titulo')
             ->add('introduccion', CKEditorType::class, array(
                 'config' => array(
-                    'uiColor' => '#e0833d',
+                    'uiColor' => '#00a1e7',
                     'language' => 'es',
                 ),
             ))
             ->add('cuerpo', CKEditorType::class, array(
                 'config' => array(
-                    'uiColor' => '#e0833d',
+                    'uiColor' => '#00a1e7',
                     'language' => 'es',
                     'extraPlugins' => 'youtube,slideshow',
 
@@ -45,6 +38,24 @@ class BoletinType extends AbstractType
             ))
             ->add('publico','checkbox', array(
                 'required' => false
+            ))
+            ->add('guid',null,array(
+                'label_attr'=>array(
+                    'style'=>'display:none'
+                ),
+                'attr'=>array(
+                    'style'=>'display:none'
+                )
+            ))
+            ->add('youtube',null,array(
+                'label_attr'=>array(
+                    'style'=>'display:none'
+                ),
+                'attr'=>array(
+                    'style'=>'display:none',
+                    'autocomplete'=>'off'
+                ),
+
             ))
         ;
     }

@@ -70,6 +70,13 @@ class Noticia {
     private $publico;
 
     /**
+     * @var text
+     * @ORM\Column(name="youtube", type="text",nullable=true)
+     */
+    private $youtube;
+
+
+    /**
      * @ORM\Column(name="guid", type="string",length=255 ,nullable=false)
      */
     private $guid;

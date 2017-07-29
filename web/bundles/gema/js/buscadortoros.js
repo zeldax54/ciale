@@ -42,7 +42,11 @@ function BuscarToros(dato){
 
 }
 
-  function buscarTorosLike(dato,parentid,divparent,customheight){
+  function buscarTorosLike(dato,parentid,divparent,customheight,divparent,isresponsive){
+      if(divparent==undefined)
+          divparent='divparent';
+      if(isresponsive==undefined)
+          isresponsive=false;
      var url = Routing.generate('gema_searchtoroscarnelike',{dato:dato});
       var getUrl = window.location;
       var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
@@ -78,8 +82,12 @@ function BuscarToros(dato){
                       var torodetalleruta=Routing.generate('gema_torodetail',{toroid:data[f].id});
                       lis+='<li class="menu-items dynamicliscontainer" >' +
                           '<a href="'+torodetalleruta+'">' +
-                          '<div><div class="col-xs-4"><img class="imgdynamicli" src="'+baseUrl+data[f].imagen+'">' +
-                          '</div>' +
+                          '<div><div class="col-xs-4">';
+                              if(isresponsive==false)
+                                 lis+= '<img class="imgdynamicli" src="'+baseUrl+data[f].imagen+'">';
+                               else
+                                  lis+= '<img width="40px" height="40px" class="" src="'+baseUrl+data[f].imagen+'">';
+                         lis+= '</div>' +
                           '<div class="col-xs-8">'+
                           '<strong>'+data[f].apodo+'</strong><br>' +
                           '<span>'+data[f].nombreraza+'</span><br>' +

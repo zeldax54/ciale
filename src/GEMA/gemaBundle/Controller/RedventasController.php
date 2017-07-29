@@ -60,14 +60,18 @@ class RedventasController extends Controller
                 $img=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'user.png');
             $s->foto=$img;
         }
-
+        $gife=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'paperplane.gif');
+        $razas = $em->getRepository('gemaBundle:Raza')->findAll();
         return $this->render('gemaBundle:Page:red-ventas.html.twig', array(
               'datosoficina'=> $datosof,
                 'staff'=>$staff,
                 'distrib'=>$distribuidores,
                 'provname'=>$provincianame,
                 'codigo'=>$codigo,
-                'localdist'=>$localdistrib
+                'localdist'=>$localdistrib,
+                 'gife'=>$gife,
+
+
 
             )
         );

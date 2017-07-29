@@ -42,6 +42,19 @@ class BoletinRepository extends EntityRepository
                 $qb->orderBy("B." . $key, $value);
             }
         }
+        $qb->orderBy('B.fechaboletin','desc');
         return $qb;
+    }
+
+    public function first10($start,$end) {
+        $qb = new QueryBuilder($this->getEntityManager());
+        $qb
+            ->select("B")
+            ->from($this->getClassName(), "B");
+
+        $qb->orderBy('B.fechaboletin','desc')
+            ->setFirstResult($start)
+            ->setMaxResults($end);
+        return $qb->getQuery()->getResult();
     }
 }

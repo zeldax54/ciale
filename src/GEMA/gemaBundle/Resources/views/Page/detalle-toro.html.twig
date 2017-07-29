@@ -23,14 +23,25 @@
 								<div class="col-lg-2 col-md-2 col-sm-2 col-xs-9">
 									<div class="btn-group">
 									  <button type="button" class="btn btn-xs dropdown-toggle btn-toro" data-toggle="dropdown">
-										{{ toro.raza.nombre }} <span class="caret"></span>
+										{{ father.nombre }} <span class="caret"></span>
 									  </button>
 									  <ul class="dropdown-menu" style="background: #B14E0A">
-										  <li><a class="" href=" {{  path('gema_razalist', {'nombreraza': toro.raza.nombre})  }} ">Listdo de {{ toro.raza.nombre }}&nbsp;&nbsp;&nbsp;</a></li>
-										  {% for r in razas %}
-											  <li><a class="" href=" {{  path('gema_razalist', {'nombreraza': r.nombre})  }} ">Listado de {{ r.nombre }}&nbsp;&nbsp;&nbsp;</a></li>
-											  <li class="divider"></li>
-										  {% endfor %}
+
+										  <li class="divider"></li>
+										  {% if fathersmenu  is defined %}
+
+											  {% for r in fathersmenu %}
+												  <li><a style="color:white" class="" href=" {{  path('gema_razalist', {'id': r.id,'isfather':1})  }} ">{{ r.nombre }}&nbsp;&nbsp;&nbsp;</a></li>
+												  <li class="divider"></li>
+											  {% endfor %}
+										  {% endif %}
+
+										  {% if razasmenu is defined %}
+											  {% for r in razasmenu %}
+												  <li><a style="color:white" class="" href=" {{  path('gema_razalist', {'id': r.id,'isfather':0})  }} ">{{ r.nombre }}&nbsp;&nbsp;&nbsp;</a></li>
+												  <li class="divider"></li>
+											  {% endfor %}
+										  {% endif %}
 									  </ul>
 									</div>
 								</div>
@@ -40,10 +51,10 @@
 							<div >
 							
 								<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-									<button type="submit" class="btn btn-warning btn-sm">Generar PDF</button>
+									{#<button type="submit" class="btn btn-warning btn-sm">Generar PDF</button>#}
 								</div>
 								<div class="col-lg-7 col-md-6 col-sm-9 col-xs-7">
-									<div class="form-group buscador">
+									<div class="form-group buscador" id="padredatotextresp">
 									  <em><input type="text" id="datotextresp" class="form-control" placeholder="Buscar por Nombre, Prefijo o padre ..."></em>
 									</div>
 								</div>
@@ -81,15 +92,26 @@
 						<!-- Split button -->
 									<div class="btn-group">
 										<span  class="btn btn-xs dropdown-toggle btn-toro mybtn" data-toggle="dropdown">
-											{{ toro.raza.nombre }}&nbsp;&nbsp;&nbsp;
+											{{ father.nombre }}&nbsp;&nbsp;&nbsp;
 											<span class="caret"></span>
 										</span>
-										<ul class="dropdown-menu" style="background: #B14E0A;/">
-											<li><a class="mya" href=" {{  path('gema_razalist', {'nombreraza': toro.raza.nombre})  }} ">Listaado de {{ toro.raza.nombre }}&nbsp;&nbsp;&nbsp;</a></li>
-										{% for r in razas %}
-											<li><a class="mya" href=" {{  path('gema_razalist', {'nombreraza': r.nombre})  }} ">Listado de {{ r.nombre }}&nbsp;&nbsp;&nbsp;</a></li>
-											<li class="divider"></li>
-										{% endfor %}
+										<ul class="dropdown-menu" style="background: #B14E0A">
+
+
+											{% if fathersmenu  is defined %}
+
+												{% for r in fathersmenu %}
+													<li><a style="color:white" class="" href=" {{  path('gema_razalist', {'id': r.id,'isfather':1})  }} ">{{ r.nombre }}&nbsp;&nbsp;&nbsp;</a></li>
+													<li class="divider"></li>
+												{% endfor %}
+											{% endif %}
+
+											{% if razasmenu is defined %}
+												{% for r in razasmenu %}
+													<li><a style="color:white" class="" href=" {{  path('gema_razalist', {'id': r.id,'isfather':0})  }} ">{{ r.nombre }}&nbsp;&nbsp;&nbsp;</a></li>
+													<li class="divider"></li>
+												{% endfor %}
+											{% endif %}
 										</ul>
 									</div>
 								</li>
@@ -102,16 +124,16 @@
 						  <div class="navbar-form navbar-right">
 							
 							<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-								<button id="btn-pdf" type="submit" class="btn btn-warning btn-sm">Generar PDF</button>
+								{#<button id="btn-pdf" type="submit" class="btn btn-warning btn-sm">Generar PDF</button>#}
 							</div>
 							<div class="col-lg-7 col-md-6 col-sm-9 col-xs-9">
-								<div class="form-group buscador">
+								<div class="form-group buscador" id="padredatotext">
 								  <em><input type="text" id="datotext" class="form-control" placeholder="Buscar por Nombre, Prefijo o padre ..."></em>
 								</div>
 							</div>
- 							<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-								<a href="#" id="buscartoros"><img class="btn-buscar-logo" src="{{ asset('bundles/gema/clientresources/img/bt_buscar.png')}}"></a>
-     						</div>
+ 							{#<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">#}
+								{#<a href="#" id="buscartoros"><img class="btn-buscar-logo" src="{{ asset('bundles/gema/clientresources/img/bt_buscar.png')}}"></a>#}
+     						{#</div>#}
 
 						  </div>
 
@@ -131,8 +153,8 @@
 
 				<div style="position: relative; left: 0; top: 0;" id="imgwatercont" class="example">
 
-					<img id="imagen-principal" width="480" height="300" src="{{ asset(princimg) }}" class="img-responsive toroimg" style="display: none"/>
-					<img id="imagen-wattermark"  src="{{ asset(watermarkimg) }}" class="img-responsive marcaagua" style="display: none"/>
+				<a data-fancybox="gallery" href="{{ asset(princimg) }}">	<img  id="imagen-principal" width="95%" height="300" src="{{ asset(princimg) }}" class="img-responsive toroimg"/></a>
+					{#<img id="imagen-wattermark"  src="{{ asset(watermarkimg) }}" class="img-responsive marcaagua" style="display: none"/>#}
 				</div>
 
 
@@ -376,7 +398,7 @@
 							<tr class="{{ cycle(["alterna", ""], loop.index) }}">
 								<th scope="row">{{ dato['rowhead'] }}</th>
 								{% for td in tabla.tabladatos %}
-									{%   if dato['rowhead']|lower =='ranking' and dato[td.nombre] | replace('%','')<=25 and td.nombre|lower !='altura' %}
+									{%   if dato['rowhead']|lower =='ranking' and dato[td.nombre] | replace('%','')<=25 and td.nombre|lower !='altura' and dato[td.nombre]!='-' %}
 									<td class="downprom">
 										{{ dato[td.nombre] }}
 									</td>
@@ -406,23 +428,23 @@
     {% block custom_javascripts %}
 		<script src="{{ asset('bundles/gema/clientresources/fancybox/dist/jquery.fancybox.min.js')}}"></script>
 		<script src="{{ asset('bundles/gema/clientresources/jquerybxslider/jquery.bxslider.min.js')}}"></script>
-		<script src="{{ asset('bundles/gema/clientresources/watermark/watermark-polyfill.js')}}"></script>
+		{#<script src="{{ asset('bundles/gema/clientresources/watermark/watermark-polyfill.js')}}"></script>#}
 		<script src="{{ asset('bundles/gema/js/buscadortoros.js')}}"></script>
 
 		<script>
 
 
 //
-         var url1=$('#imagen-principal').prop('src');
-         var url2=$('#imagen-wattermark').prop('src');
-
-       watermark([url1, url2])
-		.image(watermark.image.lowerRight(1))
-		.then(function (img) {
-
-			document.getElementById('imgwatercont').appendChild(img);
-
-		});
+//         var url1=$('#imagen-principal').prop('src');
+//         var url2=$('#imagen-wattermark').prop('src');
+//
+//       watermark([url1, url2])
+//		.image(watermark.image.lowerRight(1))
+//		.then(function (img) {
+//
+//			document.getElementById('imgwatercont').appendChild(img);
+//
+//		});
 			$(document).ready(function(){
 				$('.bxslider').bxSlider(
 						{
@@ -434,33 +456,25 @@
 
 						}
 				);
+
+
+				$('#datotext').keyup(function(){
+					if($(this).val().length>1)
+					{
+						buscarTorosLike($(this).val(),'datotext','padredatotext','800px','padredatotext');
+					}
+				});
+
+				$('#datotextresp').keyup(function(){
+					if($(this).val().length>1)
+					{
+						buscarTorosLike($(this).val(),'datotextresp','padredatotextresp','300px','padredatotextresp',true);
+					}
+				});
+
+
 			})
 		</script>
 
-		<script>
-
-
-			$('#buscartorosresp').click(function(){
-				var dato=$('#datotextresp').val();
-				BuscarToros(dato);
-
-			});
-
-			$('#buscartoros').click(function(){
-				var dato=$('#datotext').val();
-				BuscarToros(dato);
-
-			});
-
-			$('#datotext').keyup(function(e){
-				if(e.keyCode == 13)
-					BuscarToros($(this).val());
-			});
-			$('#datotextresp').keyup(function(e){
-				if(e.keyCode == 13)
-					BuscarToros($(this).val());
-			});
-
-		</script>
 
 	{% endblock %}

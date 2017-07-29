@@ -13,7 +13,9 @@
     <div class="table-responsive">
         <table class="record_properties table table-hover table table-striped table-vmiddle" id="data-table-command" data-ajax="true" data-url="{{path('admin_raza')}}" >
             <thead>
-                <tr>                                                                <th data-column-id="nombre">Raza</th>
+                <tr>
+                    <th data-column-id="fahter" data-formatter="father">Raza Padre</th>
+                    <th data-column-id="nombre">Raza</th>
                                                                     <th data-column-id="descripcion">Descripcion</th>
                         
                     <th colspan="3" data-formatter="commands">Acciones</th>
@@ -67,10 +69,12 @@
                     return "<a href='" + Routing.generate('admin_raza_edit', {id: row.id}) + "'  class=\"btn btn-icon command-edit\" ><span class=\"md md-edit\"></span></a> " +
                             "<a href='" + Routing.generate('admin_raza_delete', {id: row.id}) + "' data-id=\'" + row.id + "\' class=\"btn btn-icon command-delete\" ><span class=\"md md-delete\"></span></a>";
                 }
-               /* ,
-                "area": function(column, row) {
-                    return "" + row.area.nombre;
-                }*/
+                ,
+                "father": function(column, row) {
+                    if(row.father == undefined)
+                            return "";
+                    return "" + row.father.nombre;
+                }
             }, templates: {
                 loading: "<tr><td colspan='9' class=\"loading\"><div class='loading'><img src='{{ asset('bundles/gema/images/loading.gif') }}' class='img-responsive'></div></td></tr>"
             }

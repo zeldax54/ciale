@@ -1,3 +1,19 @@
+gema_admin_razafather:
+    resource: "@gemaBundle/Resources/config/routing/razafather.yml"
+    prefix:   /admin/razafather
+
+gema_admin_correo:
+    resource: "@gemaBundle/Resources/config/routing/correo.yml"
+    prefix:   /admin/correo
+
+gema_admin_productosprogramas:
+    resource: "@gemaBundle/Resources/config/routing/productosprogramas.yml"
+    prefix:   /admin/productosprogramas
+
+gema_admin_singlehtml:
+    resource: "@gemaBundle/Resources/config/routing/singlehtml.yml"
+    prefix:   /admin/singlehtml
+
 gema_admin_distribuidorlocal:
     resource: "@gemaBundle/Resources/config/routing/distribuidorlocal.yml"
     prefix:   /admin/distribuidorlocal
@@ -112,7 +128,7 @@ gema_admin_distribuidor:
     prefix: admin/distribuidor
 
 gema_razalist:
-    pattern:  /{nombreraza}/listraza
+    pattern:  /{id}/{isfather}/listraza
     defaults: { _controller: "gemaBundle:Razalist:listRaza" }
 
 gema_torodetail:
@@ -150,3 +166,31 @@ gema_clientnews:
 gema_clientsinglenews:
     pattern:  /{id}/new
     defaults: { _controller: "gemaBundle:Clientnews:clientsinflenoticia" }
+
+gema_clientsboletines:
+    pattern:  /{start}/{end}/boletines
+    defaults: { _controller: "gemaBundle:Clientnews:clienlistboletines" }
+
+gema_clientboletin:
+    pattern:  /{id}/clientboletin
+    defaults: { _controller: "gemaBundle:Clientnews:clientboletin" }
+
+gema_clientcontenido:
+    pattern:  /{nombre}/contenido
+    defaults: { _controller: "gemaBundle:Singlehtmlclient:gethtml" }
+
+gema_prodprog:
+    pattern:  /productosprogramas
+    defaults: { _controller: "gemaBundle:ProdProgclient:index" }
+
+gema_mailindex:
+    pattern:  /contacto
+    defaults: { _controller: "gemaBundle:Mail:contactindex" }
+
+gema_sendmail:
+    pattern:  /sendmail
+    defaults: { _controller: "gemaBundle:Mail:sendmail" }
+
+gema_sellermail:
+    pattern:  /sellermail
+    defaults: { _controller: "gemaBundle:Mail:sellermail" }

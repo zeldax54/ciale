@@ -41,10 +41,10 @@
 
 
 													  <ul class="vc_grid-filter vc_clearfix vc_grid-filter-default vc_grid-filter-size-md vc_grid-filter-center vc_grid-filter-color-grey" data-vc-grid-filter="category">
-                                                          <li class="vc_active vc_grid-filter-item linavo" href="{{  path('gema_clientnews',{'tipo':tiposelected,'start':0,'end':10})  }}"><span data-vc-grid-filter-value="*">{{ tiposelected }}</span></li>
+                                                          <li class="vc_active vc_grid-filter-item linavo" href="{{  path('gema_clientnews',{'tipo':tiposelected,'start':0,'end':9})  }}"><span data-vc-grid-filter-value="*">{{ tiposelected }}</span></li>
 
 			{% for tipo in tiposnoticias %}
-			<li class="vc_grid-filter-item linavo" href="{{  path('gema_clientnews',{'tipo':tipo.nombre,'start':0,'end':10})  }}"><span data-vc-grid-filter-value=".vc_grid-term-3">{{ tipo.nombre }}</span></li>
+			<li class="vc_grid-filter-item linavo" href="{{  path('gema_clientnews',{'tipo':tipo.nombre,'start':0,'end':9})  }}"><span class="spanchilde" data-vc-grid-filter-value=".vc_grid-term-3">{{ tipo.nombre }}</span></li>
 			{% endfor %}
 
 
@@ -54,7 +54,7 @@
                                                       {% if noticias|length==0 %}
                                                           <div  style="text-align: center">
                                                           <h4 class="noticiastitle">No hay mas noticias para mostrar</h4>
-                                                          <a style="font-family: 'Fago-normal';font-weight: bold" href="{{  path('gema_clientnews',{'tipo':tiposelected,'start':0,'end':10})  }}">Volver al inicio de noticias de {{ tiposelected }}</a>
+                                                          <a style="font-family: 'Fago-normal';font-weight: bold" href="{{  path('gema_clientnews',{'tipo':tiposelected,'start':0,'end':9})  }}">Volver al inicio de noticias de {{ tiposelected }}</a>
                                                               </div>
                                                       {% endif %}
 													  <div class="vc_grid-filter-select vc_grid-filter-center vc_grid-filter-color-grey" data-vc-grid-filter-select="category">
@@ -71,7 +71,7 @@
 
 																  {% for noticia in noticias %}
 																	  <div class="col-md-4 portadaparent" data-pg-collapsed="" style="margin-bottom: 1em;text-align: center">
-																		  <a href="{{ path('gema_clientsinglenews',{'id':noticia.id}) }}"><img data-src="" class="portadaimg" src="{{ asset(noticia.portada) }}" alt="noticia" style="max-width: 100%;height: 180px"></a>
+																		  <a href="{{ path('gema_clientsinglenews',{'id':noticia.id}) }}"><img data-src="" class="portadaimg" src="{{ asset(noticia.portada) }}" alt="" style="max-width: 100%;height: 180px"></a>
 																		  <div class="caption" style="text-align: center;margin:0 auto">
 																			  <div class="row"><br>
                                                                                 <div>  <span class="" style="font-family: Fago-Bold !important;">{{ noticia.fechanoticia|date('d-M-Y')  }}</span></div>
@@ -84,8 +84,8 @@
 
 																			  <div class="row" style="padding-top: 20px;" >
                                                                                   <div class="row">
-                                                                                      <div class="col-md-12" style="width: 90%;/*! text-align: justify; *//*! margin: 0 auto; */margin-left: 1em;">
-																				 {{ noticia.introduccion |raw }}
+                                                                                      <div class="col-md-12 resumenot"  style="width: 90%;height: 150px;margin-left: 0em;"><br>
+																				 {{ (noticia.introduccion|striptags|slice(0, 200)~'...')|raw }}
 
 																			  </div>
 																			  </div>
@@ -110,7 +110,7 @@
 
 															  </div>
                                                               {% if noticias|length!=0 %}
-                                                 <div class="vc_pageable-load-more-btn" data-vc-grid-load-more-btn="true"><div class="vc_btn3-container  vc_grid-btn-load_more vc_btn3-center"><a href="#" id="loadmore" class="vc_general vc_btn3  vc_btn3-size-md vc_btn3-shape-square vc_btn3-style-custom vc_btn3-block vc_btn3-icon-left" style="background-color: rgb(3, 70, 148); color: rgb(255, 255, 255); display: block;"><i class="vc_btn3-icon fa fa-adjust"></i> Load more</a></div></div></div><div class="vc_grid-loading"></div></div>
+                                                 <div class="vc_pageable-load-more-btn" data-vc-grid-load-more-btn="true"><div class="vc_btn3-container  vc_grid-btn-load_more vc_btn3-center"><a href="#" id="loadmore" class="vc_general vc_btn3  vc_btn3-size-md vc_btn3-shape-square vc_btn3-style-custom vc_btn3-block vc_btn3-icon-left" style="background-color: rgb(3, 70, 148); color: rgb(255, 255, 255); display: block;"><i class="vc_btn3-icon fa fa-adjust"></i>Cargar Más</a></div></div></div><div class="vc_grid-loading"></div></div>
 											  </div><!-- vc_grid end -->
 										  </div></div>{% endif %}
                                   </div>

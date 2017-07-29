@@ -327,6 +327,12 @@ class Toro
 
     private $youtubes;
 
+    /**
+     * @var string
+     * @ORM\Column(name="mocho", type="string",length=255,nullable=true)
+     */
+    private $mocho;
+
 
     /**
      * Get id
@@ -1497,4 +1503,27 @@ class Toro
     }
 
 
+
+    /**
+     * Set mocho
+     *
+     * @param string $mocho
+     * @return Toro
+     */
+    public function setMocho($mocho)
+    {
+        $this->mocho = $mocho;
+
+        return $this;
+    }
+
+    /**
+     * Get mocho
+     *
+     * @return string 
+     */
+    public function getMocho()
+    {
+        return $this->mocho;
+    }
 }

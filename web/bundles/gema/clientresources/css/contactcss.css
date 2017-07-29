@@ -1,0 +1,49 @@
+label{
+	font-family:'Fago-normal';
+}
+
+input,textarea{
+	font-family:'Fago-normal';
+}
+
+.sb,.sb:hover{
+	position: absolute;
+    top: 5px;
+    right: 12% !important;
+    padding: 0;
+    color: #fff !important;
+    background-color: #00388B;
+    border-color: #00388B;
+    border-width: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 0 40px 40px 0;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: all 0.4s linear;
+    background-repeat: no-repeat;
+    background-size: 70%;
+    background-position: center;
+	background-image:url(/cialesymf/web/bundles/gema/clientresources/img/email.png)
+}
+
+.selectmultiple{
+	font-family:'Fago-normal';
+	width: 70%;
+    height: 200px !important;
+	
+}
+form .required::after{
+	content: "*";
+   color: #cc0920;
+
+right: 0;
+}
+
+.errormaxwidth{
+	width:90%;
+}
+.form-group{
+	padding-bottom:20px;
+}
+

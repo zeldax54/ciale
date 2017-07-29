@@ -85,7 +85,8 @@ font-weight: bold;
 
 .table > tbody > tr > td
 {
-	color: #D24C26;
+	/*color: #D24C26;*/
+	cont-family:'Fago-normal';
 }
 
 a{
@@ -103,6 +104,10 @@ label{
 }
 address,p,strong{
 	font-family:'Fago-normal';
+}
+
+#imagen-principal{
+	border-radius:7px 7px 7px 7px;
 }
 
 

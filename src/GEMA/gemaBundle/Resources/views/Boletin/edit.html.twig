@@ -4,8 +4,25 @@
 
     {% block gema_page -%}
     <h4>Editar Boletin </h4>
-    <input type="text" id="idboletin" value="{{ idboletin }}" hidden>
-        <div class="form-group"> <input type="button" class="btn btn-file" value="Editar Archivos" id="editarArchivos"></div>
+
+        <fieldset style="background: #63BFE8;width: 50%;text-align: center;">
+            <h4>Media</h4>
+            <div class="form-group"> <input type="button" class="btn btn-file" value="Imagen(es) para la Portada" id="editarArchivos">
+                <input type="button" class="btn btn-file" value="Imagen(es) para la Galería" id="editarArchivosg"></div>
+
+
+            <table id="tabla" style="background:#63BFE8" class="table table-hover table table-striped  tablagen">
+                <thead>
+                <tr data-tabullet-map="id">
+                    <th data-tabullet-map="video">Videos(url)</th>
+                    <th width="50" data-tabullet-type="edit"></th>
+                    <th width="50" data-tabullet-type="delete"></th>
+                </tr>
+                </thead>
+
+            </table>
+        </fieldset>
+
     {{ form(edit_form) }}
 
     <ul class="pager">
@@ -20,13 +37,20 @@
     {% endblock %}
 
     {% block custom_javascripts %}
+        <script src="{{ asset('bundles/gema/js/Tabullet.js') }}"></script>
+        <script src="{{ asset('bundles/gema/js/TableToJson/jquery.tabletojson.js') }}"></script>
+        <script src="{{ asset('bundles/gema/js/youtube.js') }}"></script>
         <script>
 
-
+            var guid = $('#gema_gemabundle_boletin_guid').attr('value');
             $('#editarArchivos').click(function(){
-                var param=$('#idboletin').val();
-                GetData('boletines',param);
+                GetData('boletin',guid);
             });
+            $('#editarArchivosg').click(function(){
+                GetData('boletin',guid+"G");
+            });
+            Initializate('gema_gemabundle_boletin_youtube');
+
 
         </script>
     {% endblock %}

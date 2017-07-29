@@ -26,8 +26,39 @@ td{
 	font-family:'Fago-normal';
 }
 b{
-	font-family:'Fago-normal';
+	font-family:'Fago-normal' !important;
+	vertical-align: middle !important;
 }
 label{
 	font-family:'Fago-normal';
 }
+
+
+.myodd td{
+	background:#F9F9F9 !important;
+}
+.myeven td{
+	background:#e5edf0 !important;
+}
+p {
+    margin: 0 0 10px !important;
+}
+
+
+button{
+	font-family: 'Fago-Bold';
+}
+ input{
+	vertical-align: middle;
+}
+
+.toroimg{
+	border-radius: 5px 5px 5px 5px !important;
+}
+
+.toroapodo{
+	text-align:left;
+
+}
+table td {padding: 0px !important; margin: 0px !important;border-spacing: 0px !important;}
+table {border-spacing: 0px !important;}

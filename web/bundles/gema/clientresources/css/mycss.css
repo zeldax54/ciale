@@ -161,6 +161,7 @@ margin-left: -55px;
 
     color: white;
     /*font-weight: 700;*/
+	font-size: 14px;
 }
 
 .bodydinfo{
@@ -299,7 +300,7 @@ padding-bottom: 57px !important;
 	  }
 	  
 	   #espaciador2{
-		  padding:3%;
+		 padding: 2.4%;
 	  }
 	  #razacarne
 	  {
@@ -312,7 +313,86 @@ padding-bottom: 57px !important;
 	  
 }
 
+.ppa{
+	background: #01459a;
+
+font-size: 100%;
+color: white;
+text-align:center;
+}
+.ppa:hover{
+	color: white;
+	
+}
+.boton{
+	margin-bottom:2em !important;
+}
+.hiddeninfo{
+	display:none;
+}
+.maxwidth{
+	width:40% !important;
+}
 
 
+@media (max-width: 1024px) {
+	.maxwidth{
+	width:90% !important;
+	
+}
+p{
+	font-size:16px !important;
+}
+}
+
+.ozy-news-bar > ul > li:nth-child(2){
+	margin-left: 13px !important;
+}
+.ozy-news-bar > ul > li:nth-child(3){
+	margin-left: 27px !important;
+}
+.ozy-news-bar > ul > li:nth-child(4){
+	margin-left: 34px !important;
+	
+}
+
+@media screen 
+  and (min-width: 767px) 
+  and (max-width: 991px){
+	.centrarin760{
+		width:50% !important;
+	}
+	.imgcatalogdesc{
+		width:80% !important;
+	}
+	#flagitid{
+		padding-top: 18px !important;
+	}
+	
+	#tercsquare{
+		padding-top: 41px !important;
+	}
+	#flagit3id{
+		padding-top: 16px !important;
+	}
+	#princimg{
+		height: 330px !important;
+	}
+	#espaciador2{
+		padding-top: 28px;
+	}
+}
+
+.footerdiv a,.footerdiv a:hover{
+margin-right: 25px;
+font-size: 16px;
+font-family:'Fago-normal';
+color:white;
+text-decoration:none;
+
+}
+
+
+ 
 
 
