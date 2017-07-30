@@ -10,7 +10,7 @@
 
 		<div class="row">
 
-{% if fullsearch is not defined %}
+{% if fullsearch is not defined or fullsearch==false %}
 			<div class="colapsive-panel" role="navigation">
 
 							<div class="row">
@@ -282,7 +282,7 @@
 									<td class="verticalalign" style="text-align: left">{{ toro.apodo|upper }}</td>
 									<td data-nuevo="{{ toro.nuevo }}" class="verticalalign">{{ toro.nuevoflag | raw }}</td>
 									{% if toro.facilidadparto is not null %}
-									<td data-fp="{{ toro.facilidadparto }}" class="verticalalign"><img src="{{ asset(toro.facilidadglag) }}"  style="width: 44%;height: 40%;"></td>
+									<td data-fp="{{ toro.facilidadparto }}" class="verticalalign"><img src="{{ asset(toro.facilidadglag) }}"  style="width: 30%;height: 40%;"></td>
 										{% else %}
 										<td data-p="0" class="verticalalign"></td>
 										{% endif %}
@@ -320,7 +320,7 @@
 
 			</div>
 
-			{% if fullsearch is not defined %}
+			{% if fullsearch is not defined or fullsearch==false %}
 
 			{% for tabla in tablas %}
 

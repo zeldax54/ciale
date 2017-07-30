@@ -1142,12 +1142,18 @@ margin-left: -15px;
 
 @media (max-width:767px){
 	.top-navegacion {
-    height: auto}
+    height: auto;
+		}
+		
+		#firstheader{
+			font-size:10px !important;
+		}
 }
 
 @media (max-width:494px){
 	.top-navegacion {
-    height: auto}
+    display:none;
+}
 }
 
 #firstheader{

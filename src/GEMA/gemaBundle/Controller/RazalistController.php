@@ -7,6 +7,8 @@
  */
 
 namespace GEMA\gemaBundle\Controller;
+use GEMA\gemaBundle\Entity\Tabla;
+use GEMA\gemaBundle\Entity\TablaDatos;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -55,14 +57,15 @@ class RazalistController extends Controller
             $raza=$em->getRepository('gemaBundle:Raza')->find($id);
             $toros=$raza->getToros();
             $nombreraza=$raza->getNombre();
-            $tablas=$raza->getTipotabla()->getTablas();
-            foreach($tablas as $t)
-            {
-                $t->toros=$raza->getToros();
-
+            if( $raza->getTipotabla() !=null){
+                $tablas=$raza->getTipotabla()->getTablas();
+                foreach($tablas as $t)
+                    $t->toros=$raza->getToros();
             }
-            $mocho=$raza->getMocho();
+            else
+                $tablas=null;
 
+            $mocho=$raza->getMocho();
             $fathersmenu=$em->getRepository('gemaBundle:Razafather')->findAll();
             $razasmenu=$em->getRepository('gemaBundle:Raza')->Notid($id,$raza->getTiporaza()->getId());
         }
@@ -95,7 +98,7 @@ class RazalistController extends Controller
                 'tablas'=>$tablas,
                 'mocho'=>$mocho,
                 'fathersmenu'=>$fathersmenu,
-                'razasmenu'=>$razasmenu
+                'razasmenu'=>$razasmenu,
                // 'razas'=>$razas
 
 
@@ -131,13 +134,38 @@ class RazalistController extends Controller
         $imgfp=$this->imgFacilidadParto($helper,$toro->getFacilidadparto());
         $imgcp=$this->ConceptPlus($helper,$toro->getCP());
         $silueta=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,$toro->getRaza()->getSilueta().'.jpg');
-        $tablasflag=json_decode($toro->getTablagenetica(),true);
-        $watermarkimg=$helper->randomPic('mediainpage'.DIRECTORY_SEPARATOR.'watermark'.DIRECTORY_SEPARATOR);
+        if($toro->getRaza()->getTablasmanual()!=true)
+        {
+            $tablasflag=json_decode($toro->getTablagenetica(),true);
+            $tablarname=$em->getRepository('gemaBundle:Tabla')->find($toro->getTipotablaselected());
+            $tablasflag=$tablasflag[$tablarname->getNombre()];
+            $tabla=$tablarname;
+            $tablagennombre=$tablarname->getNombre();
+        }
+        else{
+            $tablasflag=null;
+            $tablagennombre=null;
+            $tabla=null;
 
-        $tablarname=$em->getRepository('gemaBundle:Tabla')->find($toro->getTipotablaselected());
-        $tablasflag=$tablasflag[$tablarname->getNombre()];
-        $tabla=$tablarname;
-        $tablagennombre=$tablarname->getNombre();
+            if($toro->getTablagenetica()!=null){
+                $datos=json_decode($toro->getTablagenetica(),true);
+                $tablaname=array_keys($datos);
+                $tablarname=$tablaname[0];
+                $columnas= array_keys($datos[$tablarname][0]);
+                $tablasflag=$datos[$tablarname];
+
+
+                $tabla=new Tabla();
+                foreach($columnas as $col){
+                    if($col!='rowhead'){
+                        $td=new TablaDatos();
+                        $td->setNombre($col);
+                        $tabla->addTabladato($td);
+                    }
+                }
+            }
+        }
+
 
         $mediaInpage=array();
         if(count($toro->getYoutubes())>0)
@@ -202,7 +230,6 @@ class RazalistController extends Controller
                  'imgfp'=>$imgfp,
                 'imgcp'=>$imgcp,
                 'silueta'=>$silueta,
-                'watermarkimg'=>$watermarkimg,
                 'tablagenetica'=>$tablasflag,
                 'tabla'=>$tabla,
                 'tablagennombre'=>$tablagennombre,
@@ -210,7 +237,8 @@ class RazalistController extends Controller
                 'razas'=>$razas,
                 'father'=>$razafather,
                 'fathersmenu'=>$fathersmenu,
-                'razasmenu'=>$razasmenu
+                'razasmenu'=>$razasmenu,
+
 
             )
         );

@@ -59,7 +59,7 @@
 									</div>
 								</div>
 								<div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
-									<a href="#" id="buscartorosresp"><img class="" src="{{ asset('bundles/gema/clientresources/img/bt_buscar.png')}}"></a>
+									{#<a href="#" id="buscartorosresp"><img class="" src="{{ asset('bundles/gema/clientresources/img/bt_buscar.png')}}"></a>#}
 								</div>
 
 						  </div>
@@ -369,14 +369,14 @@
 			</div>
 
 		</div>
-
+	  {% if tabla!=null  %}
 		<div id="ultima-col" class="row">
 	
 			<div class="encabezado-area encabezado-izq">
 					<i class="fa fa-caret-right fa-3x" style="margin:-9px 0 0 -45px;">&nbsp;&nbsp;</i>
 					<strong style="font-size:16px;position:absolute;margin-top:2px;">Pruebas</strong>			
 			</div>
-	
+
 			<div class="encabezado-tabla">{{ toro.evaluaciongenetica }}</div>
 	
 			<div id="tabla-infeior">		
@@ -387,6 +387,7 @@
 
 							<tr>
 	  <th class=""></th>
+
 	  {% for t in tabla.tabladatos %}
 								<th>{{ t.nombre }}</th>
 		  {% endfor %}
@@ -415,8 +416,10 @@
 					</table>
 				</div>
 			</div>
-	
+
 		</div>
+	  {% endif %}
+
 
 	</div>
 

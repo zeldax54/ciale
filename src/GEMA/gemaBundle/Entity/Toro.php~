@@ -333,6 +333,12 @@ class Toro
      */
     private $mocho;
 
+    /**
+     * @var string
+     * @ORM\Column(name="nombreraza", type="string",length=255,nullable=true)
+     */
+    private $nombreraza;
+
 
     /**
      * Get id

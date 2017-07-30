@@ -95,19 +95,7 @@ class RazaType extends AbstractType
                 )
             ))
 
-            ->add('tipotabla','entity',array(
-                'class'=>'gemaBundle:TipoTabla',
-                'required'=>true,
-                'query_builder' => function(TipoTablaRepository $tt) {
-                    return $tt->createQueryBuilder('c')
-                        ->where("c.nombre is not NULL");
-
-                },
-                'label_attr'=>array(
-                    'style'=>'display:none'
-                )
-
-            ))
+            ->add('tipotabla')
             ->add('decorador','entity',array(
                 'class'=>'gemaBundle:Decorador',
                 'label_attr'=>array(
@@ -137,6 +125,10 @@ class RazaType extends AbstractType
             ->add('father',null,array(
                 'label'=>'Raza Padre'
             ))
+            ->add('tablasmanual',null,array(
+                'label'=>'Manual(toros de esta raza con tabla genetica )'
+            ))
+
 
         ;
     }

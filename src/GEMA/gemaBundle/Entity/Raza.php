@@ -128,6 +128,10 @@ class Raza
 
     private $father;
 
+    /**
+     * @ORM\Column(name="tablasmanual", type="boolean", nullable=true)
+     */
+    private $tablasmanual;
 
 
     public function __toString()
@@ -573,5 +577,28 @@ class Raza
     public function getFather()
     {
         return $this->father;
+    }
+
+    /**
+     * Set tablasmanual
+     *
+     * @param boolean $tablasmanual
+     * @return Raza
+     */
+    public function setTablasmanual($tablasmanual)
+    {
+        $this->tablasmanual = $tablasmanual;
+
+        return $this;
+    }
+
+    /**
+     * Get tablasmanual
+     *
+     * @return boolean 
+     */
+    public function getTablasmanual()
+    {
+        return $this->tablasmanual;
     }
 }

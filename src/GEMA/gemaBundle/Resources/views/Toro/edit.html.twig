@@ -81,6 +81,7 @@
     </fieldset>
 
     {#Tabla Genetica#}
+    {% if raza.tipotabla is not null %}
     <fieldset style="background: #eee;margin-top: 20px">
         <legend style="background: #eee;text-align: center;margin: 0 auto">Tabla Genética</legend>
         <div class="form-group">
@@ -118,6 +119,51 @@
         </div>
 
     </fieldset>
+{% endif %}
+        {% if  raza.tipotabla is null and entity.tablagenetica is null%}
+              <fieldset style="background: #eee;margin-top: 20px">
+        <legend style="background: #eee;text-align: center;margin: 0 auto">Tabla Genética</legend><input autocomplete="off" type="text" value="" placeholder="Nombre de la Columna" class="" id="morecolumnanombre"/><input type="button" value="+Columna" id="morecolumna" class="btn btn-success"/><input type="button" value="-Columna" id="deletecolumna" class="btn btn-warning"/>
+<div style="overflow: auto">
+                  <table  name="{{ entity.evaluaciongenetica }}" class="record_properties table table-hover table table-striped table-vmiddle tablagen" id="dynamictable">
+                      <thead style=""><tr>
+                          <th data-override="rowhead"></th>
+                      </tr></thead>
+                      <tbody>
+                      <tr>
+                          <td data-override="DEP">DEP</td>
+                      </tr>
+                      <tr>
+                          <td data-override="PREC">PREC</td>
+                      </tr>
+                      <tr>
+                          <td data-override="RANKING">RANKING</td>
+                      </tr>
+                      <tr>
+                          <td data-override="PROMEDIO">PROMEDIO</td>
+                      </tr>
+                      </tbody>
+                  </table>
+</div>
+              </fieldset>
+
+        {% endif %}
+
+    {% if  raza.tipotabla is null and entity.tablagenetica is not null%}
+        <fieldset style="background: #eee;margin-top: 20px">
+            <legend style="background: #eee;text-align: center;margin: 0 auto">Tabla Genética</legend><input autocomplete="off" type="text" value="" placeholder="Nombre de la Columna" class="" id="morecolumnanombre"/><input type="button" value="+Columna" id="morecolumna" class="btn btn-success"/><input type="button" value="-Columna" id="deletecolumna" class="btn btn-warning"/>
+            <div style="overflow: auto">
+                <table  name="{{ entity.evaluaciongenetica }}" class="record_properties table table-hover table table-striped table-vmiddle tablagen" id="dynamictable">
+                    <thead style=""><tr>
+
+
+                    </tr></thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </fieldset>
+    {% endif %}
 
     <fieldset style="background: #eee;margin-top: 20px">
         <legend style="background: #eee;text-align: center;margin: 0 auto">Medidas Corporales</legend>
@@ -133,6 +179,7 @@
         {{form_row(edit_form.p550d)}}
         {{form_row(edit_form.guid)}}
         {{form_row(edit_form.enlacerefexterna)}}
+        {{form_row(edit_form.nombreraza)}}
 
     </fieldset>
     {{ form_rest(edit_form) }}
@@ -147,6 +194,30 @@
 
 {% block custom_javascripts %}
     <script src="{{ asset('bundles/gema/js/TableToJson/jquery.tabletojson.js') }}"></script>
+
+    <script>
+        $('#morecolumna').click(function(){
+           var nombre=$('#morecolumnanombre').val();
+            if(nombre==null || nombre=='' ||nombre=='')
+                    alert('Inserte un nombre para la columa');
+            else
+            {
+                $('#morecolumnanombre').val('');
+                var dynamictable=$('#dynamictable');
+                dynamictable.find('thead').find('tr').append('<th  data-override="'+nombre+'">'+nombre+'</th>');
+                dynamictable.find('tbody').find('tr').each(function(){
+                    $(this).append('<td data-override=""><input style="width: 100%;background:#d0d4d5;text-align: center" autocomplete="off" class="form-control tbinput" type="text"></td>');
+                });
+            }
+
+        });
+
+        $('#deletecolumna').click(function(){
+              $("#dynamictable th:last-child, #dynamictable td:last-child").remove();
+            UpdateJsonCont();
+        });
+
+    </script>
     <script>
 
         $('#editarArchivos').click(function(){
@@ -162,31 +233,73 @@
 
         //UpdatingTab
         var jsonString=$('#gema_gemabundle_toro_tablagenetica').val();
-        var arrays = JSON.parse(jsonString);
-        $('.contenedorT').each(function() {
-            var tablename=$(this).find('table').attr('name');
-            var tableid=$(this).find('table').attr('id');
-            var arrtab=arrays[tablename];
+        if(jsonString!==null && jsonString!=='')
+        {
+            var arrays = JSON.parse(jsonString);
 
-            var tabla=$('#'+tableid);
-            var cabeceras=tabla.find('th');
-            var cabecerasArray=[];
-           cabeceras.each(function(){
-               cabecerasArray.push($(this).attr('data-override'));
-           });
-            for (var f = 0; f < arrtab.length; f++) {
-                var tr='<tr>';
-                for (var j = 0; j < cabecerasArray.length; j++) {
-                    var value=arrtab[f][cabecerasArray[j]];
-                    if(cabecerasArray[j]!="rowhead")
-                    tr+='<td data-override='+value+'><input type="text" value="'+value+'" class="form-control tbinput"  style="width: 100%;background:#d0d4d5;text-align: center"></td>';
+
+            if($('.contenedorT').length===0){
+                var nombrt=$('#dynamictable').attr('name');
+                if(nombrt===undefined || nombrt==='')
+                    nombrt='Evaluacion genetica';
+               var cols= arrays[nombrt];
+                var keys = Object.keys(cols[0]);
+                var t=$('#dynamictable');
+                for (var f = 0; f < keys.length; f++) {
+                    if(keys[f]==='rowhead')
+                       t.find('thead').find('tr').append('<th data-override="rowhead" style="background: #9fa1a0;font-weight: bold"></th>');
                     else
-                        tr+='<td data-override='+value+'>'+value+'</td>';
+                        t.find('thead').find('tr').append('<th data-override="'+keys[f]+'" style="background: #9fa1a0;font-weight: bold">'+keys[f]+'</th>');
                 }
-                tr+='</tr>';
-                $(tr).appendTo("#"+tableid+' tbody');
+                for (var f = 0; f < cols.length; f++) {
+                    var tr='<tr>';
+                    for (var j = 0; j < keys.length; j++) {
+                        var value=cols[f][keys[j]];
+                        var td='';
+                       if(keys[j]==='rowhead')
+                         td='<td data-override="'+value+'">'+value+'</td>';
+                        else
+                       {
+
+                            td='<td data-override="'+value+'"><input type="text" value="'+value+'" class="form-control tbinput"  style="width: 100%;background:#d0d4d5;text-align: center"></td>';
+
+                       }
+
+                     tr+=td;
+
+                    }
+                     tr+='</tr>';
+                    t.find('tbody').append(tr);
+                }
+
             }
-        });
+
+            $('.contenedorT').each(function() {
+                var tablename=$(this).find('table').attr('name');
+                var tableid=$(this).find('table').attr('id');
+                var arrtab=arrays[tablename];
+
+                var tabla=$('#'+tableid);
+                var cabeceras=tabla.find('th');
+                var cabecerasArray=[];
+                cabeceras.each(function(){
+                    cabecerasArray.push($(this).attr('data-override'));
+                });
+                for (var f = 0; f < arrtab.length; f++) {
+                    var tr='<tr>';
+                    for (var j = 0; j < cabecerasArray.length; j++) {
+                        var value=arrtab[f][cabecerasArray[j]];
+                        if(cabecerasArray[j]!="rowhead")
+                            tr+='<td data-override='+value+'><input type="text" value="'+value+'" class="form-control tbinput"  style="width: 100%;background:#d0d4d5;text-align: center"></td>';
+                        else
+                            tr+='<td data-override='+value+'>'+value+'</td>';
+                    }
+                    tr+='</tr>';
+                    $(tr).appendTo("#"+tableid+' tbody');
+                }
+            });
+        }
+
 
 
         var selectedId=$('#tipostablaSelect').val();
@@ -210,11 +323,26 @@
 
 
 
-        $('.tbinput').change(function(){
+//        document.getElementsByClassName('tbinput').on('change',function(){
+//            $(this).closest('td').attr('data-override', $(this).val());//
+//            UpdateJsonCont();
+//        });
+//
+//        document.getElementsByClassName('tbinput').addEventListener("change", function (evt) {
+//            console.log(this.value);
+//        });
+        $(document).on('change', '.tbinput', function () {
+
             $(this).closest('td').attr('data-override', $(this).val());//
             UpdateJsonCont();
+
         });
 
+
+        $('#gema_gemabundle_toro_evaluaciongenetica').change(function(){
+            $('table:visible').attr('name',$(this).val());
+            UpdateJsonCont();
+        });
 
         function UpdateJsonCont(){
 
@@ -223,12 +351,15 @@
 
                 var id=$(this).attr('id');
                 var name=$(this).attr('name');
+                if(name===undefined || name==='')
+                        name='Evaluacion genetica';
                 var table = $('#'+id).tableToJSON({ignoreHiddenRows: false});
                 stringJson+='"'+name+'":'+JSON.stringify(table)+",";
             });
             stringJson=stringJson.slice(0,stringJson.length-1);
             stringJson+="}";
             document.getElementById('gema_gemabundle_toro_tablagenetica').value =stringJson;
+
         }
 
     </script>

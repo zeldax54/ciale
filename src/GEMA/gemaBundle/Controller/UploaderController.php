@@ -192,37 +192,47 @@ class UploaderController extends Controller
             $toro->setP550d($row[$this->getMapaPos('p550d', $mapa)]);
             $toro->setP550d($row[$this->getMapaPos('p550d', $mapa)]);
             $toro->setPrecio($row[$this->getMapaPos('precio', $mapa)]);
-            $toro->setTipotablaselected($tablaSelected);
+
             $toro->setPublico(1);
            if($isnnew==true)           {
                $helper=new MyHelper();
                $toro->setGuid($helper->GUID());
            }
 
-            $tablas=$raza->getTipotabla()->getTablas();
-            $jsonTables='{';
-            foreach($tablas as $tabla){
-                $jsonTables.='"'.$tabla->getNombre().'":[';
-                $tablabody=$tabla->getTablabody();
-                $tabladatos = $tabla->getTabladatos();
-                foreach($tablabody as $body) {
-                    $jsonTables .= '{';
-                    $jsonTables .= '"rowhead":"' . $body->getRowname() . '",';
+            if($raza->getTablasmanual()==true){
+                $toro->setNombreraza($row[$this->getMapaPos('nombreraza', $mapa)]);
+            }
 
-                    foreach ($tabladatos as $dato)
-                    {
-                        $jsonTables.='"'.$dato->getNombre().'":"'.$row[$dato->getPosinExcel()+$body->getLejania()].'",';
+            if($raza->getTablasmanual()==false){
+                $toro->setTipotablaselected($tablaSelected);
+                $tablas=$raza->getTipotabla()->getTablas();
+                $jsonTables='{';
+                foreach($tablas as $tabla){
+                    $jsonTables.='"'.$tabla->getNombre().'":[';
+                    $tablabody=$tabla->getTablabody();
+                    $tabladatos = $tabla->getTabladatos();
+                    foreach($tablabody as $body) {
+                        $jsonTables .= '{';
+                        $jsonTables .= '"rowhead":"' . $body->getRowname() . '",';
+
+                        foreach ($tabladatos as $dato)
+                        {
+                            $jsonTables.='"'.$dato->getNombre().'":"'.$row[$dato->getPosinExcel()+$body->getLejania()].'",';
+                        }
+                        $jsonTables=substr($jsonTables,0,strlen($jsonTables)-1);
+                        $jsonTables.='},';
                     }
                     $jsonTables=substr($jsonTables,0,strlen($jsonTables)-1);
-                    $jsonTables.='},';
+                    $jsonTables.='],';
                 }
                 $jsonTables=substr($jsonTables,0,strlen($jsonTables)-1);
-                $jsonTables.='],';
-            }
-            $jsonTables=substr($jsonTables,0,strlen($jsonTables)-1);
-            $jsonTables.='}';
+                $jsonTables.='}';
 
-            $toro->setTablagenetica($jsonTables);
+                $toro->setTablagenetica($jsonTables);
+
+            }
+
+
             return $toro;
 
         }

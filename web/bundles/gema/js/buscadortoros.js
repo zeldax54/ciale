@@ -101,7 +101,7 @@ function BuscarToros(dato){
                   if(ulContainer.find('li').length>1)
                   {
                       ulContainer.css('height',customheight);
-                      ulContainer.css('overflow','scroll');
+                      ulContainer.css('overflow','auto');
                   }
                   else{
                       ulContainer.css('height','auto');

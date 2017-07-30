@@ -163,12 +163,19 @@ class ToroType extends AbstractType
                     'style'=>'display:none'
                 ),
                 'attr'=>array(
-                    'style'=>'display:none'
+                    'style'=>'display:none',
+                    'autocomplete'=>'off'
                 )
             ))
 
-//            ->add('tablagenetica')
+
             ->add('lineagenetica')
+
+
+            ->add('nombreraza',null,array(
+                'label'=>'Nombre de Raza(solo par toros sin raza definida por el sistema(Mas Toros))'
+            ))
+
             ->add('tipotablaselected',null,array(
                 'label_attr'=>array(
                     'style'=>'display:none'

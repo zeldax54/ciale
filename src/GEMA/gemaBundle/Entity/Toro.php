@@ -333,6 +333,12 @@ class Toro
      */
     private $mocho;
 
+    /**
+     * @var string
+     * @ORM\Column(name="nombreraza", type="string",length=255,nullable=true)
+     */
+    private $nombreraza;
+
 
     /**
      * Get id
@@ -353,7 +359,6 @@ class Toro
     public function setRaza(\GEMA\gemaBundle\Entity\Raza $raza = null)
     {
         $this->raza = $raza;
-
         return $this;
     }
 
@@ -1525,5 +1530,28 @@ class Toro
     public function getMocho()
     {
         return $this->mocho;
+    }
+
+    /**
+     * Set nombreraza
+     *
+     * @param string $nombreraza
+     * @return Toro
+     */
+    public function setNombreraza($nombreraza)
+    {
+        $this->nombreraza = $nombreraza;
+
+        return $this;
+    }
+
+    /**
+     * Get nombreraza
+     *
+     * @return string 
+     */
+    public function getNombreraza()
+    {
+        return $this->nombreraza;
     }
 }
