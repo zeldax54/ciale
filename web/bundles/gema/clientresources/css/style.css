@@ -1083,7 +1083,7 @@ text-decoration:none;
 	font-family: 'Fago-Bold';
 }
 #infocontainer{
-		text-align:center !important;
+		text-align:left !important;
 	}
 .internaaaacdist:hover{
 	cursor:pointer;
@@ -1098,6 +1098,9 @@ text-decoration:none;
 @media (max-width:991px){
 	.lastrow{
 		padding-left:0px !important;
+	}
+	#infocontainer{
+		text-align:center !important;
 	}
 }
 
