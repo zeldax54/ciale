@@ -91,7 +91,7 @@
                             <li class="menu-items"><a href="{{  path('gema_clientcontenido',{'nombre':'NUESTRA FILOSOFÍA'})  }}">LA EMPRESA</a></li>
                             <li class="menu-items"><a href="{{  path('gema_redventas',{'codigo':-1}) }}">RED DE VENTAS</a></li>
                             <li class="menu-items dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">NOTICIAS Y EVENTOS&nbsp;<i class="fa fa-plus"></i><i class="fa fa-minus"></i></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">NOTICIAS&nbsp;<i class="fa fa-plus"></i><i class="fa fa-minus"></i></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="{{  path('gema_clientnews',{'tipo':'Leche Nacional','start':0,'end':9})  }}">Leche Nacional</a></li>
                                     <li><a href="http://web.altagenetics.com/us/AltaNews/">Leche Internacional</a></li>
@@ -102,19 +102,19 @@
                                 </ul>
                             </li>
                             <li class="menu-items dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Información&nbsp;<i class="fa fa-plus"></i><i class="fa fa-minus"></i></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">INFORMACIÓN&nbsp;<i class="fa fa-plus"></i><i class="fa fa-minus"></i></a>
                                 <ul class="dropdown-menu">
                                     <li class="menu-items"><a href="{{  path('gema_clientsboletines',{'start':0,'end':8})  }}">Boletín Alta School</a></li>
                                     <li class="menu-items"><a href="http://web.altagenetics.com/espanol/DairyBasics/Category/34">Genética de Leche</a></li>
                                     <li class="menu-items"><a href="{{  path('gema_clientcontenido',{'nombre':'Genética de Carne'})  }}">Genética de Carne</a></li>
 
-                                    <li class="menu-items"><a href="http://web.altagenetics.com/espanol/DairyBasics/Category/30">Reproducción e Inseminación</a></li>
-                                    <li class="menu-items"><a href="http://web.altagenetics.com/espanol/DairyBasics/Category/36">Alimentación y Nutrición</a></li>
-                                    <li class="menu-items"><a href="http://web.altagenetics.com/espanol/DairyBasics/Category/37">Salud de Tambo</a></li>
+                                    <li class="menu-items"><a href="http://web.altagenetics.com/espanol/DairyBasics/Category/30" target="_blank">Reproducción e Inseminación</a></li>
+                                    <li class="menu-items"><a href="http://web.altagenetics.com/espanol/DairyBasics/Category/36" target="_blank">Alimentación y Nutrición</a></li>
+                                    <li class="menu-items"><a href="http://web.altagenetics.com/espanol/DairyBasics/Category/37" target="_blank">Salud de Tambo</a></li>
 
                                 </ul>
                             </li>
-                            <li class="menu-items"><a href="{{  path('gema_prodprog')  }}">Productos y Programas</a></li>
+                            <li class="menu-items"><a href="{{  path('gema_prodprog')  }}">PRODUCTOS</a></li>
 
                             <li class="menu-items"><a href="{{  path('gema_mailindex')  }}">CONTACTO</a></li>
 
@@ -143,21 +143,24 @@
             <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
             <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 
-            <script src="{{ asset('bundles/gema/clientresources/js/application.js')}}"></script>
+            {#<script src="{{ asset('bundles/gema/clientresources/js/application.js')}}"></script>#}
             <script src="{{ asset('bundles/gema/clientresources/js/bootstrap.js')}}"></script>
-            <script src="{{ asset('bundles/gema/clientresources/js/holder.js')}}"></script>
 
             <script src="{{ asset('bundles/gema/clientresources/js/jquery.js')}}"></script>
 
 
-    <script src="{{ asset('bundles/gema/clientresources/js/affix.js')}}"></script>
-    <script src="{{ asset('bundles/gema/clientresources/js/alert.js')}}"></script>
-    <script src="{{ asset('bundles/gema/clientresources/js/button.js')}}"></script>
-    <script src="{{ asset('bundles/gema/clientresources/js/carousel.js')}}"></script>
+
+            <script src="{{ asset('bundles/gema/clientresources/js/holder.js')}}"></script>
+
+
+    {#<script src="{{ asset('bundles/gema/clientresources/js/affix.js')}}"></script>#}
+    {#<script src="{{ asset('bundles/gema/clientresources/js/alert.js')}}"></script>#}
+    {#<script src="{{ asset('bundles/gema/clientresources/js/button.js')}}"></script>#}
+    {#<script src="{{ asset('bundles/gema/clientresources/js/carousel.js')}}"></script>#}
     <script src="{{ asset('bundles/gema/clientresources/js/collapse.js')}}"></script>
             <script src="{{ asset('bundles/gema/clientresources/js/dropdown.js')}}"></script>
     <script src="{{ asset('bundles/gema/clientresources/js/modal.js')}}"></script>
-    <script src="{{ asset('bundles/gema/clientresources/js/popover.js')}}"></script>
+    {#<script src="{{ asset('bundles/gema/clientresources/js/popover.js')}}"></script>#}
     <script src="{{ asset('bundles/gema/clientresources/js/tab.js')}}"></script>
     <script src="{{ asset('bundles/gema/clientresources/js/tooltip.js')}}"></script>
             <script src="{{ asset('bundles/gema/clientresources/snarl/snarl.js') }}"></script>
@@ -175,7 +178,7 @@
        </div>
 
     </body>
-    <footer>
+    <footer style="margin-top: 50px !important;">
         <div class="footer-superior">
             <div class="container">
                 <div class="row primera-linea">
@@ -194,7 +197,7 @@
                              <a href="{{  path('gema_redventas',{'codigo':-1}) }}" class="">RED DE VENTAS</a>
                             </div>
                         <div>
-                            <a href="{{  path('gema_clientnews',{'tipo':'Todas','start':0,'end':9})  }}">NOTICIAS Y EVENTOS</a>
+                            <a href="{{  path('gema_clientnews',{'tipo':'Todas','start':0,'end':9})  }}">NOTICIAS</a>
                         </div>
 
 
@@ -203,7 +206,7 @@
                     <div class="col-lg-4 col-md-5 col-sm-6 col-xs-12 footerdiv">
                         <div> <a href="{{  path('gema_clientsboletines',{'start':0,'end':8})  }}"> INFORMACIÓN </a> </div>
                         <div>
-                            <a href="{{  path('gema_prodprog')  }}">PRODUCTOS Y PROGRAMAS</a>
+                            <a href="{{  path('gema_prodprog')  }}">PRODUCTOS</a>
                         </div>
                         <div>
                             <a href="{{  path('gema_mailindex')  }}">CONTACTO</a>

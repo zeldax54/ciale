@@ -3,7 +3,11 @@
   {% block customstylesheets %}
 	  <link href="{{ asset('bundles/gema/clientresources/css/listtoro.css')}}" rel="stylesheet">
       <link href="{{ asset('bundles/gema/clientresources/watermark/styleimg.css')}}" rel="stylesheet">
-	  {#<link href="{{ asset('bundles/gema/clientresources/jquerybootgrid/jquery.bootgrid.min.css')}}" rel="stylesheet">#}
+      <link href="{{ asset('bundles/gema/clientresources/datatables/main/css/jquery.dataTables.css')}}" rel="stylesheet">
+      <link href="{{ asset('bundles/gema/clientresources/datatables/fixedcolumns/css/fixedColumns.dataTables.css')}}" rel="stylesheet">
+      <link href="{{ asset('bundles/gema/clientresources/datatables/sort/alt-string.js')}}" rel="stylesheet">
+
+
 	  {% endblock %}
 
   {% block content %}
@@ -22,29 +26,47 @@
 									  <button type="button" class="btn btn-xs dropdown-toggle btn-toro" data-toggle="dropdown">
 										{{ razaname }} <span class="caret"></span>
 									  </button>
-                                        <ul class="dropdown-menu" style="background: #B14E0A">
-											{% if fathersmenu  is defined %}
+										<ul class="nav navbar-nav">
+											<li style="font-size: 117%;">Raza:</li>
+											<li>
+												<!-- Split button -->
 
-												{% for r in fathersmenu %}
-												<li><a style="color:white" class="" href=" {{  path('gema_razalist', {'id': r.id,'isfather':1})  }} ">{{ r.nombre }}&nbsp;&nbsp;&nbsp;</a></li>
-												<li class="divider"></li>
-												{% endfor %}
+												<select name="principalselector2" class="sel22 newselector">
+													<option selected  value="{{ razaname }}" class="here">{{ razaname }}</option>
+													{% if fathersmenu  is defined %}
+
+														{% for r in fathersmenu %}
+															<option value="{{ r.nombre }}"> {{ r.nombre }}&nbsp;&nbsp;&nbsp;</option>
+
+														{% endfor %}
+													{% endif %}
+
+													{% if razasmenu is defined %}
+														{% for r in razasmenu %}
+															<option value="{{ r.nombre }}">{{ r.nombre }}&nbsp;&nbsp;&nbsp;</option>
+
+														{% endfor %}
+													{% endif %}
+												</select>
+
+											</li>
+											{% if otherrazas is defined and otherrazas is not null %}
+												<li>
+
+													<select class="therrazasselector newselector">
+														{% for r in otherrazas %}
+															<option value= {{  r.nombreraza |replace(' ','-')}}> {{  r.nombreraza }}</option>
+														{% endfor %}
+													</select>
+
+												</li>
 											{% endif %}
-
-											{% if razasmenu is defined %}
-												{% for r in razasmenu %}
-													<li><a style="color:white" class="" href=" {{  path('gema_razalist', {'id': r.id,'isfather':0})  }} ">{{ r.nombre }}&nbsp;&nbsp;&nbsp;</a></li>
-													<li class="divider"></li>
-												{% endfor %}
-											{% endif %}
-
-                                            {#{% for r in razas %}#}
-                                                {#<li><a style="color:white" class="" href=" {{  path('gema_razalist', {'id': r.id,'isfather':0})  }} ">{{ r.nombre }}&nbsp;&nbsp;&nbsp;</a></li>#}
-                                                {#<li class="divider"></li>#}
-                                            {#{% endfor %}#}
-                                        </ul>
+										</ul>
 									</div>
 								</div>
+
+
+
 							</div>
 
                 <div >
@@ -91,33 +113,49 @@
                                 <li style="font-size: 117%;">Raza:</li>
                                 <li>
                                     <!-- Split button -->
-                                    <div class="btn-group">
-										<span  class="btn btn-xs dropdown-toggle btn-toro mybtn" data-toggle="dropdown">
-											{{ razaname }}&nbsp;&nbsp;&nbsp;
-											<span class="caret"></span>
-										</span>
-                                        <ul class="dropdown-menu" style="background: #B14E0A;/">
+
+										<select name="principalselector" class="sel2 newselector">
+											<option selected  value="{{ razaname }}" class="here">{{ razaname }}</option>
 											{% if fathersmenu  is defined %}
 
 												{% for r in fathersmenu %}
-													<li><a style="color:white" class="" href=" {{  path('gema_razalist', {'id': r.id,'isfather':1})  }} ">{{ r.nombre }}&nbsp;&nbsp;&nbsp;</a></li>
-													<li class="divider"></li>
+													<option value="{{ r.nombre }}"> {{ r.nombre }}&nbsp;&nbsp;&nbsp;</option>
+
 												{% endfor %}
 											{% endif %}
 
 											{% if razasmenu is defined %}
 												{% for r in razasmenu %}
-													<li><a style="color:white" class="" href=" {{  path('gema_razalist', {'id': r.id,'isfather':0})  }} ">{{ r.nombre }}&nbsp;&nbsp;&nbsp;</a></li>
-													<li class="divider"></li>
+												<option value="{{ r.nombre }}">{{ r.nombre }}&nbsp;&nbsp;&nbsp;</option>
+
 												{% endfor %}
 											{% endif %}
-                                        </ul>
-                                    </div>
+                                        </select>
+
                                 </li>
+								{% if otherrazas is defined and otherrazas is not null %}
+									<li>
+
+									<select class="therrazasselector newselector">
+										<option value=""></option>
+										{% for r in otherrazas %}
+											<option value= {{  r.nombreraza }}> {{  r.nombreraza }}</option>
+										{% endfor %}
+									</select>
+
+</li>
+								{% endif %}
                             </ul>
 
+
+
 						</div>
-{% endif %}
+
+
+
+                     {% endif %}
+
+
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 
 						  <div class="navbar-form navbar-right">
@@ -151,7 +189,7 @@
 			<li class="active"><a href="#todos" data-toggle="tab">TODOS LOS TOROS</a></li>
 		{% if fullsearch is not defined %}
         {% for tabla in tablas %}
-	    <li class=""><a href="{{ '#'~tabla.id }}" data-toggle="tab">{{tabla.nombreresumido  }}</a></li>
+	    <li class=""><a href="{{ '#'~tabla.id }}" myindic="{{ tabla.nombreresumido|replace(' ','-')}}" data-toggle="tab">{{tabla.nombreresumido  }}</a></li>
 	    {% endfor %}
 			{% endif %}
       	</ul>
@@ -162,24 +200,26 @@
 				<form class="form-inline" role="form">
 				  	<div class="row">
 
-						<div class="col-lg-6 col-md-6 col-sm-2 col-xs-2">
+						<div class="col-lg-12 col-md-12 col-sm-2 col-xs-2">
 							<div class="form-group">
 								<b>Búsqueda:</b>
 								<label class="sr-only" for="exampleInputNombre2">Búsqueda:</label>
 								<input type="text" class="form-control  exampleInput searchelement todos" autocomplete="off" id="searchinrazaAllT" familyid="todos" placeholder="Nombre del toro,apodo,padre o madre">
-
+								<button id="boton-izq" familyid="todos" class="btn cleaner todos">Limpiar Filtros</button>
 								</div>
 						</div>
 						<div class="col-lg-4 col-md-4 col-sm-8 col-xs-8">
+							<div class="form-group" style="margin-left:5px;">
 
+							</div>
 						</div>
 						<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
 							{#<div class="form-group" style="float:left">#}
 								{#<button id="boton-der" type="submit" class="btn">Buscar</button>#}
 							{#</div>#}
-							<div class="form-group" style="margin-left:5px;">
-								<button id="boton-izq" familyid="todos" class="btn cleaner todos">Limpiar Filtros</button>
-				  			</div>
+							{#<div class="form-group" style="margin-left:5px;">#}
+								{#<button id="boton-izq" familyid="todos" class="btn cleaner todos">Limpiar Filtros</button>#}
+				  			{#</div>#}
 						</div>
 
 					</div>
@@ -231,90 +271,97 @@
 
 						<button class="btn btn-sm todos cleanselection"  familyid="todos" >Limpiar Selección</button>
 						<button class="btn btn-sm todos comparer" familyid="todos" >Comparar</button>
-						{#<button class="btn btn-sm todos" familyid="todos" >Exportar para Excel</button>#}
+						<button class="btn btn-sm todos expexcel" familyid="todos" >Exportar para Excel</button>
 						{#<button class="btn btn-sm todos" familyid="todos" >Imprimir Catálogo</button>#}
 						<b id="cantmsj"  familyid="todos" class="todos">{{ toros|length }} toros en lista</b>
 
 					</div>
 
 				</div>
-				<div class="row">
+				<div class="row ">
 
-					<div class="tabla-lista-busqueda" >
 
-						<table id="lista-busqueda" familyid="todos" class="table table-striped todos">
+					<div class="scrollable-area">
 
-							<thead>
-							<tr class="cabecera">
-								<th><input type="checkbox" class="listcheck headcheck" autocomplete="off" id=""></th>
-								<th></th>
-								<th class="hiderow originalhiddennombre">Nombre</th>
-								<th class="hiderow originalhiddenmadre">Madre </th>
-								<th>Apodo</th>
-								<th>Nuevo </th>
-								<th>Facilidad de Parto</th>
-								<th>CP</th>
-								<th>Padre </th>
-								<th>
-									<div class="row">
 
-									</div>Abuelo Materno </i>
-								</th>
-								{% if mocho is defined and mocho==true %}
-									<th>
-										<div class="row">
 
-										</div>Mocho
-									</th>
-								{% endif %}
-								<th>Origen</th>
-							</tr>
-							</thead>
-							<tbody>
 
-							{% for toro in toros %}
 
-								<tr class="{{ cycle(["even", "odd"], loop.index) }}">
-									<td><input type="checkbox" class="listcheck" autocomplete="off"></td>
-									<td><a href="{{ path('gema_torodetail', {'toroid':toro.id}) }}"><img class="toroimg" src="{{ asset(toro.imgprincipal) }}"  width="100px" height="74px"></a></td>
-									<td class="hiderow originalhiddennombre verticalalign">{{ toro.nombre }}</td>
-									<td class="hiderow originalhiddenmadre verticalalign">{{ toro.madre }}</td>
-									<td class="verticalalign" style="text-align: left">{{ toro.apodo|upper }}</td>
-									<td data-nuevo="{{ toro.nuevo }}" class="verticalalign">{{ toro.nuevoflag | raw }}</td>
-									{% if toro.facilidadparto is not null %}
-									<td data-fp="{{ toro.facilidadparto }}" class="verticalalign"><img src="{{ asset(toro.facilidadglag) }}"  style="width: 30%;height: 40%;"></td>
-										{% else %}
-										<td data-p="0" class="verticalalign"></td>
+								<table id="lista-busqueda" style="width: 100%" familyid="todos" class="table table-striped todos tabla1">
+
+									<thead class="">
+									<tr class="cabecera">
+										<th><input type="checkbox" class="listcheck headcheck" autocomplete="off" id=""></th>
+										<th></th>
+										<th>Apodo</th>
+										{% if otherrazas is defined and otherrazas is not null %}
+											<th>Raza</th>
 										{% endif %}
+										<th>Nuevo </th>
+										<th>Facilidad de Parto</th>
+										<th>CP</th>
+										<th>Padre </th>
+										<th>
+											Abuelo Materno
+										</th>
+										{% if mocho is defined and mocho==true %}
+											<th>
+												Mocho
+											</th>
+										{% endif %}
+										<th>Origen</th>
+									</tr>
+									</thead>
+									<tbody>
 
-									{% if toro.conceptplusflag is not null %}
-										<td data-cp="{{ toro.cp }}" class="verticalalign"><img src="{{ asset(toro.conceptplusflag) }}"></td>
-									{% else %}
-										<td data-cp="{{ toro.cp }}" class="verticalalign"></td>
-									{% endif %}
+									{% for toro in toros %}
+
+										<tr class="{{ cycle(["even", "odd"], loop.index) }}">
+											<td><input type="checkbox" class="listcheck" autocomplete="off"></td>
+											<td><a href="{{ path('gema_torodetail', {'apodo':toro.apodo}) }}"><img class="toroimg imageresponsiveselect" src="{{ asset(toro.imgprincipal) }}"  width="100px" height="74px"></a></td>
+
+											<td class="verticalalign" style="text-align: center" tnombre="{{ toro.nombre }}" tmadre="{{ toro.madre }}" tpadre="{{ toro.padre }}">{{ toro.apodo|upper }}</td>
+											{% if otherrazas is defined and otherrazas is not null %}
+										    <td>{{ toro.nombreraza }}</td>
+											{% endif %}
+											<td data-nuevo="{{ toro.nuevo }}" class="verticalalign">{{ toro.nuevoflag | raw }}</td>
+											{% if toro.facilidadparto is not null %}
+												<td data-fp="{{ toro.facilidadparto }}" class="verticalalign"><img src="{{ asset(toro.facilidadglag) }}" alt="{{ toro.facilidadparto }}"  style="width: 40%;height: 40%;"></td>
+											{% else %}
+												<td data-p="0" class="verticalalign"></td>
+											{% endif %}
+
+											{% if toro.conceptplusflag is not null %}
+												<td data-cp="{{ toro.cp }}" class="verticalalign"><img src="{{ asset(toro.conceptplusflag) }}"></td>
+											{% else %}
+												<td data-cp="{{ toro.cp }}" class="verticalalign"></td>
+											{% endif %}
 
 
 
-									<td class="verticalalign">{{ toro.padre }}</td>
-									<td class="verticalalign">{{ toro.padremadre }}</td>
-									{% if mocho is defined and mocho==true %}
-										<td class="verticalalign" data-mocho="{{ toro.mocho }}">{{ toro.mocho }}</td>
-									{% endif %}
+											<td class="verticalalign">{{ toro.padre }}</td>
+											<td class="verticalalign">{{ toro.padremadre }}</td>
+											{% if mocho is defined and mocho==true %}
+												<td class="verticalalign" data-mocho="{{ toro.mocho }}">{{ toro.mocho }}</td>
+											{% endif %}
 
-								{% if toro.nacionalidadflag is not null %}
-									<td class="verticalalign"><img src="{{ asset(toro.nacionalidadflag) }}" ></td>
-								{% else %}
-									<td data-formater="0" class="verticalalign"></td>
-								{% endif %}
-								</tr>
-							{% endfor %}
+											{% if toro.nacionalidadflag is not null %}
+												<td class="verticalalign"><img src="{{ asset(toro.nacionalidadflag) }}" alt="{{ toro.nacionalidad }}" ></td>
+											{% else %}
+												<td data-formater="0" class="verticalalign"></td>
+											{% endif %}
+										</tr>
+									{% endfor %}
 
 
-							</tbody>
+									</tbody>
 
-						</table>
+								</table>
+
 
 					</div>
+
+
 
 				</div>
 
@@ -330,16 +377,16 @@
 					<form class="form-inline" role="form">
 						<div class="row">
 
-							<div class="col-lg-6 col-md-6 col-sm-2 col-xs-2">
+							<div class="col-lg-12 col-md-12 col-sm-2 col-xs-2">
 								<div class="form-group">
 									<b>Búsqueda:</b>
 									<label class="sr-only" for="exampleInputNombre2">Nombre</label>
 									<input type="text" class="form-control  exampleInput searchelement {{ 'family'~tabla.id }}" autocomplete="off" id="searchinrazaAllT" familyid="{{ 'family'~tabla.id }}" placeholder="Nombre del toro,apodo,padre o madre">
+									<button id="boton-izq"  familyid="{{ 'family'~tabla.id }}" class="btn cleaner {{ 'family'~tabla.id }}">Limpiar Filtros</button>
 								</div>
 							</div>
 							<div class="col-lg-4 col-md-4 col-sm-8 col-xs-8">
 								<div class="form-group">
-
 								</div>
 							</div>
 							<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
@@ -347,7 +394,7 @@
 								{#<button id="boton-der" type="submit" class="btn">Buscar</button>#}
 								{#</div>#}
 								<div class="form-group" style="margin-left:5px;">
-									<button id="boton-izq"  familyid="{{ 'family'~tabla.id }}" class="btn cleaner {{ 'family'~tabla.id }}">Limpiar Filtros</button>
+
 								</div>
 							</div>
 
@@ -400,7 +447,7 @@
 
 							<button class="btn btn-sm cleanselection {{ 'family'~tabla.id }}" familyid="{{ 'family'~tabla.id }}"  >Limpiar Selección</button>
 							<button class="btn btn-sm comparer {{ 'family'~tabla.id }}"  familyid="{{ 'family'~tabla.id }}" >Comparar</button>
-							{#<button class="btn btn-sm {{ 'family'~tabla.id }}" familyid="{{ 'family'~tabla.id }}" >Exportar para Excel</button>#}
+							<button class="btn btn-sm {{ 'family'~tabla.id }} expexcel" familyid="{{ 'family'~tabla.id }}" >Exportar para Excel</button>
 							{#<button class="btn btn-sm {{ 'family'~tabla.id }}" familyid="{{ 'family'~tabla.id }}" >Imprimir Catálogo</button>#}
 							<b id="cantmsj"  familyid="{{ 'family'~tabla.id }}" class="{{ 'family'~tabla.id }}">{{ tabla.toros|length }} toros en lista</b>
 
@@ -409,19 +456,21 @@
 					</div>
 					<div class="row">
 
-						<div class="tabla-lista-busqueda" >
 
-							<table id="lista-busqueda" familyid="{{ 'family'~tabla.id }}" class="table table-striped {{ 'family'~tabla.id }}">
+
+
+
+							<table id="{{ tabla.nombreresumido|replace(' ','-') }}" style="width: 100%" familyid="{{ 'family'~tabla.id }}" class="{{ 'family'~tabla.id }} genetictable table table-striped">
+
 
 								<thead>
 								<tr class="cabecera">
 									<th><input type="checkbox" class="listcheck headcheck" autocomplete="off" id=""></th>
-									<th>
-											<button class="btn btn-xs pruebacomp" familyid="{{ 'family'~tabla.id }}" style="float:right; background-color:#882700;border:none;color:#FFF;">Ver prueba comprimida</button>
+									<th style="width: 100px !important;">
+
 										</th>
-									<th class="hiderow originalhiddennombre">Nombre/th>
-									<th class="hiderow originalhiddenmadre">Madre </th>
-									<th> </th>
+
+									<th><button class="btn btn-xs pruebacomp" familyid="{{ 'family'~tabla.id }}" style="float:right; background-color:#882700;border:none;color:#FFF;">Ver prueba comprimida</button> </th>
 									<th class="cabecerawith">Nuevo</th>
 									<th class="cabecerawith">FP</th>
 									<th class="cabecerawith">CP</th>
@@ -439,10 +488,8 @@
 
 									<tr class="{{ cycle(["even", "odd"], loop.index) }}">
 										<td><input type="checkbox" class="listcheck" autocomplete="off"></td>
-										<td><a href="{{ path('gema_torodetail', {'toroid':toro.id}) }}"><img class="toroimg" src="{{ asset(toro.imgprincipal) }}" width="100px" height="81px"></a></td>
-										<td class="hiderow originalhiddennombre verticalalign">{{ toro.nombre }}</td>
-										<td class="hiderow originalhiddenmadre verticalalign">{{ toro.madre }}</td>
-										<td class="verticalalign toroapodo">{{ toro.apodo|upper }}<br>{{ toro.padre }}<br>{{ toro.padremadre|truncate(5,true) }}</td>
+										<td><a href="{{ path('gema_torodetail', {'apodo':toro.apodo }) }}"><img class="toroimg" src="{{ asset(toro.imgprincipal) }}" width="100px" height="81px"></a></td>
+										<td class="verticalalign toroapodo" tnombre="{{ toro.nombre }}" tmadre="{{ toro.madre }}" title=" Padre:{{ toro.padre }}*** Abuelo Materno:{{ toro.padremadre }}" style="text-align: center">{{ toro.apodo|upper }}<br>{{ toro.padre|truncate(7,true) }}<br>{{ toro.padremadre|truncate(5,true) }}</td>
 										<td data-nuevo="{{ toro.nuevo }}" class="verticalalign">{{ toro.nuevoflag | raw }}</td>
 										{% if toro.facilidadparto is not null %}
 											<td data-fp="{{ toro.facilidadparto }}" class="verticalalign">{{ toro.facilidadparto }}M</td>
@@ -468,7 +515,7 @@
 
                                                 {% if tabladata['rowhead']|lower=='dep' or tabladata['rowhead']|lower=='ranking' %}
 
-                                                 {% if tabladata['rowhead']|lower=='ranking' and   tabladata[dato.nombre] | replace('%','')<=25 and dato.nombre|lower !='altura' %}
+                                                 {% if tabladata['rowhead']|lower=='ranking' and   tabladata[dato.nombre] | replace('%','')<=25 and tabladata[dato.nombre]!='-' and  dato.nombre|lower !='altura' %}
 												<span class="downprom">{{ tabladata[dato.nombre] }}</span><br><br>
 
                                                 {% else %}
@@ -489,11 +536,15 @@
 
 							</table>
 
-						</div>
+
+
+
 
 					</div>
 
 				</div>
+
+
 
 				{% endfor %}
 {% endif %}
@@ -503,12 +554,79 @@
 
 {% endblock %}
  {% block custom_javascripts %}
-	 {#<script src="{{ asset('bundles/gema/clientresources/jquerybootgrid/jquery.bootgrid.min.js')}}"></script>#}
-	 <script src="{{ asset('bundles/gema/clientresources/jquerytablesorter/jquery.tablesorter.js') }}"></script>
-	 <script src="{{ asset('bundles/gema/clientresources/stickytableheader/jquery.stickytableheaders.js') }}"></script>
+
 	 <script src="{{ asset('bundles/gema/js/buscadortoros.js') }}"></script>
 	 <script src="{{ asset('bundles/gema/clientresources/ash/ash.js') }}"></script>
-	 {#<script src="{{ asset('bundles/gema/clientresources/sticky/jquery.scroltable.min.js') }}"></script>#}
+	 <script src="{{ asset('bundles/gema/clientresources/responsiveimg/js/responsiveImg.js')}}"></script>
+	 <script src="{{ asset('bundles/gema/clientresources/datatables/main/js/jquery.dataTables.js')}}"></script>
+	 <script src="{{ asset('bundles/gema/clientresources/datatables/fixedcolumns/dataTables.fixedColumns.js')}}"></script>
+	 {#<script src="{{ asset('bundles/gema/clientresources/doblescroll/jquery.doubleScroll.js')}}"></script>#}
+
+
+
+
+
+	 <script>
+
+		 $(document).ready(function() {
+
+//			 $('#lista-busqueda').wrap('<div id="scrooll_div"></div>');
+//			 $('#scrooll_div').doubleScroll();
+//
+//			 var cont=0;
+
+			 $('table').each(function () {
+
+
+				 var tabla = $(this).DataTable({
+					 scrollY: 300,
+					 scrollX: true,
+					 scrollCollapse: true,
+					 paging: false,
+					 "bInfo" : false,
+					 columnDefs: [
+						 { type: 'alt-string', targets: [8,4] },
+						 { "orderable": false, "targets": 1 },
+						 { "width": "20px", "targets": [0,1] },
+						 { "width": "100px", "targets": 1 },
+					 ]
+				 });
+				 new $.fn.dataTable.FixedColumns(tabla, {
+					 leftColumns: 3
+				 });
+
+//				 $(this).wrap('<div id="scrooll_div'+cont+'"></div>');
+//				 $('#scrooll_div2'+cont).doubleScroll();
+//				 cont++;
+
+			 });
+
+			 $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+				 $($.fn.dataTable.tables(true)).css('width', '100%');
+				 $($.fn.dataTable.tables(true)).DataTable().columns.adjust().draw();
+			 });
+		 });
+
+
+
+
+	 </script>
+	 <script>
+		 var getUrl = window.location;
+		 var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+		 var urlphp=baseUrl+'/web/js/responsiveImg.js.php';
+		 $(".imageresponsiveselect").responsiveImg(
+
+				 {
+
+					 srcAttribute : "src",
+					 pathToPHP : urlphp,
+					 createNewImages : true,
+					 jpegQuality : 90,
+					 callback:false
+				 }
+		 );
+	 </script>
 <script>
 	function ResetOddEven(table){
 
@@ -533,68 +651,10 @@
 	 <script>
 
 		 $(document).ready(function(){
-
-             $('.table').each(function(){
-                 $(this).tablesorter(
-						 {
-//							 sortList: [[2,1]],
-                             // pass the headers argument and assing a object
-                             headers: {
-                                 // assign the secound column (we start counting zero)
-                                 0: {
-                                     // disable it by setting the property sorter to false
-                                     sorter: false
-                                 },
-                                 // assign the third column (we start counting zero)
-                                 1: {  sorter: false    }
-                             },
-
-                 }
-                 );
-//                 $(this).fixedHeaderTable({ footer: true, cloneHeadToFoot: true, fixedColumn: false });
-             });
-             $("table").stickyTableHeaders(
-					 {
-						 fixedOffset: $('.top-navegacion.navbar-fixed-top'),
-//						 cacheHeaderHeight: true,
-
-
-
-					 }
-			 );
-
-
 			 $('table').each(function(){
-
 				 ResetOddEven($(this));
 			 });
-
-         });
-
-		 $('.tabla-lista-busqueda').scroll(function(){
-			 $("table").stickyTableHeaders(
-					 {
-						 fixedOffset: $('.top-navegacion.navbar-fixed-top'),
-//						 cacheHeaderHeight: true,
-
-
-
-					 }
-			 );
 		 });
-
-         $('.table th').click(function(){//
-             var namecol=$(this).html();
-             if($(this).find('.headcheck').length==0)
-            if(namecol!='CP' && namecol!='' && name!=='<input class="listcheck headcheck" autocomplete="off" id="" type="checkbox">'
-             && name.indexOf('button') !== -1) {
-                if($(this).find('#flecha').length==0)
-                $(this).html($(this).html() + '<i id="flecha" class="fa fa-caret-down"></i>');
-                $(this).closest('tr').find('th').not($(this)).each(function(){
-                    $(this).find('#flecha').remove();
-                });
-            }
-         });
 
 
 
@@ -610,7 +670,7 @@
 			 Do($(this).val(),$(this).attr('familyid'));
 		 });
 
-		 $(":checkbox").click(function(){
+		 $(":checkbox").not('.listcheck').click(function(){
 
 			 var familyId=$(this).attr('familyid');
 			 var value=$('.'+familyId+'#searchinrazaAllT').val();
@@ -628,7 +688,7 @@
 		 function SearchInTableForVal(tableId,value,allrows,familyId)
 		 {
 
-             var table=$('.'+familyId+'#'+tableId);
+             var table=$('table.'+familyId);
 			 var array=[];
 			 var fp15=$('.'+familyId+'#fp15').prop('checked');
 			 var fp18=$('.'+familyId+'#fp18').prop('checked');
@@ -649,25 +709,25 @@
 				 if(value==null || value=='' || value==' ')
 				 {
 					 $('.hiderow').hide();
-					 $('#'+tableId).find('tr').show();
+					 $('.'+familyId).find('tr').show();
 					 return;
 				 }
 
-				     table.find('tr').each(function (i, el) {
+				     table.find('tr').not('.cabecera').each(function (i, el) {
 					 var $tds = $(this).find('td');
-					 if ($tds.eq(2).text().toLowerCase().indexOf(value.toLowerCase()) >= 0)//Nombre
+					 if ($tds.eq(2).attr('tnombre').toLowerCase().indexOf(value.toLowerCase()) >= 0)//Nombre
 					 {
 						 isnombre=true;
 						 array.push($(this));
 					 }
-					 if ($tds.eq(3).text().toLowerCase().indexOf(value.toLowerCase()) >= 0)//Madre
+					 if ($tds.eq(2).attr('tmadre').toLowerCase().indexOf(value.toLowerCase()) >= 0)//Madre
 					 {
 						 ismadre=true;
 						 array.push($(this));
 					 }
-					 if ($tds.eq(4).text().toLowerCase().indexOf(value.toLowerCase()) >= 0)//Apodo
+					 if ($tds.eq(2).text().toLowerCase().indexOf(value.toLowerCase()) >= 0)//Apodo
 						 array.push($(this));
-					 if ($tds.eq(8).text().toLowerCase().indexOf(value.toLowerCase()) >= 0)//Padre
+					 if ($tds.eq(6).text().toLowerCase().indexOf(value.toLowerCase()) >= 0)//Padre
 						 array.push($(this));
 
 				 });
@@ -682,6 +742,7 @@
 				 else{
 					 if(fp15==true)
 					 {
+						// alert(fp15);
 						 if( e.find('td[data-fp]').attr('data-fp')==15)
 							 e.show();
 					 }
@@ -689,11 +750,18 @@
 					 {
 						 if( e.find('td[data-fp]').attr('data-fp')==18)
 							 e.show();
+						 if( e.find('td[data-fp]').attr('data-fp')==15)
+							 e.show();
+
 					 }
 					 if(fp24==true)
 					 {
 
 						 if( e.find('td[data-fp]').attr('data-fp')==24)
+							 e.show();
+						 if( e.find('td[data-fp]').attr('data-fp')==18)
+							 e.show();
+						 if( e.find('td[data-fp]').attr('data-fp')==15)
 							 e.show();
 					 }
 					 if(isnuevo==true)
@@ -718,14 +786,19 @@
 
 			 });
 
-
 			  if(ismadre==true)
 				 $('.originalhiddenmadre').show();
 			 if(isnombre==true)
 				 $('.originalhiddennombre').show();
-			 $('.'+familyId+'#cantmsj').html(table.find('tr:visible').not('.cabecera').length + ' toros en la lista');
+			 if(fp15==true || fp18==true || fp24==true)
+			 {
+				 table.not('.DTFC_Cloned').DataTable().order([4, "desc"]).draw()
+			 }
+			 $('.'+familyId+'#cantmsj').html(table.not('.DTFC_Cloned').find('tr:visible').not('.cabecera').length + ' toros en la lista');
 
 			ResetOddEven(table);
+			 $($.fn.dataTable.tables(true)).css('width', '100%');
+			 $($.fn.dataTable.tables(true)).DataTable().columns.adjust().draw();
 
 		 }
 
@@ -735,30 +808,39 @@
 			  var familyId=$(this).attr('familyid');
 			  $('.'+familyId+'#searchinrazaAllT').val('');
 			  $('.'+familyId+':checkbox').not('.listcheck').prop('checked', false);
+
 			  SearchInTableForVal('lista-busqueda','',1,familyId);
 		  });
 
 
 
-		  $('.headcheck').click(function(){
-			  if ($(this).prop('checked'))
-				  $(this).closest('table').find('.listcheck').each(function(){
-					  if($(this).is(":visible"))
-						  $(this).prop('checked','checked')
-				  });
-			  else
-				  $(this).closest('table').find('.listcheck').each(function(){
-					  $(this).prop('checked',false)
-				  });
-		  });
+
+		 $(document).on('click','.headcheck',function(){
+			 var familyId=$(this).closest('table').attr('familyid');
+			 var tab= $('table.'+familyId).not('.DTFC_Cloned');
+			 if ($(this).prop('checked'))
+				 tab.find('.listcheck').not('.headcheck').each(function(e,i){
+					 if($(this).is(":visible"))
+						 $(this).prop('checked','checked')
+				 });
+			 else
+				tab.find('.listcheck').not('.headcheck').each(function(){
+					 $(this).prop('checked',false)
+				 });
+			tab.DataTable().order([0, "desc"]).draw()
+
+		 });
 
 		  $('.cleanselection').click(function(){
 			  var familyId=$(this).attr('familyid');
-			  var table=$('.'+familyId+'#lista-busqueda');
+			  var table=$('table.'+familyId).not('.DTFC_Cloned');
+
 			  table.find('.listcheck').each(function(){
 				  $(this).prop('checked',false)
 				  $(this).closest('tr').show();
 			  });
+			  table.DataTable().order([0, "desc"]).draw();
+			  $('table.' + familyId+'.DTFC_Cloned').find('.listcheck:visible').not('.cabecera').prop('checked',false);
 			  SearchInTableForVal('lista-busqueda','',1,$(this).attr('familyid'));
 		  });
 
@@ -766,67 +848,59 @@
 			  Comparer('checked',$(this).attr('familyid'));
 		  });
 
+
 		  function Comparer(param,familyId)
 		  {
-			  var table=$('.'+familyId+'#lista-busqueda');
-			  table.find('.listcheck').each(function(){
-				  if($(this).prop(param))
-					  $(this).closest('tr').show();
-				  else
-					  $(this).closest('tr').not('.cabecera').hide();
+              var arr=[];
+			  $('table.' + familyId+'.DTFC_Cloned').find('.listcheck:checked').each(function(){
+               arr.push($(this).closest('tr').index());
 			  });
-			  $('.'+familyId+'#cantmsj').html(table.find('tr:visible').not('.cabecera').length + ' toros en la lista')
+			  var tab=$('table.'+familyId).not('.DTFC_Cloned');
+			  tab.find('tr').not('.cabecera').hide();
+			  var rows= tab.find('tr').not('.cabecera');
+			  tab.find('tr').each(function(index){
+				  arr.forEach(function(e){
+                    if(e==index){
+						rows.eq(index).show();
+					}
+				 });
+			  });
+			  tab.DataTable().order([0, "desc"]).draw();
+
+			  $('table.' + familyId+'.DTFC_Cloned').find('.listcheck:visible').not('.cabecera').prop('checked','checked');
+
+			  $('.'+familyId+'#cantmsj').html(tab.find('tr:visible').not('.cabecera').length + ' toros en la lista')
 		  }
 	 </script>
 
      <script>
 
-//             $('#buscartorosresp').click(function(){
-//                 var dato=$('#datostextresp').val();
-//                 BuscarToros(dato);
-//
-//             });
-//
-//             $('#buscartoros').click(function(){
-//                 var dato=$('#datostext').val();
-//                 BuscarToros(dato);
-//
-//             });
-//
-//             $('#datostext').keyup(function(e){
-//                 if(e.keyCode == 13)
-//                     BuscarToros($(this).val());
-//             });
-//             $('#datostextresp').keyup(function(e){
-//                 if(e.keyCode == 13)
-//                     BuscarToros($(this).val());
-//             });
-
              var arraypos=[];
              //Pruebas comprimidas
-             $('.pruebacomp').click(function(){
-                 var tabla=$('.'+$(this).attr('familyid')+'#lista-busqueda');
-                 var ths= tabla.find('th');
-                 var index=0;
-                 if($(this).html()=='Ver prueba comprimida')
-                 {
-                        ths.each(function(){
-                         if($(this).attr('showinvc')!=undefined &&( $(this).attr('showinvc')==null ||$(this).attr('showinvc')==''))
-                         {
-                             tabla.hideColumn(index, 400);
-                             arraypos.push(index);
 
-                         }
-                         index++;
-                     });
-                     $(this).html('Ver prueba completa')
+				 $(document).on('click','.pruebacomp',function(){
+
+                var familyId=$(this).attr('familyid');
+				var tabla= $('table.' + familyId).not('.DTFC_Cloned').DataTable();
+
+                 if($(this).html()=='Ver prueba comprimida') {
+					 $('.'+familyId).find('.pruebacomp').text('Ver prueba completa');
+
+
+					tabla
+							 .columns( '[showinvc="0"]').visible( false);
+
+				//	 tab.DataTable().order([0, "desc"]).draw()
                      return;
                  }
                  if($(this).html()=='Ver prueba completa'){
-                     arraypos.forEach(function(e) {
-                         tabla.showColumn(e, 400);
-                     });
-                     $(this).html('Ver prueba comprimida')
+
+					 $('.'+familyId).find('.pruebacomp').text('Ver prueba comprimida')
+
+					 tabla
+							 .columns( '[showinvc="0"]').visible( true);
+
+
                  }
              });
 
@@ -847,6 +921,46 @@
 			 }
 		 });
 
+
+	 </script>
+
+	 <script>
+		 $('.sel2').change(function(){
+			var name=$(this).val();
+			 var clase=$('select[name="principalselector"] :selected').attr('class');
+			 if(clase===undefined){
+				 window.location=Routing.generate('gema_razalist', {nombre: name});
+			 }
+
+		 });
+
+		 $('.sel22').change(function(){
+			 var name=$(this).val();
+			 var clase=$('select[name="principalselector2"] :selected').attr('class');
+
+			 if(clase===undefined){
+				 window.location=Routing.generate('gema_razalist', {nombre: name});
+			 }
+
+		 });
+		 $('.therrazasselector').change(function(){
+
+			 var raza=$(this).val();
+			 var tabla=$('.tabla1').not('.DTFC_Cloned').DataTable();
+			 tabla.search(raza).draw();
+			 var info = tabla.page.info();
+			 var d= info.recordsDisplay;
+			 $('#cantmsj').html(d + ' toros en la lista');
+			 $($.fn.dataTable.tables(true)).css('width', '100%');
+			 $($.fn.dataTable.tables(true)).DataTable().columns.adjust().draw();
+
+		 });
+	 </script>
+
+	 <script>
+		 $('.expexcel').click(function(){
+
+		 });
 
 	 </script>
 

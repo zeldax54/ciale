@@ -86,7 +86,7 @@ font-weight: bold;
 .table > tbody > tr > td
 {
 	/*color: #D24C26;*/
-	cont-family:'Fago-normal';
+	font-family:'Fago-normal';
 }
 
 a{
@@ -109,6 +109,27 @@ address,p,strong{
 #imagen-principal{
 	border-radius:7px 7px 7px 7px;
 }
+
+.newselector{
+	background-color: #9D4F30;
+color: white;
+font-family: 'Fago-normal';
+border-radius: 5px;
+font-size: 11pt;
+width: 94%;
+border: none !important;
+height: 27px;
+padding: 4px;
+}
+.newselector option{
+	color:black;
+}
+
+.sel2{
+	width: 98% !important;
+}
+
+
 
 
 

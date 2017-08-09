@@ -6,7 +6,11 @@
 	  <link href="{{ asset('bundles/gema/clientresources/watermark/styleimg.css')}}" rel="stylesheet">
 
 	  <style>
-
+		  th{
+			  background-color: #98999D !important;
+			  text-align: center !important;
+			  color: #FFFFFF !important;
+		  }
 
 	  </style>
 	  {% endblock %}
@@ -17,33 +21,38 @@
 			<div class="colapsive-panel" role="navigation">
 
 							<div class="row">
-								<div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
-									<b>Raza:</b>
-								</div>
+
 								<div class="col-lg-2 col-md-2 col-sm-2 col-xs-9">
-									<div class="btn-group">
-									  <button type="button" class="btn btn-xs dropdown-toggle btn-toro" data-toggle="dropdown">
-										{{ father.nombre }} <span class="caret"></span>
-									  </button>
-									  <ul class="dropdown-menu" style="background: #B14E0A">
+									<ul class="nav navbar-nav">
+										<li style="font-size: 117%;">Raza:</li>
+										<li>
+											<!-- Split button -->
 
-										  <li class="divider"></li>
-										  {% if fathersmenu  is defined %}
+											<select name="principalselector2" class="sel22 newselector">
+												{#<option selected  value="{{ father.nombre }}" class="here">{{ father.nombre }}</option>#}
+												{% if fathersmenu  is defined %}
 
-											  {% for r in fathersmenu %}
-												  <li><a style="color:white" class="" href=" {{  path('gema_razalist', {'id': r.id,'isfather':1})  }} ">{{ r.nombre }}&nbsp;&nbsp;&nbsp;</a></li>
-												  <li class="divider"></li>
-											  {% endfor %}
-										  {% endif %}
+													{% for r in fathersmenu %}
+														{% if r.nombre == father.nombre %}
+															<option   value="{{ father.nombre }}" class="here">{{ father.nombre }}</option>
+														{% else %}
+															<option value="{{ r.nombre }}"> {{ r.nombre }}&nbsp;&nbsp;&nbsp;</option>
+														{% endif %}
 
-										  {% if razasmenu is defined %}
-											  {% for r in razasmenu %}
-												  <li><a style="color:white" class="" href=" {{  path('gema_razalist', {'id': r.id,'isfather':0})  }} ">{{ r.nombre }}&nbsp;&nbsp;&nbsp;</a></li>
-												  <li class="divider"></li>
-											  {% endfor %}
-										  {% endif %}
-									  </ul>
-									</div>
+													{% endfor %}
+												{% endif %}
+
+												{% if razasmenu is defined %}
+													{% for r in razasmenu %}
+														<option value="{{ r.nombre }}">{{ r.nombre }}&nbsp;&nbsp;&nbsp;</option>
+
+													{% endfor %}
+												{% endif %}
+											</select>
+
+										</li>
+
+									</ul>
 								</div>
 							</div>
 							
@@ -86,36 +95,42 @@
 
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 
-							<ul class="nav navbar-nav">
-								<li style="font-size: 117%;">Raza:</li>
-								<li>
+
 						<!-- Split button -->
-									<div class="btn-group">
-										<span  class="btn btn-xs dropdown-toggle btn-toro mybtn" data-toggle="dropdown">
-											{{ father.nombre }}&nbsp;&nbsp;&nbsp;
-											<span class="caret"></span>
-										</span>
-										<ul class="dropdown-menu" style="background: #B14E0A">
 
 
-											{% if fathersmenu  is defined %}
+										<ul class="nav navbar-nav">
+											<li style="font-size: 117%;">Raza:</li>
+											<li>
+												<!-- Split button -->
 
-												{% for r in fathersmenu %}
-													<li><a style="color:white" class="" href=" {{  path('gema_razalist', {'id': r.id,'isfather':1})  }} ">{{ r.nombre }}&nbsp;&nbsp;&nbsp;</a></li>
-													<li class="divider"></li>
-												{% endfor %}
-											{% endif %}
+												<select name="principalselector2" class="sel22 newselector">
+													{#<option selected  value="{{ father.nombre }}" class="here">{{ father.nombre }}</option>#}
+													{% if fathersmenu  is defined %}
 
-											{% if razasmenu is defined %}
-												{% for r in razasmenu %}
-													<li><a style="color:white" class="" href=" {{  path('gema_razalist', {'id': r.id,'isfather':0})  }} ">{{ r.nombre }}&nbsp;&nbsp;&nbsp;</a></li>
-													<li class="divider"></li>
-												{% endfor %}
-											{% endif %}
+														{% for r in fathersmenu %}
+															{% if r.nombre == father.nombre %}
+																<option   value="{{ father.nombre }}" class="here">{{ father.nombre }}</option>
+																{% else %}
+															<option value="{{ r.nombre }}"> {{ r.nombre }}&nbsp;&nbsp;&nbsp;</option>
+																{% endif %}
+
+														{% endfor %}
+													{% endif %}
+
+													{% if razasmenu is defined %}
+														{% for r in razasmenu %}
+															<option value="{{ r.nombre }}">{{ r.nombre }}&nbsp;&nbsp;&nbsp;</option>
+
+														{% endfor %}
+													{% endif %}
+												</select>
+
+											</li>
+
 										</ul>
-									</div>
-								</li>
-							</ul>
+
+
 
 						</div>
 
@@ -276,12 +291,12 @@
 	
 					<div class="col-lg-4 col-md-4 col-sm-5 col-xs-5">
 						{% if imgfp is not null %}
-						<img src="{{ asset(imgfp) }}" class="img-responsive" style="height:85px;"/>
+						<img src="{{ asset(imgfp) }}" class="img-responsive" style="height:67px;"/>
 						{% endif %}
 					</div>
 					<div class="col-lg-5 col-md-5 col-sm-6 col-xs-6">
 						{% if toro.cp==true %}
-						<img src="{{ asset(imgcp) }}" class="img-responsive" style="height:85px;"/>
+						<img src="{{ asset(imgcp) }}" class="img-responsive" style="height:67px;"/>
 							{% endif %}
 					</div>
 					
@@ -431,23 +446,13 @@
     {% block custom_javascripts %}
 		<script src="{{ asset('bundles/gema/clientresources/fancybox/dist/jquery.fancybox.min.js')}}"></script>
 		<script src="{{ asset('bundles/gema/clientresources/jquerybxslider/jquery.bxslider.min.js')}}"></script>
-		{#<script src="{{ asset('bundles/gema/clientresources/watermark/watermark-polyfill.js')}}"></script>#}
+
 		<script src="{{ asset('bundles/gema/js/buscadortoros.js')}}"></script>
 
 		<script>
 
 
-//
-//         var url1=$('#imagen-principal').prop('src');
-//         var url2=$('#imagen-wattermark').prop('src');
-//
-//       watermark([url1, url2])
-//		.image(watermark.image.lowerRight(1))
-//		.then(function (img) {
-//
-//			document.getElementById('imgwatercont').appendChild(img);
-//
-//		});
+
 			$(document).ready(function(){
 				$('.bxslider').bxSlider(
 						{
@@ -478,6 +483,19 @@
 
 			})
 		</script>
+
+		<script>
+
+
+			$('.sel22').change(function(){
+				var name=$(this).val();
+
+
+					window.location=Routing.generate('gema_razalist', {nombre: name});
+
+
+			});
+			</script>
 
 
 	{% endblock %}

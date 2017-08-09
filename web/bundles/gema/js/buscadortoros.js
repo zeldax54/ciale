@@ -79,7 +79,7 @@ function BuscarToros(dato){
 
                   var lis='';
                   for (var f = 0; f < data.length; f++) {
-                      var torodetalleruta=Routing.generate('gema_torodetail',{toroid:data[f].id});
+                      var torodetalleruta=Routing.generate('gema_torodetail',{apodo:data[f].apodo});
                       lis+='<li class="menu-items dynamicliscontainer" >' +
                           '<a href="'+torodetalleruta+'">' +
                           '<div><div class="col-xs-4">';

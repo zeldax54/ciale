@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-07-30 02:58:04
+Date: 2017-08-09 02:30:48
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -99,7 +99,7 @@ CREATE TABLE `correo` (
   `consulta` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
   `provincia` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of correo
@@ -492,7 +492,7 @@ INSERT INTO `productosprogramas` VALUES ('5', 'Obtenga 3% más de Concepción', 
 INSERT INTO `productosprogramas` VALUES ('6', 'Diseñe su Plan Genético', '<p><span style=\"font-size:18px\"><span style=\"font-family:Fago-normal\">Alta GPS le ayuda a dise&ntilde;ar su propio plan gen&eacute;tico de principio a fin por medio de la definici&oacute;n de objetivos de selecci&oacute;n y eligiendo la gen&eacute;tica acorde a su propio &iacute;ndice de selecci&oacute;n. </span></span></p>', '<p><span style=\"font-family:Fago-normal\">No s&oacute;lo este programa establece un ranking de opciones gen&eacute;ticas acordes a sus necesidades y objetivos, sino que tambi&eacute;n le mostrar&aacute; el valor asociado a su inversi&oacute;n en Valor Neto Actual, as&iacute; como tambi&eacute;n calcular&aacute; el Retorno a la Inversi&oacute;n. Esta poderosa herramienta de negocios le ayudar&aacute; a mantener sus prioridades enfocadas en la rentabilidad a largo plazo de su rodeo. </span></p>', '1', '351F865B-4FF4-4402-9CCA-2661A139D4AA');
 INSERT INTO `productosprogramas` VALUES ('7', 'Sesiones de Manejo Lechero', '<p><span style=\"font-size:18px\"><span style=\"font-family:Fago-normal\">La polifac&eacute;tica escuela sobre Manejo Lechero est&aacute; orientada para ayudar a los participantes a que aprendan, identifiquen y accedan a un potencial de ganancias no realizadas en todas las fases operacionales dentro de la lecher&iacute;a que manejan. </span></span></p>', '<p><span style=\"font-family:Fago-normal\">La polifac&eacute;tica escuela sobre Manejo Lechero est&aacute; orientada para ayudar a los participantes a que aprendan, identifiquen y accedan a un potencial de ganancias no realizadas en todas las fases operacionales dentro de la lecher&iacute;a que manejan. </span></p>', '1', 'BADCA314-3617-4E2A-9C41-4FC762E509DB');
 INSERT INTO `productosprogramas` VALUES ('8', 'Maximice su rentabilidad: USE SEMEN SEXADO', '<p><span style=\"font-size:18px\"><span style=\"font-family:Fago-normal\">Ponga las probabilidades a su favor usando semen con 90% de espermatozoides con cromosoma femenino </span></span></p>', '<ul>\r\n	<li><span style=\"font-family:Fago-normal\">Cree un rodeo m&aacute;s sano a partir de su propia reposici&oacute;n</span></li>\r\n	<li><span style=\"font-family:Fago-normal\">Obtenga m&aacute;s vaquillas para una expansi&oacute;n y progreso gen&eacute;tico m&aacute;s r&aacute;pidos</span></li>\r\n	<li><span style=\"font-family:Fago-normal\">Crezca en su rodeo con la confianza de usar gen&eacute;tica que est&aacute; probada para desempe&ntilde;arse en rodeos comerciales progresistas.</span></li>\r\n</ul>\r\n\r\n<p><span style=\"font-family:Fago-normal\">La t&eacute;cnica empleada para aislar las c&eacute;lulas esperm&aacute;ticas con el cromosoma hembra tiene un resultado de 90% de pureza. Esto significa un 90% de probabilidad de que la concepci&oacute;n resulte en un embri&oacute;n hembra, en comparaci&oacute;n con el 50% de probabilidad usando semen convencional. El producto se recomienda para ser usado en vaquillas v&iacute;rgenes con buenos s&iacute;ntomas de estro.</span></p>\r\n\r\n<p><span style=\"font-family:Fago-normal\">Los productores lecheros progresistas pueden Acelerar el paso hacia su futuro tomando ventaja de los beneficios del semen sexado Alta511. M&aacute;s vaquillas a partir de las pre&ntilde;eces creadas, menor riesgo en bioseguridad, y desempe&ntilde;o probado en fertilidad de la pajilla de semen Advance, combinado con la confianza de usar gen&eacute;tica probada en ambientes lecheros progresistas son los elementos que definen a la marca Alta511, semen sexado Al</span>ta.</p>', '1', '60FDAC9E-440E-4DC5-880D-B276C95B8734');
-INSERT INTO `productosprogramas` VALUES ('9', 'IATF A RESULTADOS', '<p><span style=\"font-size:18px\"><span style=\"font-family:Fago-normal\">Este innovador programa de productos y servicios de CIALE Alta tiene como objetivo principal motivar la utilizaci&oacute;n de la t&eacute;cnica de Inseminaci&oacute;n Artificial a Tiempo Fijo (IATF) y est&aacute; orientado a aquellos productores que nunca han inseminado o productores que inseminan s&oacute;lo un bajo porcentaje del rodeo. La esencia de este nuevo programa es la posibilidad de que el productor al momento de contratar el servicio con CIALE Alta, obtenga el beneficio de trabajar a resultado y sin asumir riesgos, pagando s&oacute;lo por aquellos vientres que, al momento de la ecograf&iacute;a, fueran diagnosticados como pre&ntilde;ados. </span></span></p>', '<p><span style=\"font-family:Fago-Bold\"><a href=\"http://localhost/cialesymf/web/productoprograma\\1927B499-4074-47D3-87E4-F24F706F831E\\PagoxPrenez-web.pdf\" target=\"_blank\">Descargar m&aacute;s informaci&oacute;n</a></span></p>', '1', '1927B499-4074-47D3-87E4-F24F706F831E');
+INSERT INTO `productosprogramas` VALUES ('9', 'IATF A RESULTADOS', '<p><span style=\"font-size:18px\"><span style=\"font-family:Fago-normal\">Este innovador programa de productos y servicios de CIALE Alta tiene como objetivo principal motivar la utilizaci&oacute;n de la t&eacute;cnica de Inseminaci&oacute;n Artificial a Tiempo Fijo (IATF) y est&aacute; orientado a aquellos productores que nunca han inseminado o productores que inseminan s&oacute;lo un bajo porcentaje del rodeo. La esencia de este nuevo programa es la posibilidad de que el productor al momento de contratar el servicio con CIALE Alta, obtenga el beneficio de trabajar a resultado y sin asumir riesgos, pagando s&oacute;lo por aquellos vientres que, al momento de la ecograf&iacute;a, fueran diagnosticados como pre&ntilde;ados. </span></span></p>', '<p><span style=\"font-family:Fago-Bold\"><a href=\"http://localhost/cialesymf/web/productoprograma\\1927B499-4074-47D3-87E4-F24F706F831E\\PagoxPrenez-web.pdf\" target=\"_blank\">Descargar m&aacute;s informaci&oacute;n</a></span></p>\r\n\r\n<p><span style=\"font-family:Fago-Bold\"><a href=\"http://localhost/cialesymf/web/library\\pxp.jpg\" target=\"_blank\">Descargar Flyer</a></span></p>', '1', '1927B499-4074-47D3-87E4-F24F706F831E');
 
 -- ----------------------------
 -- Table structure for provincia
@@ -766,18 +766,18 @@ CREATE TABLE `tabladatos` (
 -- ----------------------------
 -- Records of tabladatos
 -- ----------------------------
-INSERT INTO `tabladatos` VALUES ('1', '1', 'L.Gest.', '44', null);
+INSERT INTO `tabladatos` VALUES ('1', '1', 'L.Gest.', '44', '0');
 INSERT INTO `tabladatos` VALUES ('2', '1', 'PN', '48', '1');
 INSERT INTO `tabladatos` VALUES ('3', '1', 'PD', '52', '1');
 INSERT INTO `tabladatos` VALUES ('4', '1', 'Leche', '56', '1');
 INSERT INTO `tabladatos` VALUES ('5', '1', 'PF', '60', '1');
 INSERT INTO `tabladatos` VALUES ('6', '1', 'CE', '64', '1');
-INSERT INTO `tabladatos` VALUES ('7', '1', 'Altura', '68', null);
+INSERT INTO `tabladatos` VALUES ('7', '1', 'Altura', '68', '0');
 INSERT INTO `tabladatos` VALUES ('8', '1', 'AOB', '72', '1');
-INSERT INTO `tabladatos` VALUES ('9', '1', 'GD', '76', null);
-INSERT INTO `tabladatos` VALUES ('10', '1', 'GC', '80', null);
-INSERT INTO `tabladatos` VALUES ('11', '1', 'GI', '84', null);
-INSERT INTO `tabladatos` VALUES ('12', '1', 'CM', '88', null);
+INSERT INTO `tabladatos` VALUES ('9', '1', 'GD', '76', '0');
+INSERT INTO `tabladatos` VALUES ('10', '1', 'GC', '80', '0');
+INSERT INTO `tabladatos` VALUES ('11', '1', 'GI', '84', '0');
+INSERT INTO `tabladatos` VALUES ('12', '1', 'CM', '88', '0');
 INSERT INTO `tabladatos` VALUES ('19', '2', 'FPD', '92', null);
 INSERT INTO `tabladatos` VALUES ('20', '2', 'FPDh', '96', null);
 INSERT INTO `tabladatos` VALUES ('21', '2', 'LG', '100', null);
@@ -1180,7 +1180,7 @@ CREATE TABLE `traza` (
   `accion` longtext COLLATE utf8_unicode_ci NOT NULL,
   `fecha` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1916 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1920 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of traza
@@ -2647,6 +2647,10 @@ INSERT INTO `traza` VALUES ('1912', 'Patricio', ' ', '2017-07-30 08:28:02');
 INSERT INTO `traza` VALUES ('1913', 'Patricio', 'Listar Expedientes de Toro', '2017-07-30 08:28:03');
 INSERT INTO `traza` VALUES ('1914', 'Patricio', ' ', '2017-07-30 08:34:34');
 INSERT INTO `traza` VALUES ('1915', 'Patricio', 'Listar Expedientes de Toro', '2017-07-30 08:34:35');
+INSERT INTO `traza` VALUES ('1916', 'Patricio', 'Listar Expedientes de Toro', '2017-08-09 00:58:55');
+INSERT INTO `traza` VALUES ('1917', 'Patricio', 'Listar Expedientes de Correo', '2017-08-09 06:39:29');
+INSERT INTO `traza` VALUES ('1918', 'Patricio', 'Listar Expedientes de Productosprogramas', '2017-08-09 06:48:21');
+INSERT INTO `traza` VALUES ('1919', 'Patricio', ' ', '2017-08-09 06:49:46');
 
 -- ----------------------------
 -- Table structure for usuario

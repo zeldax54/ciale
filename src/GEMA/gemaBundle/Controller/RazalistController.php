@@ -20,22 +20,29 @@ class RazalistController extends Controller
 {
 
 
-    function listRazaAction($id,$isfather)
+    function listRazaAction($nombre)
     {
 
         $helper=new MyHelper();
         $em = $this->getDoctrine()->getManager();
-      //  $tablasrepo=$em->getRepository('gemaBundle:Tabla');
+        $r=$em->getRepository('gemaBundle:Razafather')->findOneByNombre($nombre);
+        if($r!=null){
+            $isfather=1;
+            $id=$r->getId();
+        }
+        else{
+            $isfather=0;
+            $r2=$father=$em->getRepository('gemaBundle:Raza')->findOneByNombre($nombre);
+            $id=$r2->getId();
+        }
         if($isfather==1)
         {
             $father=$em->getRepository('gemaBundle:Razafather')->find($id);
             $razas=$father->getRazas();
-
             $toros=$em->getRepository('gemaBundle:Toro')->torosbyRazas($razas);
             $nombreraza=$father->getNombre();
             $tablas=array();
             $mocho=false;
-
             foreach($razas as $r){
                 $tablasch=$r->getTipotabla()->getTablas();
                 foreach($tablasch as $t)
@@ -51,7 +58,7 @@ class RazalistController extends Controller
                 'father'=>null,
                 'tiporaza'=>1
             ));
-
+            $otherrazas=null;
         }
         else{
             $raza=$em->getRepository('gemaBundle:Raza')->find($id);
@@ -68,10 +75,21 @@ class RazalistController extends Controller
             $mocho=$raza->getMocho();
             $fathersmenu=$em->getRepository('gemaBundle:Razafather')->findAll();
             $razasmenu=$em->getRepository('gemaBundle:Raza')->Notid($id,$raza->getTiporaza()->getId());
+            if($raza->getId()==26){
+                $conn = $this->get('database_connection');
+                $consulta = 'SELECT DISTINCT nombreraza from toro where raza_id=26';
+                $otherrazasm = $conn->fetchAll($consulta);
+               for($i=0;$i<count($otherrazasm);$i++){
+                   if($otherrazasm[$i]['nombreraza']==null or $otherrazasm[$i]['nombreraza']=='')
+                       $otherrazasm[$i]['nombreraza']='Sin Raza Definida';
+               }
+
+                $otherrazas=$otherrazasm;
+
+            }
+            else
+                $otherrazas=null;
         }
-
-
-
         foreach($toros as $toro)
         {
 
@@ -91,7 +109,6 @@ class RazalistController extends Controller
         }
 
 
-
         return $this->render('gemaBundle:Page:tablaraza.html.twig', array(
                 'toros'=>$toros,
                 'razaname'=>$nombreraza,
@@ -99,8 +116,8 @@ class RazalistController extends Controller
                 'mocho'=>$mocho,
                 'fathersmenu'=>$fathersmenu,
                 'razasmenu'=>$razasmenu,
+                'otherrazas'=>$otherrazas
                // 'razas'=>$razas
-
 
             )
         );
@@ -108,10 +125,11 @@ class RazalistController extends Controller
 
 
 
-    function toroDetailAction($toroid){
+    function toroDetailAction($apodo){
 
         $em = $this->getDoctrine()->getManager();
-        $toro=$em->getRepository('gemaBundle:Toro')->find($toroid);
+        $toro=$em->getRepository('gemaBundle:Toro')->findOneByApodo($apodo);
+
         $razas=$em->getRepository('gemaBundle:Raza')->findallBut($toro->getRaza()->getId(),
             $toro->getRaza()->getTipoRaza()->getId());
 
@@ -123,6 +141,7 @@ class RazalistController extends Controller
             $razafather=$toro->getRaza();
 
           $fathersmenu=$em->getRepository('gemaBundle:Razafather')->findAll();
+
           $razasmenu=$em->getRepository('gemaBundle:Raza')->findBy(array(
               'father'=>null,
               'tiporaza'=>1
@@ -224,6 +243,8 @@ class RazalistController extends Controller
                     $flaadd++;
             }
         }
+
+
         return $this->render('gemaBundle:Page:detalle-toro.html.twig', array(
                 'toro'=>$toro,
                 'princimg'=>$img,
@@ -238,6 +259,8 @@ class RazalistController extends Controller
                 'father'=>$razafather,
                 'fathersmenu'=>$fathersmenu,
                 'razasmenu'=>$razasmenu,
+                'razaname'=>   $toro->getRaza()->getNombre(),
+
 
 
             )

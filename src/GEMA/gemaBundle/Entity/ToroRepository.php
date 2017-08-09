@@ -113,6 +113,7 @@ class ToroRepository extends EntityRepository
 
     }
 
+
 //
 //    public function torosbyTabla($tablaid){
 //        $em = $this->getDoctrine()->getManager();

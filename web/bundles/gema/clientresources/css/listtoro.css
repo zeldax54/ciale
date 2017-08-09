@@ -62,3 +62,29 @@ button{
 }
 table td {padding: 0px !important; margin: 0px !important;border-spacing: 0px !important;}
 table {border-spacing: 0px !important;}
+
+@media (max-width:767px){
+	.checkbox {
+    margin-top:0px !important;
+}
+}
+
+.newselector{
+	background-color: #9D4F30;
+color: white;
+font-family: 'Fago-normal';
+border-radius: 5px;
+font-size: 11pt;
+width: 124%;
+border: none !important;
+height: 27px;
+padding: 4px;
+}
+.newselector option{
+	color:black;
+}
+
+.sel2{
+	width: 98% !important;
+}
+

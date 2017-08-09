@@ -211,7 +211,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#034694', end
 	margin-bottom:2px;
 }
 th{
-	background-color:#98999D;
+	background-color:#B24E2A;
 	text-align:center;
 	color:#FFFFFF;
 }
@@ -398,8 +398,9 @@ form.form-inline .row button{
 	font-weight:500;
 }
 .tabla-lista-busqueda{	
-	overflow:auto;
+	overflow:hidden;
 	margin-bottom:20px;
+	height: 500px;
 }
 table#lista-busqueda{
 	min-width:680px;
@@ -448,7 +449,7 @@ table#lista-busqueda{
 	margin-right:15px;
 }
 nav.navbar.navbar-principal2{
-	margin:15px 0 30px -40px;
+	margin:15px 0 30px -50px;
 	background-color:transparent;
 	border:none;
 }

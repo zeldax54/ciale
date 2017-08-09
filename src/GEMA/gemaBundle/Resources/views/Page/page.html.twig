@@ -28,7 +28,7 @@
                           </div>
                            <div class="col-md-6">
                              <div class="bull-search-container containerb" id="dinamiculcontp">
-                                 <input type="text" id="datororo" class="textsearch" placeholder="Apodo,nombre,padre o abuelo materno" autocomplete="off">
+                                 <input type="text" id="datororo" class="textsearch" placeholder="Apodo, nombre, padre o abuelo materno" autocomplete="off">
                                  <input type="button" class="sb" id="advancesearch" style="display: none;background-image:url({{asset('bundles/gema/clientresources/img/cow-icon-32.png')}})  ">
                              </div>
                            </div>
@@ -37,12 +37,16 @@
                       <div class="row">
 
                           <div class="col-md-12">
-                              <p class="headinfo" id="razacarne">Ir directo a: &nbsp;
+                              <p class="headinfo" id="razacarne"><span class="irda">Ir directo a: &nbsp;</span>
                               {% for raza in fathers %}
-                                  <a href="{{  path('gema_razalist', {'id': raza.id,'isfather':1})  }}" class="abodydinfo"><span class="bodydinfo">{{ raza.nombre }}</span> </a>&nbsp;|
+                                  <a href="{{  path('gema_razalist', {nombre:raza.nombre})  }}" class="abodydinfo"><span class="bodydinfo">{{ raza.nombre }}</span> </a>&nbsp;|
+
                                   {% endfor %}
                                   {% for raza in razasnofather %}
-                                      <a href="{{  path('gema_razalist', {'id': raza.id,'isfather':0})  }}" class="abodydinfo"><span class="bodydinfo">{{ raza.nombre }}</span> </a>&nbsp;|
+                                      <a href="{{ path('gema_razalist', {nombre:raza.nombre})  }}" class="abodydinfo"><span class="bodydinfo">{{ raza.nombre }}</span> </a>&nbsp;
+                                      {% if loop.last == false %}
+                                          |
+                                      {% endif %}
                                   {% endfor %}
                               </p>
 
@@ -58,9 +62,12 @@
                       <div class="row">
 
                           <div class="col-md-7">
-                              <p class="headinfo"><strong>Ir directo a: &nbsp;</strong>
+                              <p class="headinfo"><span class="irda">Ir directo a: &nbsp;</span>
                                   {% for raza in leche %}
-                                      <a href="{{ raza.redirUrl }}" class="abodydinfo"><span class="bodydinfo">{{ raza.nombre }}</span> </a>&nbsp;|
+                                      <a href="{{ raza.redirUrl }}" target="_blank" class="abodydinfo"><span class="bodydinfo">{{ raza.nombre }}</span> </a>&nbsp;
+                                      {% if loop.last == false %}
+                                          |
+                                      {% endif %}
                                   {% endfor %}
                               </p>
 
@@ -112,7 +119,10 @@
                  <p class="headinfo" style="text-align: center;margin: 0 auto"><strong>&nbsp;</strong>
                      {% for d in distrib %}
                       <span class="bodydinfo internaaaacdist">{{ d.nombre }}
-                          <textarea class="texto" style="display: none">{{ d.datos }}</textarea><textarea class="flag" style="display: none">{{ d.bandera }}</textarea></span></span>&nbsp;|
+                          <textarea class="texto" style="display: none">{{ d.datos }}</textarea><textarea class="flag" style="display: none">{{ d.bandera }}</textarea></span></span>&nbsp;
+                         {% if loop.last == false %}
+                             |
+                         {% endif %}
                      {% endfor %}
                  </p>
 
@@ -207,6 +217,9 @@
 
          </div>
 
+      <div id="slider-next" style="display: none"> </div>
+      <div id="slider-prev" style="display: none"> </div>
+
   {% endblock %}
 
        {% block custom_javascripts %}
@@ -220,10 +233,11 @@
                    $('.bxslider').bxSlider(
                            {
                                adaptiveHeight: true,
-//                               nextSelector: '#slider-next',
-//                               prevSelector: '#slider-prev',
-//                               nextText: 'Onward →',
-//                               prevText: '← Go back'
+                               nextSelector: '#slider-next',
+                               prevSelector: '#slider-prev',
+                               nextText: 'Onward →',
+                               prevText: '← Go back'
+
 
                            }
                    );
@@ -246,7 +260,7 @@
                    $('#datororo').keyup(function(){
                      if($(this).val().length>1)
                      {
-                         buscarTorosLike($(this).val(),'datororo','dinamiculcontp','400px');
+                         buscarTorosLike($(this).val(),'datororo','dinamiculcontp','400px','dinamiculcontp');
                      }
                    });
 

@@ -128,11 +128,11 @@ gema_admin_distribuidor:
     prefix: admin/distribuidor
 
 gema_razalist:
-    pattern:  /{id}/{isfather}/listraza
+    pattern:  /toros/{nombre}
     defaults: { _controller: "gemaBundle:Razalist:listRaza" }
 
 gema_torodetail:
-    pattern:  /{toroid}/torodetail
+    pattern:  /toro/{apodo}
     defaults: { _controller: "gemaBundle:Razalist:toroDetail" }
 
 gema_raza_tablas:
