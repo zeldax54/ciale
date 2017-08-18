@@ -5,7 +5,9 @@
       <link href="{{ asset('bundles/gema/clientresources/watermark/styleimg.css')}}" rel="stylesheet">
       <link href="{{ asset('bundles/gema/clientresources/datatables/main/css/jquery.dataTables.css')}}" rel="stylesheet">
       <link href="{{ asset('bundles/gema/clientresources/datatables/fixedcolumns/css/fixedColumns.dataTables.css')}}" rel="stylesheet">
+      {#<link href="{{ asset('bundles/gema/clientresources/datatables/fixedhead/css/fixedHeader.dataTables.css')}}" rel="stylesheet">#}
       <link href="{{ asset('bundles/gema/clientresources/datatables/sort/alt-string.js')}}" rel="stylesheet">
+      <link href="{{ asset('bundles/gema/clientresources/datatables/checkboxes/dataTables.checkboxes.css')}}" rel="stylesheet">
 
 
 	  {% endblock %}
@@ -291,21 +293,25 @@
 
 									<thead class="">
 									<tr class="cabecera">
-										<th><input type="checkbox" class="listcheck headcheck" autocomplete="off" id=""></th>
 										<th></th>
-										<th>Apodo</th>
+										<th class="checkboxsearch"></th>
+										<th></th>
+
+										<th class="apodosearch">Apodo</th>
+										<th class="nombresearch">Nombre</th>
+										<th class="madresearch">Madre</th>
 										{% if otherrazas is defined and otherrazas is not null %}
 											<th>Raza</th>
 										{% endif %}
-										<th>Nuevo </th>
-										<th>Facilidad de Parto</th>
-										<th>CP</th>
+										<th class="nuevoseach">Nuevo </th>
+										<th class="fpsearch">Facilidad de Parto</th>
+										<th class="cpsearch">CP</th>
 										<th>Padre </th>
 										<th>
 											Abuelo Materno
 										</th>
 										{% if mocho is defined and mocho==true %}
-											<th>
+											<th class="mochosearch">
 												Mocho
 											</th>
 										{% endif %}
@@ -317,22 +323,25 @@
 									{% for toro in toros %}
 
 										<tr class="{{ cycle(["even", "odd"], loop.index) }}">
-											<td><input type="checkbox" class="listcheck" autocomplete="off"></td>
-											<td><a href="{{ path('gema_torodetail', {'apodo':toro.apodo}) }}"><img class="toroimg imageresponsiveselect" src="{{ asset(toro.imgprincipal) }}"  width="100px" height="74px"></a></td>
+											<td data-tableexport-display="none">{{ toro.id }}</td>
+											<td data-tableexport-display="none">{{ toro.id }}</td>
+											<td ><a href="{{ path('gema_torodetail', {'apodo':toro.apodo}) }}"><img class="toroimg imageresponsiveselect" src="{{ asset(toro.imgprincipal) }}"  width="110px" height="84px"></a></td>
 
-											<td class="verticalalign" style="text-align: center" tnombre="{{ toro.nombre }}" tmadre="{{ toro.madre }}" tpadre="{{ toro.padre }}">{{ toro.apodo|upper }}</td>
+											<td class="verticalalign tip" style="text-align: center" data-tableexport-value="{{ toro.apodo|upper }}">{{ toro.apodo|upper }} <span>Nombre:{{ toro.nombre }} <br/>  Madre:{{ toro.madre }}</span> </td>
+											<td class="verticalalign" style="text-align: center">{{ toro.nombre }}</td>
+											<td class="verticalalign" style="text-align: center">{{ toro.madre }}</td>
 											{% if otherrazas is defined and otherrazas is not null %}
-										    <td>{{ toro.nombreraza }}</td>
+										    <td class="verticalalign extraza" style="text-align: center">{{ toro.nombreraza }}</td>
 											{% endif %}
 											<td data-nuevo="{{ toro.nuevo }}" class="verticalalign">{{ toro.nuevoflag | raw }}</td>
 											{% if toro.facilidadparto is not null %}
-												<td data-fp="{{ toro.facilidadparto }}" class="verticalalign"><img src="{{ asset(toro.facilidadglag) }}" alt="{{ toro.facilidadparto }}"  style="width: 40%;height: 40%;"></td>
+												<td data-fp="{{ toro.facilidadparto }}" class="verticalalign">{{ toro.facilidadparto }}M</td>
 											{% else %}
 												<td data-p="0" class="verticalalign"></td>
 											{% endif %}
 
 											{% if toro.conceptplusflag is not null %}
-												<td data-cp="{{ toro.cp }}" class="verticalalign"><img src="{{ asset(toro.conceptplusflag) }}"></td>
+												<td data-cp="{{ toro.cp }}" class="verticalalign"><img src="{{ asset(toro.conceptplusflag) }}"><span style="display:none;">cp</span></td>
 											{% else %}
 												<td data-cp="{{ toro.cp }}" class="verticalalign"></td>
 											{% endif %}
@@ -346,7 +355,7 @@
 											{% endif %}
 
 											{% if toro.nacionalidadflag is not null %}
-												<td class="verticalalign"><img src="{{ asset(toro.nacionalidadflag) }}" alt="{{ toro.nacionalidad }}" ></td>
+												<td class="verticalalign" data-tableexport-value="{{ toro.nacionalidad }}"><img src="{{ asset(toro.nacionalidadflag) }}" alt="{{ toro.nacionalidad }}" ></td>
 											{% else %}
 												<td data-formater="0" class="verticalalign"></td>
 											{% endif %}
@@ -465,15 +474,20 @@
 
 								<thead>
 								<tr class="cabecera">
-									<th><input type="checkbox" class="listcheck headcheck" autocomplete="off" id=""></th>
+									<th></th>
+									<th class="checkboxsearch"></th>
 									<th style="width: 100px !important;">
 
 										</th>
 
-									<th><button class="btn btn-xs pruebacomp" familyid="{{ 'family'~tabla.id }}" style="float:right; background-color:#882700;border:none;color:#FFF;">Ver prueba comprimida</button> </th>
-									<th class="cabecerawith">Nuevo</th>
-									<th class="cabecerawith">FP</th>
-									<th class="cabecerawith">CP</th>
+									<th class="apodosearch"><button class="btn btn-xs pruebacomp" familyid="{{ 'family'~tabla.id }}" style="float:right; background-color:#882700;border:none;color:#FFF;">Ver prueba comprimida</button> </th>
+
+									<th class="nombresearch">Nombre</th>
+									<th class="madresearch">Madre</th>
+									<th class="cabecerawith nuevoseach">Nuevo</th>
+									<th class="cabecerawith fpsearch">FP</th>
+									<th class="cabecerawith cpsearch">CP</th>
+
 									<th data-formater="rowhead" class="cabecerawith"></th>
 									{% for dato in tabla.tabladatos %}
 										<th class="cabecerawith" showinvc="{{ dato.verenpc }}">{{ dato.nombre }}</th>
@@ -487,9 +501,12 @@
 								{% for toro in tabla.toros %}
 
 									<tr class="{{ cycle(["even", "odd"], loop.index) }}">
-										<td><input type="checkbox" class="listcheck" autocomplete="off"></td>
+										<td data-tableexport-display="none">{{ toro.id }}</td>
+										<td data-tableexport-display="none">{{ toro.id }}</td>
 										<td><a href="{{ path('gema_torodetail', {'apodo':toro.apodo }) }}"><img class="toroimg" src="{{ asset(toro.imgprincipal) }}" width="100px" height="81px"></a></td>
-										<td class="verticalalign toroapodo" tnombre="{{ toro.nombre }}" tmadre="{{ toro.madre }}" title=" Padre:{{ toro.padre }}*** Abuelo Materno:{{ toro.padremadre }}" style="text-align: center">{{ toro.apodo|upper }}<br>{{ toro.padre|truncate(7,true) }}<br>{{ toro.padremadre|truncate(5,true) }}</td>
+										<td class="verticalalign toroapodo" tnombre="{{ toro.nombre }}" tmadre="{{ toro.madre }}" title=" Padre:{{ toro.padre }}*** Abuelo Materno:{{ toro.padremadre }}" style="text-align: center">{{ toro.apodo|upper }}<br>{{ toro.padre|truncate(20,true) }}<br>{{ toro.padremadre|truncate(20,true) }}</td>
+										<td class="verticalalign" style="text-align: center">{{ toro.nombre }}</td>
+										<td class="verticalalign" style="text-align: center">{{ toro.madre }}</td>
 										<td data-nuevo="{{ toro.nuevo }}" class="verticalalign">{{ toro.nuevoflag | raw }}</td>
 										{% if toro.facilidadparto is not null %}
 											<td data-fp="{{ toro.facilidadparto }}" class="verticalalign">{{ toro.facilidadparto }}M</td>
@@ -516,10 +533,10 @@
                                                 {% if tabladata['rowhead']|lower=='dep' or tabladata['rowhead']|lower=='ranking' %}
 
                                                  {% if tabladata['rowhead']|lower=='ranking' and   tabladata[dato.nombre] | replace('%','')<=25 and tabladata[dato.nombre]!='-' and  dato.nombre|lower !='altura' %}
-												<span class="downprom">{{ tabladata[dato.nombre] }}</span><br><br>
+												<span class="downprom tip">{{ tabladata[dato.nombre] }} <span >{{ dato.nombre }}</span></span><br><br>
 
                                                 {% else %}
-                                                    <span>{{ tabladata[dato.nombre] }}</span><br><br>
+                                                    <span class="tip" >{{ tabladata[dato.nombre] }} <span>{{ dato.nombre }}</span> </span><br><br>
                                                  {% endif %}
                                                 {% endif %}
 
@@ -560,7 +577,14 @@
 	 <script src="{{ asset('bundles/gema/clientresources/responsiveimg/js/responsiveImg.js')}}"></script>
 	 <script src="{{ asset('bundles/gema/clientresources/datatables/main/js/jquery.dataTables.js')}}"></script>
 	 <script src="{{ asset('bundles/gema/clientresources/datatables/fixedcolumns/dataTables.fixedColumns.js')}}"></script>
-	 {#<script src="{{ asset('bundles/gema/clientresources/doblescroll/jquery.doubleScroll.js')}}"></script>#}
+	 <script src="{{ asset('bundles/gema/clientresources/datatables/tds/tds.js')}}"></script>
+	 <script src="{{ asset('bundles/gema/clientresources/datatables/checkboxes/dataTables.checkboxes.js')}}"></script>
+	 <script src="{{ asset('bundles/gema/clientresources/datatables/export/FileSaver.min.js')}}"></script>
+	 <script src="{{ asset('bundles/gema/clientresources/datatables/export/xlsx.core.min.js')}}"></script>
+	 <script src="{{ asset('bundles/gema/clientresources/datatables/export/tableExport.min.js')}}"></script>
+	 <script src="{{ asset('bundles/gema/clientresources/doblescroll/jquery.doubleScroll.js')}}"></script>
+
+
 
 
 
@@ -570,34 +594,62 @@
 
 		 $(document).ready(function() {
 
-//			 $('#lista-busqueda').wrap('<div id="scrooll_div"></div>');
-//			 $('#scrooll_div').doubleScroll();
-//
-//			 var cont=0;
 
 			 $('table').each(function () {
 
 
 				 var tabla = $(this).DataTable({
-					 scrollY: 300,
+					// scrollY: 300,
 					 scrollX: true,
 					 scrollCollapse: true,
-					 paging: false,
+					 paging: true,
 					 "bInfo" : false,
+					 oLanguage: {
+						 "oPaginate": {
+							 "sLast": "Ultimo",
+							 "sNext": "Siguiente",
+							 "sPrevious":"Anterior",
+							 "sEmptyTable": "No hay datos para esta tabla"
+
+
+						 },
+						 "sLengthMenu": "Mostrando _MENU_ toros"
+					 },
 					 columnDefs: [
+						 {
+							 'targets': 0,
+							 'checkboxes': {
+								 'selectRow': true
+							 }
+						 },
 						 { type: 'alt-string', targets: [8,4] },
-						 { "orderable": false, "targets": 1 },
-						 { "width": "20px", "targets": [0,1] },
-						 { "width": "100px", "targets": 1 },
-					 ]
+						 { "orderable": false, "targets": 2 },
+						 { "width": "20px", "targets": [2] },
+						 { "width": "200px", "targets": 3 },
+						 { "width": "200px", "targets": 7 },
+						 {
+							 "targets": [ 4,5,1 ],
+							 "visible": false
+						 }
+
+					 ],
+					 'select': {
+						 'style': 'multi'
+					 },"lengthMenu": [[5,10, 25, 50, -1], [5,10, 25, 50, "All"]]
+
+
 				 });
 				 new $.fn.dataTable.FixedColumns(tabla, {
-					 leftColumns: 3
+					 leftColumns: 10
 				 });
+				 tabla.on( 'search.dt', function () {
+					 ResetOddEvenGeneral();
+				 } );
+				 tabla.on( 'order.dt', function () {
+					 ResetOddEvenGeneral();
+				 } );
 
-//				 $(this).wrap('<div id="scrooll_div'+cont+'"></div>');
-//				 $('#scrooll_div2'+cont).doubleScroll();
-//				 cont++;
+
 
 			 });
 
@@ -605,6 +657,7 @@
 				 $($.fn.dataTable.tables(true)).css('width', '100%');
 				 $($.fn.dataTable.tables(true)).DataTable().columns.adjust().draw();
 			 });
+
 		 });
 
 
@@ -631,53 +684,130 @@
 	function ResetOddEven(table){
 
 		var loop=0;
-		table.find('tr:visible').not('.cabecera').each(function(){
+
+		table.rows().iterator( 'row', function ( context, index ) {
+			if(loop%2==0) {
+				$(this.row(index).node()).attr("class",'myodd');
+				$('#example').DataTable().fixedColumns().rowIndex()
+			}
+			else{
+				$(this.row(index).node()).attr("class",'myeven');
+			}
+
+			loop++;
+		} );
+
+
+
+	}
+
+	function ResetOddEven2(table){
+
+
+		var loop=0;
+		table.find('tr').not('.cabecera').each(function(){
+
 			var r=$(this);
 			if(loop%2==0){
-				r.removeClass("odd").removeClass("even").removeClass("myodd").removeClass("myeven");
-				r.addClass("myodd");
+				r.attr("class",'myodd');
 			}
 			else {
-				r.removeClass("odd").removeClass("even").removeClass("myeven").removeClass("myodd");
-				r.addClass("myeven");
 
+				r.attr("class",'myeven');
 			}
 			loop++;
-
 		});
 
 	}
+
 </script>
 	 <script>
 
-		 $(document).ready(function(){
-			 $('table').each(function(){
-				 ResetOddEven($(this));
+		 function ResetOddEvenGeneral(){
+			 $('table').not('.DTFC_Cloned').each(function(){
+				 ResetOddEven($(this).DataTable());
 			 });
+			 $('table.DTFC_Cloned').each(function(){
+				 ResetOddEven2($(this));
+			 });
+		 }
+
+		  $(document).ready(function(){
+			 ResetOddEvenGeneral();
 		 });
 
 
 
 
 
-		  $('.searchelement').keyup(function() {
-           Do($(this).val(),$(this).attr('familyid'));
+
+
+		 $('.searchelement').on('keyup change', function() {
+
+			 var table=$('table.'+$(this).attr('familyid')).not('.DTFC_Cloned').DataTable();
+			 table.search($(this).val(),true).draw();
+			 ResetOddEvenGeneral();
+			 $($.fn.dataTable.tables(true)).css('width', '100%');
+			 $($.fn.dataTable.tables(true)).DataTable().columns.adjust().draw();
+			 var info = table.page.info();
+			 $('.'+$(this).attr('familyid')+'#cantmsj').html(info.recordsDisplay + ' toros en la lista');
 		 });
-		 $('.searchelement').change(function() {
-			 Do($(this).val(),$(this).attr('familyid'));
-		 });
-		 $('.searchelement').focus(function() {
-			 Do($(this).val(),$(this).attr('familyid'));
-		 });
+
+
+
+
+
+
 
 		 $(":checkbox").not('.listcheck').click(function(){
 
-			 var familyId=$(this).attr('familyid');
-			 var value=$('.'+familyId+'#searchinrazaAllT').val();
-			 if(value==null || value=='' || value==' ')
-				 SearchInTableForVal('lista-busqueda',value,1,familyId);
-			 else
-				 SearchInTableForVal('lista-busqueda',value,0,familyId);
+             var familyId=$(this).attr('familyid');
+             var id=$(this).attr('id');
+             {
+                 if(id=='cpCheckbox'){
+                     $('#fp24.'+familyId).prop('checked',false);
+                     $('#fp18.'+familyId).prop('checked',false);
+                     $('#fp15.'+familyId).prop('checked',false);
+                     $('#nuevosCheckbox.'+familyId).prop('checked',false);
+                     $('#mochoCheckbox.'+familyId).prop('checked',false);
+                 }
+                 if(id=='fp24'){
+                 $('#cpCheckbox.'+familyId).prop('checked',false);
+                 $('#fp18.'+familyId).prop('checked',false);
+                 $('#fp15.'+familyId).prop('checked',false);
+                     $('#nuevosCheckbox.'+familyId).prop('checked',false);
+                     $('#mochoCheckbox.'+familyId).prop('checked',false);
+                }
+                 if(id=='fp18'){
+                     $('#cpCheckbox.'+familyId).prop('checked',false);
+                     $('#fp24.'+familyId).prop('checked',false);
+                     $('#fp15.'+familyId).prop('checked',false);
+                     $('#nuevosCheckbox.'+familyId).prop('checked',false);
+                     $('#mochoCheckbox.'+familyId).prop('checked',false);
+                 }
+                 if(id=='fp15'){
+                     $('#cpCheckbox.'+familyId).prop('checked',false);
+                     $('#fp18.'+familyId).prop('checked',false);
+                     $('#fp24.'+familyId).prop('checked',false);
+                     $('#nuevosCheckbox.'+familyId).prop('checked',false);
+                     $('#mochoCheckbox.'+familyId).prop('checked',false);
+                 }
+                 if(id=='nuevosCheckbox'){
+                     $('#cpCheckbox.'+familyId).prop('checked',false);
+                     $('#fp18.'+familyId).prop('checked',false);
+                     $('#fp15.'+familyId).prop('checked',false);
+                     $('#fp24.'+familyId).prop('checked',false);
+                     $('#mochoCheckbox.'+familyId).prop('checked',false);
+                 }
+                 if(id=='mochoCheckbox'){
+                     $('#fp24.'+familyId).prop('checked',false);
+                     $('#fp18.'+familyId).prop('checked',false);
+                     $('#fp15.'+familyId).prop('checked',false);
+                     $('#nuevosCheckbox.'+familyId).prop('checked',false);
+                     $('#cpCheckbox.'+familyId).prop('checked',false);
+                 }
+             }
+				 SearchInTableForVal('lista-busqueda','',0,familyId);
 		 });
 
 		function Do(value,familyId){
@@ -685,120 +815,91 @@
 				 SearchInTableForVal('lista-busqueda',value,0,familyId);
 		 }
 
+		 function ShowAllRows(table)
+		 {
+			 table.search( '' ).columns().search( '' ).draw();
+
+		 }
+
+		 function HideAllRows(table){
+			 table.rows().iterator( 'row', function ( context, index ) {
+				 $( this.row( index ).node() ).hide();
+			 } );
+		 }
+
+		function  ShowAndUpdate(table,familyId){
+			table.order([6, "desc"]).draw();
+			$($.fn.dataTable.tables(true)).css('width', '100%');
+			$($.fn.dataTable.tables(true)).DataTable().columns.adjust().draw();
+			var info = table.page.info();
+			$('.'+familyId+'#cantmsj').html(info.recordsDisplay + ' toros en la lista');
+			ResetOddEvenGeneral();
+		 }
 		 function SearchInTableForVal(tableId,value,allrows,familyId)
 		 {
 
-             var table=$('table.'+familyId);
-			 var array=[];
+             var table=$('table.'+familyId).not('.DTFC_Cloned').DataTable();
 			 var fp15=$('.'+familyId+'#fp15').prop('checked');
 			 var fp18=$('.'+familyId+'#fp18').prop('checked');
 			 var fp24=$('.'+familyId+'#fp24').prop('checked');
 			 var isnuevo=$('.'+familyId+'#nuevosCheckbox').prop('checked');
 			 var iscp=$('.'+familyId+'#cpCheckbox').prop('checked');
 			 var ismocho=$('.'+familyId+'#mochoCheckbox').prop('checked');
-			 var ismadre=false;
-			 var isnombre=false;
-			 if(allrows==1)
-			 {
-
-				  table.find('tr').each(function () {
-					 array.push($(this));
-				 });
-			 }
-			 else{
-				 if(value==null || value=='' || value==' ')
-				 {
-					 $('.hiderow').hide();
-					 $('.'+familyId).find('tr').show();
-					 return;
-				 }
-
-				     table.find('tr').not('.cabecera').each(function (i, el) {
-					 var $tds = $(this).find('td');
-					 if ($tds.eq(2).attr('tnombre').toLowerCase().indexOf(value.toLowerCase()) >= 0)//Nombre
-					 {
-						 isnombre=true;
-						 array.push($(this));
-					 }
-					 if ($tds.eq(2).attr('tmadre').toLowerCase().indexOf(value.toLowerCase()) >= 0)//Madre
-					 {
-						 ismadre=true;
-						 array.push($(this));
-					 }
-					 if ($tds.eq(2).text().toLowerCase().indexOf(value.toLowerCase()) >= 0)//Apodo
-						 array.push($(this));
-					 if ($tds.eq(6).text().toLowerCase().indexOf(value.toLowerCase()) >= 0)//Padre
-						 array.push($(this));
-
-				 });
-
-			 }
-			 table.find('tr').not('.cabecera').hide();
-			 array.forEach(function(e){
-				 if(fp15==false && fp18==false && fp24==false && isnuevo==false && iscp==false)
-				 {
-					 e.show();
-				 }
-				 else{
-					 if(fp15==true)
-					 {
-						// alert(fp15);
-						 if( e.find('td[data-fp]').attr('data-fp')==15)
-							 e.show();
-					 }
-					 if(fp18==true)
-					 {
-						 if( e.find('td[data-fp]').attr('data-fp')==18)
-							 e.show();
-						 if( e.find('td[data-fp]').attr('data-fp')==15)
-							 e.show();
-
-					 }
-					 if(fp24==true)
-					 {
-
-						 if( e.find('td[data-fp]').attr('data-fp')==24)
-							 e.show();
-						 if( e.find('td[data-fp]').attr('data-fp')==18)
-							 e.show();
-						 if( e.find('td[data-fp]').attr('data-fp')==15)
-							 e.show();
-					 }
-					 if(isnuevo==true)
-					 {
-						 if( e.find('td[ data-nuevo]').attr('data-nuevo')==1)
-							 e.show();
-					 }
-					 if(iscp==true)
-					 {
-						 if( e.find('td[ data-cp]').attr('data-cp')==1)
-							 e.show();
-					 }
-					 if(ismocho)
-					 {
-						 if( e.find('td[ data-mocho]').attr('data-cp')==1 || e.find('td[ data-mocho]').attr('data-cp')==true)
-							 e.show();
-					 }
+			   ShowAllRows(table);
+			   if(allrows==1)
+			   {
+				  ShowAllRows(table);
+				   table.order([6, "desc"]).draw();
+				   $($.fn.dataTable.tables(true)).css('width', '100%');
+				   $($.fn.dataTable.tables(true)).DataTable().columns.adjust().draw();
+				   var info = table.page.info();
+				   $('.'+familyId+'#cantmsj').html(info.recordsDisplay + ' toros en la lista');
+				   ResetOddEvenGeneral();
+                  return;
+			   }
 
 
-				 }
-
-
-			 });
-
-			  if(ismadre==true)
-				 $('.originalhiddenmadre').show();
-			 if(isnombre==true)
-				 $('.originalhiddennombre').show();
 			 if(fp15==true || fp18==true || fp24==true)
 			 {
-				 table.not('.DTFC_Cloned').DataTable().order([4, "desc"]).draw()
-			 }
-			 $('.'+familyId+'#cantmsj').html(table.not('.DTFC_Cloned').find('tr:visible').not('.cabecera').length + ' toros en la lista');
 
-			ResetOddEven(table);
-			 $($.fn.dataTable.tables(true)).css('width', '100%');
-			 $($.fn.dataTable.tables(true)).DataTable().columns.adjust().draw();
+			  	 var val = [];
+					 if(fp24==true){//
+						 val.push("24M");
+						 val.push("18M");
+						 val.push("15M");
+					 }
+					 else if(fp18==true){
+						 val.push("18M");
+						 val.push("15M");
+
+					 }
+					 else if(fp15==true){
+						 val.push("15M");
+					 }
+
+				 var mergedVal = val.join('|');
+				 table.column('.fpsearch').search(mergedVal,true).draw();
+
+
+			 }
+
+			else if(iscp==true){
+				 table.column('.cpsearch').search('cp').draw();
+
+           }
+         else if(isnuevo==true){
+			  table.column('.nuevoseach').search('nuevo').draw();
+          }
+
+          else   if(ismocho==true){
+				 table.column('.mochosearch').search('true').draw();
+             }
+			 else if(!fp15 && !fp18 && !fp24 && !iscp && !isnuevo && !iscp)
+			 {
+				 ShowAllRows(table);
+			 }
+
+			 ShowAndUpdate(table,familyId);
 
 		 }
 
@@ -815,62 +916,36 @@
 
 
 
-		 $(document).on('click','.headcheck',function(){
-			 var familyId=$(this).closest('table').attr('familyid');
-			 var tab= $('table.'+familyId).not('.DTFC_Cloned');
-			 if ($(this).prop('checked'))
-				 tab.find('.listcheck').not('.headcheck').each(function(e,i){
-					 if($(this).is(":visible"))
-						 $(this).prop('checked','checked')
-				 });
-			 else
-				tab.find('.listcheck').not('.headcheck').each(function(){
-					 $(this).prop('checked',false)
-				 });
-			tab.DataTable().order([0, "desc"]).draw()
 
-		 });
 
 		  $('.cleanselection').click(function(){
 			  var familyId=$(this).attr('familyid');
-			  var table=$('table.'+familyId).not('.DTFC_Cloned');
-
-			  table.find('.listcheck').each(function(){
-				  $(this).prop('checked',false)
-				  $(this).closest('tr').show();
-			  });
-			  table.DataTable().order([0, "desc"]).draw();
-			  $('table.' + familyId+'.DTFC_Cloned').find('.listcheck:visible').not('.cabecera').prop('checked',false);
-			  SearchInTableForVal('lista-busqueda','',1,$(this).attr('familyid'));
+			  var table=$('table.'+familyId).not('.DTFC_Cloned').DataTable();
+			  table.column(0).checkboxes.deselectAll();
+			  ShowAllRows(table);
+			  ShowAndUpdate(table,familyId);
 		  });
 
 		  $('.comparer').click(function(){
-			  Comparer('checked',$(this).attr('familyid'));
+			  Comparer($(this).attr('familyid'));
 		  });
 
 
-		  function Comparer(param,familyId)
+		  function Comparer(familyId)
 		  {
-              var arr=[];
-			  $('table.' + familyId+'.DTFC_Cloned').find('.listcheck:checked').each(function(){
-               arr.push($(this).closest('tr').index());
+			  var table=$('table.'+familyId).not('.DTFC_Cloned').DataTable();
+			  var rows_selected = table.column(0).checkboxes.selected();
+              var arra=[];
+			  // Iterate over all selected checkboxes
+			  $.each(rows_selected, function(index, rowId) {
+				 arra.push(rowId);
 			  });
-			  var tab=$('table.'+familyId).not('.DTFC_Cloned');
-			  tab.find('tr').not('.cabecera').hide();
-			  var rows= tab.find('tr').not('.cabecera');
-			  tab.find('tr').each(function(index){
-				  arr.forEach(function(e){
-                    if(e==index){
-						rows.eq(index).show();
-					}
-				 });
-			  });
-			  tab.DataTable().order([0, "desc"]).draw();
-
-			  $('table.' + familyId+'.DTFC_Cloned').find('.listcheck:visible').not('.cabecera').prop('checked','checked');
-
-			  $('.'+familyId+'#cantmsj').html(tab.find('tr:visible').not('.cabecera').length + ' toros en la lista')
+			  var mergedVal = arra.join('|');
+			    table.column('.checkboxsearch').search(mergedVal,true).draw();
+			    ShowAndUpdate(table,familyId);
 		  }
+
+
 	 </script>
 
      <script>
@@ -889,8 +964,6 @@
 
 					tabla
 							 .columns( '[showinvc="0"]').visible( false);
-
-				//	 tab.DataTable().order([0, "desc"]).draw()
                      return;
                  }
                  if($(this).html()=='Ver prueba completa'){
@@ -950,16 +1023,24 @@
 			 tabla.search(raza).draw();
 			 var info = tabla.page.info();
 			 var d= info.recordsDisplay;
+
 			 $('#cantmsj').html(d + ' toros en la lista');
 			 $($.fn.dataTable.tables(true)).css('width', '100%');
 			 $($.fn.dataTable.tables(true)).DataTable().columns.adjust().draw();
-
+			 ResetOddEvenGeneral();
 		 });
 	 </script>
 
 	 <script>
 		 $('.expexcel').click(function(){
+			 var familyId=$(this).attr('familyId');
+			 var table=$('table.'+familyId).not('.DTFC_Cloned').DataTable();
+			 table.page.len(-1).draw();
+			 $('table.'+familyId).not('.DTFC_Cloned').tableExport({
+				 type:'excel',
+				 ignoreColumn:[0,1]
 
+			 });
 		 });
 
 	 </script>

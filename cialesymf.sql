@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-08-09 02:30:48
+Date: 2017-08-18 00:46:19
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -79,7 +79,35 @@ CREATE TABLE `categorianoticia` (
 INSERT INTO `categorianoticia` VALUES ('1', 'Carne');
 INSERT INTO `categorianoticia` VALUES ('2', 'Leche Nacional');
 INSERT INTO `categorianoticia` VALUES ('3', 'Leche Internacional');
-INSERT INTO `categorianoticia` VALUES ('4', 'Sin Categoría');
+
+-- ----------------------------
+-- Table structure for configuracion
+-- ----------------------------
+DROP TABLE IF EXISTS `configuracion`;
+CREATE TABLE `configuracion` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombresitio` varchar(1500) COLLATE utf8_unicode_ci NOT NULL,
+  `titulopagprinc` varchar(1500) COLLATE utf8_unicode_ci NOT NULL,
+  `descripcgeneral` varchar(1500) COLLATE utf8_unicode_ci NOT NULL,
+  `textopie` varchar(1500) COLLATE utf8_unicode_ci NOT NULL,
+  `urldatafiscalafip` varchar(1500) COLLATE utf8_unicode_ci NOT NULL,
+  `urlalta` varchar(1500) COLLATE utf8_unicode_ci NOT NULL,
+  `urlkoepon` varchar(1500) COLLATE utf8_unicode_ci NOT NULL,
+  `urlwebmail` varchar(1500) COLLATE utf8_unicode_ci NOT NULL,
+  `urlgplus` varchar(1500) COLLATE utf8_unicode_ci NOT NULL,
+  `urlyoutube` varchar(1500) COLLATE utf8_unicode_ci NOT NULL,
+  `urllinkedin` varchar(1500) COLLATE utf8_unicode_ci NOT NULL,
+  `urlnoticiasinternacionales` varchar(1500) COLLATE utf8_unicode_ci NOT NULL,
+  `coordenadas` varchar(1500) COLLATE utf8_unicode_ci NOT NULL,
+  `enviarmaildestinos` tinyint(1) DEFAULT NULL,
+  `urlfacebook` varchar(1500) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- ----------------------------
+-- Records of configuracion
+-- ----------------------------
+INSERT INTO `configuracion` VALUES ('1', 'Ciale', 'Ciale Alta - Agregando Valor - Construyendo Confianza - Engregando Resultados', 'Con más de 50 años de trayectoria de CIALE (Centro de Inseminación Artificial La Elisa) hemos incursionado en forma constante como proveedores de material seminal aportando genética de alto nivel para los rodeos ganaderos de las distintas razas bovinas que se han desarrollado a lo largo y a lo ancho de nuestro territorio nacional, con diversidad de biotipos que se adaptaron a cada situación de condiciones de explotación y clima.', '© 2017 - CIALE Alta - All Rights Reserved', 'http://www.afip.gov.ar', 'http://web.altagenetics.com/espanol/', 'http://www.koepon.com/', 'http://www.ciale.com/email', 'https://plus.google.com/115988780232696741086/posts', 'http://www.youtube.com/channel/UCymYBA0Sw2_fX-wlrbZHIFQ', 'https://www.linkedin.com/company/ciale-alta', 'http://web.altagenetics.com/us/AltaNews/', '-34.169155,-59.786303', '0', 'https://www.facebook.com/CIALE.Alta.Genetics/');
 
 -- ----------------------------
 -- Table structure for correo
@@ -119,7 +147,7 @@ CREATE TABLE `datosoficina` (
 -- ----------------------------
 -- Records of datosoficina
 -- ----------------------------
-INSERT INTO `datosoficina` VALUES ('1', '<h1 style=\"margin-left:40px\"><span style=\"font-family:Fago-Bold\"><strong>Capit&aacute;n Sarmiento</strong></span></h1>\r\n\r\n<p style=\"margin-left:40px\"><span style=\"font-family:Fago-normal\">Av. L. N. Alem 901 (B2752CEI), C.C. 31, prov. de Buenos Aires, Argentina.<br />\r\n<span style=\"color:#00418d\"><span style=\"font-size:16px\"><strong><em>Tel./ Fax: 02478 - 481425/ 481013 | 0810-222 CIALE (24253)</em></strong></span></span><br />\r\ninfo@ciale.com | <a href=\"http://www.ciale.com\" target=\"_blank\">www.ciale.com</a></span></p>', 'jalvarez@ciale.com;fapesteguia@ciale.com;syoung@ciale.com;falma@ciale.com');
+INSERT INTO `datosoficina` VALUES ('1', '<h2 style=\"margin-left:40px\"><span style=\"color:#00418d\"><span style=\"font-family:Fago-Bold\"><strong>Capit&aacute;n Sarmiento</strong></span></span></h2>\r\n\r\n<p style=\"margin-left:40px\"><span style=\"font-family:Fago-normal\">Argentina<br />\r\n<span style=\"color:#00418d\"><span style=\"font-size:16px\"><strong><em>Tel./ Fax: 02478 -&nbsp; 481013 | 0810-222 CIALE (24253)</em></strong></span></span><br />\r\ninfo@ciale.com | <a href=\"http://www.ciale.com\" target=\"_blank\">www.ciale.com</a></span></p>', 'jalvarez@ciale.com;fapesteguia@ciale.com;syoung@ciale.com;falma@ciale.com');
 
 -- ----------------------------
 -- Table structure for decorador
@@ -575,11 +603,11 @@ CREATE TABLE `raza` (
 -- ----------------------------
 -- Records of raza
 -- ----------------------------
-INSERT INTO `raza` VALUES ('11', 'Abrdeen Angus Negro Nacional', 'Completar Despues', null, '0', '0', '1', '1', '0', 'http://localhost/cialesymf/web/app_dev.php/admin/raza/new', '0', '1', null, '46686DAB-7A96-485C-B5CC-84B7A12902E0', '1', 'silueta_1', '0', '3', null);
+INSERT INTO `raza` VALUES ('11', 'Aberdeen Angus Negro Nacional', 'Completar Despues', null, '0', '0', '1', '1', '0', 'http://localhost/cialesymf/web/app_dev.php/admin/raza/new', '0', '1', null, '46686DAB-7A96-485C-B5CC-84B7A12902E0', '1', 'silueta_1', '0', '3', '0');
 INSERT INTO `raza` VALUES ('15', 'Braford', 'Completar Desp', null, '0', '0', '1', '0', '0', 'http://localhost/cialesymf/web/app_dev.php/admin/raza/new', '0', '4', null, '5B94BD21-77D1-4BEF-9F73-B873B5771C9C', '2', 'silueta_2', '1', null, null);
 INSERT INTO `raza` VALUES ('16', 'Aberdeen Angus Negro Importado', 'Completar Despues', null, '0', '0', '1', '0', '0', 'http://localhost/cialesymf/web/app_dev.php/admin/raza/new', '0', '2', null, '7787B5D4-70BE-47D3-8C60-A8981D18EFE2', '1', 'silueta_1', '0', '3', null);
-INSERT INTO `raza` VALUES ('17', 'Abrdeen Angus Colorado Nacional', 'Completar Despues', null, '0', '0', '1', '0', '0', 'http://localhost/cialesymf/web/app_dev.php/admin/raza/new', '0', '1', null, 'F6061EB6-887E-4919-A238-CDD556EB054E', '1', 'silueta_1', '0', '4', null);
-INSERT INTO `raza` VALUES ('18', 'Abrdeen Angus Colorado Importado', 'Completar despues', null, '0', '0', '1', '0', '0', 'http://localhost/cialesymf/web/app_dev.php/admin/raza/new', '0', '3', null, 'BED0FEA7-DAF4-4EF9-8439-B018C65E5FC5', '1', 'silueta_1', '0', '4', null);
+INSERT INTO `raza` VALUES ('17', 'Aberdeen Angus Colorado Nacional', 'Completar Despues', null, '0', '0', '1', '0', '0', 'http://localhost/cialesymf/web/app_dev.php/admin/raza/new', '0', '1', null, 'F6061EB6-887E-4919-A238-CDD556EB054E', '1', 'silueta_1', '0', '4', null);
+INSERT INTO `raza` VALUES ('18', 'Aberdeen Angus Colorado Importado', 'Completar despues', null, '0', '0', '1', '0', '0', 'http://localhost/cialesymf/web/app_dev.php/admin/raza/new', '0', '3', null, 'BED0FEA7-DAF4-4EF9-8439-B018C65E5FC5', '1', 'silueta_1', '0', '4', null);
 INSERT INTO `raza` VALUES ('19', 'Jersey', 'Completar despues', null, '0', '0', '3', '0', '0', 'http://bs.altagenetics.com/argentina/BS/List', '0', '1', null, 'EF28223A-AA3F-4967-895E-AB2763108117', '1', 'silueta_1', '0', null, null);
 INSERT INTO `raza` VALUES ('20', 'Holando', 'Completar despues', null, '0', '0', '3', '0', '0', 'http://bs.altagenetics.com/argentina/BS/List', '0', '1', null, 'AAFD715C-5CCB-44AE-9AC4-33AEEA2BD2E0', '1', 'silueta_1', '0', null, null);
 INSERT INTO `raza` VALUES ('21', 'Brangus Colorado Nacional', 'Brangus Colorado', null, '0', '0', '1', '0', '1', 'http://localhost/cialesymf/web/app_dev.php/admin/raza/new', '0', '5', null, '005A7079-3FCB-476D-AA0C-369521CACF8A', '1', 'silueta_2', '0', '5', null);
@@ -602,8 +630,8 @@ CREATE TABLE `razafather` (
 -- ----------------------------
 -- Records of razafather
 -- ----------------------------
-INSERT INTO `razafather` VALUES ('3', 'Abrdeen Angus Negro');
-INSERT INTO `razafather` VALUES ('4', 'Abrdeen Angus Colorado');
+INSERT INTO `razafather` VALUES ('3', 'Aberdeen Angus Negro');
+INSERT INTO `razafather` VALUES ('4', 'Aberdeen Angus Colorado');
 INSERT INTO `razafather` VALUES ('5', 'Brangus Colorado');
 INSERT INTO `razafather` VALUES ('6', 'Brangus Negro');
 
@@ -1180,7 +1208,7 @@ CREATE TABLE `traza` (
   `accion` longtext COLLATE utf8_unicode_ci NOT NULL,
   `fecha` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1920 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1941 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of traza
@@ -2651,6 +2679,27 @@ INSERT INTO `traza` VALUES ('1916', 'Patricio', 'Listar Expedientes de Toro', '2
 INSERT INTO `traza` VALUES ('1917', 'Patricio', 'Listar Expedientes de Correo', '2017-08-09 06:39:29');
 INSERT INTO `traza` VALUES ('1918', 'Patricio', 'Listar Expedientes de Productosprogramas', '2017-08-09 06:48:21');
 INSERT INTO `traza` VALUES ('1919', 'Patricio', ' ', '2017-08-09 06:49:46');
+INSERT INTO `traza` VALUES ('1920', 'Patricio', 'Listar Expedientes de Decorador', '2017-08-12 05:06:08');
+INSERT INTO `traza` VALUES ('1921', 'Patricio', 'Listar Expedientes de Singlehtml', '2017-08-12 05:06:33');
+INSERT INTO `traza` VALUES ('1922', 'Patricio', 'Listar Expedientes de DatosOficina', '2017-08-12 05:06:47');
+INSERT INTO `traza` VALUES ('1923', 'Patricio', 'Listar Expedientes de DatosOficina', '2017-08-18 02:37:49');
+INSERT INTO `traza` VALUES ('1924', 'Patricio', ' ', '2017-08-18 02:38:40');
+INSERT INTO `traza` VALUES ('1925', 'Patricio', ' ', '2017-08-18 02:39:44');
+INSERT INTO `traza` VALUES ('1926', 'Patricio', 'Listar Expedientes de Configuracion', '2017-08-18 03:34:32');
+INSERT INTO `traza` VALUES ('1927', 'Patricio', '', '2017-08-18 03:44:12');
+INSERT INTO `traza` VALUES ('1928', 'Patricio', ' ', '2017-08-18 03:44:13');
+INSERT INTO `traza` VALUES ('1929', 'Patricio', 'Listar Expedientes de Configuracion', '2017-08-18 03:44:18');
+INSERT INTO `traza` VALUES ('1930', 'Patricio', 'Listar Expedientes de Configuracion', '2017-08-18 03:45:03');
+INSERT INTO `traza` VALUES ('1931', 'Patricio', 'Listar Expedientes de Noticia', '2017-08-18 05:19:43');
+INSERT INTO `traza` VALUES ('1932', 'Patricio', ' ', '2017-08-18 05:28:01');
+INSERT INTO `traza` VALUES ('1933', 'Patricio', 'Listar Expedientes de Staff', '2017-08-18 05:34:34');
+INSERT INTO `traza` VALUES ('1934', 'Patricio', 'Listar Expedientes de DatosOficina', '2017-08-18 05:34:41');
+INSERT INTO `traza` VALUES ('1935', 'Patricio', ' ', '2017-08-18 05:36:25');
+INSERT INTO `traza` VALUES ('1936', 'Patricio', 'Listar Expedientes de Raza', '2017-08-18 05:37:30');
+INSERT INTO `traza` VALUES ('1937', 'Patricio', 'Listar Expedientes de Raza', '2017-08-18 05:37:53');
+INSERT INTO `traza` VALUES ('1938', 'Patricio', ' ', '2017-08-18 05:38:07');
+INSERT INTO `traza` VALUES ('1939', 'Patricio', 'Listar Expedientes de Raza', '2017-08-18 05:38:08');
+INSERT INTO `traza` VALUES ('1940', 'Patricio', 'Listar Expedientes de Raza', '2017-08-18 05:40:09');
 
 -- ----------------------------
 -- Table structure for usuario

@@ -34,7 +34,7 @@ label{
 }
 
 
-.myodd td{
+.myevenmyodd td{
 	background:#F9F9F9 !important;
 }
 .myeven td{
@@ -86,5 +86,71 @@ padding: 4px;
 
 .sel2{
 	width: 98% !important;
+}
+
+
+
+span.tip { 
+    text-decoration: none
+}
+span.tip:hover {
+    cursor: help;
+    position: relative
+}
+span.tip span {
+    display: none;
+}
+span.tip:hover span {
+    border: #c0c0c0 1px dotted;
+    padding: 5px 5px 5px 5px;
+    display: block;
+    z-index: 100;
+    background:#B24E2A;
+    left: 0px;
+    margin: 10px;
+  
+    position: absolute;
+    top: 10px;
+    text-decoration: none;
+	text-align:center !important;
+	color:white;
+}
+
+/*In td*/
+td.tip { 
+    text-decoration: none
+}
+td.tip:hover {
+    cursor: help;
+    position: relative
+}
+td.tip span {
+    display: none;
+}
+td.tip:hover span {
+    border: #c0c0c0 1px dotted;
+    padding: 5px 5px 5px 5px;
+    display: block;
+    z-index: 100;
+    background:#B24E2A;
+    left: 0px;
+    margin: 10px;
+    width:300px;
+    position: absolute;
+    top: 40px;
+    text-decoration: none;
+	text-align:center !important;
+	color:white;
+}
+
+/*.dataTables_filter {
+display: none;
+} */
+.extraza{
+	font-family:'Fago-normal';
+	color:#B24E2A;
+}
+.dataTables_filter{
+	display:none;
 }
 

@@ -1,3 +1,7 @@
+gema_admin_configuracion:
+    resource: "@gemaBundle/Resources/config/routing/configuracion.yml"
+    prefix:   /admin/configuracion
+
 gema_admin_razafather:
     resource: "@gemaBundle/Resources/config/routing/razafather.yml"
     prefix:   /admin/razafather

@@ -25,11 +25,13 @@ class MailController extends Controller
         $datosof=$em->getRepository('gemaBundle:DatosOficina')->find(1);
         $helper=new MyHelper();
         $gife=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'paperplane.gif');
+        $coordenadas = $em->getRepository('gemaBundle:Configuracion')->find(1)->getCoordenadas();
 
         return $this->render('gemaBundle:Page:contacto.html.twig', array(
            'razas'=>$razas,
             'datosoficina'=>$datosof,
-            'gife'=>$gife
+            'gife'=>$gife,
+             'coordenadas'=>$coordenadas
         ));
     }
 
@@ -73,9 +75,15 @@ class MailController extends Controller
 
         $to=array(
            0 =>$email,
-        //    1=>'info@ciale.com'
+
         );
-       // $to[]=$direcciones;
+        $enviarmail = $em->getRepository('gemaBundle:Configuracion')->find(1)->getEnviarmaildestinos();
+        if($enviarmail==true)
+        {
+            $to[]='info@ciale.com';
+            $to[]=$direcciones;
+        }
+
         $message ->setTo($to);
         $message->setBody(
                 $body
@@ -144,9 +152,14 @@ class MailController extends Controller
 
         $to=array(
             0 =>$email,
-             //   1=>$destino
+
         );
-        // $to[]=$direcciones;
+        $enviarmail = $em->getRepository('gemaBundle:Configuracion')->find(1)->getEnviarmaildestinos();
+        if($enviarmail==true)
+        {
+            $to[]='info@ciale.com';
+            $to[]=$direcciones;
+        }
         $message ->setTo($to);
         $message->setBody(
             $body

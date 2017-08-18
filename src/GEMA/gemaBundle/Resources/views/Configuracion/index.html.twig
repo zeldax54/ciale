@@ -1,0 +1,75 @@
+    {% extends 'gemaBundle::layout.html.twig' %}
+
+    {% block gema_page -%}
+    <h2>Listado de Configuracion</h2>
+    {% if entities is empty %}
+    <div class="bs-callout bs-callout-info">
+        <i class="fa fa-info-circle img-responsive info_icon"></i>
+        <h4>Aviso</h4>
+        <p>No existen registros de activos en la base de datos.</p>
+    </div>
+    {% else %}
+
+    <div class="table-responsive">
+        <table class="record_properties table table-hover table table-striped table-vmiddle" id="data-table-command" data-ajax="true" data-url="{{path('admin_configuracion')}}" >
+            <thead>
+                <tr>                                                                <th data-column-id="nombresitio">Nombresitio</th>
+                                                                    <th data-column-id="titulopagprinc">Titulopagprinc</th>
+                                                                    <th data-column-id="descripcgeneral">Descripcgeneral</th>
+                                                                    <th data-column-id="textopie">Textopie</th>
+                                                                    <th data-column-id="urldatafiscalafip">Urldatafiscalafip</th>
+                                                                    <th data-column-id="urlalta">Urlalta</th>
+                                                                    <th data-column-id="urlkoepon">Urlkoepon</th>
+                                                                    <th data-column-id="urlwebmail">Urlwebmail</th>
+                                                                    <th data-column-id="urlgplus">Urlgplus</th>
+                                                                    <th data-column-id="urlyoutube">Urlyoutube</th>
+                                                                    <th data-column-id="urllinkedin">Urllinkedin</th>
+                                                                    <th data-column-id="urlnoticiasinternacionales">Urlnoticiasinternacionales</th>
+                                                                    <th data-column-id="coordenadas">Coordenadas</th>
+                                                                    <th data-column-id="enviarmaildestinos">Enviarmaildestinos</th>
+                        
+                    <th colspan="3" data-formatter="commands">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+
+
+
+            <ul class="pager">
+            <li class="next"><a href="{{ path('admin_configuracion_new') }}"><i class="fa fa-plus-circle"></i>
+                    Nuevo Configuracion
+                </a></li>
+        </ul>
+        {% endblock %}
+
+    {% block javascripts -%}
+    {{ parent() }}
+    <script>
+        $("#data-table-command").bootgrid({
+            css: {
+                icon: 'md icon',
+                iconColumns: 'md-view-module',
+                iconDown: 'md-expand-more',
+                iconRefresh: 'md-refresh',
+                iconUp: 'md-expand-less'
+            },
+            formatters: {
+                "commands": function(column, row) {
+                    return "<a href='" + Routing.generate('admin_configuracion_edit', {id: row.id}) + "'  class=\"btn btn-icon command-edit\" ><span class=\"md md-edit\"></span></a> " +
+                            "<a href='" + Routing.generate('admin_configuracion_delete', {id: row.id}) + "'  class=\"btn btn-icon command-delete\" ><span class=\"md md-delete\"></span></a>";
+                }
+               /* ,
+                "area": function(column, row) {
+                    return "" + row.area.nombre;
+                }*/
+            }, templates: {
+                loading: "<tr><td colspan='9' class=\"loading\"><div class='loading'><img src='{{ asset('bundles/gema/images/loading.gif') }}' class='img-responsive'></div></td></tr>"
+            }
+        });
+    </script>
+    {% endblock %}
+

@@ -1,0 +1,75 @@
+    {% extends 'gemaBundle::layout.html.twig' %}
+
+    {% block gema_page -%}
+    <h2>Configuracion</h2>
+
+    <div class="table-responsive">
+        <table class="record_properties table table-hover">
+            <thead>
+                <tr>                                                                <th>Nombresitio</th>
+                                                                    <th>Titulopagprinc</th>
+                                                                    <th>Descripcgeneral</th>
+                                                                    <th>Textopie</th>
+                                                                    <th>Urldatafiscalafip</th>
+                                                                    <th>Urlalta</th>
+                                                                    <th>Urlkoepon</th>
+                                                                    <th>Urlwebmail</th>
+                                                                    <th>Urlgplus</th>
+                                                                    <th>Urlyoutube</th>
+                                                                    <th>Urllinkedin</th>
+                                                                    <th>Urlnoticiasinternacionales</th>
+                                                                    <th>Coordenadas</th>
+                                                                    <th>Enviarmaildestinos</th>
+                        
+                    <th colspan="3">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>                                        
+                        <td>{{ entity.nombresitio }}</td>
+                                        
+                        <td>{{ entity.titulopagprinc }}</td>
+                                        
+                        <td>{{ entity.descripcgeneral }}</td>
+                                        
+                        <td>{{ entity.textopie }}</td>
+                                        
+                        <td>{{ entity.urldatafiscalafip }}</td>
+                                        
+                        <td>{{ entity.urlalta }}</td>
+                                        
+                        <td>{{ entity.urlkoepon }}</td>
+                                        
+                        <td>{{ entity.urlwebmail }}</td>
+                                        
+                        <td>{{ entity.urlgplus }}</td>
+                                        
+                        <td>{{ entity.urlyoutube }}</td>
+                                        
+                        <td>{{ entity.urllinkedin }}</td>
+                                        
+                        <td>{{ entity.urlnoticiasinternacionales }}</td>
+                                        
+                        <td>{{ entity.coordenadas }}</td>
+                                        
+                        <td>{{ entity.enviarmaildestinos }}</td>
+                    
+    <td><a href="{{ path('admin_configuracion_show', { 'id': entity.id }) }}"><i class="fa fa-eye"></i> Mostrar</a></td>
+    <td><a href="{{ path('admin_configuracion_edit', { 'id': entity.id }) }}"><i class="fa fa-edit"></i> Editar</a></td>
+    <td><a href="{{ path('admin_configuracion_delete', { 'id': entity.id }) }}"><i class="fa fa-minus-circle"></i> Eliminar</a></td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <ul class="pager">
+        <li class="next"><a href="{{path('admin_configuracion')}}"><i class="fa fa-list"></i>
+                Listado de Configuracion
+            </a>
+        </li>
+    </ul>
+
+
+    {% endblock %}

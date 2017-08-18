@@ -86,3 +86,11 @@ services:
      class: Twig_Extensions_Extension_Text
      tags:
          - { name: twig.extension }
+ twig.extension:
+         # Register the class (The namespace must match)
+     class: GEMA\gemaBundle\Extensions\TwigExtensions
+         # Inject doctrine as first parameter
+     arguments:
+         doctrine : '@doctrine'
+     tags:
+         -  { name: twig.extension }

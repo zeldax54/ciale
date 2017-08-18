@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <title>{% block title %}CIALE ALTA.{% endblock %}</title>
+        <title>{% block title %}{{  find('title')  }}{% endblock %}</title>
         {% block stylesheets %}
         <!-- Bootstrap -->
         <link href="{{ asset('bundles/gema/clientresources/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -59,7 +59,7 @@
                  &nbsp;&nbsp;&nbsp;Tel./Fax:&nbsp;02478-481425/481013&nbsp;&nbsp;<i class="fa fa-mobile">&nbsp;
                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</i> <a  href="http://www.youtube.com/channel/UCymYBA0Sw2_fX-wlrbZHIFQ"> <i class="fa fa-youtube"></i></a>
                  &nbsp;&nbsp;<a href="https://www.linkedin.com/company/ciale-alta"> <i  class="fa fa-linkedin"></i></a>
-                 &nbsp;&nbsp; <i class="fa fa-twitter"></i>
+
                  &nbsp;&nbsp; <a href="https://www.facebook.com/CIALE.Alta.Genetics/"><i  class="fa fa-facebook"></i></a>
                  &nbsp;&nbsp; <a href="{{  path('gema_mailindex')  }}"> <i class="fa fa-envelope-o"></i></a><p>
         </div>
@@ -94,7 +94,7 @@
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">NOTICIAS&nbsp;<i class="fa fa-plus"></i><i class="fa fa-minus"></i></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="{{  path('gema_clientnews',{'tipo':'Leche Nacional','start':0,'end':9})  }}">Leche Nacional</a></li>
-                                    <li><a href="http://web.altagenetics.com/us/AltaNews/">Leche Internacional</a></li>
+                                    <li><a href="{{ find('lecheinter') }}">Leche Internacional</a></li>
                                     <li><a href="{{  path('gema_clientnews',{'tipo':'Carne','start':0,'end':9})  }}">Carne</a></li>
                                     <li><a href="{{  path('gema_clientnews',{'tipo':'Sin Categoría','start':0,'end':9})  }}">Sin Categoría</a></li>
                                     <li><a href="{{  path('gema_clientnews',{'tipo':'Todas','start':0,'end':9})  }}">Todas</a></li>
@@ -114,7 +114,7 @@
 
                                 </ul>
                             </li>
-                            <li class="menu-items"><a href="{{  path('gema_prodprog')  }}">PRODUCTOS</a></li>
+                            <li class="menu-items"><a href="{{  path('gema_prodprog')  }}">PROGRAMAS</a></li>
 
                             <li class="menu-items"><a href="{{  path('gema_mailindex')  }}">CONTACTO</a></li>
 
@@ -259,17 +259,18 @@
             <div class="container" style="color:#81A1C8;">
                 <div class="row">
                     <div class="col-lg-6 col-md-7 col-sm-12 col-xs-12">
-                        <img src="{{ asset('bundles/gema/clientresources/img/1l.jpg')}}" class="patrocinadores">
+                       <a href="{{ find('koepon') }}"> <img src="{{ asset('bundles/gema/clientresources/img/1l.jpg')}}" class="patrocinadores"></a>
                         <img src="{{ asset('bundles/gema/clientresources/img/2l.jpg')}}" class="patrocinadores">
                         <img src="{{ asset('bundles/gema/clientresources/img/3l.jpg')}}" class="patrocinadores">
                         <img src="{{ asset('bundles/gema/clientresources/img/4l.jpg')}}" class="patrocinadores">
                         <img src="{{ asset('bundles/gema/clientresources/img/5l.jpg')}}" class="patrocinadores">
                     </div>
                     <div class="col-lg-6 col-md-5 col-sm-12 col-xs-12">
-                       <a  href="http://www.youtube.com/channel/UCymYBA0Sw2_fX-wlrbZHIFQ"> <i class="fa fa-youtube fa-2x enlace-redes"></i></a>
-                       <a href="https://www.linkedin.com/company/ciale-alta"> <i  class="fa fa-linkedin fa-2x enlace-redes"></i></a>
-                        <i class="fa fa-twitter fa-2x enlace-redes"></i>
-                        <a href="https://www.facebook.com/CIALE.Alta.Genetics/"><i  class="fa fa-facebook fa-2x enlace-redes"></i></a>
+                       <a  href="{{ find('youtube') }}"> <i class="fa fa-youtube fa-2x enlace-redes"></i></a>
+                       <a href="{{ find('linkedin') }}"> <i  class="fa fa-linkedin fa-2x enlace-redes"></i></a>
+
+
+                        <a href="{{ find('facebook') }}"><i  class="fa fa-facebook fa-2x enlace-redes"></i></a>
                         <a href="{{  path('gema_mailindex')  }}"> <i class="fa fa-envelope-o fa-2x enlace-redes"></i></a>
                     </div>
                 </div>
@@ -279,7 +280,7 @@
 
         <div class="footer-inferior">
             <div class="container" style="font-family: Fago-normal">
-                &copy; 2017 - CIALE Alta - All Rights Reserved
+                {{ find('textofooter') }}
             </div>
         </div>
     </footer>

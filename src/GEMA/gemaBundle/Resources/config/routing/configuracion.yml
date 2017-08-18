@@ -1,0 +1,28 @@
+admin_configuracion:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:Configuracion:index" }
+
+admin_configuracion_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:Configuracion:show" }
+
+admin_configuracion_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:Configuracion:new" }
+
+admin_configuracion_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:Configuracion:create" }
+    requirements: { _method: post }
+
+admin_configuracion_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:Configuracion:edit" }
+
+admin_configuracion_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:Configuracion:update" }
+
+admin_configuracion_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:Configuracion:delete" }

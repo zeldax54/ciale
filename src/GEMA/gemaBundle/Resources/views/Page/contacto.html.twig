@@ -10,7 +10,7 @@
 
     <h3 style="font-family: 'Fago-Bold';color:#254389">Haga su consulta completando el siguiente formulario</h3>
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-6">
 <div style="width: 100%">
             <form name="form" method="post" id="sendform" action="{{ path('gema_sendmail') }}">
                 <div id="form">
@@ -44,11 +44,13 @@
                         </div>
                     </div>
 
-                    <div class="form-group"><label  class=" col-md-2 control-label">Codigo Postal</label>
+                    <div class="form-group"><label  class=" col-md-2 control-label">CP</label>
                         <div class="col-md-10">
-                            <input class="form-control" id="codigopostal" name="codigopostal"   type="text">
+                            <input placeholder="Código Postal" class="form-control" id="codigopostal" name="codigopostal"   type="text">
                         </div>
                     </div>
+                    {#<div style="height: 10px"> </div>#}
+
 
                     <div class="form-group"><label  class="required col-md-2 control-label">Email</label>
                         <div class="col-md-10">
@@ -88,13 +90,14 @@
                         </div>
                     </div>
 
+
                 </div>
 
 
 
 
                 <div class="col-md-offset-2 col-md-10">
-                    <button title="Enviar Correo" class="btn btn-default sb" type="submit" id="bsubmit" name="bsubmit"></button>
+                    <button title="Enviar Correo" class="btn btn-default sb" type="submit" id="bsubmit" name="bsubmit">Enviar</button>
                     <img id="mygif" src="{{ asset(gife) }}" style="display: none">
                 </div>
 
@@ -105,14 +108,14 @@
 
 
 
-        <div class="col-md-4">
-            <div style="margin-left: -63px !important;">
+        <div class="col-md-6">
+            <div >
     {{ datosoficina.datosoficina|raw }}<br>
 
 </div>
-            <div>
-                <iframe scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com.ar/maps?f=q&amp;source=s_q&amp;hl=es&amp;geocode=&amp;q=-34.169155,-59.786303&amp;sll=-34.169155,-59.786303&amp;sspn=2.030164,4.22699&amp;ie=UTF8&amp;t=m&amp;ll=-34.169155,-59.786303&amp;spn=0.041615,0.050468&amp;z=13&amp;output=embed" width="293" height="293" frameborder="0"></iframe>
-                <a class="btn btn-gris nw" href="https://maps.google.com.ar/maps?f=q&amp;source=embed&amp;hl=es&amp;geocode=&amp;q=-34.169155,-59.786303&amp;sll=-34.169155,-59.786303&amp;sspn=2.030164,4.22699&amp;ie=UTF8&amp;t=m&amp;ll=-34.169155,-59.786303&amp;spn=0.041615,0.050468&amp;z=13" target="_blank">Ver mapa</a>
+            <div style="text-align: center">
+                <iframe scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com.ar/maps?f=q&amp;source=s_q&amp;hl=es&amp;geocode=&amp;q={{ coordenadas }}&amp;sll={{ coordenadas }}&amp;sspn=2.030164,4.22699&amp;ie=UTF8&amp;t=m&amp;ll={{ coordenadas }}&amp;spn=0.041615,0.050468&amp;z=13&amp;output=embed" width="293" height="293" frameborder="0"></iframe>
+                <a class="btn btn-gris nw" href="https://maps.google.com.ar/maps?f=q&amp;source=embed&amp;hl=es&amp;geocode=&amp;q={{ coordenadas }}&amp;sll={{ coordenadas }}&amp;sspn=2.030164,4.22699&amp;ie=UTF8&amp;t=m&amp;ll={{ coordenadas }}&amp;spn=0.041615,0.050468&amp;z=13" target="_blank">Ver mapa</a>
             </div>
 
         </div>
