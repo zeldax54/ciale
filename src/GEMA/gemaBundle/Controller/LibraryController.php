@@ -166,7 +166,7 @@ class LibraryController extends Controller
 
             $ext=$this->SaberExt($fileName);
 
-            if($this->isImg($ext)==true && $param!='mediainpage'){
+            if($this->isImg($ext)==true && $param!='mediainpage' && $param!='library'){
                 $helper=new MyHelper();
                 $marcaguapic= $helper->randomPic('mediainpage'.DIRECTORY_SEPARATOR.'watermark'.DIRECTORY_SEPARATOR);
                 $estampa = imagecreatefrompng($marcaguapic);
