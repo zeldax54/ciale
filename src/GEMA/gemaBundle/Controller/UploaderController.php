@@ -135,7 +135,7 @@ class UploaderController extends Controller
 
             $toro->setRaza($raza);
             $toro->setNombre($row[$this->getMapaPos('nombre', $mapa)]);
-            $toro->setNacionalidad($row[$this->getMapaPos('origen', $mapa)]);
+            $toro->setNacionalidad($row[$this->getMapaPos('nacionalidad', $mapa)]);
             $toro->setNombreinterno($row[$this->getMapaPos('nombreinterno', $mapa)]);
             if($row[$this->getMapaPos('apodo', $mapa)]=='VERDADERO' )
                 $toro->setApodo('VERDADERO');
@@ -143,7 +143,7 @@ class UploaderController extends Controller
             $toro->setApodo($row[$this->getMapaPos('apodo', $mapa)]);
             $toro->setCriador($row[$this->getMapaPos('criador', $mapa)]);
             $toro->setPropietario($row[$this->getMapaPos('propietario', $mapa)]);
-            $toro->setDescripcion($row[$this->getMapaPos('caracteristicas', $mapa)]);
+            $toro->setDescripcion($row[$this->getMapaPos('descripcion', $mapa)]);
             $toro->setNuevo($this->convertBool($row[$this->getMapaPos('nuevo', $mapa)]));
 
             $toro->setPadre($row[$this->getMapaPos('padre', $mapa)]);

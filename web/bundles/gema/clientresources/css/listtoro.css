@@ -154,3 +154,15 @@ display: none;
 	display:none;
 }
 
+.wrapper1
+{
+	width: 300px; border: none 0px RED;
+   overflow-x: scroll; overflow-y:hidden;
+}
+.wrapper1{
+	height: 20px; 
+	}
+.div1 {
+	width:1000px; height: 20px; 
+	}
+

@@ -8,6 +8,7 @@
       {#<link href="{{ asset('bundles/gema/clientresources/datatables/fixedhead/css/fixedHeader.dataTables.css')}}" rel="stylesheet">#}
       <link href="{{ asset('bundles/gema/clientresources/datatables/sort/alt-string.js')}}" rel="stylesheet">
       <link href="{{ asset('bundles/gema/clientresources/datatables/checkboxes/dataTables.checkboxes.css')}}" rel="stylesheet">
+      {#<link href="{{ asset('bundles/gema/clientresources/datatables/responsive/css/responsive.dataTables.css')}}" rel="stylesheet">#}
 
 
 	  {% endblock %}
@@ -467,7 +468,10 @@
 
 
 
-
+						<div class="wrapper1" id="{{ tabla.nombreresumido|replace(' ','-') }}">
+							<div class="div1">
+							</div>
+						</div>
 
 							<table id="{{ tabla.nombreresumido|replace(' ','-') }}" style="width: 100%" familyid="{{ 'family'~tabla.id }}" class="{{ 'family'~tabla.id }} genetictable table table-striped">
 
@@ -579,10 +583,8 @@
 	 <script src="{{ asset('bundles/gema/clientresources/datatables/fixedcolumns/dataTables.fixedColumns.js')}}"></script>
 	 <script src="{{ asset('bundles/gema/clientresources/datatables/tds/tds.js')}}"></script>
 	 <script src="{{ asset('bundles/gema/clientresources/datatables/checkboxes/dataTables.checkboxes.js')}}"></script>
-	 <script src="{{ asset('bundles/gema/clientresources/datatables/export/FileSaver.min.js')}}"></script>
-	 <script src="{{ asset('bundles/gema/clientresources/datatables/export/xlsx.core.min.js')}}"></script>
-	 <script src="{{ asset('bundles/gema/clientresources/datatables/export/tableExport.min.js')}}"></script>
-	 <script src="{{ asset('bundles/gema/clientresources/doblescroll/jquery.doubleScroll.js')}}"></script>
+	 {#<script src="{{ asset('bundles/gema/clientresources/datatables/responsive/js/dataTables.responsive.js')}}"></script>#}
+
 
 
 
@@ -604,6 +606,7 @@
 					 scrollCollapse: true,
 					 paging: true,
 					 "bInfo" : false,
+
 					 oLanguage: {
 						 "oPaginate": {
 							 "sLast": "Ultimo",
@@ -635,13 +638,16 @@
 					 ],
 					 'select': {
 						 'style': 'multi'
-					 },"lengthMenu": [[5,10, 25, 50, -1], [5,10, 25, 50, "All"]]
+					 },"lengthMenu": [[-1,5,10, 25, 50, -1], ["Todos",5,10, 25, 50, "Todos"]]
 
 
 				 });
 				 new $.fn.dataTable.FixedColumns(tabla, {
 					 leftColumns: 10
 				 });
+
+//                 new $.fn.dataTable.Responsive( tabla );
+
 				 tabla.on( 'search.dt', function () {
 					 ResetOddEvenGeneral();
 				 } );
@@ -651,11 +657,33 @@
 
 
 
+
 			 });
 
 			 $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 				 $($.fn.dataTable.tables(true)).css('width', '100%');
 				 $($.fn.dataTable.tables(true)).DataTable().columns.adjust().draw();
+
+
+				 var id=$(this).attr('myindic');
+				 var mwith=$('#'+id+'_wrapper').find('.DTFC_ScrollWrapper').css('width');
+                 var tablamy=$('table#'+id);
+                 var innerwith=tablamy.css('width');
+                 var wraper=$('.wrapper1#'+id);
+                 wraper.css('width',mwith);
+                 wraper.find('.div1').css('width',innerwith);
+
+                 var wraper2=tablamy.closest('.dataTables_scrollBody');
+
+                   wraper.scroll(function(){
+                       wraper2.scrollLeft(wraper.scrollLeft());
+                 });
+                 wraper2.scroll(function(){
+                     wraper.scrollLeft(wraper2.scrollLeft());
+                 });
+
+
+
 			 });
 
 		 });
@@ -1035,12 +1063,30 @@
 		 $('.expexcel').click(function(){
 			 var familyId=$(this).attr('familyId');
 			 var table=$('table.'+familyId).not('.DTFC_Cloned').DataTable();
-			 table.page.len(-1).draw();
-			 $('table.'+familyId).not('.DTFC_Cloned').tableExport({
-				 type:'excel',
-				 ignoreColumn:[0,1]
+             var rows_selected = table.column(0).checkboxes.selected();
+             if(rows_selected.length===0){
 
-			 });
+                     vex.dialog.alert({ unsafeMessage:'No ha seleccionado ningún toro'
+
+                         , className: 'vex-theme-wireframe' ,
+                         overlayClassName: 'success',
+                         contentClassName: 'bordernaranjaclass',
+                         closeClassName: 'closebleclass'
+                     })
+
+
+             }else{
+                 var arra=[];
+                 $.each(rows_selected, function(index, rowId) {
+                     arra.push(rowId);
+                 });
+                 var mergedVal = arra.join('|');
+                 window.location=Routing.generate('gema_export', {toros: mergedVal});
+
+
+             }
+
+
 		 });
 
 	 </script>

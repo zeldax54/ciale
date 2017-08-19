@@ -55,6 +55,10 @@ class ComposerStaticInit47fb74626f6a69eb747a11e4e844dd5e
         array (
             'Monolog\\' => 8,
         ),
+        'J' => 
+        array (
+            'JMS\\SerializerBundle\\' => 21,
+        ),
         'I' => 
         array (
             'Ivory\\JsonBuilder\\' => 18,
@@ -66,6 +70,7 @@ class ComposerStaticInit47fb74626f6a69eb747a11e4e844dd5e
         ),
         'D' => 
         array (
+            'Doctrine\\Instantiator\\' => 22,
             'Doctrine\\Common\\Cache\\' => 22,
             'Doctrine\\Common\\Annotations\\' => 28,
             'Doctrine\\Common\\' => 16,
@@ -149,6 +154,10 @@ class ComposerStaticInit47fb74626f6a69eb747a11e4e844dd5e
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
         ),
+        'JMS\\SerializerBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/jms/serializer-bundle',
+        ),
         'Ivory\\JsonBuilder\\' => 
         array (
             0 => __DIR__ . '/..' . '/egeloen/json-builder/src',
@@ -160,6 +169,10 @@ class ComposerStaticInit47fb74626f6a69eb747a11e4e844dd5e
         'FOS\\JsRoutingBundle\\' => 
         array (
             0 => __DIR__ . '/..' . '/friendsofsymfony/jsrouting-bundle',
+        ),
+        'Doctrine\\Instantiator\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/instantiator/src/Doctrine/Instantiator',
         ),
         'Doctrine\\Common\\Cache\\' => 
         array (
@@ -214,6 +227,17 @@ class ComposerStaticInit47fb74626f6a69eb747a11e4e844dd5e
                 0 => __DIR__ . '/..' . '/sensio/distribution-bundle',
             ),
         ),
+        'P' => 
+        array (
+            'PhpOption\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/phpoption/phpoption/src',
+            ),
+            'PhpCollection' => 
+            array (
+                0 => __DIR__ . '/..' . '/phpcollection/phpcollection/src',
+            ),
+        ),
         'M' => 
         array (
             'Metadata\\' => 
@@ -226,6 +250,14 @@ class ComposerStaticInit47fb74626f6a69eb747a11e4e844dd5e
             'JsonpCallbackValidator' => 
             array (
                 0 => __DIR__ . '/..' . '/willdurand/jsonp-callback-validator/src',
+            ),
+            'JMS\\Serializer' => 
+            array (
+                0 => __DIR__ . '/..' . '/jms/serializer/src',
+            ),
+            'JMS\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/jms/parser-lib/src',
             ),
         ),
         'I' => 

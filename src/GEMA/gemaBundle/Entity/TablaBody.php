@@ -86,28 +86,7 @@ class TablaBody
         return $this->rowname;
     }
 
-    /**
-     * Set cellnumber
-     *
-     * @param integer $cellnumber
-     * @return TablaBody
-     */
-    public function setCellnumber($cellnumber)
-    {
-        $this->cellnumber = $cellnumber;
 
-        return $this;
-    }
-
-    /**
-     * Get cellnumber
-     *
-     * @return integer 
-     */
-    public function getCellnumber()
-    {
-        return $this->cellnumber;
-    }
 
     /**
      * Set tabla

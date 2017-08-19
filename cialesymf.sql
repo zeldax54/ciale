@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-08-18 00:46:19
+Date: 2017-08-19 07:16:30
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -71,7 +71,7 @@ CREATE TABLE `categorianoticia` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of categorianoticia
@@ -147,7 +147,7 @@ CREATE TABLE `datosoficina` (
 -- ----------------------------
 -- Records of datosoficina
 -- ----------------------------
-INSERT INTO `datosoficina` VALUES ('1', '<h2 style=\"margin-left:40px\"><span style=\"color:#00418d\"><span style=\"font-family:Fago-Bold\"><strong>Capit&aacute;n Sarmiento</strong></span></span></h2>\r\n\r\n<p style=\"margin-left:40px\"><span style=\"font-family:Fago-normal\">Argentina<br />\r\n<span style=\"color:#00418d\"><span style=\"font-size:16px\"><strong><em>Tel./ Fax: 02478 -&nbsp; 481013 | 0810-222 CIALE (24253)</em></strong></span></span><br />\r\ninfo@ciale.com | <a href=\"http://www.ciale.com\" target=\"_blank\">www.ciale.com</a></span></p>', 'jalvarez@ciale.com;fapesteguia@ciale.com;syoung@ciale.com;falma@ciale.com');
+INSERT INTO `datosoficina` VALUES ('1', '<h2 style=\"margin-left:40px\"><span style=\"color:#00418d\"><span style=\"font-family:Fago-Bold\"><strong>Capit&aacute;n Sarmiento</strong></span></span></h2>\r\n\r\n<p><span style=\"font-size:18px\"><span style=\"font-family:Fago-normal\">Argentina</span></span></p>\r\n\r\n<p><span style=\"font-family:Fago-normal\"><span style=\"color:#00418d\"><span style=\"font-size:16px\"><strong><em>Tel./ Fax: 02478 -&nbsp; 481013 | 0810-222 CIALE (24253)</em></strong></span></span></span></p>\r\n\r\n<p><span style=\"font-family:Fago-normal\"><strong><img alt=\"...\" src=\"http://localhost/cialesymf/web/library\\wasap.png\" style=\"float:left; height:32px; width:50px\" />+549 2474 476709</strong>&nbsp;(Nueva L&iacute;nea de Comunicaci&oacute;n)</span></p>\r\n\r\n<p><span style=\"font-family:Fago-normal\">info@ciale.com | <a href=\"http://www.ciale.com\" target=\"_blank\">www.ciale.com</a></span></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>', 'jalvarez@ciale.com;fapesteguia@ciale.com;syoung@ciale.com;falma@ciale.com');
 
 -- ----------------------------
 -- Table structure for decorador
@@ -312,20 +312,20 @@ CREATE TABLE `mapadatos` (
 -- ----------------------------
 -- Records of mapadatos
 -- ----------------------------
-INSERT INTO `mapadatos` VALUES ('47', '1', 'nombreinterno', '0', 'Nombre interno o codigo');
-INSERT INTO `mapadatos` VALUES ('48', '1', 'nuevo', '1', null);
-INSERT INTO `mapadatos` VALUES ('49', '1', 'facilidadparto', '2', null);
-INSERT INTO `mapadatos` VALUES ('50', '1', 'CP', '3', null);
-INSERT INTO `mapadatos` VALUES ('51', '1', 'apodo', '4', null);
-INSERT INTO `mapadatos` VALUES ('52', '1', 'origen', '5', null);
-INSERT INTO `mapadatos` VALUES ('53', '1', 'nombre', '6', null);
-INSERT INTO `mapadatos` VALUES ('54', '1', 'criador', '7', null);
-INSERT INTO `mapadatos` VALUES ('55', '1', 'propietario', '8', null);
-INSERT INTO `mapadatos` VALUES ('56', '1', 'caracteristicas', '9', null);
-INSERT INTO `mapadatos` VALUES ('57', '1', 'evaluaciongenetica', '10', null);
-INSERT INTO `mapadatos` VALUES ('58', '1', 'lineagenetica', '11', null);
-INSERT INTO `mapadatos` VALUES ('59', '1', 'padre', '12', null);
-INSERT INTO `mapadatos` VALUES ('60', '1', 'madre', '13', null);
+INSERT INTO `mapadatos` VALUES ('47', '1', 'nombreinterno', '0', 'Nombre interno');
+INSERT INTO `mapadatos` VALUES ('48', '1', 'nuevo', '1', 'Nuevo');
+INSERT INTO `mapadatos` VALUES ('49', '1', 'facilidadparto', '2', 'Facilidad de Parto');
+INSERT INTO `mapadatos` VALUES ('50', '1', 'CP', '3', 'Concept Plus');
+INSERT INTO `mapadatos` VALUES ('51', '1', 'apodo', '4', 'Apodo');
+INSERT INTO `mapadatos` VALUES ('52', '1', 'nacionalidad', '5', 'Origen');
+INSERT INTO `mapadatos` VALUES ('53', '1', 'nombre', '6', 'Nombre');
+INSERT INTO `mapadatos` VALUES ('54', '1', 'criador', '7', 'Criador');
+INSERT INTO `mapadatos` VALUES ('55', '1', 'propietario', '8', 'Propietario');
+INSERT INTO `mapadatos` VALUES ('56', '1', 'descripcion', '9', 'Caracteristicas');
+INSERT INTO `mapadatos` VALUES ('57', '1', 'evaluaciongenetica', '10', 'Evaluacion Genetica');
+INSERT INTO `mapadatos` VALUES ('58', '1', 'lineagenetica', '11', 'Linea Genetica');
+INSERT INTO `mapadatos` VALUES ('59', '1', 'padre', '12', 'Padre');
+INSERT INTO `mapadatos` VALUES ('60', '1', 'madre', '13', 'Madre');
 INSERT INTO `mapadatos` VALUES ('61', '1', 'padrepadre', '14', 'Abuelo paterno');
 INSERT INTO `mapadatos` VALUES ('62', '1', 'padremadre', '15', 'Abuelo materno');
 INSERT INTO `mapadatos` VALUES ('63', '1', 'madrepadre', '16', 'Abuela paterna');
@@ -338,37 +338,37 @@ INSERT INTO `mapadatos` VALUES ('69', '1', 'padrepadremadre', '22', 'Bisabuelo p
 INSERT INTO `mapadatos` VALUES ('70', '1', 'madrepadremadre', '23', 'Bisabuela paterna materna (Madre del padre de la madre)');
 INSERT INTO `mapadatos` VALUES ('71', '1', 'padremadremadre', '24', 'Bisabuelo materno materno (Padre de la madre de la madre)');
 INSERT INTO `mapadatos` VALUES ('72', '1', 'madremadremadre', '25', 'Bisabuela materna materna (Madre de la madre de la madre)');
-INSERT INTO `mapadatos` VALUES ('73', '1', 'rp', '26', null);
-INSERT INTO `mapadatos` VALUES ('74', '1', 'HBA', '27', null);
-INSERT INTO `mapadatos` VALUES ('75', '1', 'senasa', '28', null);
-INSERT INTO `mapadatos` VALUES ('76', '1', 'fechanacimiento', '29', 'Nacimiento en excel');
-INSERT INTO `mapadatos` VALUES ('77', '1', 'ADN', '30', null);
-INSERT INTO `mapadatos` VALUES ('78', '1', 'circunferenciaescrotal', '31', null);
-INSERT INTO `mapadatos` VALUES ('79', '1', 'largogrupa', '32', null);
-INSERT INTO `mapadatos` VALUES ('80', '1', 'anchogrupa', '33', null);
-INSERT INTO `mapadatos` VALUES ('81', '1', 'altogrupa', '34', null);
-INSERT INTO `mapadatos` VALUES ('82', '1', 'largocorporal', '35', null);
-INSERT INTO `mapadatos` VALUES ('83', '1', 'peso', '36', null);
-INSERT INTO `mapadatos` VALUES ('84', '1', 'pn1', '37', null);
-INSERT INTO `mapadatos` VALUES ('85', '1', 'p205d', '38', null);
-INSERT INTO `mapadatos` VALUES ('86', '1', 'p365d', '39', null);
-INSERT INTO `mapadatos` VALUES ('87', '1', 'p550d', '40', null);
-INSERT INTO `mapadatos` VALUES ('88', '1', 'precio', '43', null);
-INSERT INTO `mapadatos` VALUES ('90', '2', 'nombreinterno', '0', 'Nombre interno o codigo');
-INSERT INTO `mapadatos` VALUES ('91', '2', 'nuevo', '1', null);
-INSERT INTO `mapadatos` VALUES ('92', '2', 'mocho', '2', null);
-INSERT INTO `mapadatos` VALUES ('93', '2', 'facilidadparto', '3', null);
-INSERT INTO `mapadatos` VALUES ('94', '2', 'CP', '4', null);
-INSERT INTO `mapadatos` VALUES ('95', '2', 'apodo', '5', null);
-INSERT INTO `mapadatos` VALUES ('96', '2', 'origen', '6', null);
-INSERT INTO `mapadatos` VALUES ('97', '2', 'nombre', '7', null);
-INSERT INTO `mapadatos` VALUES ('98', '2', 'criador', '8', null);
-INSERT INTO `mapadatos` VALUES ('99', '2', 'propietario', '9', null);
-INSERT INTO `mapadatos` VALUES ('100', '2', 'caracteristicas', '10', null);
-INSERT INTO `mapadatos` VALUES ('101', '2', 'evaluaciongenetica', '11', null);
-INSERT INTO `mapadatos` VALUES ('102', '2', 'lineagenetica', '12', null);
-INSERT INTO `mapadatos` VALUES ('103', '2', 'padre', '13', null);
-INSERT INTO `mapadatos` VALUES ('104', '2', 'madre', '14', null);
+INSERT INTO `mapadatos` VALUES ('73', '1', 'rp', '26', 'RP');
+INSERT INTO `mapadatos` VALUES ('74', '1', 'HBA', '27', 'HBA');
+INSERT INTO `mapadatos` VALUES ('75', '1', 'senasa', '28', 'SENASA');
+INSERT INTO `mapadatos` VALUES ('76', '1', 'fechanacimiento', '29', 'Fecha de Nacimiento');
+INSERT INTO `mapadatos` VALUES ('77', '1', 'ADN', '30', 'ADN');
+INSERT INTO `mapadatos` VALUES ('78', '1', 'circunferenciaescrotal', '31', 'Circunferencia Escrotal');
+INSERT INTO `mapadatos` VALUES ('79', '1', 'largogrupa', '32', 'Largo de la Grupa');
+INSERT INTO `mapadatos` VALUES ('80', '1', 'anchogrupa', '33', 'Ancho de la Grupa');
+INSERT INTO `mapadatos` VALUES ('81', '1', 'altogrupa', '34', 'Alto de la Grupa');
+INSERT INTO `mapadatos` VALUES ('82', '1', 'largocorporal', '35', 'Largo Corporal');
+INSERT INTO `mapadatos` VALUES ('83', '1', 'peso', '36', 'Peso');
+INSERT INTO `mapadatos` VALUES ('84', '1', 'pn1', '37', 'PN1');
+INSERT INTO `mapadatos` VALUES ('85', '1', 'p205d', '38', 'P205D');
+INSERT INTO `mapadatos` VALUES ('86', '1', 'p365d', '39', 'P365D');
+INSERT INTO `mapadatos` VALUES ('87', '1', 'p550d', '40', 'P550D');
+INSERT INTO `mapadatos` VALUES ('88', '1', 'precio', '43', 'Precio');
+INSERT INTO `mapadatos` VALUES ('90', '2', 'nombreinterno', '0', 'Nombre interno');
+INSERT INTO `mapadatos` VALUES ('91', '2', 'nuevo', '1', 'Nuevo');
+INSERT INTO `mapadatos` VALUES ('92', '2', 'mocho', '2', 'Mocho');
+INSERT INTO `mapadatos` VALUES ('93', '2', 'facilidadparto', '3', 'Facilidad de Parto');
+INSERT INTO `mapadatos` VALUES ('94', '2', 'CP', '4', 'Concept Plus');
+INSERT INTO `mapadatos` VALUES ('95', '2', 'apodo', '5', 'Apodo');
+INSERT INTO `mapadatos` VALUES ('96', '2', 'nacionalidad', '6', 'Origen');
+INSERT INTO `mapadatos` VALUES ('97', '2', 'nombre', '7', 'Nombre');
+INSERT INTO `mapadatos` VALUES ('98', '2', 'criador', '8', 'Criador');
+INSERT INTO `mapadatos` VALUES ('99', '2', 'propietario', '9', 'Propietario');
+INSERT INTO `mapadatos` VALUES ('100', '2', 'descripcion', '10', 'Caracteristicas');
+INSERT INTO `mapadatos` VALUES ('101', '2', 'evaluaciongenetica', '11', 'Evaluacion Genetica');
+INSERT INTO `mapadatos` VALUES ('102', '2', 'lineagenetica', '12', 'Linea Genetica');
+INSERT INTO `mapadatos` VALUES ('103', '2', 'padre', '13', 'Padre');
+INSERT INTO `mapadatos` VALUES ('104', '2', 'madre', '14', 'Madre');
 INSERT INTO `mapadatos` VALUES ('105', '2', 'padrepadre', '15', 'Abuelo paterno');
 INSERT INTO `mapadatos` VALUES ('106', '2', 'padremadre', '16', 'Abuelo materno');
 INSERT INTO `mapadatos` VALUES ('107', '2', 'madrepadre', '17', 'Abuela paterna');
@@ -381,37 +381,37 @@ INSERT INTO `mapadatos` VALUES ('113', '2', 'padrepadremadre', '23', 'Bisabuelo 
 INSERT INTO `mapadatos` VALUES ('114', '2', 'madrepadremadre', '24', 'Bisabuela paterna materna (Madre del padre de la madre)');
 INSERT INTO `mapadatos` VALUES ('115', '2', 'padremadremadre', '25', 'Bisabuelo materno materno (Padre de la madre de la madre)');
 INSERT INTO `mapadatos` VALUES ('116', '2', 'madremadremadre', '26', 'Bisabuela materna materna (Madre de la madre de la madre)');
-INSERT INTO `mapadatos` VALUES ('117', '2', 'rp', '27', null);
-INSERT INTO `mapadatos` VALUES ('118', '2', 'HBA', '28', null);
-INSERT INTO `mapadatos` VALUES ('119', '2', 'senasa', '29', null);
-INSERT INTO `mapadatos` VALUES ('120', '2', 'fechanacimiento', '30', 'Nacimiento en excel');
-INSERT INTO `mapadatos` VALUES ('121', '2', 'ADN', '31', null);
-INSERT INTO `mapadatos` VALUES ('122', '2', 'circunferenciaescrotal', '32', null);
-INSERT INTO `mapadatos` VALUES ('123', '2', 'largogrupa', '33', null);
-INSERT INTO `mapadatos` VALUES ('124', '2', 'anchogrupa', '34', null);
-INSERT INTO `mapadatos` VALUES ('125', '2', 'altogrupa', '35', null);
-INSERT INTO `mapadatos` VALUES ('126', '2', 'largocorporal', '36', null);
-INSERT INTO `mapadatos` VALUES ('127', '2', 'peso', '37', null);
-INSERT INTO `mapadatos` VALUES ('128', '2', 'pn1', '38', null);
-INSERT INTO `mapadatos` VALUES ('129', '2', 'p205d', '39', null);
-INSERT INTO `mapadatos` VALUES ('130', '2', 'p365d', '40', null);
-INSERT INTO `mapadatos` VALUES ('131', '2', 'p550d', '41', null);
-INSERT INTO `mapadatos` VALUES ('132', '2', 'precio', '44', null);
+INSERT INTO `mapadatos` VALUES ('117', '2', 'rp', '27', 'RP');
+INSERT INTO `mapadatos` VALUES ('118', '2', 'HBA', '28', 'HBA');
+INSERT INTO `mapadatos` VALUES ('119', '2', 'senasa', '29', 'SENASA');
+INSERT INTO `mapadatos` VALUES ('120', '2', 'fechanacimiento', '30', 'Fecha de Nacimiento');
+INSERT INTO `mapadatos` VALUES ('121', '2', 'ADN', '31', 'ADN');
+INSERT INTO `mapadatos` VALUES ('122', '2', 'circunferenciaescrotal', '32', 'Circunferencia Escrotal');
+INSERT INTO `mapadatos` VALUES ('123', '2', 'largogrupa', '33', 'Largo de la Grupa');
+INSERT INTO `mapadatos` VALUES ('124', '2', 'anchogrupa', '34', 'Ancho de la Grupa');
+INSERT INTO `mapadatos` VALUES ('125', '2', 'altogrupa', '35', 'Alto de la Grupa');
+INSERT INTO `mapadatos` VALUES ('126', '2', 'largocorporal', '36', 'Largo Corporal');
+INSERT INTO `mapadatos` VALUES ('127', '2', 'peso', '37', 'Peso');
+INSERT INTO `mapadatos` VALUES ('128', '2', 'pn1', '38', 'PN1');
+INSERT INTO `mapadatos` VALUES ('129', '2', 'p205d', '39', 'P205D');
+INSERT INTO `mapadatos` VALUES ('130', '2', 'p365d', '40', 'P365D');
+INSERT INTO `mapadatos` VALUES ('131', '2', 'p550d', '41', 'P550D');
+INSERT INTO `mapadatos` VALUES ('132', '2', 'precio', '44', 'Precio');
 INSERT INTO `mapadatos` VALUES ('133', '3', 'nombreraza', '0', 'Nombre de la Raza');
-INSERT INTO `mapadatos` VALUES ('134', '3', 'nombreinterno', '1', 'Nombre interno o codigo');
-INSERT INTO `mapadatos` VALUES ('135', '3', 'nuevo', '2', null);
-INSERT INTO `mapadatos` VALUES ('136', '3', 'facilidadparto', '3', null);
-INSERT INTO `mapadatos` VALUES ('137', '3', 'CP', '4', null);
-INSERT INTO `mapadatos` VALUES ('138', '3', 'apodo', '5', null);
-INSERT INTO `mapadatos` VALUES ('139', '3', 'origen', '6', null);
-INSERT INTO `mapadatos` VALUES ('140', '3', 'nombre', '7', null);
-INSERT INTO `mapadatos` VALUES ('141', '3', 'criador', '8', null);
-INSERT INTO `mapadatos` VALUES ('142', '3', 'propietario', '9', null);
-INSERT INTO `mapadatos` VALUES ('143', '3', 'caracteristicas', '10', null);
-INSERT INTO `mapadatos` VALUES ('144', '3', 'evaluaciongenetica', '11', null);
-INSERT INTO `mapadatos` VALUES ('145', '3', 'lineagenetica', '12', null);
-INSERT INTO `mapadatos` VALUES ('146', '3', 'padre', '13', null);
-INSERT INTO `mapadatos` VALUES ('147', '3', 'madre', '14', null);
+INSERT INTO `mapadatos` VALUES ('134', '3', 'nombreinterno', '1', 'Nombre interno');
+INSERT INTO `mapadatos` VALUES ('135', '3', 'nuevo', '2', 'Nuevo');
+INSERT INTO `mapadatos` VALUES ('136', '3', 'facilidadparto', '3', 'Facilidad de Parto');
+INSERT INTO `mapadatos` VALUES ('137', '3', 'CP', '4', 'Concept Plus');
+INSERT INTO `mapadatos` VALUES ('138', '3', 'apodo', '5', 'Apodo');
+INSERT INTO `mapadatos` VALUES ('139', '3', 'nacionalidad', '6', 'Origen');
+INSERT INTO `mapadatos` VALUES ('140', '3', 'nombre', '7', 'Nombre');
+INSERT INTO `mapadatos` VALUES ('141', '3', 'criador', '8', 'Criador');
+INSERT INTO `mapadatos` VALUES ('142', '3', 'propietario', '9', 'Propietario');
+INSERT INTO `mapadatos` VALUES ('143', '3', 'descripcion', '10', 'Caracteristicas');
+INSERT INTO `mapadatos` VALUES ('144', '3', 'evaluaciongenetica', '11', 'Evaluación Genetica');
+INSERT INTO `mapadatos` VALUES ('145', '3', 'lineagenetica', '12', 'Linea Genetica');
+INSERT INTO `mapadatos` VALUES ('146', '3', 'padre', '13', 'Padre');
+INSERT INTO `mapadatos` VALUES ('147', '3', 'madre', '14', 'Madre');
 INSERT INTO `mapadatos` VALUES ('148', '3', 'padrepadre', '15', 'Abuelo paterno');
 INSERT INTO `mapadatos` VALUES ('149', '3', 'padremadre', '16', 'Abuelo materno');
 INSERT INTO `mapadatos` VALUES ('150', '3', 'madrepadre', '17', 'Abuela paterna');
@@ -424,22 +424,22 @@ INSERT INTO `mapadatos` VALUES ('156', '3', 'padrepadremadre', '23', 'Bisabuelo 
 INSERT INTO `mapadatos` VALUES ('157', '3', 'madrepadremadre', '24', 'Bisabuela paterna materna (Madre del padre de la madre)');
 INSERT INTO `mapadatos` VALUES ('158', '3', 'padremadremadre', '25', 'Bisabuelo materno materno (Padre de la madre de la madre)');
 INSERT INTO `mapadatos` VALUES ('159', '3', 'madremadremadre', '26', 'Bisabuela materna materna (Madre de la madre de la madre)');
-INSERT INTO `mapadatos` VALUES ('160', '3', 'rp', '27', null);
-INSERT INTO `mapadatos` VALUES ('161', '3', 'HBA', '28', null);
-INSERT INTO `mapadatos` VALUES ('162', '3', 'senasa', '29', null);
-INSERT INTO `mapadatos` VALUES ('163', '3', 'fechanacimiento', '30', 'Nacimiento en excel');
-INSERT INTO `mapadatos` VALUES ('164', '3', 'ADN', '31', null);
-INSERT INTO `mapadatos` VALUES ('165', '3', 'circunferenciaescrotal', '32', null);
-INSERT INTO `mapadatos` VALUES ('166', '3', 'largogrupa', '33', null);
-INSERT INTO `mapadatos` VALUES ('167', '3', 'anchogrupa', '34', null);
-INSERT INTO `mapadatos` VALUES ('168', '3', 'altogrupa', '35', null);
-INSERT INTO `mapadatos` VALUES ('169', '3', 'largocorporal', '36', null);
-INSERT INTO `mapadatos` VALUES ('170', '3', 'peso', '37', null);
-INSERT INTO `mapadatos` VALUES ('171', '3', 'pn1', '38', null);
-INSERT INTO `mapadatos` VALUES ('172', '3', 'p205d', '39', null);
-INSERT INTO `mapadatos` VALUES ('173', '3', 'p365d', '40', null);
-INSERT INTO `mapadatos` VALUES ('174', '3', 'p550d', '41', null);
-INSERT INTO `mapadatos` VALUES ('175', '3', 'precio', '44', null);
+INSERT INTO `mapadatos` VALUES ('160', '3', 'rp', '27', 'RP');
+INSERT INTO `mapadatos` VALUES ('161', '3', 'HBA', '28', 'HBA');
+INSERT INTO `mapadatos` VALUES ('162', '3', 'senasa', '29', 'SENASA');
+INSERT INTO `mapadatos` VALUES ('163', '3', 'fechanacimiento', '30', 'Fecha de Nacimiento');
+INSERT INTO `mapadatos` VALUES ('164', '3', 'ADN', '31', 'ADN');
+INSERT INTO `mapadatos` VALUES ('165', '3', 'circunferenciaescrotal', '32', 'Circunferencia Escrotal');
+INSERT INTO `mapadatos` VALUES ('166', '3', 'largogrupa', '33', 'Largo de la Grupa');
+INSERT INTO `mapadatos` VALUES ('167', '3', 'anchogrupa', '34', 'Ancho de la Grupa');
+INSERT INTO `mapadatos` VALUES ('168', '3', 'altogrupa', '35', 'Alto de la Grupa');
+INSERT INTO `mapadatos` VALUES ('169', '3', 'largocorporal', '36', 'Largo Corporal');
+INSERT INTO `mapadatos` VALUES ('170', '3', 'peso', '37', 'Peso');
+INSERT INTO `mapadatos` VALUES ('171', '3', 'pn1', '38', 'PN1');
+INSERT INTO `mapadatos` VALUES ('172', '3', 'p205d', '39', 'P205D');
+INSERT INTO `mapadatos` VALUES ('173', '3', 'p365d', '40', 'P365D');
+INSERT INTO `mapadatos` VALUES ('174', '3', 'p550d', '41', 'P550D');
+INSERT INTO `mapadatos` VALUES ('175', '3', 'precio', '44', 'Precio');
 
 -- ----------------------------
 -- Table structure for noticia
@@ -1208,7 +1208,7 @@ CREATE TABLE `traza` (
   `accion` longtext COLLATE utf8_unicode_ci NOT NULL,
   `fecha` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1941 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1947 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of traza
@@ -2700,6 +2700,12 @@ INSERT INTO `traza` VALUES ('1937', 'Patricio', 'Listar Expedientes de Raza', '2
 INSERT INTO `traza` VALUES ('1938', 'Patricio', ' ', '2017-08-18 05:38:07');
 INSERT INTO `traza` VALUES ('1939', 'Patricio', 'Listar Expedientes de Raza', '2017-08-18 05:38:08');
 INSERT INTO `traza` VALUES ('1940', 'Patricio', 'Listar Expedientes de Raza', '2017-08-18 05:40:09');
+INSERT INTO `traza` VALUES ('1941', 'Patricio', 'Listar Expedientes de DatosOficina', '2017-08-18 06:55:18');
+INSERT INTO `traza` VALUES ('1942', 'Patricio', ' ', '2017-08-18 06:59:59');
+INSERT INTO `traza` VALUES ('1943', 'Patricio', ' ', '2017-08-18 07:00:24');
+INSERT INTO `traza` VALUES ('1944', 'Patricio', ' ', '2017-08-18 07:11:29');
+INSERT INTO `traza` VALUES ('1945', 'Patricio', 'Listar Expedientes de Toro', '2017-08-19 08:47:54');
+INSERT INTO `traza` VALUES ('1946', 'Patricio', 'Listar Expedientes de Toro', '2017-08-19 08:50:46');
 
 -- ----------------------------
 -- Table structure for usuario

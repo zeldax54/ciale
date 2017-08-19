@@ -110,28 +110,7 @@ class TablaDatos
         return $this->nombre;
     }
 
-    /**
-     * Set tipoDato
-     *
-     * @param string $tipoDato
-     * @return TablaDatos
-     */
-    public function setTipoDato($tipoDato)
-    {
-        $this->tipoDato = $tipoDato;
 
-        return $this;
-    }
-
-    /**
-     * Get tipoDato
-     *
-     * @return string 
-     */
-    public function getTipoDato()
-    {
-        return $this->tipoDato;
-    }
 
     /**
      * Set posinExcel
@@ -154,5 +133,28 @@ class TablaDatos
     public function getPosinExcel()
     {
         return $this->posinExcel;
+    }
+
+    /**
+     * Set verenpc
+     *
+     * @param integer $verenpc
+     * @return TablaDatos
+     */
+    public function setVerenpc($verenpc)
+    {
+        $this->verenpc = $verenpc;
+
+        return $this;
+    }
+
+    /**
+     * Get verenpc
+     *
+     * @return integer 
+     */
+    public function getVerenpc()
+    {
+        return $this->verenpc;
     }
 }

@@ -1095,6 +1095,15 @@ text-decoration:none;
 .borderblueclass button{
 	background:#00A1E7 !important;
 }
+
+.bordernaranjaclass{
+	border-color:#B24E2A !important;
+}
+
+.bordernaranjaclass button{
+	background:#B24E2A !important;
+}
+
 @media (max-width:991px){
 	.lastrow{
 		padding-left:0px !important;

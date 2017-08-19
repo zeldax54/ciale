@@ -24,8 +24,7 @@
         "doctrine/orm": "~2.2,>=2.2.3",
         "doctrine/doctrine-bundle": "~1.2",
         "twig/extensions": "~1.0",
-        "symfony/assetic-bundle": "~2.3",
-        "symfony/swiftmailer-bundle": "^3.0",
+        "symfony/assetic-bundle": "~2.3",    
         "symfony/monolog-bundle": "~2.4",
         "sensio/distribution-bundle": "~3.0",
         "sensio/framework-extra-bundle": "~3.0",
@@ -34,7 +33,8 @@
         "doctrine/data-fixtures": "dev-master",
         "friendsofsymfony/jsrouting-bundle": "^1.6",
         "vich/uploader-bundle": "^1.6",
-        "egeloen/ckeditor-bundle": "^5.0"      
+        "egeloen/ckeditor-bundle": "^5.0",
+        "jms/serializer-bundle": "^2.0"      
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.5"

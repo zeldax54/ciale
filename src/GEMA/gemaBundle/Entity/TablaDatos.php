@@ -110,28 +110,7 @@ class TablaDatos
         return $this->nombre;
     }
 
-    /**
-     * Set tipoDato
-     *
-     * @param string $tipoDato
-     * @return TablaDatos
-     */
-    public function setTipoDato($tipoDato)
-    {
-        $this->tipoDato = $tipoDato;
 
-        return $this;
-    }
-
-    /**
-     * Get tipoDato
-     *
-     * @return string 
-     */
-    public function getTipoDato()
-    {
-        return $this->tipoDato;
-    }
 
     /**
      * Set posinExcel

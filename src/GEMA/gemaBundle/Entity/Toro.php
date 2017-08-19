@@ -5,6 +5,9 @@ namespace GEMA\gemaBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Exclude;
+use JMS\Serializer\Annotation\SerializedName;
 
 /**
  * Toro
@@ -14,6 +17,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @UniqueEntity(fields="nombre", message="Ya existe un toro con ese nombre")
  * @UniqueEntity(fields="nombreinterno", message="Ya existe un toro con ese nombre interno")
  * @ORM\HasLifecycleCallbacks()
+ * @ExclusionPolicy("None")
  */
 class Toro
 {
@@ -30,6 +34,7 @@ class Toro
 
     /**
      * @ORM\ManyToOne(targetEntity="GEMA\gemaBundle\Entity\Raza",inversedBy="toros", cascade={"persist"})
+     * @Exclude
      */
 
     private $raza;
@@ -198,6 +203,7 @@ class Toro
 
     /**
      * @ORM\Column(name="cp", type="boolean", nullable=true)
+     * @SerializedName("cp")
      */
     private $CP;
     /**
@@ -209,6 +215,7 @@ class Toro
     /**
      * @var string
      * @ORM\Column(name="HBA", type="string",length=255,nullable=true)
+     * @SerializedName("hba")
      */
     private $HBA;
 
@@ -227,6 +234,7 @@ class Toro
     /**
      * @var string
      * @ORM\Column(name="ADN", type="string",length=255,nullable=true)
+     * @SerializedName("adn")
      */
     private $ADN;
 
@@ -323,6 +331,7 @@ class Toro
 
     /**
      * @ORM\OneToMany(targetEntity="GEMA\gemaBundle\Entity\Youtube" , mappedBy="toro", cascade={"persist"})
+     * @Exclude
      */
 
     private $youtubes;

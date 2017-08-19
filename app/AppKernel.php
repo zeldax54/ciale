@@ -21,6 +21,7 @@ class AppKernel extends Kernel {
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
            new \FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle(),
 
 
 
@@ -38,6 +39,7 @@ class AppKernel extends Kernel {
 
     public function registerContainerConfiguration(LoaderInterface $loader) {
         $loader->load(__DIR__ . '/config/config_' . $this->getEnvironment() . '.yml');
+
     }
 
 }
