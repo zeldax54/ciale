@@ -243,7 +243,7 @@ td{
 	margin-right:15px;
 }
 #tabla-infeior{
-	/*width:70%;*/
+	width:90%;
 	margin:0 auto;
 	border:none;
 	overflow:auto;
@@ -270,7 +270,7 @@ td{
 	text-align:center;
 	font-weight:bold;
 	color:#FFFFFF;
-	/*width:70%;*/
+	width:90%;
 	margin:0 auto;
 	margin-top:10px;
 }

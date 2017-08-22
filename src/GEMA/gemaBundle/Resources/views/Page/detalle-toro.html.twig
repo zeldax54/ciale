@@ -15,7 +15,8 @@
 	  </style>
 	  {% endblock %}
   {% block content %}
-		<div class="row">
+
+		<div class="row" >
 
 			<div id="fb-root"></div>
 			<script>(function(d, s, id) {
@@ -26,7 +27,7 @@
 					fjs.parentNode.insertBefore(js, fjs);
 				}(document, 'script', 'facebook-jssdk'));</script>
 
-
+   <div id="pdfcontent" style="background-color: white">
 			<div class="colapsive-panel" role="navigation">
 
 							<div class="row">
@@ -68,10 +69,10 @@
 
 							<div >
 							
-								<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-									{#<button type="submit" class="btn btn-warning btn-sm">Generar PDF</button>#}
+								<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 ignorePDF">
+									<button class="btn btn-warning btn-sm pdfgenerator" id="">Generar PDF</button>
 								</div>
-								<div class="col-lg-7 col-md-6 col-sm-9 col-xs-7">
+								<div class="col-lg-7 col-md-6 col-sm-9 col-xs-7 ignorePDF">
 									<div class="form-group buscador" id="padredatotextresp">
 									  <em><input type="text" id="datotextresp" class="form-control" placeholder="Buscar por Nombre, Prefijo o padre ..."></em>
 									</div>
@@ -143,12 +144,12 @@
 
 						</div>
 
-						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-				  
-						  <div class="navbar-form navbar-right">
-							
-							<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-								{#<button id="btn-pdf" type="submit" class="btn btn-warning btn-sm">Generar PDF</button>#}
+						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 ignorePDF">
+
+						  <div class="navbar-form navbar-right ">
+
+							<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 ">
+								<button id="btn-pdf" type="submit" class="btn btn-warning btn-sm pdfgenerator">Generar PDF</button>
 							</div>
 							<div class="col-lg-7 col-md-6 col-sm-9 col-xs-9">
 								<div class="form-group buscador" id="padredatotext">
@@ -169,10 +170,9 @@
 
 			</nav>
 
-		</div>
 
 		<div class="row">
-	
+
 			<div id="izq-primero">
 
 				<div style="position: relative; left: 0; top: 0;" id="imgwatercont" class="example">
@@ -183,12 +183,12 @@
 
 
 	  {%   if mediatoro | length >0 %}
-				<a>Vea más Fotos y Videos de éste toro:</a>
+				<a class="ignorePDF">Vea más Fotos y Videos de éste toro:</a>
 	  {% endif %}
 
 				<br>
 
-				<div class="row" style="padding:15px 20px;">
+				<div class="row ignorePDF" style="padding:15px 20px;">
 					{%   if mediatoro|length >0 %}
 						<ul class="bxslider">
 
@@ -395,6 +395,7 @@
 			</div>
 
 		</div>
+
 	  {% if tabla!=null  %}
 		<div id="ultima-col" class="row">
 	
@@ -426,13 +427,9 @@
 								<th scope="row">{{ dato['rowhead'] }}</th>
 								{% for td in tabla.tabladatos %}
 									{%   if dato['rowhead']|lower =='ranking' and dato[td.nombre] | replace('%','')<=25 and td.nombre|lower !='altura' and dato[td.nombre]!='-' %}
-									<td class="downprom">
-										{{ dato[td.nombre] }}
-									</td>
+									<td class="downprom">{{ dato[td.nombre]|replace({' ':''})}}</td>
                            {% else %}
-						       <td>
-							   {{ dato[td.nombre] }}
-							   </td>
+						       <td>{{ dato[td.nombre]|replace({' ':''}) }}</td>
 									{% endif %}
 								{% endfor %}
 							</tr>
@@ -446,8 +443,8 @@
 		</div>
 	  {% endif %}
 
-
 	</div>
+
 
 	  <div id="slider-next" style="display: none"> </div>
 	  <div id="slider-prev" style="display: none"> </div>
@@ -457,6 +454,15 @@
     {% block custom_javascripts %}
 		<script src="{{ asset('bundles/gema/clientresources/fancybox/dist/jquery.fancybox.min.js')}}"></script>
 		<script src="{{ asset('bundles/gema/clientresources/jquerybxslider/jquery.bxslider.min.js')}}"></script>
+
+		<script src="{{ asset('bundles/gema/clientresources/pdfclient/jspdf.min.js')}}"></script>
+		<script src="{{ asset('bundles/gema/clientresources/pdfclient/addhtml.js')}}"></script>
+		<script src="{{ asset('bundles/gema/clientresources/pdfclient/html2canvas.js')}}"></script>
+		{#<script src="{{ asset('bundles/gema/clientresources/pdfclient/jspdf.debug.js')}}"></script>#}
+		{#<script src="{{ asset('bundles/gema/clientresources/pdfclient/from_html.js')}}"></script>#}
+		{#<script src="{{ asset('bundles/gema/clientresources/pdfclient/split_text_to_size.js')}}"></script>#}
+		{#<script src="{{ asset('bundles/gema/clientresources/pdfclient/standard_fonts_metrics.js')}}"></script>#}
+
 
 		<script src="{{ asset('bundles/gema/js/buscadortoros.js')}}"></script>
 
@@ -507,6 +513,42 @@
 
 			});
 			</script>
+
+		<script>
+			$('.pdfgenerator').click(function(){
+			var specialElementHandlers = {
+  '#ignorePDF': function(element, renderer) {
+    return true;
+   }
+};
+
+var margin = {
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0
+};
+
+var x=$('#pdfcontent').find('.ignorePDF').remove();
+var x=$('#pdfcontent')[0];
+//var r=x.find('.ignorePDF');
+
+
+var pdf = new jsPDF('p','pt','a4');
+
+pdf.addHTML(x,10,10,{
+ //  'width': 1150, // max width of content on PDF
+  'elementHandlers': specialElementHandlers,
+ 
+},
+
+ function () {
+
+     pdf.save('PDF.pdf');
+     location.reload();
+ });
+			});
+		</script>
 
 
 	{% endblock %}
