@@ -19,6 +19,7 @@ use PHPExcel;
 
 
 
+
 class ExportController extends Controller
 {
 
@@ -31,6 +32,17 @@ class ExportController extends Controller
             $iter++;
         }
            return null;
+    }
+
+    function getiterfromLetra($letra){
+        $iter=0;
+        for($x = 'A'; $x < 'ZZ'; $x++)
+        {
+            if($letra==$x)
+                return $iter;
+            $iter++;
+        }
+        return null;
     }
 
     function random_color_part() {
@@ -92,7 +104,7 @@ class ExportController extends Controller
     }
 
 
-  function excelExportAction($toros){
+  function excelExportAction($toros,$alltoros){
 
     $torosid=explode('|',$toros);
 
@@ -115,8 +127,32 @@ class ExportController extends Controller
       }
       $this->SetBold($objPHPExcel,$letras,2);
       $this->Colorear($objPHPExcel,$letras,1);
+      $tablas=array();
 
-      $tablas=$raza->getTipotabla()->getTablas();
+      if($alltoros==='true' && $raza->getfather()!=null){
+          $nombexcel=$raza->getfather()->getNombre();
+
+          $razas=$raza->getFather()->getRazas();
+
+          foreach($razas as $rr){
+
+              $ttablas=$rr->getTipotabla()->getTablas();
+              foreach($ttablas as $tt){
+                  $tablas[]=$tt;
+              }
+
+          }
+      }
+      else{
+
+          if($raza->getTipotabla()!=null){
+              $tablas=$raza->getTipotabla()->getTablas();//Here
+          }
+
+          $nombexcel=$raza->getNombre();
+      }
+
+      $generalcolstable=array();
       foreach($tablas as $t){
           $color=$this->rand_color();
           $letras=array();
@@ -138,6 +174,10 @@ class ExportController extends Controller
 
               }
           }
+        //  $generalcolstable[]=$t->getNombre();
+          $generalcolstable[$t->getNombre()][]=$letras[0];
+
+
           $objPHPExcel->getActiveSheet()->SetCellValue($letras[0].'1',$t->getNombre());
           $this->centerCell($objPHPExcel,$letras[0],1);
           $objPHPExcel->getActiveSheet()->mergeCells($letras[0].'1:'.$letras[count($letras)-1].'1');
@@ -146,12 +186,14 @@ class ExportController extends Controller
       $rowsiter=3;
 
       $serializer = $this->container->get('jms_serializer');
+
       foreach($torosid as $id){
           $iter=0;
           $toro=$em->getRepository('gemaBundle:Toro')->find($id);
           $reports = $serializer->serialize($toro, 'json');
           $toroarr=json_decode($reports,true);
-        //  print_r($toroarr);die();
+        //  if($toro->getId()==412)
+        //  { print_r($toroarr);die();}
           foreach($mapadatos as $dato){
               $letra=$this->getNext($iter);
               $head=strtolower($dato->getNombre());
@@ -165,24 +207,32 @@ class ExportController extends Controller
                   $objPHPExcel->getActiveSheet()->SetCellValue($letra.$rowsiter,$valor);
                   $this->centerCell($objPHPExcel,$letra,$rowsiter);
               }
-
                $iter++;
-
           }
-          $tablasdata=json_decode($toroarr['tablagenetica'],true);
-        //  print_r($tablasdata);die();
-          foreach($tablas as $t){
-              foreach($t->getTablaDatos() as $d){
-                  $tabd=$tablasdata[$t->getNombre()];
-                  foreach($t->getTablaBody() as $b){
-                    $myrow=$this->findInTab($b->getRowName(),$tabd);
-                     $value=$myrow[$d->getNombre()];
-                      $letra=$this->getNext($iter);
 
-                      $objPHPExcel->getActiveSheet()->SetCellValue($letra.$rowsiter,$value);
-                      $this->centerCell($objPHPExcel,$letra,$rowsiter);
-                      $iter++;
-                  }
+
+          if(isset($toroarr['tablagenetica']))
+           $tablasdata=json_decode($toroarr['tablagenetica'],true);
+
+          foreach($tablas as $t){
+              $iter=$this->getiterfromLetra($generalcolstable[$t->getNombre()][0]);
+              foreach($t->getTablaDatos() as $d){
+
+                 // print($iter);die();
+
+                if(isset($tablasdata[$t->getNombre()])){//Para todas las Tablas
+                      $tabd=$tablasdata[$t->getNombre()];
+                      foreach($t->getTablaBody() as $b){
+                          $myrow=$this->findInTab($b->getRowName(),$tabd);
+                          $value=$myrow[$d->getNombre()];
+                          $letra=$this->getNext($iter);
+
+                          $objPHPExcel->getActiveSheet()->SetCellValue($letra.$rowsiter,$value);
+                          $this->centerCell($objPHPExcel,$letra,$rowsiter);
+                          $iter++;
+                      }
+                }
+
             //    print_r($tabd);die();
 
               }
@@ -193,12 +243,14 @@ class ExportController extends Controller
       }
 
     header('Content-Type: application/vnd.ms-excel; charset=UTF-8'); //mime type
-    header('Content-Disposition: attachment;filename="'.$raza->getNombre().'.xls"'); //tell browser what's the file name
+    header('Content-Disposition: attachment;filename="'.$nombexcel.'.xls"'); //tell browser what's the file name
     header('Cache-Control: max-age=0'); //no cache
     $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
     $objWriter->save('php://output');
 
   }
+
+
 
     function findInTab($key,$tab){
 
@@ -216,6 +268,56 @@ function convertBool($valor){
     return 'no';
 
 }
+
+    function todopdfAction($toroId){
+
+        $em = $this->getDoctrine()->getManager();
+        $toro=$em->getRepository('gemaBundle:Toro')->find($toroId);
+        $helper=new MyHelper();
+        global $kernel;
+        $basepath= $kernel->getRootDir() . DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'web'.DIRECTORY_SEPARATOR;
+        $img=$helper->randomPic('toro'.DIRECTORY_SEPARATOR.$toro->getGuid().'P'.DIRECTORY_SEPARATOR);
+        if($img==null)
+            $img=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'toro.png');
+        $img=$basepath.$img;
+      //  print ($img);die();
+
+        $html='<html style="overflow: hidden;" lang="es"><head><meta charset="UTF-8">';
+        $html.='<div style="width: 100%;background-color: #C06000" class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div style="text-align: center;margin: 0 auto"><span style="font-family:Fago-Bold;font-weight: bold ;color:#f0ecf7">'.$toro->getRaza()->getNombre().'</span></div>
+
+         </div>
+         <br>
+         <div class="row">
+        <div class="col-md-6" style="width:50%">
+        <img id="imagen-principal" src="'.$img.'" class="img-responsive toroimg" width="95%" height="300" style="border-radius: 7px 7px 7px 7px;">
+
+        </div>
+
+        <div class="col-md-6">
+        </div>
+
+
+        </div>
+
+
+         '
+
+        ;
+
+
+
+        $dompdf = $this->get('slik_dompdf');
+        $dompdf->getpdf($html);
+
+        $pdfoutput = $dompdf->output();
+       // print($pdfoutput);die();
+        $dompdf->stream($toro->getApodo() . ".pdf");
+
+
+
+
+    }
 
 
 }

@@ -516,6 +516,14 @@
 
 		<script>
 			$('.pdfgenerator').click(function(){
+
+			 {#var id={{ toro.id }}#}
+		 {#var url=Routing.generate('gema_toropdf',{toroId:id});#}
+		{#//	 window.location=Routing.generate('gema_toropdf',{toroId:id});#}
+			 {#window.open(url, '_blank');#}
+
+
+
 			var specialElementHandlers = {
   '#ignorePDF': function(element, renderer) {
     return true;
@@ -530,7 +538,13 @@ var margin = {
 };
 
 var x=$('#pdfcontent').find('.ignorePDF').remove();
+
+$('#pdfcontent').append("<b>Appended text</b>");//Add
+
+
 var x=$('#pdfcontent')[0];
+
+
 //var r=x.find('.ignorePDF');
 
 
@@ -539,7 +553,7 @@ var pdf = new jsPDF('p','pt','a4');
 pdf.addHTML(x,10,10,{
  //  'width': 1150, // max width of content on PDF
   'elementHandlers': specialElementHandlers,
- 
+
 },
 
  function () {

@@ -5,6 +5,7 @@ use Symfony\Component\Config\Loader\LoaderInterface;
 
 
 
+
 class AppKernel extends Kernel {
 
     public function registerBundles() {
@@ -22,6 +23,7 @@ class AppKernel extends Kernel {
            new \FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
+            new Slik\DompdfBundle\SlikDompdfBundle(),
 
 
 
