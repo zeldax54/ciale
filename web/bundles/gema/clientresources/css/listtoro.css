@@ -165,4 +165,8 @@ display: none;
 .div1 {
 	width:1000px; height: 20px; 
 	}
+	
+	td{
+		background-color:transparent !important;
+	}
 

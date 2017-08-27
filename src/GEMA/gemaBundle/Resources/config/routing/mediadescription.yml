@@ -1,0 +1,28 @@
+admin_mediadescription:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:MediaDescription:index" }
+
+admin_mediadescription_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:MediaDescription:show" }
+
+admin_mediadescription_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:MediaDescription:new" }
+
+admin_mediadescription_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:MediaDescription:create" }
+    requirements: { _method: post }
+
+admin_mediadescription_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:MediaDescription:edit" }
+
+admin_mediadescription_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:MediaDescription:update" }
+
+admin_mediadescription_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:MediaDescription:delete" }

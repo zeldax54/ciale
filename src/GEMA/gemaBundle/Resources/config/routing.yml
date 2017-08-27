@@ -1,3 +1,7 @@
+gema_admin_mediadescription:
+    resource: "@gemaBundle/Resources/config/routing/mediadescription.yml"
+    prefix:   /admin/mediadescription
+
 gema_admin_configuracion:
     resource: "@gemaBundle/Resources/config/routing/configuracion.yml"
     prefix:   /admin/configuracion
@@ -206,5 +210,13 @@ gema_export:
 gema_toropdf:
     pattern:  /{toroId}/pdf
     defaults: { _controller: "gemaBundle:Export:todopdf" }
+
+gema_setmediadescription:
+    pattern:  /{folder}/{subfolder}/{nombre}/{description}/desc
+    defaults: { _controller: "gemaBundle:Library:setdescription" }
+
+gema_getmediadescription:
+    pattern:  /{folder}/{subfolder}/{nombre}/getdesc
+    defaults: { _controller: "gemaBundle:Library:getdescription" }
 
 

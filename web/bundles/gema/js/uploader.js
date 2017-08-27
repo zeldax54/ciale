@@ -87,6 +87,7 @@ $('#deleteFileButton').click(function(){
 
 });
 function DeleteFile(folder,guidParam,filename){
+    $('#senddesc').val('');
     var url = Routing.generate('gema_deletefile',{filename:filename,folder:folder,guidParam:guidParam});
     $.ajax({
         type: 'GET',
@@ -110,6 +111,8 @@ function DeleteFile(folder,guidParam,filename){
                 $('#nameFile').val('');
                 $('#deleteFileButton').attr('name', '');
                 $('#urlFile').val('');
+
+                $('div[name="'+fullName+'"]').remove();
             }
         },
         error: function (req, stat, err) {
@@ -162,6 +165,28 @@ function Change(e){
     $('#nameFile').val(img.attr('name'));
     $('#deleteFileButton').attr('name', img.attr('name'));
     $('#urlFile').val(url);
+
+    var inputdesc=$('#senddesc');
+    inputdesc.attr('dtanombre',img.attr('name'));
+    inputdesc.attr('datafolder',img.attr('folder'));
+    inputdesc.attr('subdatafolder',img.attr('param'));
+    inputdesc.val('');
+    var ruta=Routing.generate('gema_getmediadescription',{folder:img.attr('folder'),subfolder:img.attr('param'),nombre:img.attr('name')});
+
+    $.ajax({
+        type: 'GET',
+        url: ruta,
+        success: function (data) {
+            inputdesc.val(data[0]);
+        },
+        error: function (req, stat, err) {
+            console.log(err);
+
+        }
+    });
+
+
+
 }
 
 function getUrlParam( paramName ) {
@@ -217,6 +242,7 @@ function StartDropZone(dropzoneid,param,guidParam,maxFiles,preload,maxFilesize)
         url:function(){
             return Routing.generate('gema_pushfile',{param:param,guidParam:guidParam});
         },
+      //  previewTemplate: document.getElementById('mytemplate').innerHTML,
         addRemoveLinks:true,
         acceptedFiles:".jpg,.png,.gif,.jpeg,.xls,.xlsx,.doc,.docx,.pdf,.mp4,.avi,.flv,.webm",
         dictRemoveFile:"Eliminar este archivo",
@@ -231,6 +257,28 @@ function StartDropZone(dropzoneid,param,guidParam,maxFiles,preload,maxFilesize)
             else { done(); }
         },
         success:function(file,response) {
+
+        if( guidParam===undefined){
+            guidParam='';
+        }
+
+            //$('img[alt="'+file.name+'"]')
+            //$('.dz-image').find('img').find('')
+            var newInput = document.createElement("textarea");
+            newInput.setAttribute("class", "form-control descrip");
+            newInput.setAttribute("name", "descripciones");
+            newInput.setAttribute("dtanombre", file.name);
+            newInput.setAttribute("datafolder",param);
+            newInput.setAttribute("subdatafolder",guidParam);
+            newInput.placeholder="Descripción del Archivo";
+
+
+
+
+            $(file._removeLink).attr('style','float:right;text-decoration:none');
+            $(file._removeLink).attr('class','dz-remove btn btn-danger');
+
+         file.previewElement.appendChild(newInput);
 
                 if(response[2]==true){
                     $('#allImagesFather').append(
@@ -249,6 +297,57 @@ function StartDropZone(dropzoneid,param,guidParam,maxFiles,preload,maxFilesize)
 
 
 }
+
+
+// Get the input box
+//var textInput = document.getElementsByClassName('descrip');
+
+// Init a timeout variable to be used below
+var timeout = null;
+
+// Listen for keystroke events
+//textInput.onkeyup = function (e) {
+//
+//    // Clear the timeout if it has already been set.
+//    // This will prevent the previous task from executing
+//    // if it has been less than <MILLISECONDS>
+//    clearTimeout(timeout);
+//
+//    // Make a new timeout set to go off in 800ms
+//    timeout = setTimeout(function () {
+//        console.log('Input Value:', textInput.value);
+//    }, 500);
+//};
+
+$(document).on('keyup', '.descrip', function () {
+    clearTimeout(timeout);
+    var folder=$(this).attr('datafolder');
+    var subfolder=$(this).attr('subdatafolder');
+    var nombre=$(this).attr('dtanombre');
+    var descripcion=$(this).val();
+    if(descripcion!=null && descripcion!==undefined && descripcion!=''){
+        timeout = setTimeout(function (e) {
+
+            var url=Routing.generate('gema_setmediadescription',{folder:folder,subfolder:subfolder,nombre:nombre,description:descripcion});
+
+            $.ajax({
+                type: 'GET',
+                url: url,
+                success: function (data) {
+
+                },
+                error: function (req, stat, err) {
+                    console.log(err);
+
+                }
+            });
+        }, 500);
+
+    }
+
+
+});
+
 
 
 

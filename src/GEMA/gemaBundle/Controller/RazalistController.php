@@ -124,6 +124,19 @@ class RazalistController extends Controller
     }
 
 
+    function getDesc($data){
+        $em = $this->getDoctrine()->getManager();
+        $descripcionprinc=$em->getRepository('gemaBundle:MediaDescription')-> findOneBy(
+            array(
+                'nombre'=>$data[2],
+                'folder'=>$data[0],
+                'subforlder'=>$data[1]
+            )
+        );
+        if($descripcionprinc==null)
+            return '';
+       return $pricimgdesc=$descripcionprinc->getDescripcion();
+    }
 
     function toroDetailAction($apodo){
 
@@ -136,6 +149,7 @@ class RazalistController extends Controller
         $helper=new MyHelper();
         $img=$helper->randomPic('toro'.DIRECTORY_SEPARATOR.$toro->getGuid().'P'.DIRECTORY_SEPARATOR);
 
+
           $razafather=$toro->getRaza()->getFather();
         if($razafather==null)
             $razafather=$toro->getRaza();
@@ -147,8 +161,23 @@ class RazalistController extends Controller
               'tiporaza'=>1
           ));
 
-        if($img==null)
+        if($img==null){
             $img=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'toro.png');
+            $pricimgdesc='';
+        }
+
+       else{
+           $data= explode(DIRECTORY_SEPARATOR,$img);
+
+           $descripcionprinc=$em->getRepository('gemaBundle:MediaDescription')-> findOneBy(
+               array(
+                   'nombre'=>$data[2],
+                   'folder'=>$data[0],
+                   'subforlder'=>$data[1]
+               )
+           );
+            $pricimgdesc=$descripcionprinc->getDescripcion();
+       }
 
         $imgfp=$this->imgFacilidadParto($helper,$toro->getFacilidadparto());
         $imgcp=$this->ConceptPlus($helper,$toro->getCP());
@@ -193,7 +222,8 @@ class RazalistController extends Controller
             $mediaInpage[]=array(
                 'tipo'=>'video',
                 'url'=> $y->getUrl(),
-                'representacion'=>$helper->videosPic($y->getUrl())
+                'representacion'=>$helper->videosPic($y->getUrl()),
+                'descripcion'=>''
             );
         }
 
@@ -203,7 +233,8 @@ class RazalistController extends Controller
             $mediaInpage[]=array(
                 'tipo'=>'img',
                 'url'=> $mt,
-                 'representacion'=>$mt
+                 'representacion'=>$mt,
+                'descripcion'=>$this->getDesc(explode(DIRECTORY_SEPARATOR,$mt))
             );
         }
         $lis=array();
@@ -226,7 +257,8 @@ class RazalistController extends Controller
                     $lis[$flaadd][]=array(
 
                         'rep'=>$mediaInpage[$i]['representacion'],
-                        'url'=>$mediaInpage[$i]['url']
+                        'url'=>$mediaInpage[$i]['url'],
+                        'descripcion'=>''
 
                     );
                 }
@@ -234,7 +266,8 @@ class RazalistController extends Controller
                     $lis[$flaadd][] =array(
 
                         'rep'=>$mediaInpage[$i]['representacion'],
-                        'url'=>$mediaInpage[$i]['representacion']
+                        'url'=>$mediaInpage[$i]['representacion'],
+                        'descripcion'=>$mediaInpage[$i]['descripcion'],
 
                     );
                 }
@@ -261,6 +294,7 @@ class RazalistController extends Controller
                 'fathersmenu'=>$fathersmenu,
                 'razasmenu'=>$razasmenu,
                 'razaname'=>   $toro->getRaza()->getNombre(),
+                'pricimgdesc'=>$pricimgdesc
 
 
 

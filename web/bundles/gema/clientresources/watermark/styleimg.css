@@ -129,6 +129,32 @@ padding: 4px;
 	width: 98% !important;
 }
 
+.outercaption{
+	text-align:center;
+	background:rgba(0,0,0,.6);
+	width: 94%;
+margin-top: -3.7%;
+z-index: 555;
+position: relative;
+margin-left: 3%;
+border-radius: 4px 4px 4px 4px;
+}
+
+.outercaption span{
+	font-family:'Fago-normal';
+	color:white;
+}
+.fancybox-caption span{
+	font: 14px/20px 'Fago-Bold';
+font-style: normal;
+font-weight: normal;
+background: #000;
+color: #fff;
+padding: 7px 15px;
+border-radius: 30px;
+margin-top:5px;
+}
+
 
 
 

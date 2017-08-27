@@ -1,7 +1,7 @@
 {% extends 'gemaBundle::clientlayout.html.twig' %}
 
   {% block customstylesheets %}
-	  <link href="{{ asset('bundles/gema/clientresources/fancybox/dist/jquery.fancybox.min.css')}}" rel="stylesheet">
+	  <link href="{{ asset('bundles/gema/clientresources/fancybox/dist/jquery.fancybox.css')}}" rel="stylesheet">
 	  <link href="{{ asset('bundles/gema/clientresources/jquerybxslider/jquery.bxslider.css')}}" rel="stylesheet">
 	  <link href="{{ asset('bundles/gema/clientresources/watermark/styleimg.css')}}" rel="stylesheet">
 
@@ -44,7 +44,7 @@
 
 													{% for r in fathersmenu %}
 														{% if r.nombre == father.nombre %}
-															<option   value="{{ father.nombre }}" class="here">{{ father.nombre }}</option>
+															<option selected  value="{{ father.nombre }}" class="here">{{ father.nombre }}</option>
 														{% else %}
 															<option value="{{ r.nombre }}"> {{ r.nombre }}&nbsp;&nbsp;&nbsp;</option>
 														{% endif %}
@@ -54,8 +54,12 @@
 
 												{% if razasmenu is defined %}
 													{% for r in razasmenu %}
-														<option value="{{ r.nombre }}">{{ r.nombre }}&nbsp;&nbsp;&nbsp;</option>
 
+													     {% if r.father is null and r.nombre==toro.raza.nombre %}
+														<option selected value="{{ r.nombre }}">{{ r.nombre }}&nbsp;&nbsp;&nbsp;</option>
+														{% else %}
+														<option value="{{ r.nombre }}">{{ r.nombre }}&nbsp;&nbsp;&nbsp;</option>
+                                                    {% endif %}
 													{% endfor %}
 												{% endif %}
 											</select>
@@ -120,7 +124,7 @@
 
 														{% for r in fathersmenu %}
 															{% if r.nombre == father.nombre %}
-																<option   value="{{ father.nombre }}" class="here">{{ father.nombre }}</option>
+																<option selected   value="{{ father.nombre }}" class="here">{{ father.nombre }}</option>
 																{% else %}
 															<option value="{{ r.nombre }}"> {{ r.nombre }}&nbsp;&nbsp;&nbsp;</option>
 																{% endif %}
@@ -130,7 +134,11 @@
 
 													{% if razasmenu is defined %}
 														{% for r in razasmenu %}
-															<option value="{{ r.nombre }}">{{ r.nombre }}&nbsp;&nbsp;&nbsp;</option>
+															     {% if r.father is null and r.nombre==toro.raza.nombre %}
+															<option selected value="{{ r.nombre }}">{{ r.nombre }}&nbsp;&nbsp;&nbsp;</option>
+															{% else %}
+															<option  value="{{ r.nombre }}">{{ r.nombre }}&nbsp;&nbsp;&nbsp;</option>
+															{% endif %}
 
 														{% endfor %}
 													{% endif %}
@@ -177,9 +185,14 @@
 
 				<div style="position: relative; left: 0; top: 0;" id="imgwatercont" class="example">
 
-				<a data-fancybox="gallery" href="{{ asset(princimg) }}">	<img  id="imagen-principal" width="95%" height="300" src="{{ asset(princimg) }}" class="img-responsive toroimg"/></a>
+				<a data-fancybox="gallery" class="fancybox" href="{{ asset(princimg) }}" data-caption="{{ pricimgdesc }}">	<img  id="imagen-principal" width="95%" height="300" src="{{ asset(princimg) }}" class="img-responsive toroimg"/></a>
 					{#<img id="imagen-wattermark"  src="{{ asset(watermarkimg) }}" class="img-responsive marcaagua" style="display: none"/>#}
+
+				{% if pricimgdesc is not null  and pricimgdesc!='' and pricimgdesc is defined %}
+          <div class="outercaption"><span>{{ pricimgdesc }}</span></div>
+          {% endif %}
 				</div>
+
 
 
 	  {%   if mediatoro | length >0 %}
@@ -198,7 +211,7 @@
 								{% for dato in media %}
 
 										<div class="col-xs-3" style="padding: 1px">
-											<a href="{{ asset(dato.url) }}" data-fancybox="gallery">
+											<a class="fancybox" href="{{ asset(dato.url) }}" data-fancybox="gallery" data-caption="{{ dato.descripcion }}">
 												<img   src="{{ asset(dato.rep) }}" class="img-responsive thumbnail"/>
 											</a>
 										</div>
@@ -295,7 +308,7 @@
 						</div>
 						
 					</div>
-					<strong>2017</strong>
+					{#<strong>2017</strong>#}
 				</address>
 	
 				<div class="row">
@@ -452,7 +465,7 @@
 {% endblock %}
 
     {% block custom_javascripts %}
-		<script src="{{ asset('bundles/gema/clientresources/fancybox/dist/jquery.fancybox.min.js')}}"></script>
+		<script src="{{ asset('bundles/gema/clientresources/fancybox/dist/jquery.fancybox.js')}}"></script>
 		<script src="{{ asset('bundles/gema/clientresources/jquerybxslider/jquery.bxslider.min.js')}}"></script>
 
 		<script src="{{ asset('bundles/gema/clientresources/pdfclient/jspdf.min.js')}}"></script>
@@ -471,6 +484,24 @@
 
 
 			$(document).ready(function(){
+
+
+$(".fancybox").fancybox({
+		openEffect	: 'none',
+		closeEffect	: 'none',
+		afterLoad : function( instance, current ) {
+
+         var capt=$('.fancybox-caption');
+		var msj=capt.html();
+		capt.empty();
+		capt.append('<span style="background: black;">'+msj+'</span>');
+
+	}
+
+	});
+
+//	$('class=""')
+
 				$('.bxslider').bxSlider(
 						{
 							adaptiveHeight: true,
@@ -521,7 +552,7 @@
 		 {#var url=Routing.generate('gema_toropdf',{toroId:id});#}
 		{#//	 window.location=Routing.generate('gema_toropdf',{toroId:id});#}
 			 {#window.open(url, '_blank');#}
-
+{#return;#}
 
 
 			var specialElementHandlers = {
@@ -539,7 +570,7 @@ var margin = {
 
 var x=$('#pdfcontent').find('.ignorePDF').remove();
 
-$('#pdfcontent').append("<b>Appended text</b>");//Add
+//$('#pdfcontent').append("<b>Appended text</b>");//Add
 
 
 var x=$('#pdfcontent')[0];

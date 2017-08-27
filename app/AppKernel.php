@@ -24,10 +24,6 @@ class AppKernel extends Kernel {
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new Slik\DompdfBundle\SlikDompdfBundle(),
-
-
-
-
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

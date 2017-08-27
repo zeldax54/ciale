@@ -322,7 +322,10 @@
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   color: #fff;
   line-height: 20px;
-  -webkit-text-size-adjust: none; }
+  -webkit-text-size-adjust: none; text-align:center;
+  font-family:'Fago-Bold'
+  
+  }
 
 .fancybox-caption a,
 .fancybox-caption button,

@@ -276,6 +276,8 @@ function convertBool($valor){
         $helper=new MyHelper();
         global $kernel;
         $basepath= $kernel->getRootDir() . DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'web'.DIRECTORY_SEPARATOR;
+        $dompdf = $this->get('slik_dompdf');
+
         $img=$helper->randomPic('toro'.DIRECTORY_SEPARATOR.$toro->getGuid().'P'.DIRECTORY_SEPARATOR);
         if($img==null)
             $img=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'toro.png');
@@ -283,6 +285,7 @@ function convertBool($valor){
       //  print ($img);die();
 
         $html='<html style="overflow: hidden;" lang="es"><head><meta charset="UTF-8">';
+
         $html.='<div style="width: 100%;background-color: #C06000" class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <div style="text-align: center;margin: 0 auto"><span style="font-family:Fago-Bold;font-weight: bold ;color:#f0ecf7">'.$toro->getRaza()->getNombre().'</span></div>
 
@@ -295,6 +298,7 @@ function convertBool($valor){
         </div>
 
         <div class="col-md-6">
+        AAAAAAAAAAAAAAAAAAAAAA
         </div>
 
 
@@ -307,7 +311,7 @@ function convertBool($valor){
 
 
 
-        $dompdf = $this->get('slik_dompdf');
+
         $dompdf->getpdf($html);
 
         $pdfoutput = $dompdf->output();

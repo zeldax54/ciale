@@ -2,6 +2,7 @@
 
 namespace GEMA\gemaBundle\Controller;
 
+use GEMA\gemaBundle\Entity\MediaDescription;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Console\Helper\Helper;
 use Symfony\Component\Filesystem\Exception\FileNotFoundException;
@@ -240,12 +241,116 @@ class LibraryController extends Controller
                 2=>$retid,
                 3=>1
             );
-            return new JsonResponse($final);
+        $em = $this->getDoctrine()->getManager();
+        $descripcionprev=$em->getRepository('gemaBundle:MediaDescription')-> findOneBy(
+            array(
+                'nombre'=>$filename,
+                'folder'=>$folder,
+                'subforlder'=>$guidParam
+            )
+        );
+        if($descripcionprev!=null){
+            $em->remove($descripcionprev);
+            $em->flush();
 
+        }
+
+        return new JsonResponse($final);
 
     }
 
 
+  public function setdescriptionAction($folder,$subfolder,$nombre,$description){
 
+      try{
+          if($subfolder=='undefined')
+              $subfolder='';
+          $em = $this->getDoctrine()->getManager();
+          $descripcionprev=$em->getRepository('gemaBundle:MediaDescription')-> findOneBy(
+              array(
+                  'nombre'=>$nombre,
+                  'folder'=>$folder,
+                  'subforlder'=>$subfolder
+              )
+          );
+
+          if($descripcionprev!=null){
+
+              $descripcionprev=$em->getRepository('gemaBundle:MediaDescription')->find($descripcionprev->getId());
+              $descripcionprev->setFolder($folder);
+              $descripcionprev->setSubforlder($subfolder);
+              $descripcionprev->setNombre($nombre);
+              $descripcionprev->setDescripcion($description);
+
+              $em->persist($descripcionprev);
+              $em->flush();
+
+              $final=array(
+                  0=>'Actualizado'
+              );
+              return new JsonResponse($final);
+          }
+
+          else{
+
+              $des=new MediaDescription();
+              $des->setFolder($folder);
+              $des->setSubforlder($subfolder);
+              $des->setNombre($nombre);
+              $des->setDescripcion($description);
+
+              $em->persist($des);
+              $em->flush();
+              $final=array(
+                  0=>'Actualizado'
+              );
+              return new JsonResponse($final);
+          }
+
+
+      }
+      catch( Exception $e){
+          $final=array(
+              0=>$e->getMessage()
+          );
+          return new JsonResponse($final);
+      }
+
+
+     // $repodesc = $em->getRepository('gemaBundle:Raza');
+
+  }
+
+    public function getdescriptionAction($folder,$subfolder,$nombre){
+
+        try{
+            $em = $this->getDoctrine()->getManager();
+            $descripcionprev=$em->getRepository('gemaBundle:MediaDescription')-> findOneBy(
+                array(
+                    'nombre'=>$nombre,
+                    'folder'=>$folder,
+                    'subforlder'=>$subfolder
+                )
+            );
+
+            if($descripcionprev==null){
+                $final=array(
+                    0=>''
+                );
+                return new JsonResponse($final);
+            }
+            $final=array(
+                0=>$descripcionprev->getDescripcion()
+            );
+            return new JsonResponse($final);
+
+        }
+        catch(Exception $e){
+            $final=array(
+                0=>$e->getMessage()
+            );
+            return new JsonResponse($final);
+        }
+    }
 
 }

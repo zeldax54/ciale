@@ -235,8 +235,10 @@
         var jsonString=$('#gema_gemabundle_toro_tablagenetica').val();
         if(jsonString!==null && jsonString!=='')
         {
-            var arrays = JSON.parse(jsonString);
+            console.log(jsonString);
 
+             var arrays = JSON.parse(jsonString);
+            console.log(arrays);
 
             if($('.contenedorT').length===0){
                 var nombrt=$('#dynamictable').attr('name');
@@ -339,10 +341,10 @@
         });
 
 
-        $('#gema_gemabundle_toro_evaluaciongenetica').change(function(){
-            $('table:visible').attr('name',$(this).val());
-            UpdateJsonCont();
-        });
+//        $('#gema_gemabundle_toro_evaluaciongenetica').change(function(){
+//            $('table:visible').attr('name',$(this).val());
+//            UpdateJsonCont();
+//        });
 
         function UpdateJsonCont(){
 

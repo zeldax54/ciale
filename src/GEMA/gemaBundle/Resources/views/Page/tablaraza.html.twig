@@ -618,6 +618,8 @@
 						 },
 						 "sLengthMenu": "Mostrando _MENU_ toros"
 					 },
+                     'stripeClasses':['myodd','myeven']
+                     ,
 					 columnDefs: [
 						 {
 							 'targets': 0,
@@ -768,20 +770,31 @@
 
 
 
-
+		 var timeout = null;
 
 		 $('.searchelement').on('keyup change', function() {
+			 clearTimeout(timeout);
+             var familyId=$(this).attr('familyid');
+             var texto=$(this).val();
 
-			 var table=$('table.'+$(this).attr('familyid')).not('.DTFC_Cloned').DataTable();
-			 table.search($(this).val(),true).draw();
-			 ResetOddEvenGeneral();
-			 $($.fn.dataTable.tables(true)).css('width', '100%');
-			 $($.fn.dataTable.tables(true)).DataTable().columns.adjust().draw();
-			 var info = table.page.info();
-			 $('.'+$(this).attr('familyid')+'#cantmsj').html(info.recordsDisplay + ' toros en la lista');
+             timeout = setTimeout(function (e) {
+                 var table=$('table.'+familyId).not('.DTFC_Cloned').DataTable();
+                 table.search(texto,true).draw();
+
+                 $($.fn.dataTable.tables(true)).css('width', '100%');
+                 $($.fn.dataTable.tables(true)).DataTable().columns.adjust().draw();
+                 var info = table.page.info();
+                 $('.'+familyId+'#cantmsj').html(info.recordsDisplay + ' toros en la lista');
+                 ResetOddEvenGeneral();
+
+             }, 500);
+
+
 		 });
 
-
+         $('table').change(function(){
+             ResetOddEvenGeneral();
+         });
 
 
 
@@ -856,7 +869,7 @@
 		 }
 
 		function  ShowAndUpdate(table,familyId){
-			table.order([6, "desc"]).draw();
+			table.order([7, "desc"]).draw();
 			$($.fn.dataTable.tables(true)).css('width', '100%');
 			$($.fn.dataTable.tables(true)).DataTable().columns.adjust().draw();
 			var info = table.page.info();
@@ -928,7 +941,7 @@
 			 }
 
 			 ShowAndUpdate(table,familyId);
-
+              ResetOddEvenGeneral();
 		 }
 
 
