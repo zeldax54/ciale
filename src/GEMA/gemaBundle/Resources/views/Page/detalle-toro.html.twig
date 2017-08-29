@@ -189,15 +189,17 @@
 					{#<img id="imagen-wattermark"  src="{{ asset(watermarkimg) }}" class="img-responsive marcaagua" style="display: none"/>#}
 
 				{% if pricimgdesc is not null  and pricimgdesc!='' and pricimgdesc is defined %}
-          <div class="outercaption"><span>{{ pricimgdesc }}</span></div>
+          <div class="outercaption"><span class="fagosibold">{{ pricimgdesc }}</span></div>
           {% endif %}
+
+            {%   if mediatoro | length >0 %}
+				<div style="text-align: center"><a class="ignorePDF fagosibold" style="margin-left:0% !important">Vea más Fotos y Videos de éste toro:</a></div>
+	  {% endif %}
 				</div>
 
 
 
-	  {%   if mediatoro | length >0 %}
-				<a class="ignorePDF">Vea más Fotos y Videos de éste toro:</a>
-	  {% endif %}
+
 
 				<br>
 
@@ -361,7 +363,7 @@
 					<div class="medida medida5"><strong title="Largo corporal">{{ toro.largocorporal }}</strong></div>
 
 					<img src="{{ asset(silueta) }}" class="img-responsive" style="margin:0 auto"/>
-					<b style="margin-left:0px;"><em>Deslice el mause sobre los números para ver la descripción</em></b>
+					<b style="margin-left:0px;"><em>Deslice el mouse sobre los números para ver la descripción</em></b>
 	
 				</div>						
 
@@ -396,7 +398,7 @@
 	
 				<div class="encabezado-area" style="margin-left:25px;">
 					<i class="fa fa-caret-right fa-3x" style="margin:-9px 0 0 -45px;">&nbsp;&nbsp;</i>
-					<strong style="font-size:16px;position:absolute;margin-top:2px;">Comentários</strong>			
+					<strong style="font-size:16px;position:absolute;margin-top:2px;">Comentarios</strong>
 				</div>
 	
 				<p>
@@ -594,6 +596,23 @@ pdf.addHTML(x,10,10,{
  });
 			});
 		</script>
+<script>
+$(document).ready(function(){
 
+ if ($(window).width() < 992) {
+    $("#der-primero").insertBefore($("#izq-primero"));
+  }
+});
+
+$(window).on("resize", function() {
+  $(".currentwidth").text($(window).width());
+  if ($(window).width() < 992) {
+    $("#der-primero").insertBefore($("#izq-primero"));
+  } else {
+    $("#izq-primero").insertBefore($("#der-primero"));
+  }
+
+})
+</script>
 
 	{% endblock %}

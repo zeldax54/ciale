@@ -131,18 +131,42 @@ padding: 4px;
 
 .outercaption{
 	text-align:center;
-	background:rgba(0,0,0,.6);
+	/*background:rgba(0,0,0,.6);*/
 	width: 94%;
-margin-top: -3.7%;
+/*margin-top: -3.7%;*/
 z-index: 555;
 position: relative;
 margin-left: 3%;
 border-radius: 4px 4px 4px 4px;
+font-family:'Fago-Bold';
+	color:rgba(0,0,0,.6);
 }
 
+/* IE 10+ */
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+.outercaption{
+	font-family:'Fago-Bold';
+	color:rgba(0,0,0,.6);
+	margin-top: -0.7%;
+}
+.body{
+	font-family:'Calibri';
+}
+}
+
+/*Only chrome css*/
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+.outercaption{
+	
+margin-top: -2.7%;
+font-family:'Fago-Bold';
+	color:rgba(0,0,0,.6);
+
+}}
+
 .outercaption span{
-	font-family:'Fago-normal';
-	color:white;
+	font-family:'Fago-Bold';
+	color:rgba(0,0,0,.6);
 }
 .fancybox-caption span{
 	font: 14px/20px 'Fago-Bold';
@@ -154,6 +178,13 @@ padding: 7px 15px;
 border-radius: 30px;
 margin-top:5px;
 }
+
+.fagosibold{
+	font-family:'Fago-Bold';
+}
+
+
+
 
 
 

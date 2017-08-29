@@ -169,14 +169,15 @@ class RazalistController extends Controller
        else{
            $data= explode(DIRECTORY_SEPARATOR,$img);
 
-           $descripcionprinc=$em->getRepository('gemaBundle:MediaDescription')-> findOneBy(
-               array(
-                   'nombre'=>$data[2],
-                   'folder'=>$data[0],
-                   'subforlder'=>$data[1]
-               )
-           );
-            $pricimgdesc=$descripcionprinc->getDescripcion();
+           $descripcionprinc=$em->getRepository('gemaBundle:MediaDescription')-> findMy(
+               $data[2],$data[0],$data[1]
+               );
+
+
+           if($descripcionprinc[0]!=null)
+            $pricimgdesc=$descripcionprinc[0]->getDescripcion();
+           else
+               $pricimgdesc='';
        }
 
         $imgfp=$this->imgFacilidadParto($helper,$toro->getFacilidadparto());

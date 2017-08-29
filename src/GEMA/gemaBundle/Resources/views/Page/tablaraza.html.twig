@@ -56,6 +56,7 @@
 											{% if otherrazas is defined and otherrazas is not null %}
 												<li>
 
+
 													<select class="therrazasselector newselector">
 														{% for r in otherrazas %}
 															<option value= {{  r.nombreraza |replace(' ','-')}}> {{  r.nombreraza }}</option>
@@ -140,7 +141,7 @@
 									<li>
 
 									<select class="therrazasselector newselector">
-										<option value=""></option>
+										<option value="900">Seleccione una raza...</option>
 										{% for r in otherrazas %}
 											<option value= {{  r.nombreraza }}> {{  r.nombreraza }}</option>
 										{% endfor %}
@@ -1060,7 +1061,11 @@
 		 $('.therrazasselector').change(function(){
 
 			 var raza=$(this).val();
-			 var tabla=$('.tabla1').not('.DTFC_Cloned').DataTable();
+             var tabla=$('.tabla1').not('.DTFC_Cloned').DataTable();
+             if(raza==900){
+                 ShowAllRows(tabla);
+             }
+             else
 			 tabla.search(raza).draw();
 			 var info = tabla.page.info();
 			 var d= info.recordsDisplay;

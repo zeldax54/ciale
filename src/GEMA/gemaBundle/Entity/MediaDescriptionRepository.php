@@ -16,4 +16,16 @@ class MediaDescriptionRepository extends EntityRepository
 {
 
 
+    public function findMy($nombre,$folder,$subfolder) {
+        $qb = new QueryBuilder($this->getEntityManager());
+        $qb
+            ->select("A")
+            ->from($this->getClassName(), "A")
+            ->where("A.nombre='".$nombre."'")
+            ->andwhere("A.folder='".$folder."'")
+            ->andwhere("A.subforlder='".$subfolder."'");
+        $qb->setMaxResults(1);
+        return $qb->getQuery()->getResult();
+    }
+
 }
