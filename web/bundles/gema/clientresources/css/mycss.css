@@ -397,16 +397,16 @@ text-decoration:none;
 }
 
 :-webkit-input-placeholder { /* Chrome/Opera/Safari */
-  color: #d2d1d1;
+  color: #ffffff;
 }
 ::-moz-placeholder { /* Firefox 19+ */
-  color: #d2d1d1;
+  color: #ffffff;
 }
 :-ms-input-placeholder { /* IE 10+ */
-  color: #d2d1d1;
+  color: #ffffff;
 }
 :-moz-placeholder { /* Firefox 18- */
-  color: #d2d1d1;
+  color: #ffffff;
 }
 
 #advancesearch:hover{

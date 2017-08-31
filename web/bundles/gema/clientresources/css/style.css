@@ -127,6 +127,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#034694', end
 .toro-busqueda::-moz-placeholder{
 	color:#FFF;
 }
+
+
 .container.wrapped-container .input-group button{
 	width:28px;
 	height:28px;
@@ -1111,7 +1113,13 @@ text-decoration:none;
 	#infocontainer{
 		text-align:center !important;
 	}
+	
+	.nav .navbar-nav{
+		/*display:none;*/
+	}
 }
+
+
 
  
 
@@ -1182,6 +1190,48 @@ margin-left: -15px;
 	text-align:justify;
 	margin: 0px !important;
 }
+
+.fluid-img{
+  background-size: cover !important;
+  -moz-background-size: cover !important;  /* Firefox 3.6 */
+  background-position: center ;  /* Internet Explorer 7/8 */
+}
+
+/*Only chrome css*/
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	
+	
+}
+
+
+
+
+@media only screen and (min-width: 9999px) {
+  .top-bar {
+    background: #333333;
+    *zoom: 1;
+    overflow: visible; }
+
+
+
+meta.foundation-mq-topbar {
+  font-family: "/only screen and (min-width:9999px)/";
+  width: 9999px; }
+
+
+
+meta.foundation-mq-topbar {
+  font-family: "/only screen and (min-width:9999px)/";
+  width: 9999px; }
+
+
+
+
+
+
+
+
+ 
 
 
 

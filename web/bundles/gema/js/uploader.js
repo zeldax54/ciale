@@ -7,7 +7,16 @@ function GetData(folder,param)
         url: url,
         success: function (data) {
             var getUrl = window.location;
-            var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+            var segment=getUrl.pathname.split('/');
+            var segundoseg='';
+            for(var i=0;i<segment.length;i++){
+                if(segment[i]=='web')
+                    break;
+                segundoseg+=segment[i]+'/';
+            }
+            console.log(segundoseg);
+            var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + segundoseg;
+console.log(baseUrl);
             reload_js(baseUrl+'/web/bundles/gema/js/bootstrap3.min.js');
             InModalChargeView(data);
 

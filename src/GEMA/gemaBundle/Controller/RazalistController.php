@@ -174,7 +174,7 @@ class RazalistController extends Controller
                );
 
 
-           if($descripcionprinc[0]!=null)
+           if($descripcionprinc!=null && $descripcionprinc[0]!=null)
             $pricimgdesc=$descripcionprinc[0]->getDescripcion();
            else
                $pricimgdesc='';

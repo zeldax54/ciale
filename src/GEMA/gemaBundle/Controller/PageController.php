@@ -39,7 +39,7 @@ class PageController extends Controller {
         $boletinleche=$helper->randomurlFile('descargables'.DIRECTORY_SEPARATOR.'boletinleche'.DIRECTORY_SEPARATOR);
 
         $noticias = $em->getRepository('gemaBundle:Noticia')->lastthree();
-
+         $servername= $_SERVER['SERVER_NAME'];
         return $this->render('gemaBundle:Page:page.html.twig', array(
                 'fathers'=>$fathers,
                 'razasnofather'=>$razasnofather
@@ -53,7 +53,8 @@ class PageController extends Controller {
                 'imgleche'=>$imagecatalogLeche,
                 'noticias'=>$noticias,
                 'boletincarne'=>$boletincarne,
-                'boletinleche'=>$boletinleche
+                'boletinleche'=>$boletinleche,
+                'servername'=>$servername
                 )
       );
     }
