@@ -91,7 +91,7 @@
                         <ul class="nav navbar-nav">
                             <li class="menu-items active"><a href="{{path("homepage")}}">PRINCIPAL <span class="sr-only">(current)</span></a></li>
                             <li class="menu-items"><a href="{{  path('gema_clientcontenido',{'nombre':'NUESTRA FILOSOFÍA'})  }}">LA EMPRESA</a></li>
-                            <li class="menu-items"><a href="{{  path('gema_redventas',{'codigo':-1}) }}">RED DE VENTAS</a></li>
+                            <li class="menu-items"><a href="{{  path('gema_redventas',{'codigo':'comercial'}) }}">RED DE VENTAS</a></li>
                             <li class="menu-items dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">NOTICIAS&nbsp;<i class="fa fa-plus"></i><i class="fa fa-minus"></i></a>
                                 <ul class="dropdown-menu">
@@ -191,11 +191,11 @@
                             <a href="{{path("homepage")}}" class="">PRINCIPAL</a>
                         </div>
                              <div>
-                            <a href="{{  path('gema_redventas',{'codigo':-1}) }}">LA EMPRESA</a>
+                            <a href="{{  path('gema_redventas',{'codigo':'comercial'}) }}">LA EMPRESA</a>
                              </div>
 
                            <div>
-                             <a href="{{  path('gema_redventas',{'codigo':-1}) }}" class="">RED DE VENTAS</a>
+                             <a href="{{  path('gema_redventas',{'codigo':'comercial'}) }}" class="">RED DE VENTAS</a>
                             </div>
                         <div>
                             <a href="{{  path('gema_clientnews',{'tipo':'Todas','start':0,'end':9})  }}">NOTICIAS</a>

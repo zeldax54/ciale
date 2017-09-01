@@ -56,9 +56,9 @@ class RedventasController extends Controller
         $helper=new MyHelper();
 
         foreach($staff as $s){
-            $img=$helper->randomPic($paramfolder.DIRECTORY_SEPARATOR.$s->getGuid().DIRECTORY_SEPARATOR);
+            $img=$helper->randomPic($paramfolder.DIRECTORY_SEPARATOR.$s->getGuid().DIRECTORY_SEPARATOR,true);
             if($img==null)
-                $img=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'user.png');
+                $img=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'user.png',true);
             $s->foto=$img;
         }
         $gife=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'paperplane.gif');
