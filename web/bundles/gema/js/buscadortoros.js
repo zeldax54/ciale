@@ -48,8 +48,17 @@ function BuscarToros(dato){
       if(isresponsive==undefined)
           isresponsive=false;
      var url = Routing.generate('gema_searchtoroscarnelike',{dato:dato});
+
       var getUrl = window.location;
-      var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+      var segment=getUrl.pathname.split('/');
+      var segundoseg='';
+      for(var i=0;i<segment.length;i++){
+          if(segment[i]=='web')
+              break;
+          segundoseg+=segment[i]+'/';
+      }
+      var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + segundoseg;
+
       $.ajax({
           type: 'POST',
           url: url,

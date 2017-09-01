@@ -145,6 +145,7 @@ class LibraryController extends Controller
     }
 
     public function CopyFileAction($param,$guidParam){
+        $helper=new MyHelper();
         if($param=='library')
         {
             $webPath = $this->get('kernel')->getRootDir().'/../web/library/';
@@ -163,12 +164,15 @@ class LibraryController extends Controller
 
         }
         $fileName=$_FILES['file']['name'];
+        $fileName=$helper->remove_accents($fileName);
         if (move_uploaded_file($_FILES['file']['tmp_name'], $webPath.$fileName)) {
 
             $ext=$this->SaberExt($fileName);
 
+
+
             if($this->isImg($ext)==true && $param!='mediainpage' && $param!='library'){
-                $helper=new MyHelper();
+
                 $marcaguapic= $helper->randomPic('mediainpage'.DIRECTORY_SEPARATOR.'watermark'.DIRECTORY_SEPARATOR);
                 $estampa = imagecreatefrompng($marcaguapic);
                if($ext=='jpg' )
@@ -186,16 +190,25 @@ class LibraryController extends Controller
 
             }
 
+            if($this->isImg($ext)){
+                $helper=new MyHelper();
+                $fileout=str_replace('.'.$ext,'_small.'.$ext,$fileName);
+              //  print($fileout);
+               $resp= $helper->makeImage($webPath.$fileName,$webPath.$fileout);
+            }else{
+                $resp=false;
+            }
+
 
             $final=array(
-                0=>$this->getRequest()->getBasePath().'/'.$folderFull.$_FILES['file']['name'],
-                1=>$this->getRequest()->getBasePath().'/'.$this->FileExt($_FILES['file']['name'],$folderFull,self::mediaFolder),
+                0=>$this->getRequest()->getBasePath().'/'.$folderFull.$fileName,
+                1=>$this->getRequest()->getBasePath().'/'.$this->FileExt($fileName,$folderFull,self::mediaFolder),
                 2=>true,
-                3=>$_FILES['file']['name'],
+                3=>$fileName,
                 4=>$retid.$fileName,
                 5=>$param,
-                6=>$guidParam
-
+                6=>$guidParam,
+                7=>$resp
             );
             return new JsonResponse($final);
         } else {
@@ -352,5 +365,9 @@ class LibraryController extends Controller
             return new JsonResponse($final);
         }
     }
+
+
+
+
 
 }

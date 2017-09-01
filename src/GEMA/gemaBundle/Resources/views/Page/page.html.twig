@@ -119,7 +119,7 @@
 
          <div class="row" style="padding-top: 33px;" id="flagit3id">
              <div class="col-md-12">
-             <a href="{{  path('gema_redventas',{'codigo':-1}) }}" target="_self" class="btn busqavanz conozcamas">Conozca más aquí&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i></a>
+             <a href="{{  path('gema_redventas',{'codigo':'comercial'}) }}" target="_self" class="btn busqavanz conozcamas">Conozca más aquí&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i></a>
 
          </div>
 
@@ -258,7 +258,17 @@
                            }
                    );
                    var getUrl = window.location;
-                   var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+                   var segment=getUrl.pathname.split('/');
+                   var segundoseg='';
+                   for(var i=0;i<segment.length;i++){
+                       if(segment[i]=='web')
+                           break;
+                       segundoseg+=segment[i]+'/';
+                   }
+                   console.log(segundoseg);
+                   var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + segundoseg;
+                   console.log(baseUrl);
+
                    var urlphp=baseUrl+'/web/js/responsiveImg.js.php';
 //                   $(".imageresponsiveselect").responsiveImg(
 //

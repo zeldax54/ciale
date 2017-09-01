@@ -1,0 +1,28 @@
+admin_categorianoticia:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:CategoriaNoticia:index" }
+
+admin_categorianoticia_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:CategoriaNoticia:show" }
+
+admin_categorianoticia_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:CategoriaNoticia:new" }
+
+admin_categorianoticia_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:CategoriaNoticia:create" }
+    requirements: { _method: post }
+
+admin_categorianoticia_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:CategoriaNoticia:edit" }
+
+admin_categorianoticia_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:CategoriaNoticia:update" }
+
+admin_categorianoticia_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:CategoriaNoticia:delete" }

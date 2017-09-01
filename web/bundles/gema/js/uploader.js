@@ -270,13 +270,14 @@ function StartDropZone(dropzoneid,param,guidParam,maxFiles,preload,maxFilesize)
         if( guidParam===undefined){
             guidParam='';
         }
+            console.log(response);
 
             //$('img[alt="'+file.name+'"]')
             //$('.dz-image').find('img').find('')
             var newInput = document.createElement("textarea");
             newInput.setAttribute("class", "form-control descrip");
             newInput.setAttribute("name", "descripciones");
-            newInput.setAttribute("dtanombre", file.name);
+            newInput.setAttribute("dtanombre", response[3]);
             newInput.setAttribute("datafolder",param);
             newInput.setAttribute("subdatafolder",guidParam);
             newInput.placeholder="Descripción del Archivo";

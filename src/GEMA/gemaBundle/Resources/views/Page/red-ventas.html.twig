@@ -134,17 +134,17 @@
 									<div class="col-md-9" >
 									<p id="infocontainer" style="">
 
-										{% if codigo==-1 %}
+										{% if codigo=='comercial' %}
 											<strong class="redventastextbold">{{ s.cargo }}</strong><br>
 											{% else %}
 												<strong class="redventastext" style="color:#00388B">{{ s.zona }}</strong><br>
 										{% endif %}
 											<em class="redventastext">{{ s.nombre }}</em><br>
-										{% if codigo!=-1 %}
+										{% if codigo!='comercial' %}
 											<em class="redventastext">{{ s.ciudad }}</em><br>
 										{% endif %}
 											<span class="redventastext">{{ s.telefono }}</span><br>
-											<a href="#" title="Contactarse" class="redventastext redmail">{{ s.email }}</a>
+											<a  title="Contactarse" class="redventastext redmail" style="cursor: pointer">{{ s.email }}</a>
 
 								</p>
 									</div>
@@ -242,7 +242,7 @@
 							markers: [
 								{latLng: [-34.603722,-58.381592], name: 'Red de Ventas >> Oficina Central y Administración'}],
 							onMarkerClick: function(e, code){
-								var url = Routing.generate('gema_redventas',{codigo:-1});
+								var url = Routing.generate('gema_redventas',{codigo:'comercial'});
 								window.location=url;
 							},
 
@@ -276,6 +276,9 @@
 					contentClassName: 'borderblueclass maxwidth',
 					closeClassName: 'closebleclass'
 				});
+
+
+			});
 
 				$('option').mousedown(function(e) {
 					e.preventDefault();
@@ -330,7 +333,7 @@
 					});
 				}));
 
-			});
+
 
 
 		</script>

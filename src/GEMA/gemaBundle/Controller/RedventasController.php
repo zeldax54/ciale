@@ -27,7 +27,8 @@ class RedventasController extends Controller
         $datosof=null;
         $provincianame=null;
         $localdistrib=null;
-        if($codigo==-1)
+
+        if($codigo=='comercial')
         {
             $datosof=$em->getRepository('gemaBundle:DatosOficina')->find(1);
             $staff=$em->getRepository('gemaBundle:Staff')->stafflist();

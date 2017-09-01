@@ -26,14 +26,14 @@ function Initializate(youtubeFieldId){
                         "id":source.length+1,
                         "video" : data.video
                     });
-                    UpdateJson(source,idField);
+                    UpdateJsonYoutube(source,idField);
 
                 }
                 if (mode === 'edit') {
                     for (var i = 0; i < source.length; i++) {
                         if (source[i].id == data.id) {
                             source[i] = data;
-                            UpdateJson(source,idField);
+                            UpdateJsonYoutube(source,idField);
                         }
                     }
                 }
@@ -41,7 +41,7 @@ function Initializate(youtubeFieldId){
                     for (var i = 0; i < source.length; i++) {
                         if (source[i].id == data) {
                             source.splice(i,1);
-                            UpdateJson(source,idField);
+                            UpdateJsonYoutube(source,idField);
                             break;
                         }
                     }
@@ -54,7 +54,7 @@ function Initializate(youtubeFieldId){
     resetTabullet(youtubeFieldId);
 
 
-    function  UpdateJson(data,youtubeFieldId){
+    function  UpdateJsonYoutube(data,youtubeFieldId){
         console.log(data);
         var json='[';
         for(var i=0;i<data.length;i++)

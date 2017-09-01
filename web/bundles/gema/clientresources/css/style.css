@@ -1206,7 +1206,7 @@ margin-left: -15px;
 
 
 
-@media only screen and (min-width: 9999px) {
+/*@media only screen and (min-width: 9999px) {
   .top-bar {
     background: #333333;
     *zoom: 1;
@@ -1222,7 +1222,7 @@ meta.foundation-mq-topbar {
 
 meta.foundation-mq-topbar {
   font-family: "/only screen and (min-width:9999px)/";
-  width: 9999px; }
+  width: 9999px; }*/
 
 
 

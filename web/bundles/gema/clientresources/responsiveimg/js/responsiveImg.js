@@ -59,7 +59,8 @@ Changelog
 			pathToPHP:"js",
 			createNewImages:true,
 			jpegQuality:90,
-			callback:false
+			callback:false,
+			goinstart:false,
 		}
 		options = $.extend(options, additionalOptions ); //- override default options with user-supplied options
 
@@ -83,7 +84,14 @@ Changelog
 
 			$(window).on("resize load",function() {
 				resizeImage($this,breakpoints,src,extension);
-			});
+			});		
+		if(options.goinstart==true){			
+			breakpoints={
+				"_small":360				
+			};
+			resizeImage($this,breakpoints,src,extension);
+		}
+				
 
 		});
 
@@ -122,7 +130,8 @@ Changelog
 			} else if (window.devicePixelRatio >= 1.5) {
 				containerWidth *= 1.5;
 			}
-
+			//console.log(containerWidth);
+//containerWidth=300;
 			$.each(breakpoints,function(index,value) { //- loop through until we find the smallest "value" that's larger than the containerWidth
 				if (value > containerWidth && value < breakpoint) {
 					breakpoint = value;
@@ -136,7 +145,7 @@ Changelog
 		}
 
 		function replaceImage($tag,src,newSrc,size) {
-
+              console.log(size);
 			var $this = $tag;
 
 			var img = new Image();

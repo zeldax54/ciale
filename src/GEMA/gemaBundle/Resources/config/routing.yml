@@ -1,3 +1,7 @@
+gema_admin_categorianoticia:
+    resource: "@gemaBundle/Resources/config/routing/categorianoticia.yml"
+    prefix:   /admin/categorianoticia
+
 gema_admin_mediadescription:
     resource: "@gemaBundle/Resources/config/routing/mediadescription.yml"
     prefix:   /admin/mediadescription
@@ -156,7 +160,7 @@ gema_datosoficina:
     prefix:   admin/datosoficina
 
 gema_redventas:
-    pattern:  /{codigo}/redventas
+    pattern:  /redventas/{codigo}
     defaults: { _controller: "gemaBundle:Redventas:inicio" }
 
 gema_mixed:

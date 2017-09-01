@@ -45,4 +45,7 @@ right: 0;
 .form-group{
 	padding-bottom:20px;
 }
+.redmail{
+	cursor: pointer; 
+	}
 

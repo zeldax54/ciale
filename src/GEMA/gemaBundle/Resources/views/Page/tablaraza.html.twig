@@ -327,7 +327,7 @@
 										<tr class="{{ cycle(["even", "odd"], loop.index) }}">
 											<td data-tableexport-display="none">{{ toro.id }}</td>
 											<td data-tableexport-display="none">{{ toro.id }}</td>
-											<td ><a href="{{ path('gema_torodetail', {'apodo':toro.apodo}) }}"><img class="toroimg imageresponsiveselect" src="{{ asset(toro.imgprincipal) }}"  width="110px" height="84px"></a></td>
+											<td ><a href="{{ path('gema_torodetail', {'apodo':toro.apodo}) }}"><img class="toroimg imageresponsiveselect"  src="{{ asset(toro.imgprincipal) }}"  width="110px" height="84px"></a></td>
 
 											<td class="verticalalign tip" style="text-align: center" data-tableexport-value="{{ toro.apodo|upper }}">{{ toro.apodo|upper }} <span>Nombre:{{ toro.nombre }} <br/>  Madre:{{ toro.madre }}</span> </td>
 											<td class="verticalalign" style="text-align: center">{{ toro.nombre }}</td>
@@ -584,13 +584,51 @@
 	 <script src="{{ asset('bundles/gema/clientresources/datatables/fixedcolumns/dataTables.fixedColumns.js')}}"></script>
 	 <script src="{{ asset('bundles/gema/clientresources/datatables/tds/tds.js')}}"></script>
 	 <script src="{{ asset('bundles/gema/clientresources/datatables/checkboxes/dataTables.checkboxes.js')}}"></script>
-	 {#<script src="{{ asset('bundles/gema/clientresources/datatables/responsive/js/dataTables.responsive.js')}}"></script>#}
+	 <script src="{{ asset('bundles/gema/clientresources/datatables/responsive/js/dataTables.responsive.js')}}"></script>
 
 
 
 
 
+	 {#<script>#}
+		 {#$(document).ready(function(){#}
+			 {#var getUrl = window.location;#}
+			 {#var segment=getUrl.pathname.split('/');#}
+			 {#var segundoseg='';#}
+			 {#for(var i=0;i<segment.length;i++){#}
+				 {#if(segment[i]=='web')#}
+					 {#break;#}
+				 {#segundoseg+=segment[i]+'/';#}
+			 {#}#}
+			 {#console.log(segundoseg);#}
+			 {#var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + segundoseg;#}
+			 {#console.log(baseUrl);#}
+			 {#var urlphp=baseUrl+'/web/js/responsiveImg.js.php';#}
+             {#console.log(urlphp);#}
+			 {#$(".imageresponsiveselect").responsiveImg(#}
 
+					 {#{#}
+                         {#breakpoints : {#}
+                             {#"_small":360,#}
+                             {#"_medium":780,#}
+                             {#"_large":900#}
+                         {#},#}
+						 {#srcAttribute : "src",#}
+						 {#pathToPHP : urlphp,#}
+						 {#createNewImages : true,#}
+						 {#jpegQuality : 100,#}
+						 {#callback:false,#}
+                         {#goinstart:true#}
+					 {#}#}
+             {#);#}
+
+
+
+
+
+		 {#});#}
+
+	 {#</script>#}
 
 
 	 <script>
@@ -695,22 +733,7 @@
 
 
 	 </script>
-	 <script>
-		 var getUrl = window.location;
-		 var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
-		 var urlphp=baseUrl+'/web/js/responsiveImg.js.php';
-		 $(".imageresponsiveselect").responsiveImg(
 
-				 {
-
-					 srcAttribute : "src",
-					 pathToPHP : urlphp,
-					 createNewImages : true,
-					 jpegQuality : 90,
-					 callback:false
-				 }
-		 );
-	 </script>
 <script>
 	function ResetOddEven(table){
 

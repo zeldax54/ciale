@@ -93,10 +93,12 @@ class RazalistController extends Controller
         foreach($toros as $toro)
         {
 
-            $img=$helper->randomPic('toro'.DIRECTORY_SEPARATOR.$toro->getGuid().'P'.DIRECTORY_SEPARATOR);
+            $img=$helper->randomPic('toro'.DIRECTORY_SEPARATOR.$toro->getGuid().'P'.DIRECTORY_SEPARATOR,true);
             if($img==null)
                 $img=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'toro.png');
+
             $toro->imgprincipal=$img;
+
             if($toro->getNuevo()==true)
                 $toro->nuevoflag='<span style="padding: 3px;background: red;color: white;"><strong>Nuevo</strong></span>';
             else
@@ -167,15 +169,26 @@ class RazalistController extends Controller
         }
 
        else{
+           $vowels = array("_small","_large","_medium");
+           $img=str_replace($vowels,"",$img);
            $data= explode(DIRECTORY_SEPARATOR,$img);
+//
+//           $vowels = array("_small","_large","_medium");
+//           $nombrefoto=str_replace($vowels,"",$data[2]);
+           $descripcionprinc=$em->getRepository('gemaBundle:MediaDescription')-> findOneBy(
+               array(
 
-           $descripcionprinc=$em->getRepository('gemaBundle:MediaDescription')-> findMy(
-               $data[2],$data[0],$data[1]
+                   'nombre'=>$data[2],
+                   'folder'=>$data[0],
+                   'subforlder'=>$data[1]
+
+               )
+
                );
 
 
-           if($descripcionprinc!=null && $descripcionprinc[0]!=null)
-            $pricimgdesc=$descripcionprinc[0]->getDescripcion();
+           if($descripcionprinc!=null)
+            $pricimgdesc=$descripcionprinc->getDescripcion();
            else
                $pricimgdesc='';
        }
@@ -362,9 +375,9 @@ class RazalistController extends Controller
             return new JsonResponse(0);
         $bulls=array();
         foreach($toros as $t){
-            $img=$helper->randomPic('toro'.DIRECTORY_SEPARATOR.$t->getGuid().'P'.DIRECTORY_SEPARATOR);
+            $img=$helper->randomPic('toro'.DIRECTORY_SEPARATOR.$t->getGuid().'P'.DIRECTORY_SEPARATOR,true);
             if($img==null)
-                $img=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'toro.png');
+                $img=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'toro.png',true);
          $bulls[]=array(
              'id'=>$t->getId(),
              'apodo'=>$t->getApodo(),

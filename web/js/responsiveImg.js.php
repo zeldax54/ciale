@@ -51,6 +51,7 @@ Changelog
 
 //by Gordon from http://stackoverflow.com/a/2638272
 function getRelativePath($from, $to) {
+
 	
 	// some compatibility fixes for Windows paths
 	$from = is_dir($from) ? rtrim($from, '\/') . '/' : $from;
@@ -71,7 +72,7 @@ function getRelativePath($from, $to) {
 			$remaining = count($from)-1 - $depth;
 			if($remaining > 1) {
 				// add traversals up to first matching dir
-				$padLength = (count($relPath) + $remaining - 1) * -1;
+				$padLength = (count($relPath) + $remaining - 2) * -1;
 				$relPath = array_pad($relPath, $padLength, '..');
 				break;
 			} else {
@@ -148,6 +149,7 @@ if (isset($_REQUEST['makeImage'])) {
 	$baseURL =  @( $_SERVER["HTTPS"] != 'on' ) ? 'http://'.$_SERVER["SERVER_NAME"] :  'https://'.$_SERVER["SERVER_NAME"];
 	$self = $baseURL . $_SERVER['PHP_SELF'];
 	$fileIn = getRelativePath($self, $baseURL . $_REQUEST['fileIn']);
+	//print($fileIn);die();
 	$fileOut = getRelativePath($self, $baseURL . $_REQUEST['fileOut']);
 
 

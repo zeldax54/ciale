@@ -61,6 +61,7 @@ class ToroType extends AbstractType
                 'label_attr'=>array(
                     'class'=>'col-md-4 control-label'
                 ),
+
                 'label'=>'Descripción completa del animal',
 
                ))

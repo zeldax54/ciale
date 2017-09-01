@@ -196,6 +196,11 @@
     <script src="{{ asset('bundles/gema/js/TableToJson/jquery.tabletojson.js') }}"></script>
 
     <script>
+        $(document).ready(function(){
+            $('#gema_gemabundle_toro_descripcion').attr('rows',15);
+        })
+    </script>
+    <script>
         $('#morecolumna').click(function(){
            var nombre=$('#morecolumnanombre').val();
             if(nombre==null || nombre=='' ||nombre=='')

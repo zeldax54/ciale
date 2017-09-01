@@ -66,6 +66,7 @@ class ClientnewsController  extends Controller
              'mediainpage'=>$lis
          ));
      }
+
     public function clienlistboletinesAction($start,$end){
 
         $em = $this->getDoctrine()->getManager();
