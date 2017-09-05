@@ -254,12 +254,22 @@ class RazalistController extends Controller
         $lis=array();
         if(count($mediaInpage)>0)
         {
+
+        //    print_r($mediaInpage);die();
             $claves_aleatorias = array_rand($mediaInpage, count($mediaInpage));
+
+          //  print_r($claves_aleatorias);die();
+
             $finalmedia=array();
-            foreach($claves_aleatorias as $clave)
-            {
-                $finalmedia[]=$mediaInpage[$clave];
+            if($claves_aleatorias!==0){
+                foreach($claves_aleatorias as $clave)
+                {
+                    $finalmedia[]=$mediaInpage[$clave];
+                }
+            }else{
+                $finalmedia=$claves_aleatorias;
             }
+
             $flag=0;
             $flaadd=0;
 
