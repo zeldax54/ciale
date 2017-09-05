@@ -377,12 +377,18 @@ class MyHelper
         $lis=array();
         if(count($mediaInpage)>0)
         {
-            $claves_aleatorias = array_rand($mediaInpage, count($mediaInpage));
-            $finalmedia=array();
-            foreach($claves_aleatorias as $clave)
-            {
-                $finalmedia[]=$mediaInpage[$clave];
-            }
+//            $claves_aleatorias = array_rand($mediaInpage, count($mediaInpage));
+//            $finalmedia=array();
+//            if($claves_aleatorias!=0){
+//                foreach($claves_aleatorias as $clave)
+//                {
+//                    $finalmedia[]=$mediaInpage[$clave];
+//                }
+//
+//            }else{
+//                $
+//            }
+
             $flag=0;
             $flaadd=0;
 
