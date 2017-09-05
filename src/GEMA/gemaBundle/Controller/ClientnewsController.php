@@ -56,10 +56,10 @@ class ClientnewsController  extends Controller
          $em = $this->getDoctrine()->getManager();
          $noticia = $em->getRepository('gemaBundle:Noticia')->find($id);
          $helper=new MyHelper();
-         $medianews=$helper->filesInFolder('noticia'.DIRECTORY_SEPARATOR.$noticia->getGuid().'G'.DIRECTORY_SEPARATOR);
+         $medianews=$helper->filesInFolder('noticia'.DIRECTORY_SEPARATOR.$noticia->getGuid().'G'.DIRECTORY_SEPARATOR,true);
          $youtubes=$noticia->getYoutube();
          $lis=$helper->generateMedias($medianews,$youtubes,40);
-
+       //  print_r($lis);die();
          $noticia->portada= $img=$helper->randomPic('noticia'.DIRECTORY_SEPARATOR.$noticia->getGuid().DIRECTORY_SEPARATOR);
          return $this->render('gemaBundle:Page:noticia.html.twig', array(
              'noticia' => $noticia,
@@ -89,7 +89,7 @@ class ClientnewsController  extends Controller
         $em = $this->getDoctrine()->getManager();
         $boletin = $em->getRepository('gemaBundle:Boletin')->find($id);
         $helper=new MyHelper();
-        $medianews=$helper->filesInFolder('noticia'.DIRECTORY_SEPARATOR.$boletin->getGuid().'G'.DIRECTORY_SEPARATOR);
+        $medianews=$helper->filesInFolder('noticia'.DIRECTORY_SEPARATOR.$boletin->getGuid().'G'.DIRECTORY_SEPARATOR,true);
         $youtubes=$boletin->getYoutube();
         $lis=$helper->generateMedias($medianews,$youtubes,40);
 

@@ -213,8 +213,8 @@
 								{% for dato in media %}
 
 										<div class="col-xs-3" style="padding: 1px">
-											<a class="fancybox" href="{{ asset(dato.url) }}" data-fancybox="gallery" data-caption="{{ dato.descripcion }}">
-												<img   src="{{ asset(dato.rep) }}" class="img-responsive thumbnail"/>
+											<a class="fancybox" href="{{ asset(dato.url |replace({'_small':''})) }}" data-fancybox="gallery" data-caption="{{ dato.descripcion }}">
+												<img   src="{{ asset(dato.rep  ) }}" class="img-responsive thumbnail"/>
 											</a>
 										</div>
 

@@ -95,7 +95,7 @@ class RazalistController extends Controller
 
             $img=$helper->randomPic('toro'.DIRECTORY_SEPARATOR.$toro->getGuid().'P'.DIRECTORY_SEPARATOR,true);
             if($img==null)
-                $img=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'toro.png');
+                $img=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'toro.png',true);
 
             $toro->imgprincipal=$img;
 
@@ -241,7 +241,7 @@ class RazalistController extends Controller
             );
         }
 
-        $mediatoro=$helper->filesInFolder('toro'.DIRECTORY_SEPARATOR.$toro->getGuid().DIRECTORY_SEPARATOR);
+        $mediatoro=$helper->filesInFolder('toro'.DIRECTORY_SEPARATOR.$toro->getGuid().DIRECTORY_SEPARATOR,true);
         if(count($mediatoro)>0)
         foreach($mediatoro as $mt){
             $mediaInpage[]=array(

@@ -63,17 +63,82 @@ class MyHelper
          rmdir( $folder );
      }
 
-     function filesInFolder($folder)
+     function filesInFolder($folder,$small=false)
      {
          global $kernel;
          $path = $kernel->getRootDir() . DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'web'.DIRECTORY_SEPARATOR.$folder;
          $this->CheckCreate($path);
          $ficheros = array_diff(scandir($path), array('.', '..'));
-         foreach($ficheros as $ff)
-             $final[]=
-                $this->FileExt($ff,$folder,self::mediaFolder);
+         $final=array();
+         foreach($ficheros as $ff){
+
+
+
+
+             if($small==true){
+               //  sad
+                 if(strpos($ff, '_small') !== false){
+
+                     for($i=0;$i<count($final);$i++){
+                         if(str_replace('_small','',$final[$i])==$ff)
+                         {
+                             unset($final[$i]) ;break;
+                         }
+                         if($final[$i]==$ff){
+                             unset($final[$i]) ;break;
+                         }
+                     }
+
+
+                         $final[]=
+                             $this->FileExt($ff,$folder,self::mediaFolder);
+
+
+                 }
+                 else{
+                     $band=false;
+                     if(isset($final))
+                         foreach($final as $finalel){//Buscar si ya esta en los smalls
+                             if(str_replace('_small','',$finalel)==$ff)
+                             {
+                                 $band=true;break;
+                             }
+                             if($finalel==$ff){
+                                 $band=true;break;
+                             }
+                         }
+
+                     if($band==false){
+                         $ext=$this->SaberExt($ff);
+                         $outname=str_replace('.'.$ext,'_small.'.$ext,$ff);
+                         $in=$path.$ff;
+
+
+                         $out=$path.$outname;
+                         if($this->makeImage($in,$out)==true){
+                             $final[]=$this->FileExt($outname,$folder,self::mediaFolder);
+                         }else{
+                             $final[]=$this->FileExt($ff,$folder,self::mediaFolder);
+                         }
+                     }
+
+                    // print ($path.$ff);die();
+                   //  print_r($this->FileExt($ff,$folder,self::mediaFolder));die();
+                 }
+             }else{
+                 if(strpos($ff, '_small') === false)
+                 $final[]=
+                     $this->FileExt($ff,$folder,self::mediaFolder);
+             }
+
+         }
+
+
+
          if(!isset($final))
              return null;
+         if(count($final)>0)
+             $final=array_unique($final);
          return $final;
 
      }
@@ -87,10 +152,31 @@ class MyHelper
 
         if($small==true){
             $ext=$this->SaberExt($picName);
+            $originalNam=$picName;
             $picName= str_replace('.'.$ext,'_small.'.$ext,$picName);
+
             foreach($ficheros as $f){
+
                 if(mb_strtolower($f)===mb_strtolower($picName))
                     return $this->FileExt($f,$rutafolder,self::mediaFolder);
+            }
+
+            //Chequeo caso no small a ver si puede crearse
+            foreach($ficheros as $f){
+                if(mb_strtolower($f)===mb_strtolower($originalNam)){
+                    $in=$path.$originalNam;
+                    $out=$path.$picName;
+                    if($this->makeImage($in,$out)==true){
+
+                        return $this->FileExt($picName,$rutafolder,self::mediaFolder);
+                    }
+
+                   else{
+
+                       return $this->FileExt($f,$rutafolder,self::mediaFolder);
+                   }
+
+                }
             }
         }
 
@@ -101,33 +187,38 @@ class MyHelper
            if(mb_strtolower($f)===mb_strtolower($picName))
            {
                $img=$this->FileExt($f,$rutafolder,self::mediaFolder);
-               $path=$kernel->getRootDir() . DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'web'.DIRECTORY_SEPARATOR;
-               $filein=$path.$img;
-               $ext=$this->SaberExt($img);
-               $outname=str_replace('.'.$ext,'_small.'.$ext,$img);
-               $fileout=$path.$outname;
-              if($this->makeImage($filein,$fileout)==true){
-                  return $outname;
-              }
+//               $path=$kernel->getRootDir() . DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'web'.DIRECTORY_SEPARATOR;
+//               $filein=$path.$img;
+//               $ext=$this->SaberExt($img);
+//               $outname=str_replace('.'.$ext,'_small.'.$ext,$img);
+//               $fileout=$path.$outname;
+//              if($this->makeImage($filein,$fileout)==true){
+//                  return $outname;
+//              }
                return $img;
            }
 
        }
+
         return null;
 
     }
 
     function videosPic($videourl){
 
+
         preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $videourl, $match);
         $youtube_id = $match[1];
-        $ruta=$this->directPic('minyoutube'.DIRECTORY_SEPARATOR,$youtube_id.'.jpg');
+
+        $ruta=$this->directPic('minyoutube'.DIRECTORY_SEPARATOR,$youtube_id.'.jpg',false);
+
         if($ruta==null){
 
             $urlapi='https://img.youtube.com/vi/'.$youtube_id.'/sddefault.jpg';
             global $kernel;
             $path = $kernel->getRootDir() . DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'web'.DIRECTORY_SEPARATOR.'minyoutube'.DIRECTORY_SEPARATOR.$youtube_id.'.jpg';
             copy($urlapi,$path);
+
             return $path;
         }
 
@@ -263,13 +354,18 @@ class MyHelper
            $videos=json_decode($videos,true);
            foreach($videos as $y)
            {
+
+
+               $rep= $this->videosPic($y);
                $mediaInpage[]=array(
                    'tipo'=>'video',
                    'url'=> $y,
-                   'representacion'=>$this->directPic('genericfiles'.DIRECTORY_SEPARATOR,'video.png')
+                   'representacion'=>$rep
                );
            }
        }
+
+
         if(count($pictures)>0)
             foreach($pictures as $mt){
                 $mediaInpage[]=array(

@@ -52,7 +52,7 @@
                                         {% for dato in media %}
 
                                             <div class="col-xs-4 col-sm-1" style="padding: 1px">
-                                                <a href="{{ asset(dato.url) }}" data-fancybox="gallery">
+                                                <a href="{{ asset(dato.url|replace({'_small':''})) }}" data-fancybox="gallery">
                                                     <img style="width: 100px;height: 100px"  src="{{ asset(dato.rep) }}" class="img-responsive thumbnail"/>
                                                 </a>
                                             </div>
@@ -81,30 +81,18 @@
 {% endblock %}
 
     {% block custom_javascripts %}
-        <script src="{{ asset('bundles/gema/clientresources/responsiveimg/js/responsiveImg.js')}}"></script>
+        {#<script src="{{ asset('bundles/gema/clientresources/responsiveimg/js/responsiveImg.js')}}"></script>#}
         <script src="{{ asset('bundles/gema/clientresources/fancybox/dist/jquery.fancybox.min.js')}}"></script>
         <script src="{{ asset('bundles/gema/clientresources/jquerybxslider/jquery.bxslider.min.js')}}"></script>
 <script>
     var getUrl = window.location;
     var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
     var urlphp=baseUrl+'/web/js/responsiveImg.js.php';
-    $(".portadaimg").responsiveImg(
 
-            {
-
-                srcAttribute : "src",
-                pathToPHP : urlphp,
-                createNewImages : true,
-                jpegQuality : 90,
-                callback:false
-            }
-    );
 
     $('.bxslider').bxSlider(
             {
                 adaptiveHeight: true
-
-
             }
     );
 </script>
