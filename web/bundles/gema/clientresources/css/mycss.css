@@ -23,9 +23,34 @@ color: #000000;}
 }
 
 .ozy-news-bar > ul > li:first-child > h1 {
-    font-size: 30px !important;
+    font-size: 34px !important;
     font-weight: 700 !important;
 }
+
+@media (max-width: 395px) {
+   .ozy-news-bar > ul > li:first-child > h1 {
+	   
+   font-size: 31px !important;
+   }
+}
+
+@media (max-width: 366px) {
+   .ozy-news-bar > ul > li:first-child > h1 {
+	   
+   font-size: 30px !important;
+   }
+}
+@media (max-width: 356px) {
+   .ozy-news-bar > ul > li:first-child > h1 {
+	   
+   font-size: 24px !important;
+   }
+}
+
+
+
+
+
 
 
 .ozy-footer-slider, .content-font, .ozy-header-slider, #content, #footer-widget-bar, #sidebar, #footer, input, select, textarea, .tooltipsy, .fancybox-inner, #woocommerce-lightbox-cart {
