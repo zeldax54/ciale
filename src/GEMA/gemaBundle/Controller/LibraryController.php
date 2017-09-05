@@ -226,18 +226,28 @@ class LibraryController extends Controller
 
     public function DeleteFileAction($folder,$guidParam,$filename)
     {
+
+        $ext=$this->SaberExt($filename);
+
+        $outname=str_replace('.'.$ext,'_small.'.$ext,$filename);
+
         if ($folder == 'library')
         {
+
             $ruta=$folder.'/'.$filename;
+            $ruta2=$folder.'/'.$outname;
             $retid=$folder.$filename;
 
         }
         else{
             $ruta=$folder.'/'.$guidParam.'/'.$filename;
+            $ruta2=$folder.'/'.$guidParam.'/'.$outname;
             $retid=$folder.$guidParam.$filename;
         }
 
+
             $webPath = $this->get('kernel')->getRootDir().'/../web/'.$ruta;
+            $webPath2 = $this->get('kernel')->getRootDir().'/../web/'.$ruta2;
 
 
 
@@ -248,11 +258,17 @@ class LibraryController extends Controller
                 );return new JsonResponse($final);
             }
 
+    
+        if(file_exists($webPath2)){
+            unlink($webPath2);
+        }
+
             $final=array(
                 0=>unlink($webPath),
                 1=>$filename,
                 2=>$retid,
-                3=>1
+                3=>1,
+
             );
         $em = $this->getDoctrine()->getManager();
         $descripcionprev=$em->getRepository('gemaBundle:MediaDescription')-> findOneBy(
