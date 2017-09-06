@@ -97,6 +97,7 @@ $('#deleteFileButton').click(function(){
 });
 function DeleteFile(folder,guidParam,filename){
     $('#senddesc').val('');
+    filename=filename.replace('.','&');
     var url = Routing.generate('gema_deletefile',{filename:filename,folder:folder,guidParam:guidParam});
     $.ajax({
         type: 'GET',
@@ -180,7 +181,9 @@ function Change(e){
     inputdesc.attr('datafolder',img.attr('folder'));
     inputdesc.attr('subdatafolder',img.attr('param'));
     inputdesc.val('');
-    var ruta=Routing.generate('gema_getmediadescription',{folder:img.attr('folder'),subfolder:img.attr('param'),nombre:img.attr('name')});
+    var filename=img.attr('name');
+        filename=filename.replace('.','&');
+    var ruta=Routing.generate('gema_getmediadescription',{folder:img.attr('folder'),subfolder:img.attr('param'),nombre:filename});
 
     $.ajax({
         type: 'GET',
@@ -334,6 +337,7 @@ $(document).on('keyup', '.descrip', function () {
     var folder=$(this).attr('datafolder');
     var subfolder=$(this).attr('subdatafolder');
     var nombre=$(this).attr('dtanombre');
+    nombre=nombre.replace('.','&');
     var descripcion=$(this).val();
     if(descripcion!=null && descripcion!==undefined && descripcion!=''){
         timeout = setTimeout(function (e) {

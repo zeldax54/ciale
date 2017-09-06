@@ -64,16 +64,19 @@ class LibraryController extends Controller
                     $files=array_diff(scandir($path.'/'.$f), array('.', '..'));
                     foreach($files as $ff)
                     {
+                        if(strpos($ff,'_small')==false){
+                            //print($ff);die();
+                            $final[]=array(
+                                0=>$ff,
+                                1=>$this->FileExt($ff,$data.DIRECTORY_SEPARATOR.$f.DIRECTORY_SEPARATOR,self::mediaFolder),
+                                3=>$data.$f.$ff,
+                                4=>$data,
+                                5=>$f,
+                                6=>$data.DIRECTORY_SEPARATOR.$f.DIRECTORY_SEPARATOR.$ff
 
-                        $final[]=array(
-                            0=>$ff,
-                            1=>$this->FileExt($ff,$data.DIRECTORY_SEPARATOR.$f.DIRECTORY_SEPARATOR,self::mediaFolder),
-                            3=>$data.$f.$ff,
-                            4=>$data,
-                            5=>$f,
-                            6=>$data.DIRECTORY_SEPARATOR.$f.DIRECTORY_SEPARATOR.$ff
+                            );
+                        }
 
-                        );
                     }
                 }
             }
@@ -84,16 +87,17 @@ class LibraryController extends Controller
 
         foreach($ficheros as $fichero)
         {
+            if(strpos($fichero,'_small')==false) {
+                $final[] = array(
+                    0 => $fichero,
+                    1 => $this->FileExt($fichero, $folderFull, self::mediaFolder),
+                    3 => $retid . $fichero,
+                    4 => $folder,
+                    5 => $param,
+                    6 => $folderFull . $fichero
 
-            $final[]=array(
-                0=>$fichero,
-                1=>$this->FileExt($fichero,$folderFull,self::mediaFolder),
-                3=>$retid.$fichero,
-                4=>$folder,
-                5=>$param,
-                6=>$folderFull.$fichero
-
-            );
+                );
+            }
         }
 
         return $this->render('gemaBundle:Library:page.html.twig', array(
@@ -226,7 +230,7 @@ class LibraryController extends Controller
 
     public function DeleteFileAction($folder,$guidParam,$filename)
     {
-
+        $filename=str_replace('&','.',$filename);
         $ext=$this->SaberExt($filename);
 
         $outname=str_replace('.'.$ext,'_small.'.$ext,$filename);
@@ -292,6 +296,8 @@ class LibraryController extends Controller
   public function setdescriptionAction($folder,$subfolder,$nombre,$description){
 
       try{
+          $nombre=str_replace('&','.',$nombre);
+
           if($subfolder=='undefined')
               $subfolder='';
           $em = $this->getDoctrine()->getManager();
@@ -353,6 +359,7 @@ class LibraryController extends Controller
     public function getdescriptionAction($folder,$subfolder,$nombre){
 
         try{
+            $nombre=str_replace('&','.',$nombre);
             $em = $this->getDoctrine()->getManager();
             $descripcionprev=$em->getRepository('gemaBundle:MediaDescription')-> findOneBy(
                 array(
