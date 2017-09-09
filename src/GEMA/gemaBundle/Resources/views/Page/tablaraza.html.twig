@@ -8,7 +8,7 @@
       {#<link href="{{ asset('bundles/gema/clientresources/datatables/fixedhead/css/fixedHeader.dataTables.css')}}" rel="stylesheet">#}
       <link href="{{ asset('bundles/gema/clientresources/datatables/sort/alt-string.js')}}" rel="stylesheet">
       <link href="{{ asset('bundles/gema/clientresources/datatables/checkboxes/dataTables.checkboxes.css')}}" rel="stylesheet">
-      {#<link href="{{ asset('bundles/gema/clientresources/datatables/responsive/css/responsive.dataTables.css')}}" rel="stylesheet">#}
+      <link href="{{ asset('bundles/gema/clientresources/datatables/responsive/css/responsive.dataTables.css')}}" rel="stylesheet">
 
 
 	  {% endblock %}
@@ -21,12 +21,12 @@
 			<div class="colapsive-panel" role="navigation">
 
 							<div class="row">
-								<div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+								<div id="razadiv1" class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
 									<b>Raza:</b>
 								</div>
-								<div class="col-lg-2 col-md-2 col-sm-2 col-xs-9">
+								<div id="selectdiv1" class="col-lg-2 col-md-2 col-sm-2 col-xs-9">
 									<div class="btn-group">
-									  <button type="button" class="btn btn-xs dropdown-toggle btn-toro" data-toggle="dropdown">
+									  <button id="botontotosob" type="button" class="btn btn-xs dropdown-toggle btn-toro" data-toggle="dropdown">
 										{{ razaname }} <span class="caret"></span>
 									  </button>
 										<ul class="nav navbar-nav">
@@ -285,21 +285,20 @@
 				<div class="row ">
 
 
-					<div class="scrollable-area">
 
 
 
 
 
-								<table id="lista-busqueda" style="width: 100%" familyid="todos" class="table table-striped todos tabla1">
+								<table id="lista-busqueda"   familyid="todos" class="display nowrap todos tabla1">
 
 									<thead class="">
 									<tr class="cabecera">
 										<th></th>
 										<th class="checkboxsearch"></th>
-										<th></th>
+										<th class="all"></th>
 
-										<th class="apodosearch">Apodo</th>
+										<th class="apodosearch all">Apodo</th>
 										<th class="nombresearch">Nombre</th>
 										<th class="madresearch">Madre</th>
 										{% if otherrazas is defined and otherrazas is not null %}
@@ -325,8 +324,8 @@
 									{% for toro in toros %}
 
 										<tr class="{{ cycle(["even", "odd"], loop.index) }}">
-											<td data-tableexport-display="none">{{ toro.id }}</td>
-											<td data-tableexport-display="none">{{ toro.id }}</td>
+											<td >{{ toro.id }}</td>
+											<td >{{ toro.id }}</td>
 											<td ><a href="{{ path('gema_torodetail', {'apodo':toro.apodo}) }}"><img class="toroimg imageresponsiveselect"  src="{{ asset(toro.imgprincipal) }}"  width="110px" height="84px"></a></td>
 
 											<td class="verticalalign tip" style="text-align: center" data-tableexport-value="{{ toro.apodo|upper }}">{{ toro.apodo|upper }} <span>Nombre:{{ toro.nombre }} <br/>  Madre:{{ toro.madre }}</span> </td>
@@ -370,7 +369,7 @@
 								</table>
 
 
-					</div>
+
 
 
 
@@ -474,7 +473,7 @@
 							</div>
 						</div>
 
-							<table id="{{ tabla.nombreresumido|replace(' ','-') }}" style="width: 100%" familyid="{{ 'family'~tabla.id }}" class="{{ 'family'~tabla.id }} genetictable table table-striped">
+							<table id="{{ tabla.nombreresumido|replace(' ','-') }}" style="width: 100%" familyid="{{ 'family'~tabla.id }}" class="{{ 'family'~tabla.id }} genetictable display nowrap">
 
 
 								<thead>
@@ -506,8 +505,8 @@
 								{% for toro in tabla.toros %}
 
 									<tr class="{{ cycle(["even", "odd"], loop.index) }}">
-										<td data-tableexport-display="none">{{ toro.id }}</td>
-										<td data-tableexport-display="none">{{ toro.id }}</td>
+										<td>{{ toro.id }}</td>
+										<td >{{ toro.id }}</td>
 										<td><a href="{{ path('gema_torodetail', {'apodo':toro.apodo }) }}"><img class="toroimg" src="{{ asset(toro.imgprincipal) }}" width="100px" height="81px"></a></td>
 										<td class="verticalalign toroapodo" tnombre="{{ toro.nombre }}" tmadre="{{ toro.madre }}" title=" Padre:{{ toro.padre }}*** Abuelo Materno:{{ toro.padremadre }}" style="text-align: center">{{ toro.apodo|upper }}<br>{{ toro.padre|truncate(20,true) }}<br>{{ toro.padremadre|truncate(20,true) }}</td>
 										<td class="verticalalign" style="text-align: center">{{ toro.nombre }}</td>
@@ -579,7 +578,7 @@
 
 	 <script src="{{ asset('bundles/gema/js/buscadortoros.js') }}"></script>
 	 <script src="{{ asset('bundles/gema/clientresources/ash/ash.js') }}"></script>
-	 {#<script src="{{ asset('bundles/gema/clientresources/responsiveimg/js/responsiveImg.js')}}"></script>#}
+
 	 <script src="{{ asset('bundles/gema/clientresources/datatables/main/js/jquery.dataTables.js')}}"></script>
 	 <script src="{{ asset('bundles/gema/clientresources/datatables/fixedcolumns/dataTables.fixedColumns.js')}}"></script>
 	 <script src="{{ asset('bundles/gema/clientresources/datatables/tds/tds.js')}}"></script>
@@ -633,7 +632,9 @@
 
 	 <script>
 
+
 		 $(document).ready(function() {
+
 
 
 			 $('table').each(function () {
@@ -645,6 +646,11 @@
 					 scrollCollapse: true,
 					 paging: true,
 					 "bInfo" : false,
+//					 responsive: {
+//						 details: {
+//							 type: 'column'
+//						 }
+//					 },
 
 					 oLanguage: {
 						 "oPaginate": {
@@ -668,13 +674,14 @@
 						 },
 						 { type: 'alt-string', targets: [8,4] },
 						 { "orderable": false, "targets": 2 },
-						 { "width": "20px", "targets": [2] },
-						 { "width": "200px", "targets": 3 },
-						 { "width": "200px", "targets": 7 },
+//						 { "width": "20px", "targets": [2] },
+//						 { "width": "200px", "targets": 3 },
+//						 { "width": "200px", "targets": 7 },
 						 {
 							 "targets": [ 4,5,1 ],
 							 "visible": false
-						 }
+						 },
+
 
 					 ],
 					 'select': {
@@ -683,9 +690,49 @@
 
 
 				 });
-				 new $.fn.dataTable.FixedColumns(tabla, {
+
+				 if($(window).width() <= 767) {
+
+					 new $.fn.dataTable.Responsive(tabla,
+							 {
+								 type: 'column',
+								 target: 'tr',
+								 display: $.fn.dataTable.Responsive.display.modal( {
+									 header: function ( row ) {
+										 var data = row.data();
+										 return 'Details for '+data[0]+' '+data[1];
+									 }
+								 } ),
+								 renderer: function ( api, rowIdx, columns ) {
+									 var data = $.map( columns, function ( col, i ) {
+										 return '<tr>'+
+												 '<td>'+col.title+':'+'</td> '+
+												 '<td>'+col.data+'</td>'+
+												 '</tr>';
+									 } ).join('');
+
+									 return $('<table/>').append( data );
+								 }
+							 }
+
+
+
+
+					 );
+					// tabla.column( 2 ).visible( false, false );
+
+				      tabla.columns.adjust().draw( false ); // adjust
+
+//					 $('td').click(function(e){
+//						 e.stopPropagation();
+//					 });
+				 }else{
+
+					 new $.fn.dataTable.FixedColumns(tabla, {
 					 leftColumns: 10
 				 });
+
+				 }
 
 //                 new $.fn.dataTable.Responsive( tabla );
 
@@ -723,12 +770,23 @@
                      wraper.scrollLeft(wraper2.scrollLeft());
                  });
 
+//				 if($(window).width() <= 767) {
+//					 console.log(tablamy.attr('familyId'));
+//					 var tablaI=tablamy.DataTable();
+//					 new $.fn.dataTable.Responsive(tablaI,
+//							 {
+//								 type: 'column',
+//								 target: 'tr'
+//							 }
+//
+//					 );
+//				 }
+
 
 
 			 });
 
 		 });
-
 
 
 
@@ -787,7 +845,21 @@
 		 }
 
 		  $(document).ready(function(){
+
+
+
+
 			 ResetOddEvenGeneral();
+//			  if($(window).width() <= 767){
+//				  vex.dialog.alert({ unsafeMessage:'Puede desplazarce a lo ancho por la tabla arrastrando a la izquierda o derecha'
+//
+//					  , className: 'vex-theme-wireframe' ,
+//					  overlayClassName: 'success',
+//					  contentClassName: 'bordernaranjaclass',
+//					  closeClassName: 'closebleclass'
+//				  });
+////
+//			  }
 		 });
 
 

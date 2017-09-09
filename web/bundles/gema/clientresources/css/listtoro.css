@@ -169,4 +169,50 @@ display: none;
 	td{
 		background-color:transparent !important;
 	}
+@media (max-width:767px){
+	#myTab {
+   text-align: center;
+    margin-left: 12%;
+    }
+	#botontotosob,#razadiv1{
+		display:none;
+	}
+	
+	.checkbox input{
+		margin-top: -4px !important;
+	}
+	#searchinrazaAllT{
+		width: 217px !important;
+		font-size: 13px !important;
+	}
+	
+	form.form-inline {
+    padding: 20px 25px;
+    background-color: #B24E2A;
+    color: #FFF;
+    width: 72%;
+    margin-left: 12%;
+   /* text-align: center;*/
+   }
+   
+   .filtros{
+	  padding: 10px 11% !important;
+   }
+	#lista-busqueda_length{
+		padding-left: 11%;
+	}
+}
 
+@media (max-width:481px){
+	
+	
+}
+
+@media (max-width:370px){
+	
+	#datostext,#searchinrazaAllT{
+		width: 217px !important;
+		font-size: 13px !important;
+	}
+	
+}

@@ -405,7 +405,7 @@ form.form-inline .row button{
 	height: 500px;
 }
 table#lista-busqueda{
-	min-width:680px;
+	/*min-width:680px;*/
 	margin-bottom:0px !important;
 }
 .table#lista-busqueda > tbody > tr > td:nth-child(3),
@@ -1179,7 +1179,7 @@ margin-left: -15px;
 
 #firstheader{
 	font-family: 'Fago-normal';
-	font-size:14px;
+	font-size:13px;
 }
 #firstheader a{
 	color:white;
