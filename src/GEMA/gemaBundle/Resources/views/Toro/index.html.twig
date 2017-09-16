@@ -171,8 +171,17 @@
             },
             formatters: {
                 "commands": function(column, row) {
+                    var last="";
+                    if(row.publico==1){
+                       last= "<a   datapublic='1'  title='Publicar' style='background: #C9E2B1' data-id=\'" + row.id + "\' class=\"btn btn-icon command-edit publishbuttom\" ><span  class=\"md md-remove-red-eye\"></span></a>";
+                    }
+                    else{
+                        last= "<a datapublic='0'  title='Publicar' style='background: indianred' data-id=\'" + row.id + "\' class=\"btn btn-icon command-edit publishbuttom\" ><span  class=\"md md-remove-red-eye\"></span></a>";
+                    }
                     return "<a href='" + Routing.generate('admin_toro__edit', {id: row.id}) + "'  class=\"btn btn-icon command-edit\" ><span class=\"md md-edit\"></span></a> " +
-                            "<a href='" + Routing.generate('admin_toro__delete', {id: row.id}) + "' data-id=\'" + row.id + "\' class=\"btn btn-icon command-delete\" ><span class=\"md md-delete\"></span></a>";
+                            "<a href='" + Routing.generate('admin_toro__delete', {id: row.id}) + "' data-id=\'" + row.id + "\' class=\"btn btn-icon command-delete\" ><span class=\"md md-delete\"></span></a>"+
+                                    last;
+
                 }
               ,
                 "raza": function(column, row) {
@@ -197,6 +206,38 @@
 
             $(".eliminarRegistro").on("click", function (evt) {
                 window.location = url;
+            });
+
+            $('.publishbuttom').on('click', function (evt) {
+                var dataId=$(this).attr('data-id');
+                var a=$(this);
+                var dataPublish=$(this).attr('datapublic');
+                var url = Routing.generate('gema_torocambpublic',{id:dataId});
+                $.ajax({
+                    type: 'GET',
+                    url: url,
+                    success: function (data) {
+                  if(data[0]==1){
+
+                      if(dataPublish==1){//Cambiar a no publico
+                          console.log('NO Publico');
+                          a.attr('style','background: indianred');
+                          a.attr('datapublic',0);
+                      }else{//A publico
+                          console.log('Publico');
+                          a.attr('style','background: #C9E2B1');
+                          a.attr('datapublic',1);
+
+                      }
+
+                    }
+
+                    },
+                    error: function (req, stat, err) {
+                       alert('error');
+                        console.log(err);
+                    }
+                });
             });
         });
 

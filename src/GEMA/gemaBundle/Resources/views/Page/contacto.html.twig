@@ -2,11 +2,12 @@
 
   {% block customstylesheets %}
       <link href="{{ asset('bundles/gema/clientresources/css/contactcss.css')}}" rel="stylesheet">
+      <link href="{{ asset('bundles/gema/clientresources/css/contactcssspecial.css')}}" rel="stylesheet">
 	  {% endblock %}
 
   {% block content %}
 
-<div style="margin-bottom: 50px !important;">
+<div style="margin-bottom: 50px !important;" id="formcontainer">
 
     <h3 style="font-family: 'Fago-Bold';color:#254389">Haga su consulta completando el siguiente formulario</h3>
     <div class="row">
@@ -109,11 +110,11 @@
 
 
         <div class="col-md-6">
-            <div >
-    {{ datosoficina.datosoficina|raw }}<br>
+            <div ><br>
+   <div id="do"> {{ datosoficina.datosoficina|raw }}</div><br>
 
 </div>
-            <div style="text-align: center">
+            <div id="mapaid" style="text-align: center">
                 <iframe scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com.ar/maps?f=q&amp;source=s_q&amp;hl=es&amp;geocode=&amp;q={{ coordenadas }}&amp;sll={{ coordenadas }}&amp;sspn=2.030164,4.22699&amp;ie=UTF8&amp;t=m&amp;ll={{ coordenadas }}&amp;spn=0.041615,0.050468&amp;z=13&amp;output=embed" width="293" height="293" frameborder="0"></iframe>
                 <a class="btn btn-gris nw" href="https://maps.google.com.ar/maps?f=q&amp;source=embed&amp;hl=es&amp;geocode=&amp;q={{ coordenadas }}&amp;sll={{ coordenadas }}&amp;sspn=2.030164,4.22699&amp;ie=UTF8&amp;t=m&amp;ll={{ coordenadas }}&amp;spn=0.041615,0.050468&amp;z=13" target="_blank">Ver mapa</a>
             </div>

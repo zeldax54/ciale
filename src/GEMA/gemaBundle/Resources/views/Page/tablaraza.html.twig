@@ -317,6 +317,7 @@
 											</th>
 										{% endif %}
 										<th>Origen</th>
+
 									</tr>
 									</thead>
 									<tbody>
@@ -360,6 +361,7 @@
 											{% else %}
 												<td data-formater="0" class="verticalalign"></td>
 											{% endif %}
+
 										</tr>
 									{% endfor %}
 
@@ -635,7 +637,19 @@
 
 		 $(document).ready(function() {
 
+             if($(window).width() <= 767) {
+           //Agregar Columna dinamicamente
+                 $('table').each(function(){
+                     $(this).find('thead').find('tr').append('<th></th>');
+                     $(this).find('tr:not(:has(th))').each(function(r){
+                         $(this).append('<td></td>');
+                     });
+                   //  rows.each(function(r){
 
+                   //  });
+                 //    console.log(rows);
+                 });
+             }
 
 			 $('table').each(function () {
 
@@ -646,11 +660,6 @@
 					 scrollCollapse: true,
 					 paging: true,
 					 "bInfo" : false,
-//					 responsive: {
-//						 details: {
-//							 type: 'column'
-//						 }
-//					 },
 
 					 oLanguage: {
 						 "oPaginate": {
@@ -658,7 +667,6 @@
 							 "sNext": "Siguiente",
 							 "sPrevious":"Anterior",
 							 "sEmptyTable": "No hay datos para esta tabla"
-
 
 						 },
 						 "sLengthMenu": "Mostrando _MENU_ toros"
@@ -674,67 +682,50 @@
 						 },
 						 { type: 'alt-string', targets: [8,4] },
 						 { "orderable": false, "targets": 2 },
-//						 { "width": "20px", "targets": [2] },
-//						 { "width": "200px", "targets": 3 },
-//						 { "width": "200px", "targets": 7 },
 						 {
 							 "targets": [ 4,5,1 ],
 							 "visible": false
 						 },
+                         {
+                             className: 'control',
+                             orderable: false,
+                             targets:   -1
+                         }
 
-
-					 ],
+                     ],
 					 'select': {
 						 'style': 'multi'
-					 },"lengthMenu": [[-1,5,10, 25, 50, -1], ["Todos",5,10, 25, 50, "Todos"]]
+					 },"lengthMenu": [[-1,5,10, 25, 50, -1], ["Todos",5,10, 25, 50, "Todos"]],
 
+//                     responsive:{
+//
+//                         details: {
+//                             type: 'column'
+//                         }
+//                     },
 
 				 });
 
 				 if($(window).width() <= 767) {
-
 					 new $.fn.dataTable.Responsive(tabla,
 							 {
-								 type: 'column',
-								 target: 'tr',
-								 display: $.fn.dataTable.Responsive.display.modal( {
-									 header: function ( row ) {
-										 var data = row.data();
-										 return 'Details for '+data[0]+' '+data[1];
-									 }
-								 } ),
-								 renderer: function ( api, rowIdx, columns ) {
-									 var data = $.map( columns, function ( col, i ) {
-										 return '<tr>'+
-												 '<td>'+col.title+':'+'</td> '+
-												 '<td>'+col.data+'</td>'+
-												 '</tr>';
-									 } ).join('');
+                                 details: {
+                                     type: 'column',
+                                     target: -1
+                                 }
 
-									 return $('<table/>').append( data );
-								 }
 							 }
-
-
-
-
-					 );
-					// tabla.column( 2 ).visible( false, false );
-
-				      tabla.columns.adjust().draw( false ); // adjust
-
-//					 $('td').click(function(e){
-//						 e.stopPropagation();
-//					 });
-				 }else{
+                     );
+				      tabla.columns.adjust().draw(false);
+				 }
+                 else{
 
 					 new $.fn.dataTable.FixedColumns(tabla, {
 					 leftColumns: 10
-				 });
-
+                     }
+                     );
+                     tabla.columns.adjust().draw( false ); // adjust
 				 }
-
-//                 new $.fn.dataTable.Responsive( tabla );
 
 				 tabla.on( 'search.dt', function () {
 					 ResetOddEvenGeneral();
@@ -752,7 +743,6 @@
 				 $($.fn.dataTable.tables(true)).css('width', '100%');
 				 $($.fn.dataTable.tables(true)).DataTable().columns.adjust().draw();
 
-
 				 var id=$(this).attr('myindic');
 				 var mwith=$('#'+id+'_wrapper').find('.DTFC_ScrollWrapper').css('width');
                  var tablamy=$('table#'+id);
@@ -769,20 +759,6 @@
                  wraper2.scroll(function(){
                      wraper.scrollLeft(wraper2.scrollLeft());
                  });
-
-//				 if($(window).width() <= 767) {
-//					 console.log(tablamy.attr('familyId'));
-//					 var tablaI=tablamy.DataTable();
-//					 new $.fn.dataTable.Responsive(tablaI,
-//							 {
-//								 type: 'column',
-//								 target: 'tr'
-//							 }
-//
-//					 );
-//				 }
-
-
 
 			 });
 

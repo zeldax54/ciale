@@ -158,7 +158,13 @@ $(document).on('click', '.archivo', function() {
 
 function Change(e){
     var server=$('#serverN').val();
-    var url='http://'+server+e.name;
+
+    //var getUrl = window.location;
+    //'http://'+server+
+
+    var url=e.name;
+
+
 
     $('.archivo').attr('style','border:3px solid wait');
     $(e).attr('style','border: 3px solid  #0073aa');

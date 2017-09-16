@@ -2,6 +2,7 @@
 
   {% block customstylesheets %}
       <link href="{{ asset('bundles/gema/clientresources/css/mycss.css')}}" rel="stylesheet">
+      <link href="{{ asset('bundles/gema/clientresources/css/prodprogm.css')}}" rel="stylesheet">
 	  {% endblock %}
 
   {% block content %}
@@ -10,7 +11,7 @@
       {% for p in prodprog %}
 
           <div style="border-bottom: 1px solid !important;margin-bottom: 1em !important;">
-              <div class="row">
+              <div class="myc row">
              <div class="col-md-2">
                  {% if p.logo is not null %}
                  <img src="{{ asset(p.logo) }}" style="max-width: 100%">

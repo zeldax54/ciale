@@ -223,4 +223,6 @@ gema_getmediadescription:
     pattern:  /{folder}/{subfolder}/{nombre}/getdesc
     defaults: { _controller: "gemaBundle:Library:getdescription" }
 
-
+gema_torocambpublic:
+    pattern:  /{id}/cpc
+    defaults: { _controller: "gemaBundle:Toro:changepublic" }

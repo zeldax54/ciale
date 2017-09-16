@@ -1,0 +1,12 @@
+
+@media (max-width:600px){
+	p{
+	margin-left: 15px !important;
+text-align: justify !important;
+width: 92%;
+    }
+	h1{
+		margin-left:0px !important;
+		text-align: center !important;
+	}
+}

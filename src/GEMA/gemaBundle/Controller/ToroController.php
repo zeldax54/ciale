@@ -255,4 +255,29 @@ class ToroController extends Controller
             ->getForm()
         ;
     }
+
+    public function changepublicAction($id){
+
+        try{
+
+            $em = $this->getDoctrine()->getManager();
+            $entity = $em->getRepository('gemaBundle:Toro')->find($id);
+
+            $pubstate=$entity->getPublico();
+        if($pubstate==1){
+            $entity->setPublico(0);
+        }else{
+            $entity->setPublico(1);
+        }
+            $em->flush();
+            $arr=array(0=>1);
+            return new JsonResponse($arr);
+
+        }catch(\Exception $e){
+            $arr=array(0=>0);
+            return new JsonResponse($arr);
+        }
+
+
+    }
 }

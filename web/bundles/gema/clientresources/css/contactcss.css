@@ -48,4 +48,33 @@ right: 0;
 .redmail{
 	cursor: pointer; 
 	}
+	
+	@media (max-width:600px){
+		.redventasheaderdivsep p{
+			margin-left: 14%;
+			text-align: -webkit-auto;
+		}
+		.redventasheaderdivsep h2{
+			margin-left: 14% !important;
+			text-align: -webkit-auto;
+		}
+		
+		.redventasHeader{
+			margin-left: 43%;
+			text-align: -webkit-auto;
+		}
+		
+		.prob{
+			width:99%;
+					text-align:left !important;
+		}
+		
+		.org{
+			text-align:left;
+			margin-top: 2%;
+			margin-left:15% !important;
+		}
+		
+		
+	}
 

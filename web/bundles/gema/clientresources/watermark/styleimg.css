@@ -185,6 +185,45 @@ margin-top:5px;
 
 
 
+@media (max-width:767px){
+	#textoinresp{
+		margin-left: 7%;
+	}
+	
+	#textoinresp2{
+		margin-left: 5%;
+	}
+	
+	#der-segundo{
+		margin-left:5% !important;
+	}
+	
+	#comentarioresposive{
+		display: block !important;
+	}
+	#infodes{
+		display:none;
+	}
+	
+	
+	@media screen and (-webkit-min-device-pixel-ratio:0) {
+	
+	#textoinresp{
+		margin-left: 5% !important;
+	}
+	
+	#textoinresp2{
+		margin-left: 0% !important;
+	}
+	
+	
+	
+  }
+	
+}
+
+
+
 
 
 

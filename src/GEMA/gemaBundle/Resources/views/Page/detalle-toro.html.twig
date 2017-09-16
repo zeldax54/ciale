@@ -30,7 +30,7 @@
    <div id="pdfcontent" style="background-color: white">
 			<div class="colapsive-panel" role="navigation">
 
-							<div class="row">
+							<div class="row" id="textoinresp">
 
 								<div class="col-lg-2 col-md-2 col-sm-2 col-xs-9">
 									<ul class="nav navbar-nav">
@@ -71,7 +71,7 @@
 							</div>
 							
 
-							<div >
+							<div id="textoinresp2">
 							
 								<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 ignorePDF">
 									<button class="btn btn-warning btn-sm pdfgenerator" id="">Generar PDF</button>
@@ -363,7 +363,7 @@
 					<div class="medida medida5"><strong title="Largo corporal">{{ toro.largocorporal }}</strong></div>
 
 					<img src="{{ asset(silueta) }}" class="img-responsive" style="margin:0 auto"/>
-					<b style="margin-left:0px;"><em>Deslice el mouse sobre los números para ver la descripción</em></b>
+					<b id="infodes" style="margin-left:0px;"><em>Deslice el mouse sobre los números para ver la descripción</em></b>
 	
 				</div>						
 
@@ -452,9 +452,13 @@
 
 						</tbody>
 					</table>
-				</div>
-			</div>
 
+				</div>
+
+			</div>
+		<div id="comentarioresposive" style="display: none">
+					<span style="color: #DA5F00;font-style: italic;font-family: Fago-normal">Desplace el dedo sobre la tabla para navegarla </span>
+                       </div>
 		</div>
 	  {% endif %}
 
