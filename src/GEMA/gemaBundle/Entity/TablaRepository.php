@@ -44,5 +44,19 @@ class TablaRepository extends EntityRepository
         return $qb;
     }
 
+    public function GetTorosTabla($tablaId,$razaId){
+        $qb = new QueryBuilder($this->getEntityManager());
+        $qb
+            ->select("T","R")
+            ->from($this->getClassName(), "T")
+            ->leftJoin("T.raza", "R")
+
+
+            ->where()
+
+
+        ;
+    }
+
 
 }

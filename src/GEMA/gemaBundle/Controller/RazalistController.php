@@ -110,6 +110,10 @@ class RazalistController extends Controller
 
         }
 
+//          //Chequeando tablas
+//        foreach($tablas as $t){
+//
+//        }
 
         return $this->render('gemaBundle:Page:tablaraza.html.twig', array(
                 'toros'=>$toros,
