@@ -43,12 +43,14 @@ class ToroType extends AbstractType
             ->add('nacionalidad', ChoiceType::class, array(
                 'choices'  => array(
                     'USA' => 'USA',
+                    'Canada'=>'Canada',
                     'Argentina' => 'Argentina',
                     'Uruguay' => 'Uruguay',
                     'Paraguay' => 'Paraguay',
                     'Australia' => 'Australia',
                     'Brasil' => 'Brasil',
                     'ARG'=>'ARG'
+
                 ),'label'=>'Nacionalidad'
             ))
             ->add('nombreinterno',null,array(
