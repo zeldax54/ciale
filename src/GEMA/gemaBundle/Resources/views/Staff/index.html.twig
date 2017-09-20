@@ -153,10 +153,10 @@
             formatters: {
                 "commands": function(column, row) {
                     return "<a href='" + Routing.generate('admin_'+ param +'_edit', {id: row.id}) + "'  class=\"btn btn-icon command-edit\" ><span class=\"md md-edit\"></span></a> " +
-                            "<a href='" + Routing.generate('admin_'+param+'_delete', {id: row.id}) + "'  class=\"btn btn-icon command-delete\" ><span class=\"md md-delete\"></span></a>";
+                            "<a href='" + Routing.generate('admin_'+param+'_delete', {id: row.id}) +  "' data-id=\'" + row.id +"'  class=\"btn btn-icon command-delete\" ><span class=\"md md-delete\"></span></a>";
                 },
                 "foto": function(column, row) {
-                    return '<img width="100px" height="100px" src="'+row.foto+'">';
+                    return '<img width="70px" height="70px" src="'+row.foto+'">';
                 }
 
 
@@ -189,7 +189,7 @@
             formatters: {
                 "commands": function(column, row) {
                     return "<a href='" + Routing.generate('admin_distribuidorlocal_edit', {id: row.id}) + "'  class=\"btn btn-icon command-edit\" ><span class=\"md md-edit\"></span></a> " +
-                            "<a href='" + Routing.generate('admin_distribuidorlocal_delete', {id: row.id}) + "'  class=\"btn btn-icon command-delete\" ><span class=\"md md-delete\"></span></a>";
+                            "<a href='" + Routing.generate('admin_distribuidorlocal_delete', {id: row.id}) +  "' data-id=\'" + row.id + "'  class=\"btn btn-icon command-delete\" ><span class=\"md md-delete\"></span></a>";
                 }
 
 

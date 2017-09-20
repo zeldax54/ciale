@@ -19,13 +19,13 @@
 		<div class="row" >
 
 			<div id="fb-root"></div>
-			<script>(function(d, s, id) {
-					var js, fjs = d.getElementsByTagName(s)[0];
-					if (d.getElementById(id)) return;
-					js = d.createElement(s); js.id = id;
-					js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.10";
-					fjs.parentNode.insertBefore(js, fjs);
-				}(document, 'script', 'facebook-jssdk'));</script>
+			{#<script>(function(d, s, id) {#}
+					{#var js, fjs = d.getElementsByTagName(s)[0];#}
+					{#if (d.getElementById(id)) return;#}
+					{#js = d.createElement(s); js.id = id;#}
+					{#js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.10";#}
+					{#fjs.parentNode.insertBefore(js, fjs);#}
+				{#}(document, 'script', 'facebook-jssdk'));</script>#}
 
    <div id="pdfcontent" style="background-color: white">
 			<div class="colapsive-panel" role="navigation">
@@ -182,6 +182,7 @@
 		<div class="row">
 
 			<div id="izq-primero">
+                <!-- Go to www.addthis.com/dashboard to customize your tools -->
 
 				<div style="position: relative; left: 0; top: 0;" id="imgwatercont" class="example">
 
@@ -284,7 +285,7 @@
 			</div>				
 
 			<div id="der-primero">
-	
+	<div class="addthis_inline_share_toolbox" style="margin-top: 4%"></div>
 				<address>
 					<h2><strong>{{ toro.apodo }}</strong></h2>
 					<strong>{{ toro.nombre }}</strong><br>
@@ -296,9 +297,9 @@
 							<strong>ADN:</strong>&nbsp;{{ toro.adn }}
 						</div>
 						<div class="col-lg-3 col-md-4 col-sd-3 col-xs-12">
-							<div class="fb-like" data-href="{{ app.request.uri }}"
-								 data-layout="button_count"
-								 data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+							{#<div class="fb-like" data-href="{{ app.request.uri }}"#}
+								 {#data-layout="button_count"#}
+								 {#data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>#}
 						</div>
 					</div>
 					<div class="row">
@@ -331,7 +332,11 @@
 				<br>
 	
 				<address style="color:black;margin-bottom:2px;">
+				{% if toro.nombreraza is not null %}
+					<strong>Raza:</strong>&nbsp;{{ toro.nombreraza }}<br>
+					{% else %}
 					<strong>Raza:</strong>&nbsp;{{ toro.raza.nombre }}<br>
+					{% endif %}
 					<strong>Nacimiento:</strong>&nbsp;{{ toro.fechanacimiento|date('d-m-Y')  }}<br>
 					<strong>Criador:</strong>&nbsp;{{ toro.criador }}<br>
 					<strong>Propietario:</strong>&nbsp;{{ toro.propietario }}
@@ -471,6 +476,7 @@
 {% endblock %}
 
     {% block custom_javascripts %}
+        <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-59bfe77693358884"></script>
 		<script src="{{ asset('bundles/gema/clientresources/fancybox/dist/jquery.fancybox.js')}}"></script>
 		<script src="{{ asset('bundles/gema/clientresources/jquerybxslider/jquery.bxslider.min.js')}}"></script>
 

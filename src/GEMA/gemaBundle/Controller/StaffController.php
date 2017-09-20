@@ -66,6 +66,8 @@ class StaffController extends Controller
          $imagenin='staff';
          $isvendedor=0;
          $entities = $em->getRepository('gemaBundle:Staff')->findAll();
+         $provincianame=null;
+         $distribuidores=null;
      }
       else
      {

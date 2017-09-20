@@ -1,3 +1,7 @@
+gema_admin_deptotecnico:
+    resource: "@gemaBundle/Resources/config/routing/deptotecnico.yml"
+    prefix:   /admin/deptotecnico
+
 gema_admin_categorianoticia:
     resource: "@gemaBundle/Resources/config/routing/categorianoticia.yml"
     prefix:   /admin/categorianoticia
@@ -164,7 +168,7 @@ gema_redventas:
     defaults: { _controller: "gemaBundle:Redventas:inicio" }
 
 gema_mixed:
-    pattern:  /{idprovincia}/vendedores
+    pattern:  admin/vendedores/{idprovincia}
     defaults: { _controller: "gemaBundle:Staff:mixed" }
 
 gema_searchtoroscarnelike:

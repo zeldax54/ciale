@@ -33,8 +33,14 @@ class RedventasController extends Controller
             $datosof=$em->getRepository('gemaBundle:DatosOficina')->find(1);
             $staff=$em->getRepository('gemaBundle:Staff')->stafflist();
             $paramfolder='staff';
+            $deptotec=$em->getRepository('gemaBundle:DeptoTecnico')->deptotecnicolist();
+            $paramfolderdptotec='deptotecnico';
+            $isdeptotec=true;
         }
         else{
+            $deptotec=null;
+            $isdeptotec=null;
+            $paramfolderdptotec=null;
             $paramfolder='vendedor';
             $prov=$em->getRepository('gemaBundle:Provincia')->findOneBycodigo($codigo);
             $provincianame='<em class="redventasHeader" style="color:#00388B;margin-left: 10px;">'.$prov->getNombre().'</em>' ;
@@ -61,6 +67,12 @@ class RedventasController extends Controller
                 $img=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'user.png',true);
             $s->foto=$img;
         }
+        foreach($deptotec as $s){
+            $img=$helper->randomPic($paramfolderdptotec.DIRECTORY_SEPARATOR.$s->getGuid().DIRECTORY_SEPARATOR,true);
+            if($img==null)
+                $img=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'user.png',true);
+            $s->foto=$img;
+        }
         $gife=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'paperplane.gif');
         $razas = $em->getRepository('gemaBundle:Raza')->findAll();
         return $this->render('gemaBundle:Page:red-ventas.html.twig', array(
@@ -71,6 +83,10 @@ class RedventasController extends Controller
                 'codigo'=>$codigo,
                 'localdist'=>$localdistrib,
                  'gife'=>$gife,
+                'deptotec'=>$deptotec,
+                'paramfolderdptotec'=>$paramfolderdptotec,
+                'isdeptotec'=>$isdeptotec
+
 
 
 

@@ -1,0 +1,28 @@
+admin_deptotecnico:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:DeptoTecnico:index" }
+
+admin_deptotecnico_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:DeptoTecnico:show" }
+
+admin_deptotecnico_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:DeptoTecnico:new" }
+
+admin_deptotecnico_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:DeptoTecnico:create" }
+    requirements: { _method: post }
+
+admin_deptotecnico_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:DeptoTecnico:edit" }
+
+admin_deptotecnico_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:DeptoTecnico:update" }
+
+admin_deptotecnico_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:DeptoTecnico:delete" }

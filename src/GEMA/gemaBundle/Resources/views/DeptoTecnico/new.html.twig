@@ -1,0 +1,29 @@
+{% extends 'gemaBundle::layout.html.twig' %}
+{% form_theme form 'gemaBundle:Form:theme.html.twig' %}
+
+
+{% block gema_page -%}
+    <h1>Crear miembro del Depto Tecnico</h1>
+    <label class="col-md-2 control-label"><strong> Foto</strong></label>
+    <div id="myUploadDropZoneToro" class="dropzone"> </div>
+    {{ form(form) }}
+
+    <ul class="pager">
+        <li class="next"><a href="{{path('admin_deptotecnico')}}"><i class="fa fa-list"></i>
+                Listar DeptoTecnico
+            </a></li>
+    </ul>
+{% endblock %}
+
+
+{% block custom_javascripts %}
+    <script>
+        $(document).ready(function(){
+            $('#gema_gemabundle_deptotecnico_provincia_chosen').hide();
+
+            var guid='{{ guid }}';
+            $('#gema_gemabundle_deptotecnico_guid').attr('value',guid);
+            StartDropZone('myUploadDropZoneToro','deptotecnico',guid,1);
+        });
+    </script>
+{% endblock %}

@@ -175,7 +175,7 @@ class LibraryController extends Controller
 
 
 
-            if($this->isImg($ext)==true && $param!='mediainpage' && $param!='library'){
+            if($this->isImg($ext)==true && $param!='mediainpage' && $param=='toro'){
 
                 $marcaguapic= $helper->randomPic('mediainpage'.DIRECTORY_SEPARATOR.'watermark'.DIRECTORY_SEPARATOR);
                 $estampa = imagecreatefrompng($marcaguapic);

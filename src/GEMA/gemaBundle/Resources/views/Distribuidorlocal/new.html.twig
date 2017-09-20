@@ -7,9 +7,83 @@
 
     {{ form(form) }}
 
+    <br>
+    <h4>Personal</h4>
+    <fieldset style="background: white">
+        <table id="tabla" class="record_properties table table-hover table table-striped table-vmiddle tablagen">
+            <thead>
+            <tr data-tabullet-map="id">
+                <th data-tabullet-map="nombre">Nombre</th>
+                <th data-tabullet-map="telefono">Teléfono</th>
+                <th data-tabullet-map="email">Email</th>
+                <th width="50" data-tabullet-type="edit"></th>
+                <th width="50" data-tabullet-type="delete"></th>
+            </tr>
+            </thead>
+        </table>
+    </fieldset>
+
     <ul class="pager">
         <li class="next"><a href="{{path('admin_distribuidorlocal')}}"><i class="fa fa-list"></i>
                 Listar Distribuidorlocal
             </a></li>
     </ul>
+{% endblock %}
+
+{% block custom_javascripts %}
+    <script src="{{ asset('bundles/gema/js/Tabullet.js') }}"></script>
+    <script src="{{ asset('bundles/gema/js/TableToJson/jquery.tabletojson.js') }}"></script>
+
+    <script>
+        var source = [];
+
+        function resetTabullet() {
+            $("#tabla").tabullet({
+                data: source,
+                action: function (mode, data) {
+                    if (mode === 'save') {
+                        source.push(data);
+                        UpdateJson(source);
+
+                    }
+                    if (mode === 'edit') {
+                        for (var i = 0; i < source.length; i++) {
+                            if (source[i].id == data.id) {
+                                source[i] = data;
+                                UpdateJson(source);
+                            }
+                        }
+                    }
+                    if(mode == 'delete'){
+                        for (var i = 0; i < source.length; i++) {
+                            if (source[i].id == data) {
+                                source.splice(i,1);
+                                UpdateJson(source);
+                                break;
+                            }
+                        }
+                    }
+                    resetTabullet();
+                }
+            });
+        }
+        resetTabullet();
+
+        function  UpdateJson(data){
+
+            var json='[';
+            for(var i=0;i<data.length;i++)
+            {
+                json+='"'+data[i].nombre+'",';
+                json+='"'+data[i].telefono+'",';
+                json+='"'+data[i].email+'",';
+            }
+            if(json.length>1)
+                json=json.slice(0,json.length-1);
+            json+="]";
+            $('#gema_gemabundle_distribuidorlocal_personal').prop('value',json);
+
+        }
+    </script>
+
 {% endblock %}

@@ -5,19 +5,20 @@ namespace GEMA\gemaBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use GEMA\gemaBundle\Entity\Distribuidorlocal;
-use GEMA\gemaBundle\Form\DistribuidorlocalType;
+use GEMA\gemaBundle\Entity\DeptoTecnico;
+use GEMA\gemaBundle\Form\DeptoTecnicoType;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use GEMA\gemaBundle\Helpers\MyHelper;
 
 /**
- * Distribuidorlocal controller.
+ * DeptoTecnico controller.
  *
  */
-class DistribuidorlocalController extends Controller
+class DeptoTecnicoController extends Controller
 {
 
     /**
-     * Lists all Distribuidorlocal entities.
+     * Lists all DeptoTecnico entities.
      *
      */
     public function indexAction(Request $request)
@@ -26,63 +27,73 @@ class DistribuidorlocalController extends Controller
 
         $entities = array();
         if ($request->isXmlHttpRequest()) {
-            $repo = $em->getRepository('gemaBundle:Distribuidorlocal');
+            $repo = $em->getRepository('gemaBundle:DeptoTecnico');
             $qb = $repo->filtrar($request);
             $result = $this->get("gema.utiles")->paginar($request->get("current"), $request->get("rowCount"), $qb->getQuery());
             return new JsonResponse($result);
         } else {
-            $entities = $em->getRepository('gemaBundle:Distribuidorlocal')->findAll();
+            $entities = $em->getRepository('gemaBundle:DeptoTecnico')->findAll();
         }
-        $accion = 'Listar Expedientes de Distribuidorlocal';
+        $accion = 'Listar Expedientes de DeptoTecnico';
         $this->get("gema.utiles")->traza($accion);
-        
+        $helper=new MyHelper();
+        foreach($entities as $e){
+            $img=$helper->randomPic('deptotecnico'.DIRECTORY_SEPARATOR.$e->getGuid().DIRECTORY_SEPARATOR);
+            if($img==null)
+                $img=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'user.png');
+            $e->foto=$img;
+        }
         
 
-        return $this->render('gemaBundle:Distribuidorlocal:index.html.twig', array(
+        return $this->render('gemaBundle:DeptoTecnico:index.html.twig', array(
                     'entities' => $entities,
         ));
     }
     /**
-     * Creates a new Distribuidorlocal entity.
+     * Creates a new DeptoTecnico entity.
      *
      */
     public function createAction(Request $request)
     {
     
-        $entity = new Distribuidorlocal();
+        $entity = new DeptoTecnico();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $accion = '';
+            $accion = 'Miembro del Departamento tecnico borrado';
+            $guid=$entity->getGuid();
+            $webPath = $this->get('kernel')->getRootDir().'/../web/deptotecnico/'.$guid;
             $this->get("gema.utiles")->traza($accion);
             $em->persist($entity);
             $em->flush();
-
-            return $this->redirect($this->generateUrl('gema_mixed', array('idprovincia' => $entity->getProvincia()->getId())));
+            $helper=new MyHelper();
+            $helper->RemoveFolder($webPath);
+            return $this->redirect($this->generateUrl('admin_deptotecnico'));
         }
 
 
 
-    
-       return $this->render('gemaBundle:Distribuidorlocal:new.html.twig', array(
+        $helper=new MyHelper();
+       return $this->render('gemaBundle:DeptoTecnico:new.html.twig', array(
                     'entity' => $entity,
+                     'guid'=> $helper->GUID(),
                     'form' => $form->createView(),
         ));
     }
 
     /**
-    * Creates a form to create a Distribuidorlocal entity.
+    * Creates a form to create a DeptoTecnico entity.
     *
-    * @param Distribuidorlocal $entity The entity
+    * @param DeptoTecnico $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createCreateForm(Distribuidorlocal $entity)
+    private function createCreateForm(DeptoTecnico $entity)
     {
-        $form = $this->createForm(new DistribuidorlocalType(), $entity, array(
-            'action' => $this->generateUrl('admin_distribuidorlocal_create'),
+        $form = $this->createForm(new DeptoTecnicoType(), $entity, array(
+            'action' => $this->generateUrl('admin_deptotecnico_create'),
             'method' => 'POST',
         ));
 
@@ -92,62 +103,63 @@ class DistribuidorlocalController extends Controller
     }
 
     /**
-     * Displays a form to create a new Distribuidorlocal entity.
+     * Displays a form to create a new DeptoTecnico entity.
      *
      */
     public function newAction()
     {
-        $entity = new Distribuidorlocal();
+        $entity = new DeptoTecnico();
         $form   = $this->createCreateForm($entity);
-
+        $helper=new MyHelper();
     
-        return $this->render('gemaBundle:Distribuidorlocal:new.html.twig', array(
+        return $this->render('gemaBundle:DeptoTecnico:new.html.twig', array(
             'entity' => $entity,
+            'guid'=> $helper->GUID(),
             'form'   => $form->createView(),
         ));
     }
 
     /**
-     * Finds and displays a Distribuidorlocal entity.
+     * Finds and displays a DeptoTecnico entity.
      *
      */
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('gemaBundle:Distribuidorlocal')->find($id);
+        $entity = $em->getRepository('gemaBundle:DeptoTecnico')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Distribuidorlocal entity.');
+            throw $this->createNotFoundException('Unable to find DeptoTecnico entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
         $accion = ' ';
         $this->get("gema.utiles")->traza($accion);
 
-        return $this->render('gemaBundle:Distribuidorlocal:show.html.twig', array(
+        return $this->render('gemaBundle:DeptoTecnico:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),        ));
     }
 
     /**
-     * Displays a form to edit an existing Distribuidorlocal entity.
+     * Displays a form to edit an existing DeptoTecnico entity.
      *
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('gemaBundle:Distribuidorlocal')->find($id);
+        $entity = $em->getRepository('gemaBundle:DeptoTecnico')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Distribuidorlocal entity.');
+            throw $this->createNotFoundException('Unable to find DeptoTecnico entity.');
         }
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('gemaBundle:Distribuidorlocal:edit.html.twig', array(
+        return $this->render('gemaBundle:DeptoTecnico:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -155,16 +167,16 @@ class DistribuidorlocalController extends Controller
     }
 
     /**
-    * Creates a form to edit a Distribuidorlocal entity.
+    * Creates a form to edit a DeptoTecnico entity.
     *
-    * @param Distribuidorlocal $entity The entity
+    * @param DeptoTecnico $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Distribuidorlocal $entity)
+    private function createEditForm(DeptoTecnico $entity)
     {
-        $form = $this->createForm(new DistribuidorlocalType(), $entity, array(
-            'action' => $this->generateUrl('admin_distribuidorlocal_update', array('id' => $entity->getId())),
+        $form = $this->createForm(new DeptoTecnicoType(), $entity, array(
+            'action' => $this->generateUrl('admin_deptotecnico_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -173,17 +185,17 @@ class DistribuidorlocalController extends Controller
         return $form;
     }
 /**
-    * Edits an existing Distribuidorlocal entity.
+    * Edits an existing DeptoTecnico entity.
 *
     */
     public function updateAction(Request $request, $id)
 {
     $em = $this->getDoctrine()->getManager();
 
-    $entity = $em->getRepository('gemaBundle:Distribuidorlocal')->find($id);
+    $entity = $em->getRepository('gemaBundle:DeptoTecnico')->find($id);
 
     if (!$entity) {
-    throw $this->createNotFoundException('Unable to find Distribuidorlocal entity.');
+    throw $this->createNotFoundException('Unable to find DeptoTecnico entity.');
     }
 
     $deleteForm = $this->createDeleteForm($id);
@@ -197,11 +209,11 @@ class DistribuidorlocalController extends Controller
 
 
 
-    return $this->redirect($this->generateUrl('gema_mixed', array('idprovincia' => $entity->getProvincia()->getId())));
+    return $this->redirect($this->generateUrl('admin_deptotecnico'));
   
 }
     /**
-     * Deletes a Distribuidorlocal entity.
+     * Deletes a DeptoTecnico entity.
      *
      */
     public function deleteAction(Request $request, $id)
@@ -210,10 +222,10 @@ class DistribuidorlocalController extends Controller
         $form->handleRequest($request);
 
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('gemaBundle:Distribuidorlocal')->find($id);
-        $provid=$entity->getProvincia()->getId();
+            $entity = $em->getRepository('gemaBundle:DeptoTecnico')->find($id);
+
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Distribuidorlocal entity.');
+                throw $this->createNotFoundException('Unable to find DeptoTecnico entity.');
             }
             
         $accion = ' ';
@@ -221,11 +233,11 @@ class DistribuidorlocalController extends Controller
             $em->remove($entity);
             $em->flush();
 
-        return $this->redirect($this->generateUrl('gema_mixed', array('idprovincia' => $provid)));
+        return $this->redirect($this->generateUrl('admin_deptotecnico'));
     }
 
     /**
-     * Creates a form to delete a Distribuidorlocal entity by id.
+     * Creates a form to delete a DeptoTecnico entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -234,7 +246,7 @@ class DistribuidorlocalController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('admin_distribuidorlocal_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('admin_deptotecnico_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Eliminar'))
             ->getForm()

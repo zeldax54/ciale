@@ -48,7 +48,7 @@
             formatters: {
                 "commands": function(column, row) {
                     return "<a href='" + Routing.generate('admin_distribuidorlocal_edit', {id: row.id}) + "'  class=\"btn btn-icon command-edit\" ><span class=\"md md-edit\"></span></a> " +
-                            "<a href='" + Routing.generate('admin_distribuidorlocal_delete', {id: row.id}) + "'  class=\"btn btn-icon command-delete\" ><span class=\"md md-delete\"></span></a>";
+                            "<a href='" + Routing.generate('admin_distribuidorlocal_delete', {id: row.id}) +  "' data-id=\'" + row.id + "'  class=\"btn btn-icon command-delete\" ><span class=\"md md-delete\"></span></a>";
                 }
                /* ,
                 "area": function(column, row) {
