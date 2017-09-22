@@ -288,6 +288,9 @@
 	<div class="addthis_inline_share_toolbox" style="margin-top: 4%"></div>
 				<address>
 					<h2><strong>{{ toro.apodo }}</strong></h2>
+					{% if toro.nuevo==1 %}
+					<span id="nuevocartel">NUEVO</span>
+					{% endif %}
 					<strong>{{ toro.nombre }}</strong><br>
 					<div class="row">
 						<div class="col-lg-3 col-md-4 col-sd-3 col-xs-12">
@@ -446,7 +449,7 @@
 							<tr class="{{ cycle(["alterna", ""], loop.index) }}">
 								<th scope="row">{{ dato['rowhead'] }}</th>
 								{% for td in tabla.tabladatos %}
-									{%   if dato['rowhead']|lower =='ranking' and dato[td.nombre] | replace('%','')<=25 and td.nombre|lower !='altura' and dato[td.nombre]!='-' %}
+									{%   if dato['rowhead']|lower =='ranking' and dato[td.nombre] | replace('%','')<=25 and td.nombre|lower !='altura' and td.nombre|lower !='alt.' and td.nombre|lower !='alt' and td.nombre|lower !='alt.hijas'  and td.nombre|lower !='alt.año'  and dato[td.nombre]!='-' %}
 									<td class="downprom">{{ dato[td.nombre]|replace({' ':''})}}</td>
                            {% else %}
 						       <td>{{ dato[td.nombre]|replace({' ':''}) }}</td>
@@ -505,6 +508,7 @@ $(".fancybox").fancybox({
 
          var capt=$('.fancybox-caption');
 		var msj=capt.html();
+		console.log(msj);
 		capt.empty();
 		capt.append('<span style="background: black;">'+msj+'</span>');
 
@@ -581,7 +585,7 @@ var margin = {
 };
 
 var x=$('#pdfcontent').find('.ignorePDF').remove();
-
+$('#tabla-infeior').css('font-size','10px');
 //$('#pdfcontent').append("<b>Appended text</b>");//Add
 
 
@@ -601,7 +605,7 @@ pdf.addHTML(x,10,10,{
 
  function () {
 
-     pdf.save('PDF.pdf');
+     pdf.save('{{ toro.apodo }}.pdf');
      location.reload();
  });
 			});

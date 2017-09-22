@@ -134,7 +134,7 @@ class RazalistController extends Controller
         $em = $this->getDoctrine()->getManager();
         $descripcionprinc=$em->getRepository('gemaBundle:MediaDescription')-> findOneBy(
             array(
-                'nombre'=>$data[2],
+                'nombre'=>str_replace('_small','',$data[2]),
                 'folder'=>$data[0],
                 'subforlder'=>$data[1]
             )

@@ -949,6 +949,7 @@
 			$($.fn.dataTable.tables(true)).css('width', '100%');
 			$($.fn.dataTable.tables(true)).DataTable().columns.adjust().draw();
 			var info = table.page.info();
+
 			$('.'+familyId+'#cantmsj').html(info.recordsDisplay + ' toros en la lista');
 			ResetOddEvenGeneral();
 		 }

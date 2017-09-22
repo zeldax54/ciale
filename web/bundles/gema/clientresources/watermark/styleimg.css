@@ -222,6 +222,36 @@ margin-top:5px;
 	
 }
 
+#nuevocartel{
+	float: right;
+margin-top: -33px;
+width: 68px;
+height: 28px;
+background: red;
+text-align: center;
+color: white;
+font-family: 'Fago-Bold';
+font-size: 19px;
+}
+
+/*@media (max-width:767px){
+  #nuevocartel{
+	  margin-top: -8%;
+  }
+}
+
+@media (max-width:500px){
+  #nuevocartel{
+	  margin-top: -9%;
+  }
+}
+
+@media (max-width:400px){
+  #nuevocartel{
+	  margin-top: -10%;
+  }
+}*/
+
 
 
 

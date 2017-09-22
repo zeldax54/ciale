@@ -70,11 +70,15 @@ class UploaderController extends Controller
 
                 foreach ($data as $toro) {
                     if ($iterator > 1) {
-                        $torosUniquesNames[] = $toro[0];
-                        $toroF = $toroRepo->findOneByNombreinterno($toro[0]);
-                        $toroF=$this->UpdateCreateToro($raza, $actualizarToros, $toroF, $toro, $mapa,$tablaSelected);
 
-                        $em->persist($toroF);
+                            $torosUniquesNames[] = $toro[0];
+                            $toroF = $toroRepo->findOneByNombreinterno($toro[0]);
+                            $toroF=$this->UpdateCreateToro($raza, $actualizarToros, $toroF, $toro, $mapa,$tablaSelected);
+                           if(is_string($toroF)){
+                               return new JsonResponse($toroF);
+                           }
+                            $em->persist($toroF);
+
                     }
                     $iterator++;
                 }
@@ -96,8 +100,10 @@ class UploaderController extends Controller
                             if($cargarToros==2)
                             {
                                 $webPath = $this->get('kernel')->getRootDir().'/../web/toro/'.$inbdtoro->getGuid();
+                                $webPath2 = $this->get('kernel')->getRootDir().'/../web/toro/'.$inbdtoro->getGuid().'P';
                                 $this->get("gema.utiles")->traza('Toro eliminado por proceso de carga desde excel apodo:'.$inbdtoro->getApodo());
                                 $helper->RemoveFolder($webPath);
+                                $helper->RemoveFolder($webPath2);
                                 $em->remove($inbdtoro);
                             }
 

@@ -49,7 +49,7 @@ class RedventasController extends Controller
             ));
             $localdistrib=$em->getRepository('gemaBundle:Distribuidorlocal')->findBy(array(
                 'provincia'=>$prov->getId()
-            ));
+            ), array('ciudad' => 'ASC'));
 
             foreach($localdistrib as $l)
             {
@@ -67,12 +67,15 @@ class RedventasController extends Controller
                 $img=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'user.png',true);
             $s->foto=$img;
         }
-        foreach($deptotec as $s){
-            $img=$helper->randomPic($paramfolderdptotec.DIRECTORY_SEPARATOR.$s->getGuid().DIRECTORY_SEPARATOR,true);
-            if($img==null)
-                $img=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'user.png',true);
-            $s->foto=$img;
+        if($deptotec!=null){
+            foreach($deptotec as $s){
+                $img=$helper->randomPic($paramfolderdptotec.DIRECTORY_SEPARATOR.$s->getGuid().DIRECTORY_SEPARATOR,true);
+                if($img==null)
+                    $img=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'user.png',true);
+                $s->foto=$img;
+            }
         }
+
         $gife=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'paperplane.gif');
         $razas = $em->getRepository('gemaBundle:Raza')->findAll();
         return $this->render('gemaBundle:Page:red-ventas.html.twig', array(

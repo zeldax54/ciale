@@ -208,7 +208,7 @@
                     <div class="col-lg-4 col-md-5 col-sm-6 col-xs-12 footerdiv">
                         <div> <a href="{{  path('gema_clientsboletines',{'start':0,'end':8})  }}"> INFORMACIÓN </a> </div>
                         <div>
-                            <a href="{{  path('gema_prodprog')  }}">PRODUCTOS</a>
+                            <a href="{{  path('gema_prodprog')  }}">PROGRAMAS</a>
                         </div>
                         <div>
                             <a href="{{  path('gema_mailindex')  }}">CONTACTO</a>
@@ -261,13 +261,14 @@
             <div class="container" style="color:#81A1C8;">
                 <div class="row">
                     <div class="col-lg-6 col-md-7 col-sm-12 col-xs-12">
-                       <a href="{{ find('koepon') }}"> <img src="{{ asset('bundles/gema/clientresources/img/1l.jpg')}}" class="patrocinadores"></a>
-                        <img src="{{ asset('bundles/gema/clientresources/img/2l.jpg')}}" class="patrocinadores">
-                        <img src="{{ asset('bundles/gema/clientresources/img/3l.jpg')}}" class="patrocinadores">
-                        <img src="{{ asset('bundles/gema/clientresources/img/4l.jpg')}}" class="patrocinadores">
-                        <img src="{{ asset('bundles/gema/clientresources/img/5l.jpg')}}" class="patrocinadores">
+                       <a href="{{ find('koepon') }}" target="_blank"> <img src="{{ asset('bundles/gema/clientresources/img/1l.jpg')}}" class="patrocinadores"></a>
+                        <a href="http://www.saskatooncolostrum.com/english" target="_blank"> <img src="{{ asset('bundles/gema/clientresources/img/2l.jpg')}}" class="patrocinadores"></a>
+                        <a href="http://www.peakgenetics.com/" target="_blank"> <img src="{{ asset('bundles/gema/clientresources/img/3l.jpg')}}" class="patrocinadores"></a>
+                       <a href="http://web.vas.com/" target="_blank"> <img src="{{ asset('bundles/gema/clientresources/img/logowebvas.png')}}" class="patrocinadores"></a>
+                       <a href="http://www.dairyxl.com/" target="_blank"> <img src="{{ asset('bundles/gema/clientresources/img/5l.jpg')}}" class="patrocinadores"></a>
                     </div>
                     <div class="col-lg-6 col-md-5 col-sm-12 col-xs-12">
+                       <a  href="{{ find('afip') }}"><i class="enlace-redes"><img src="/cialesymf/web/bundles/gema/clientresources/img/DATAWEB.JPG" class="patrocinadores" style="margin-top: -25%;height: 46px;margin-bottom: -15%;"></i></a>
                        <a  href="{{ find('youtube') }}"> <i class="fa fa-youtube fa-2x enlace-redes"></i></a>
                        <a href="{{ find('linkedin') }}"> <i  class="fa fa-linkedin fa-2x enlace-redes"></i></a>
 
@@ -283,6 +284,9 @@
         <div class="footer-inferior">
             <div class="container" style="font-family: Fago-normal">
                 {{ find('textofooter') }}
+                <a href="http://www.centromultimedia.com.ar" target="_blank"><img style="margin-left: 1%;float: right;width: 14px;height: 14px;" src="/cialesymf/web/bundles/gema/clientresources/img/logo_cm.png"></a>
+                {#<a href="http://www.centromultimedia.com.ar" target="_blank"><span style="float: right;color: white;font-family: Fago-Bold;font-size: 12px;">Centro Multimedia SRL </span></a>#}
+                <a href="http://www.centromultimedia.com.ar" target="_blank"><span style="float: right;color: white;font-family: Fago-normal;font-size: 12px;font-weight: 100">Diseño y Comunicación: Centro Multimedia SRL</span></a>
             </div>
         </div>
     </footer>

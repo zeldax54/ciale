@@ -47,6 +47,10 @@ class TwigExtensions extends \Twig_Extension
         if($param=='koepon'){
             return $myRepo->find(1)->getUrlkoepon();
         }
+        if($param=='afip'){
+            return $myRepo->find(1)->getUrldatafiscalafip();
+        }
+
     }
 
     public function getName()

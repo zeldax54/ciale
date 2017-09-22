@@ -104,6 +104,7 @@ class ToroController extends Controller
         $entity = new Toro();
         $em = $this->getDoctrine()->getManager();
         $raza=$em->getRepository('gemaBundle:Raza')->find($idraza);
+      //  print_r($raza->getNombre());die();
 
         $form   = $this->createCreateForm($entity,$idraza);
         $helper=new MyHelper();
@@ -230,10 +231,13 @@ class ToroController extends Controller
         $webPath = $this->get('kernel')->getRootDir().'/../web/toro/'.$guid;
         $webPath2 = $this->get('kernel')->getRootDir().'/../web/toro/'.$guid.'P';
         $this->get("gema.utiles")->traza($accion);
+        foreach($entity->getYoutubes() as $y){
+            $em->remove($y);
+        }
             $em->remove($entity);
             $em->flush();
       //Eliminando
-       $helper=new MyHelper();
+        $helper=new MyHelper();
         $helper->RemoveFolder($webPath);
         $helper->RemoveFolder($webPath2);
         return $this->redirect($this->generateUrl('admin_toro_'));
