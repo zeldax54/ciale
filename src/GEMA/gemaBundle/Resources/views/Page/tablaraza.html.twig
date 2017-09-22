@@ -878,48 +878,48 @@
              var familyId=$(this).attr('familyid');
              var id=$(this).attr('id');
              {
-                 if(id=='cpCheckbox'){
-                     $('#fp24.'+familyId).prop('checked',false);
-                     $('#fp18.'+familyId).prop('checked',false);
-                     $('#fp15.'+familyId).prop('checked',false);
-                     $('#nuevosCheckbox.'+familyId).prop('checked',false);
-                     $('#mochoCheckbox.'+familyId).prop('checked',false);
-                 }
+//                 if(id=='cpCheckbox'){
+//                     $('#fp24.'+familyId).prop('checked',false);
+//                     $('#fp18.'+familyId).prop('checked',false);
+//                     $('#fp15.'+familyId).prop('checked',false);
+//                     $('#nuevosCheckbox.'+familyId).prop('checked',false);
+//                     $('#mochoCheckbox.'+familyId).prop('checked',false);
+//                 }
                  if(id=='fp24'){
-                 $('#cpCheckbox.'+familyId).prop('checked',false);
+//                 $('#cpCheckbox.'+familyId).prop('checked',false);
                  $('#fp18.'+familyId).prop('checked',false);
                  $('#fp15.'+familyId).prop('checked',false);
-                     $('#nuevosCheckbox.'+familyId).prop('checked',false);
-                     $('#mochoCheckbox.'+familyId).prop('checked',false);
+//                     $('#nuevosCheckbox.'+familyId).prop('checked',false);
+//                     $('#mochoCheckbox.'+familyId).prop('checked',false);
                 }
                  if(id=='fp18'){
-                     $('#cpCheckbox.'+familyId).prop('checked',false);
+//                     $('#cpCheckbox.'+familyId).prop('checked',false);
                      $('#fp24.'+familyId).prop('checked',false);
                      $('#fp15.'+familyId).prop('checked',false);
-                     $('#nuevosCheckbox.'+familyId).prop('checked',false);
-                     $('#mochoCheckbox.'+familyId).prop('checked',false);
+//                     $('#nuevosCheckbox.'+familyId).prop('checked',false);
+//                     $('#mochoCheckbox.'+familyId).prop('checked',false);
                  }
                  if(id=='fp15'){
-                     $('#cpCheckbox.'+familyId).prop('checked',false);
+//                     $('#cpCheckbox.'+familyId).prop('checked',false);
                      $('#fp18.'+familyId).prop('checked',false);
                      $('#fp24.'+familyId).prop('checked',false);
-                     $('#nuevosCheckbox.'+familyId).prop('checked',false);
-                     $('#mochoCheckbox.'+familyId).prop('checked',false);
+//                     $('#nuevosCheckbox.'+familyId).prop('checked',false);
+//                     $('#mochoCheckbox.'+familyId).prop('checked',false);
                  }
-                 if(id=='nuevosCheckbox'){
-                     $('#cpCheckbox.'+familyId).prop('checked',false);
-                     $('#fp18.'+familyId).prop('checked',false);
-                     $('#fp15.'+familyId).prop('checked',false);
-                     $('#fp24.'+familyId).prop('checked',false);
-                     $('#mochoCheckbox.'+familyId).prop('checked',false);
-                 }
-                 if(id=='mochoCheckbox'){
-                     $('#fp24.'+familyId).prop('checked',false);
-                     $('#fp18.'+familyId).prop('checked',false);
-                     $('#fp15.'+familyId).prop('checked',false);
-                     $('#nuevosCheckbox.'+familyId).prop('checked',false);
-                     $('#cpCheckbox.'+familyId).prop('checked',false);
-                 }
+//                 if(id=='nuevosCheckbox'){
+//                     $('#cpCheckbox.'+familyId).prop('checked',false);
+//                     $('#fp18.'+familyId).prop('checked',false);
+//                     $('#fp15.'+familyId).prop('checked',false);
+//                     $('#fp24.'+familyId).prop('checked',false);
+//                     $('#mochoCheckbox.'+familyId).prop('checked',false);
+//                 }
+//                 if(id=='mochoCheckbox'){
+//                     $('#fp24.'+familyId).prop('checked',false);
+//                     $('#fp18.'+familyId).prop('checked',false);
+//                     $('#fp15.'+familyId).prop('checked',false);
+//                     $('#nuevosCheckbox.'+familyId).prop('checked',false);
+//                     $('#cpCheckbox.'+familyId).prop('checked',false);
+//                 }
              }
 				 SearchInTableForVal('lista-busqueda','',0,familyId);
 		 });
@@ -1001,15 +1001,15 @@
 
 			 }
 
-			else if(iscp==true){
+			 if(iscp==true){
 				 table.column('.cpsearch').search('cp').draw();
 
            }
-         else if(isnuevo==true){
+          if(isnuevo==true){
 			  table.column('.nuevoseach').search('nuevo').draw();
           }
 
-          else   if(ismocho==true){
+             if(ismocho==true){
 				 table.column('.mochosearch').search('true').draw();
              }
 			 else if(!fp15 && !fp18 && !fp24 && !iscp && !isnuevo && !iscp)

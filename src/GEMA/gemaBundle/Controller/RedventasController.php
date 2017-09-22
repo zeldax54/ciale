@@ -45,7 +45,8 @@ class RedventasController extends Controller
             $prov=$em->getRepository('gemaBundle:Provincia')->findOneBycodigo($codigo);
             $provincianame='<em class="redventasHeader" style="color:#00388B;margin-left: 10px;">'.$prov->getNombre().'</em>' ;
             $staff=$em->getRepository('gemaBundle:Vendedor')->findBy(array(
-                'provincia'=>$prov->getId()
+                'provincia'=>$prov->getId(),
+                'publico'=>true
             ));
             $localdistrib=$em->getRepository('gemaBundle:Distribuidorlocal')->findBy(array(
                 'provincia'=>$prov->getId()

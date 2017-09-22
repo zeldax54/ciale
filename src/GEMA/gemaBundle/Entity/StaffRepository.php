@@ -50,7 +50,8 @@ class StaffRepository extends EntityRepository
         $qb = new QueryBuilder($this->getEntityManager());
         $qb
             ->select("B")
-            ->from($this->getClassName(), "B");
+            ->from($this->getClassName(), "B")
+            ->where("B.publico=1");
         $qb->orderBy('B.id','asc');
         return $qb->getQuery()->getResult();
     }
