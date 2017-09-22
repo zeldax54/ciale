@@ -40,6 +40,7 @@ class RazalistController extends Controller
             $father=$em->getRepository('gemaBundle:Razafather')->find($id);
             $razas=$father->getRazas();
             $toros=$em->getRepository('gemaBundle:Toro')->torosbyRazas($razas);
+         //   print_r(count($toros));die();
             $nombreraza=$father->getNombre();
             $tablas=array();
             $mocho=false;
@@ -47,7 +48,7 @@ class RazalistController extends Controller
                 $tablasch=$r->getTipotabla()->getTablas();
                 foreach($tablasch as $t)
                 {
-                    $t->toros=$r->getToros();
+                    $t->toros=$em->getRepository('gemaBundle:Toro')->torosbyRazaP($r);
                     $tablas[]=$t;
                 }
                 if($r->getMocho()==true)
@@ -61,13 +62,14 @@ class RazalistController extends Controller
             $otherrazas=null;
         }
         else{
-            $raza=$em->getRepository('gemaBundle:Raza')->find($id);
-            $toros=$raza->getToros();
+             $raza=$em->getRepository('gemaBundle:Raza')->find($id);
+             $toros=$em->getRepository('gemaBundle:Toro')->torosbyRazaP($raza);
+
             $nombreraza=$raza->getNombre();
             if( $raza->getTipotabla() !=null){
                 $tablas=$raza->getTipotabla()->getTablas();
                 foreach($tablas as $t)
-                    $t->toros=$raza->getToros();
+                    $t->toros=$em->getRepository('gemaBundle:Toro')->torosbyRazaP($raza);
             }
             else
                 $tablas=null;
@@ -90,30 +92,38 @@ class RazalistController extends Controller
             else
                 $otherrazas=null;
         }
+
+
         foreach($toros as $toro)
         {
 
-            $img=$helper->randomPic('toro'.DIRECTORY_SEPARATOR.$toro->getGuid().'P'.DIRECTORY_SEPARATOR,true);
-            if($img==null)
-                $img=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'toro.png',true);
+                $img=$helper->randomPic('toro'.DIRECTORY_SEPARATOR.$toro->getGuid().'P'.DIRECTORY_SEPARATOR,true);
+                if($img==null)
+                    $img=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'toro.png',true);
 
-            $toro->imgprincipal=$img;
+                $toro->imgprincipal=$img;
 
-            if($toro->getNuevo()==true)
-                $toro->nuevoflag='<span style="padding: 3px;background: red;color: white;"><strong>Nuevo</strong></span>';
-            else
-                $toro->nuevoflag=null;
-            $toro->facilidadglag=$this->imgFacilidadParto($helper,$toro->getFacilidadparto());
-            $toro->nacionalidadflag=$this->Nacionalidad($helper,$toro->getNacionalidad());
-            $toro->conceptplusflag=$this->ConceptPlus($helper,$toro->getCP());
-            $toro->tablasflag=json_decode($toro->getTablagenetica(),true);
+
+                if($toro->getNuevo()==true)
+                    $toro->nuevoflag='<span style="padding: 3px;background: red;color: white;"><strong>Nuevo</strong></span>';
+                else
+                    $toro->nuevoflag=null;
+                $toro->facilidadglag=$this->imgFacilidadParto($helper,$toro->getFacilidadparto());
+                $toro->nacionalidadflag=$this->Nacionalidad($helper,$toro->getNacionalidad());
+                $toro->conceptplusflag=$this->ConceptPlus($helper,$toro->getCP());
+                $toro->tablasflag=json_decode($toro->getTablagenetica(),true);
+
 
         }
 
-//          //Chequeando tablas
-//        foreach($tablas as $t){
-//
+//        print(count($toros));   print( '<br>');
+//        foreach($toros as $t){
+//            print( $t->imgprincipal);
+//            print( '<br>');
 //        }
+//        die();
+//
+
 
         return $this->render('gemaBundle:Page:tablaraza.html.twig', array(
                 'toros'=>$toros,

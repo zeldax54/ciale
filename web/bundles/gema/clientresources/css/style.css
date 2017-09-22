@@ -1086,6 +1086,7 @@ text-decoration:none;
 }
 #infocontainer{
 		text-align:left !important;
+		margin-top: 1px;
 	}
 .internaaaacdist:hover{
 	cursor:pointer;

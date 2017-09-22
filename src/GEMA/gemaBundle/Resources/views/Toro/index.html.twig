@@ -28,8 +28,9 @@
 
                     <th data-column-id="apodo">Apodo</th>
                     <th data-column-id="nombre">Nombre</th>
-                    <th data-formatter="tiporaza">Tipo de Raza</th>
-                    <th data-formatter="raza">Raza</th>
+                    <th data-column-id="tiporaza" data-formatter="tiporaza">Tipo de Raza</th>
+                    <th data-column-id="raza" data-formatter="raza">Raza</th>
+                    <th data-column-id="publico" data-formatter="publico">Público</th>
 
                     <th colspan="3" data-formatter="commands">Editar/Eliminar/Publicar</th>
                 </tr>
@@ -191,6 +192,13 @@
                 "tiporaza": function(column, row) {
 
                     return "" + row.raza.tiporaza.tipo;
+                },
+                "publico": function(column, row) {
+                  if(row.publico==1){
+                      return '<span class="md md-turned-in"></span>';
+
+                  }
+                    return '<span class="md md-turned-in-not"></span>';
                 }
             }, templates: {
                 loading: "<tr><td colspan='9' class=\"loading\"><div class='loading'><img src='{{ asset('bundles/gema/images/loading.gif') }}' class='img-responsive'></div></td></tr>"

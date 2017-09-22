@@ -48,8 +48,9 @@ class ToroRepository extends EntityRepository
         }
         if ($request->request->get("sort") != null) {
             $orden = $request->request->get("sort");
+           // print_r($orden);die();
             foreach ($orden as $key => $value) {
-                $qb->orderBy("B." . $key, $value);
+                $qb->orderBy("T." . $key, $value);
             }
         }
         return $qb;
@@ -90,6 +91,7 @@ class ToroRepository extends EntityRepository
             ->orWhere("T.padremadre like '%".$dato."%'")
             ->orWhere("T.apodo like '%".$dato."%'")
             ->orWhere("R.nombre like '%".$dato."%'")
+            ->andWhere("T.publico=1")
         ;
         return $qb->getQuery()->getResult();
 
@@ -104,11 +106,29 @@ class ToroRepository extends EntityRepository
             ->from($this->getClassName(), "A")
             ->leftJoin('A.raza', "R");
 
+
+
         foreach($razas as $r)
         {
             $qb->orWhere("R.id='".$r->getId()."'");
         }
+        $qb->andWhere("A.publico=1");
         $qb->orderBy('A.apodo',"ASC");
+        return $qb->getQuery()->getResult();
+
+    }
+
+    public function torosbyRazaP($raza){
+        $qb = new QueryBuilder($this->getEntityManager());
+        $qb
+            ->select("T","R")
+            ->from($this->getClassName(), "T")
+
+            ->leftJoin('T.raza', "R")
+            ->Where("T.publico=1");
+
+        $qb  ->andWhere('R.id='.$raza->getId());
+        $qb->orderBy('T.apodo',"ASC");
         return $qb->getQuery()->getResult();
 
     }
