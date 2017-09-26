@@ -253,7 +253,12 @@ font-size: 19px;
 }*/
 
 
-
+.fancybox-arrow--right{
+	margin-right: 47px !important;
+}
+.fancybox-arrow--left{
+	margin-left: 47px !important;
+}
 
 
 

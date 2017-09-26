@@ -55,6 +55,7 @@ class PageController extends Controller {
 
         $noticias = $em->getRepository('gemaBundle:Noticia')->lastthree();
          $servername= $_SERVER['SERVER_NAME'];
+        sort($sliders, SORT_NATURAL | SORT_FLAG_CASE);
 $slidersdesc=array();
         foreach($sliders as $s){
             $slidersdesc[]=array(
@@ -62,6 +63,7 @@ $slidersdesc=array();
                 'desc'=>$this->getDesc(explode(DIRECTORY_SEPARATOR,$s))
             );
         }
+
 
         return $this->render('gemaBundle:Page:page.html.twig', array(
                 'fathers'=>$fathers,

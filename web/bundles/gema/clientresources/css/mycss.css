@@ -447,6 +447,16 @@ text-decoration:none;
 	cursor:default;
 }
 
+.harcodea{
+	text-decoration: none;
+	color: white;
+	font-family:'Fago-normal';
+}
+.harcodea:hover{
+	color: white;
+	text-decoration: none;
+}
+
 
  
 
