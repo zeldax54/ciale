@@ -7,6 +7,21 @@ use GEMA\gemaBundle\Helpers\MyHelper;
 
 class PageController extends Controller {
 
+
+    function getDesc($data){
+        $em = $this->getDoctrine()->getManager();
+        $descripcionprinc=$em->getRepository('gemaBundle:MediaDescription')-> findOneBy(
+            array(
+                'nombre'=>str_replace('_small','',$data[2]),
+                'folder'=>$data[0],
+                'subforlder'=>$data[1]
+            )
+        );
+        if($descripcionprinc==null)
+            return '';
+        return $pricimgdesc=$descripcionprinc->getDescripcion();
+    }
+
     public function indexAction() {
         $em = $this->getDoctrine()->getManager();
 
@@ -40,11 +55,19 @@ class PageController extends Controller {
 
         $noticias = $em->getRepository('gemaBundle:Noticia')->lastthree();
          $servername= $_SERVER['SERVER_NAME'];
+$slidersdesc=array();
+        foreach($sliders as $s){
+            $slidersdesc[]=array(
+                'img'=>$s,
+                'desc'=>$this->getDesc(explode(DIRECTORY_SEPARATOR,$s))
+            );
+        }
+
         return $this->render('gemaBundle:Page:page.html.twig', array(
                 'fathers'=>$fathers,
                 'razasnofather'=>$razasnofather
                 ,'leche'=>$leche,
-                'sliders'=>$sliders,
+                'sliders'=>$slidersdesc,
                 'imgprinc'=>$princimg,
                 'redimg'=>$redventasimg,
                 'distrib'=>$distribuidores,

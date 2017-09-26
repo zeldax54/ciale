@@ -594,4 +594,6 @@ class MyHelper
         return $string;
     }
 
+
+
 }

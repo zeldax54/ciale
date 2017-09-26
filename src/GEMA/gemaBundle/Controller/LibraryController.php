@@ -297,6 +297,7 @@ class LibraryController extends Controller
 
       try{
           $nombre=str_replace('&','.',$nombre);
+          $description=str_replace('^','/',$description);
 
           if($subfolder=='undefined')
               $subfolder='';

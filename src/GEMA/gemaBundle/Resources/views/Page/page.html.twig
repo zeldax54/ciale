@@ -95,7 +95,11 @@
           <div class="col-sm-6 col-md-6 " data-pg-collapsed="" style="padding: 4px;">
               <ul class="bxslider">
                   {% for slide in sliders %}
-                  <li><img src="{{ asset(slide) }}" /></li>
+                      {% if slide['desc'] is not null and slide['desc']!='' and slide['desc']!=' ' %}
+                <li>  <a href="{{ slide['desc'] }}" target="_blank"><img src="{{ asset(slide['img']) }}" /></a></li>
+                      {% else %}
+                          <li>  <img src="{{ asset(slide['img']) }}" /></li>
+                  {% endif %}
              {% endfor %}
               </ul>
 

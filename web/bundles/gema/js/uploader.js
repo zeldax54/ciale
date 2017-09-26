@@ -16,7 +16,6 @@ function GetData(folder,param)
             }
             console.log(segundoseg);
             var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + segundoseg;
-console.log(baseUrl);
             reload_js(baseUrl+'/web/bundles/gema/js/bootstrap3.min.js');
             InModalChargeView(data);
 
@@ -345,6 +344,9 @@ $(document).on('keyup', '.descrip', function () {
     var nombre=$(this).attr('dtanombre');
     nombre=nombre.replace('.','&');
     var descripcion=$(this).val();
+    descripcion=descripcion.replace('//','^^');
+    descripcion=descripcion.replace('/','^');
+    console.log(descripcion);
     if(descripcion!=null && descripcion!==undefined && descripcion!=''){
         timeout = setTimeout(function (e) {
 
