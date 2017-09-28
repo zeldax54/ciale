@@ -314,7 +314,7 @@ class MyHelper
          return $final[$img];
     }
 
-    function SaberExt($filename){
+   public function SaberExt($filename){
         $split  = explode('.',$filename);
         if(isset($split[count($split)-1])) {
         return $split[count($split)-1];

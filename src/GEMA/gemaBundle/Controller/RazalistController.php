@@ -257,37 +257,42 @@ class RazalistController extends Controller
 
         $mediatoro=$helper->filesInFolder('toro'.DIRECTORY_SEPARATOR.$toro->getGuid().DIRECTORY_SEPARATOR,true);
         if(count($mediatoro)>0)
-        foreach($mediatoro as $mt){
-            $mediaInpage[]=array(
-                'tipo'=>'img',
-                'url'=> $mt,
-                 'representacion'=>$mt,
-                'descripcion'=>$this->getDesc(explode(DIRECTORY_SEPARATOR,$mt))
-            );
+        {
+            sort($mediatoro, SORT_NATURAL | SORT_FLAG_CASE);
+            foreach($mediatoro as $mt){
+                $mediaInpage[]=array(
+                    'tipo'=>'img',
+                    'url'=> $mt,
+                    'representacion'=>$mt,
+                    'descripcion'=>$this->getDesc(explode(DIRECTORY_SEPARATOR,$mt))
+                );
+            }
         }
+
         $lis=array();
+
         if(count($mediaInpage)>0)
         {
 
         //    print_r($mediaInpage);die();
-            $claves_aleatorias = array_rand($mediaInpage, count($mediaInpage));
+           // $claves_aleatorias = array_rand($mediaInpage, count($mediaInpage));
 
           //  print_r($claves_aleatorias);die();
 
-            $finalmedia=array();
-            if($claves_aleatorias!==0){
-                foreach($claves_aleatorias as $clave)
-                {
-                    $finalmedia[]=$mediaInpage[$clave];
-                }
-            }else{
-                $finalmedia=$claves_aleatorias;
-            }
+           // $finalmedia=$mediaInpage;
+//            if($claves_aleatorias!==0){
+//                foreach($claves_aleatorias as $clave)
+//                {
+//                    $finalmedia[]=$mediaInpage[$clave];
+//                }
+//            }else{
+//                $finalmedia=$claves_aleatorias;
+//            }
 
             $flag=0;
             $flaadd=0;
 
-            shuffle ($mediaInpage);
+           // shuffle ($mediaInpage);
             for($i=0;$i<count($mediaInpage);$i++)
             {
                 if($mediaInpage[$i]['tipo']=='video')

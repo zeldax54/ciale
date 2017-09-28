@@ -230,3 +230,7 @@ gema_getmediadescription:
 gema_torocambpublic:
     pattern:  /{id}/cpc
     defaults: { _controller: "gemaBundle:Toro:changepublic" }
+
+gema_exceladmin:
+    pattern:  /{razaid}/exceladmin
+    defaults: { _controller: "gemaBundle:Export:exceladmin" }

@@ -46,14 +46,24 @@ class UploaderController extends Controller
 
             $excelName = $_FILES['torosFormAutoCargaExcel']['name'];
             $rutafinal = $this->get('kernel')->getRootDir() . '/../web/excelsfiles/' . $excelName;
+
             if (move_uploaded_file($_FILES['torosFormAutoCargaExcel']['tmp_name'], $rutafinal)
                 && $_FILES['torosFormAutoCargaExcel']['error'] == 0
             ) {
 
-
+                $helper=new MyHelper();
+               $extexcel= $helper->SaberExt($excelName = $_FILES['torosFormAutoCargaExcel']['name']);
+              if($extexcel=='xls'){
+                  $objReader=PHPExcel_IOFactory::createReader('Excel5');
+              }else
                 $objReader = PHPExcel_IOFactory::createReader('Excel2007');
                 if ($objReader->canRead($rutafinal))
                     $objPHPExcel = $objReader->load($rutafinal);
+                else{
+                    return new JsonResponse(
+                        "No se puede leer el fichero"
+                    );
+                }
                 $hoja = $objPHPExcel->getActiveSheet();
                 $maxCell = $hoja->getHighestRowAndColumn();
                 $data = $hoja->rangeToArray('A1:' . $maxCell['column'] . $maxCell['row']);

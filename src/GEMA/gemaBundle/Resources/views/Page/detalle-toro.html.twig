@@ -1,4 +1,5 @@
 {% extends 'gemaBundle::clientlayout.html.twig' %}
+{% block title %}{{  toro.apodo ~' | Ciale Alta'  }}{% endblock %}
 
   {% block customstylesheets %}
 	  <link href="{{ asset('bundles/gema/clientresources/fancybox/dist/jquery.fancybox.css')}}" rel="stylesheet">
@@ -500,6 +501,8 @@
 
 			$(document).ready(function(){
 
+{#var title='{{ toro.apodo }}'+' | CIALE Alta';#}
+{#$(document).prop('title', title);#}
 
 $(".fancybox").fancybox({
 		openEffect	: 'none',

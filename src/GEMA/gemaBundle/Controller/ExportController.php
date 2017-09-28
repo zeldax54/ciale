@@ -106,6 +106,7 @@ class ExportController extends Controller
 
   function excelExportAction($toros,$alltoros){
 
+
     $torosid=explode('|',$toros);
 
     $objPHPExcel = new \PHPExcel();
@@ -124,6 +125,24 @@ class ExportController extends Controller
           $letras[]=$letra;
           $objPHPExcel->getActiveSheet()->SetCellValue($letra.'2',$dato->getComentario());
           $iter++;
+
+
+          if($dato->getComentario()=='Peso') {
+
+              $letra=$this->getNext($iter);
+              $iter++;
+              $objPHPExcel->getActiveSheet()->SetCellValue($letra.'2','Paises');
+          }
+
+
+          if($dato->getComentario()=='Precio'){
+              $letra=$this->getNext($iter);
+              $iter++;
+              $objPHPExcel->getActiveSheet()->SetCellValue($letra.'2','Frame');
+              $letra=$this->getNext($iter);
+              $objPHPExcel->getActiveSheet()->SetCellValue($letra.'2','Tabla de EG');
+              $iter++;
+          }
       }
       $this->SetBold($objPHPExcel,$letras,2);
       $this->Colorear($objPHPExcel,$letras,1);
@@ -204,6 +223,14 @@ class ExportController extends Controller
                   if($head=='nuevo' || $head=='cp'){
                       $valor= $this->convertBool($valor);
                   }
+                  if($head=='fechanacimiento'){
+                      if($valor!=null && $valor!=''){
+                          $valor= substr($valor, 0, 10);
+                          $ex=explode('-',$valor);
+                          $valor=$ex[2].'/'.$ex[1].'/'.$ex[0];
+                      }
+
+                  }
                   $objPHPExcel->getActiveSheet()->SetCellValue($letra.$rowsiter,$valor);
                   $this->centerCell($objPHPExcel,$letra,$rowsiter);
               }
@@ -268,6 +295,25 @@ function convertBool($valor){
     return 'no';
 
 }
+
+
+
+public function exceladminAction($razaid){
+    $em = $this->getDoctrine()->getManager();
+    $raza=$em->getRepository('gemaBundle:Raza')->find($razaid);
+    $toros=$raza->getToros();
+    $ids='';
+    $iter=0;
+    foreach($toros as $t){
+        $iter++;
+        if($iter>=count($toros))
+        $ids.=$t->getId();
+        else
+            $ids.=$t->getId().'|';
+     }
+    $this->excelExportAction($ids,'false');
+    //  print_r($ids);die();
+   }
 
     function todopdfAction($toroId){
 

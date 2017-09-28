@@ -66,8 +66,9 @@
                         <h4 class="modal-title">Crear Toro. Seleccione la Raza.</h4>
                     </div>
                     <div class="modal-body">
-                        <select class="tag-select" id="razasselect" autocomplete="off">
+                        <select class="tag-select" id="razasselect">
                    {% for r in razas %}
+
                        <option value="{{ r.id }}">{{ r.nombre }}</option>
                         {% endfor %}
                             </select>
@@ -98,7 +99,9 @@
                                 <label class="control-label"><strong>Raza</strong></label><br/>
                                 <select class="tag-select" id="razasselect" name="razasselect">
                                     {% for r in razas %}
+
                                         <option value="{{ r.id }}">{{ r.nombre }}</option>
+
                                     {% endfor %}
                                 </select>
                                 <label class="control-label"><strong>Tabla Genetica Seleccionada</strong></label><br/>
@@ -162,6 +165,11 @@
     {% block javascripts -%}
     {{ parent() }}
     <script>
+        $(document).ready(function(){
+
+
+        });
+
         $("#data-table-command").bootgrid({
             css: {
                 icon: 'md icon',
