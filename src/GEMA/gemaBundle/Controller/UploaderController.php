@@ -118,6 +118,9 @@ class UploaderController extends Controller
                                 $this->get("gema.utiles")->traza('Toro eliminado por proceso de carga desde excel apodo:'.$inbdtoro->getApodo());
                                 $helper->RemoveFolder($webPath);
                                 $helper->RemoveFolder($webPath2);
+                                foreach($inbdtoro->getYoutubes() as $y){
+                                    $em->remove($y);
+                                }
                                 $em->remove($inbdtoro);
                             }
 
@@ -351,7 +354,7 @@ class UploaderController extends Controller
         foreach ($tablas as $t ) {
             $tablasJSON[] = array(
                 'id' => $t->getId(),
-                'nombre' => $t->getNombre()
+                'nombre' => $t->getNombreresumido()
             );
         }
 

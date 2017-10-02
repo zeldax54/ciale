@@ -452,9 +452,9 @@
 								<th scope="row">{{ dato['rowhead'] }}</th>
 								{% for td in tabla.tabladatos %}
 									{%   if dato['rowhead']|lower =='ranking' and dato[td.nombre] | replace('%','')<=25 and td.nombre|lower !='altura' and td.nombre|lower !='alt.' and td.nombre|lower !='alt' and td.nombre|lower !='alt.hijas'  and td.nombre|lower !='alt.año'  and dato[td.nombre]!='-' %}
-									<td class="downprom">{{ dato[td.nombre]|replace({' ':''})}}</td>
+									<td class="downprom">{{ dato[td.nombre]|replace({' ':''})|round(2) }}</td>
                            {% else %}
-						       <td>{{ dato[td.nombre]|replace({' ':''}) }}</td>
+						       <td>{{ dato[td.nombre]|replace({' ':''})|round(2) }}</td>
 									{% endif %}
 								{% endfor %}
 							</tr>

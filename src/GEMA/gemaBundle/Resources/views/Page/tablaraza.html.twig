@@ -532,7 +532,7 @@
 										{% endif %}
 
 										{% if toro.conceptplusflag is not null %}
-											<td data-cp="{{ toro.cp }}" class="verticalalign"><img src="{{ asset(toro.conceptplusflag) }}"></td>
+											<td data-cp="{{ toro.cp }}" class="verticalalign"><img src="{{ asset(toro.conceptplusflag) }}" width="34" height="34"></td>
 										{% else %}
 											<td data-cp="{{ toro.cp }}" class="verticalalign"></td>
 										{% endif %}
@@ -560,7 +560,7 @@
 												<span class="downprom tip" >{{ tabladata[dato.nombre] }} <span >{{ dato.nombre }}</span></span><br><br>
 
                                                 {% else %}
-                                                    <span class="tip updatago" data-up="{{ tabladata[dato.nombre] }}">{{ tabladata[dato.nombre] }} <span>{{ dato.nombre }}</span> </span><br><br>
+                                                    <span class="tip updatago" data-up="{{ tabladata[dato.nombre]|round(2) }}">{{ tabladata[dato.nombre] }} <span>{{ dato.nombre }}</span> </span><br><br>
                                                  {% endif %}
                                                 {% endif %}
 
@@ -767,7 +767,7 @@
 				//	 ResetOddEvenGeneral();
 				 } );
 
-
+				 tabla.order([3, "asc"]).draw();
 
 
 			 });
@@ -1137,12 +1137,12 @@ console.log(familyId);
 
 		 $(document).ready(function(){
 
-
-			 $('.pruebacomp').each(function(){
-
-				 var familyId=$(this).attr('familyId');
-				ComprimirT(familyId,$(this));
-			 });
+//
+//			 $('.pruebacomp').each(function(){
+//
+//				 var familyId=$(this).attr('familyId');
+//				ComprimirT(familyId,$(this));
+//			 });
 
 		 });
 
