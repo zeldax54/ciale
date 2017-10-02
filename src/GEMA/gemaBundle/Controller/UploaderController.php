@@ -75,15 +75,19 @@ class UploaderController extends Controller
                 $razaRepo = $em->getRepository("gemaBundle:Raza");
                 $raza = $razaRepo->find($razaId);
                 $mapa = $raza->getMapa()->getMapadatos();
+
+
                 $torosUniquesNames = array();
                 $iterator = 0;
+                $rowhead=$data[1];
+                $rowheadtabla=$data[0];
 
                 foreach ($data as $toro) {
                     if ($iterator > 1) {
 
                             $torosUniquesNames[] = $toro[0];
                             $toroF = $toroRepo->findOneByNombreinterno($toro[0]);
-                            $toroF=$this->UpdateCreateToro($raza, $actualizarToros, $toroF, $toro, $mapa,$tablaSelected);
+                            $toroF=$this->UpdateCreateToro($raza, $actualizarToros, $toroF, $toro, $mapa,$tablaSelected,$rowhead,$rowheadtabla);
                            if(is_string($toroF)){
                                return new JsonResponse($toroF);
                            }
@@ -133,7 +137,7 @@ class UploaderController extends Controller
 
     }
 
-    function UpdateCreateToro($raza, $flag, $toro, $row, $mapa,$tablaSelected)
+    function UpdateCreateToro($raza, $flag, $toro, $row, $mapa,$tablaSelected,$rowhead,$rowheadtabla)
     {
         try {
             $isnnew=false;
@@ -150,105 +154,113 @@ class UploaderController extends Controller
 
 
             $toro->setRaza($raza);
-            $toro->setNombre($row[$this->getMapaPos('nombre', $mapa)]);
-            $toro->setNacionalidad($row[$this->getMapaPos('nacionalidad', $mapa)]);
-            $toro->setNombreinterno($row[$this->getMapaPos('nombreinterno', $mapa)]);
-            if($row[$this->getMapaPos('apodo', $mapa)]=='VERDADERO' )
+            $toro->setNombre($row[$this->getMapaPos('nombre', $mapa,$rowhead)]);
+            $toro->setNacionalidad($row[$this->getMapaPos('nacionalidad', $mapa,$rowhead)]);
+            $toro->setNombreinterno($row[$this->getMapaPos('nombreinterno', $mapa,$rowhead)]);
+            if($row[$this->getMapaPos('apodo', $mapa,$rowhead)]=='VERDADERO' )
                 $toro->setApodo('VERDADERO');
             else
-            $toro->setApodo($row[$this->getMapaPos('apodo', $mapa)]);
-            $toro->setCriador($row[$this->getMapaPos('criador', $mapa)]);
-            $toro->setPropietario($row[$this->getMapaPos('propietario', $mapa)]);
-            $toro->setDescripcion($row[$this->getMapaPos('descripcion', $mapa)]);
-            $toro->setNuevo($this->convertBool($row[$this->getMapaPos('nuevo', $mapa)]));
+            $toro->setApodo($row[$this->getMapaPos('apodo', $mapa,$rowhead)]);
+            $toro->setCriador($row[$this->getMapaPos('criador', $mapa,$rowhead)]);
+            $toro->setPropietario($row[$this->getMapaPos('propietario', $mapa,$rowhead)]);
+            $toro->setDescripcion($row[$this->getMapaPos('descripcion', $mapa,$rowhead)]);
+            $toro->setNuevo($this->convertBool($row[$this->getMapaPos('nuevo', $mapa,$rowhead)]));
 
-            $toro->setPadre($row[$this->getMapaPos('padre', $mapa)]);
-            $toro->setMadre($row[$this->getMapaPos('madre', $mapa)]);
-            $toro->setPadrepadre($row[$this->getMapaPos('padrepadre', $mapa)]);
-            $toro->setMadrepadre($row[$this->getMapaPos('madrepadre', $mapa)]);
-            $toro->setPadremadre($row[$this->getMapaPos('padremadre', $mapa)]);
-            $toro->setMadremadre($row[$this->getMapaPos('madremadre', $mapa)]);
-            $toro->setPadrepadrepadre($row[$this->getMapaPos('padrepadrepadre', $mapa)]);
-            $toro->setMadrepadrepadre($row[$this->getMapaPos('madrepadrepadre', $mapa)]);
-            $toro->setPadremadrepadre($row[$this->getMapaPos('padremadrepadre', $mapa)]);
-            $toro->setMadremadrepadre($row[$this->getMapaPos('madremadrepadre', $mapa)]);
-            $toro->setPadrepadremadre($row[$this->getMapaPos('padrepadremadre', $mapa)]);
-            $toro->setMadrepadremadre($row[$this->getMapaPos('madrepadremadre', $mapa)]);
-            $toro->setPadremadremadre($row[$this->getMapaPos('padremadremadre', $mapa)]);
-            $toro->setMadremadremadre($row[$this->getMapaPos('madremadremadre', $mapa)]);
+            $toro->setPadre($row[$this->getMapaPos('padre', $mapa,$rowhead)]);
+            $toro->setMadre($row[$this->getMapaPos('madre', $mapa,$rowhead)]);
+            $toro->setPadrepadre($row[$this->getMapaPos('padrepadre', $mapa,$rowhead)]);
+            $toro->setMadrepadre($row[$this->getMapaPos('madrepadre', $mapa,$rowhead)]);
+            $toro->setPadremadre($row[$this->getMapaPos('padremadre', $mapa,$rowhead)]);
+            $toro->setMadremadre($row[$this->getMapaPos('madremadre', $mapa,$rowhead)]);
+            $toro->setPadrepadrepadre($row[$this->getMapaPos('padrepadrepadre', $mapa,$rowhead)]);
+            $toro->setMadrepadrepadre($row[$this->getMapaPos('madrepadrepadre', $mapa,$rowhead)]);
+            $toro->setPadremadrepadre($row[$this->getMapaPos('padremadrepadre', $mapa,$rowhead)]);
+            $toro->setMadremadrepadre($row[$this->getMapaPos('madremadrepadre', $mapa,$rowhead)]);
+            $toro->setPadrepadremadre($row[$this->getMapaPos('padrepadremadre', $mapa,$rowhead)]);
+            $toro->setMadrepadremadre($row[$this->getMapaPos('madrepadremadre', $mapa,$rowhead)]);
+            $toro->setPadremadremadre($row[$this->getMapaPos('padremadremadre', $mapa,$rowhead)]);
+            $toro->setMadremadremadre($row[$this->getMapaPos('madremadremadre', $mapa,$rowhead)]);
 
-            $toro->setEvaluaciongenetica($row[$this->getMapaPos('evaluaciongenetica', $mapa)]);
-            $toro->setLineagenetica($row[$this->getMapaPos('lineagenetica', $mapa)]);
-            $toro->setFacilidadparto($row[$this->getMapaPos('facilidadparto', $mapa)]);
-            $toro->setCP($this->convertCP($row[$this->getMapaPos('CP', $mapa)]));
-            $toro->setRp($row[$this->getMapaPos('rp', $mapa)]);
-            $toro->setHBA($row[$this->getMapaPos('HBA', $mapa)]);
-            $toro->setSenasa($row[$this->getMapaPos('senasa', $mapa)]);
+            $toro->setEvaluaciongenetica($row[$this->getMapaPos('evaluaciongenetica', $mapa,$rowhead)]);
+            $toro->setLineagenetica($row[$this->getMapaPos('lineagenetica', $mapa,$rowhead)]);
+            $toro->setFacilidadparto($row[$this->getMapaPos('facilidadparto', $mapa,$rowhead)]);
+            $toro->setCP($this->convertCP($row[$this->getMapaPos('CP', $mapa,$rowhead)]));
+            $toro->setRp($row[$this->getMapaPos('rp', $mapa,$rowhead)]);
+            $toro->setHBA($row[$this->getMapaPos('HBA', $mapa,$rowhead)]);
+            $toro->setSenasa($row[$this->getMapaPos('senasa', $mapa,$rowhead)]);
 
             //   print_r(\DateTime::createFromFormat('d-m-Y',str_replace("/", "-", $row[$this->getMapaPos('fechanacimiento', $mapa)]) ));die();
 
-            if($row[$this->getMapaPos('fechanacimiento', $mapa)]==null)
+            if($row[$this->getMapaPos('fechanacimiento', $mapa,$rowhead)]==null || $row[$this->getMapaPos('fechanacimiento', $mapa,$rowhead)]=='')
                 $toro->setFechanacimiento(null);
             else{
-                $fecha=date_create_from_format('d-m-Y',str_replace("/", "-", $row[$this->getMapaPos('fechanacimiento', $mapa)]) );
+                $fecha=date_create_from_format('d-m-Y',str_replace("/", "-", $row[$this->getMapaPos('fechanacimiento', $mapa,$rowhead)]) );
                 $toro->setFechanacimiento($fecha);
             }
-            $toro->setADN($row[$this->getMapaPos('ADN', $mapa)]);
-            $toro->setCircunferenciaescrotal($row[$this->getMapaPos('circunferenciaescrotal', $mapa)]);
-            $toro->setLargogrupa($row[$this->getMapaPos('largogrupa', $mapa)]);
-            $toro->setAnchogrupa($row[$this->getMapaPos('anchogrupa', $mapa)]);
-            $toro->setAltogrupa($row[$this->getMapaPos('altogrupa', $mapa)]);
-            $toro->setAltogrupa($row[$this->getMapaPos('altogrupa', $mapa)]);
-            $toro->setLargocorporal($row[$this->getMapaPos('largocorporal', $mapa)]);
-            $toro->setPeso($row[$this->getMapaPos('peso', $mapa)]);
+            $toro->setADN($row[$this->getMapaPos('ADN', $mapa,$rowhead)]);
+            $toro->setCircunferenciaescrotal($row[$this->getMapaPos('circunferenciaescrotal', $mapa,$rowhead)]);
+            $toro->setLargogrupa($row[$this->getMapaPos('largogrupa', $mapa,$rowhead)]);
+            $toro->setAnchogrupa($row[$this->getMapaPos('anchogrupa', $mapa,$rowhead)]);
+            $toro->setAltogrupa($row[$this->getMapaPos('altogrupa', $mapa,$rowhead)]);
+            $toro->setAltogrupa($row[$this->getMapaPos('altogrupa', $mapa,$rowhead)]);
+            $toro->setLargocorporal($row[$this->getMapaPos('largocorporal', $mapa,$rowhead)]);
+            $toro->setPeso($row[$this->getMapaPos('peso', $mapa,$rowhead)]);
 
-            $toro->setPn1($row[$this->getMapaPos('pn1', $mapa)]);
-            $toro->setP205d($row[$this->getMapaPos('p205d', $mapa)]);
-            $toro->setP365d($row[$this->getMapaPos('p365d', $mapa)]);
-            $toro->setP550d($row[$this->getMapaPos('p550d', $mapa)]);
-            $toro->setP550d($row[$this->getMapaPos('p550d', $mapa)]);
-            $toro->setPrecio($row[$this->getMapaPos('precio', $mapa)]);
+            $toro->setPn1($row[$this->getMapaPos('pn1', $mapa,$rowhead)]);
+            $toro->setP205d($row[$this->getMapaPos('p205d', $mapa,$rowhead)]);
+            $toro->setP365d($row[$this->getMapaPos('p365d', $mapa,$rowhead)]);
+            $toro->setP550d($row[$this->getMapaPos('p550d', $mapa,$rowhead)]);
+            $toro->setP550d($row[$this->getMapaPos('p550d', $mapa,$rowhead)]);
+            $toro->setPrecio($row[$this->getMapaPos('precio', $mapa,$rowhead)]);
 
             $toro->setPublico(1);
+
            if($isnnew==true)           {
                $helper=new MyHelper();
                $toro->setGuid($helper->GUID());
            }
 
             if($raza->getTablasmanual()==true){
-                $toro->setNombreraza($row[$this->getMapaPos('nombreraza', $mapa)]);
+                $toro->setNombreraza($row[$this->getMapaPos('nombreraza', $mapa,$rowhead)]);
             }
 
             if($raza->getTablasmanual()==false){
                 $toro->setTipotablaselected($tablaSelected);
                 $tablas=$raza->getTipotabla()->getTablas();
+
                 $jsonTables='{';
+
                 foreach($tablas as $tabla){
-                    $jsonTables.='"'.$tabla->getNombre().'":[';
+                    $temptable='"'.$tabla->getNombre().'":[';
                     $tablabody=$tabla->getTablabody();
                     $tabladatos = $tabla->getTabladatos();
+                    $tablastartIndex=$this->getTablaStartPos($tabla->getNombre(),$rowheadtabla);
                     foreach($tablabody as $body) {
-                        $jsonTables .= '{';
-                        $jsonTables .= '"rowhead":"' . $body->getRowname() . '",';
+
+                        $temptable .= '{';
+                        $temptable .= '"rowhead":"' . $body->getRowname() . '",';
 
                         foreach ($tabladatos as $dato)
                         {
-                            $jsonTables.='"'.$dato->getNombre().'":"'.$row[$dato->getPosinExcel()+$body->getLejania()].'",';
+
+                            $temptable.='"'.$dato->getNombre().'":"'.$row[$this->getTablaPos($dato->getNombre(),$rowhead,$tablastartIndex)+$body->getLejania()].'",';
                         }
-                        $jsonTables=substr($jsonTables,0,strlen($jsonTables)-1);
-                        $jsonTables.='},';
+                        $temptable=substr($temptable,0,strlen($temptable)-1);
+                        $temptable.='},';
                     }
-                    $jsonTables=substr($jsonTables,0,strlen($jsonTables)-1);
-                    $jsonTables.='],';
+                    $temptable=substr($temptable,0,strlen($temptable)-1);
+                    $temptable.=']';
+                    $checktable='{'.$temptable.'}';
+                    $checkarray=json_decode($checktable,true);
+                //    print_r($checkarray);
+                    if(!$this->checknullarray($checkarray[$tabla->getNombre()])){
+                        $jsonTables.=$temptable.',';
+                    }
                 }
                 $jsonTables=substr($jsonTables,0,strlen($jsonTables)-1);
                 $jsonTables.='}';
-
                 $toro->setTablagenetica($jsonTables);
-
             }
-
-
             return $toro;
 
         }
@@ -258,6 +270,21 @@ class UploaderController extends Controller
             return $e->getMessage();
         }
 
+    }
+
+    function checknullarray($array){
+
+        foreach($array as $a)
+        {
+            foreach($a as $key=>$b){
+
+                if($key!='rowhead'){
+                    if($b!=null && $b!='')
+                        return false;
+                }
+            }
+        }
+        return true;
     }
 
     function convertCP($value)
@@ -275,15 +302,43 @@ class UploaderController extends Controller
         return 0;
     }
 
-    function getMapaPos($nombre,$mapa){
-
-        foreach($mapa as $m)
-        {
-            if($m->getNombre()==$nombre)
-                return $m->getPosinExcel();
+    function getMapaPos($nombre,$mapa,$filacab){
+        $inExcelNombre='';
+           foreach($mapa as $m){
+          if(mb_strtolower($m->getNombre())===mb_strtolower($nombre)){
+                   $inExcelNombre=$m->getComentario();
+                  break;
+               }
         }
+
+        for($i=0;$i<count($filacab);$i++)
+            if(mb_strtolower($filacab[$i])===mb_strtolower($inExcelNombre))
+               return $i;
         return -1;
     }
+
+    function getTablaPos($nombre,$filacab,$tablastartIndex){
+
+        for($i=$tablastartIndex;$i<count($filacab);$i++){
+
+            if(mb_strtolower($filacab[$i])==mb_strtolower($nombre)){
+                return $i;
+            }
+        }
+
+        return -1;
+    }
+
+    function getTablaStartPos($tablaname,$headtabla){
+
+        foreach($headtabla as $key=>$head){
+            if( mb_strtolower($head)==mb_strtolower($tablaname)){
+               return $key;
+            }
+        }
+       return -1;
+    }
+
 
 
     function findTablasByRazaAction($id)

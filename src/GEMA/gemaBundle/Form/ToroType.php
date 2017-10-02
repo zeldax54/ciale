@@ -16,10 +16,13 @@ class ToroType extends AbstractType
      */
 
     protected $idraza;
+    protected $ismocho;
 
-    public function __construct ($Idraza)
+    public function __construct ($Idraza,$Ismocho)
     {
         $this->idraza = $Idraza;
+        $this->ismocho=$Ismocho;
+
     }
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -192,8 +195,13 @@ class ToroType extends AbstractType
             ,'allow_add' => true,'by_reference' => false,'allow_delete' => true,)
 
             );
+        if($this->ismocho==true || $this->ismocho==1)
+            $builder->add('mocho',null,array(
+                'label'=>'Mocho'
+            ));
 
-        ;
+
+
     }
     
     /**

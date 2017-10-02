@@ -7,7 +7,9 @@ namespace GEMA\gemaBundle\Helpers;
  * Time: 2:38
  */
 
+use MongoDB\Driver\Exception\ExecutionTimeoutException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpKernel\Kernel;
 
 class MyHelper
@@ -204,26 +206,37 @@ class MyHelper
 
     }
 
-    function videosPic($videourl){
+    function videosPic($videourl)
+    {
+
+        try {
+            preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $videourl, $match);
+            $youtube_id = $match[1];
+
+            $ruta = $this->directPic('minyoutube' . DIRECTORY_SEPARATOR, $youtube_id . '.jpg', false);
+
+            if ($ruta == null) {
+
+                $urlapi = 'https://img.youtube.com/vi/' . $youtube_id . '/sddefault.jpg';
+
+                global $kernel;
+                $path = $kernel->getRootDir() . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . 'minyoutube' . DIRECTORY_SEPARATOR . $youtube_id . '.jpg';
+               if (@copy($urlapi, $path)) {
+                    return $path;
+                }
+                return $this->directPic('genericfiles'.DIRECTORY_SEPARATOR,'video.png',false);
 
 
-        preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $videourl, $match);
-        $youtube_id = $match[1];
+            }
 
-        $ruta=$this->directPic('minyoutube'.DIRECTORY_SEPARATOR,$youtube_id.'.jpg',false);
+            return $ruta;
+        } catch (\Exception $e) {
 
-        if($ruta==null){
 
-            $urlapi='https://img.youtube.com/vi/'.$youtube_id.'/sddefault.jpg';
-            global $kernel;
-            $path = $kernel->getRootDir() . DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'web'.DIRECTORY_SEPARATOR.'minyoutube'.DIRECTORY_SEPARATOR.$youtube_id.'.jpg';
-            copy($urlapi,$path);
-
-            return $path;
         }
-
-        return $ruta;
     }
+
+
 
     function generateThumb($videourl){
 
@@ -356,11 +369,12 @@ class MyHelper
            {
 
 
-               $rep= $this->videosPic($y);
+               $img=$this->videosPic($y);
+
                $mediaInpage[]=array(
                    'tipo'=>'video',
                    'url'=> $y,
-                   'representacion'=>$rep
+                   'representacion'=>$img
                );
            }
        }

@@ -337,8 +337,7 @@ class Toro
     private $youtubes;
 
     /**
-     * @var string
-     * @ORM\Column(name="mocho", type="string",length=255,nullable=true)
+     * @ORM\Column(name="mocho", type="boolean", nullable=true)
      */
     private $mocho;
 

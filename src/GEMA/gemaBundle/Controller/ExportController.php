@@ -127,22 +127,22 @@ class ExportController extends Controller
           $iter++;
 
 
-          if($dato->getComentario()=='Peso') {
-
-              $letra=$this->getNext($iter);
-              $iter++;
-              $objPHPExcel->getActiveSheet()->SetCellValue($letra.'2','Paises');
-          }
-
-
-          if($dato->getComentario()=='Precio'){
-              $letra=$this->getNext($iter);
-              $iter++;
-              $objPHPExcel->getActiveSheet()->SetCellValue($letra.'2','Frame');
-              $letra=$this->getNext($iter);
-              $objPHPExcel->getActiveSheet()->SetCellValue($letra.'2','Tabla de EG');
-              $iter++;
-          }
+//          if($dato->getComentario()=='Peso') {
+//
+//              $letra=$this->getNext($iter);
+//              $objPHPExcel->getActiveSheet()->SetCellValue($letra.'2','Paises');
+//              $iter++;
+//          }
+//
+//
+//          if($dato->getComentario()=='Precio'){
+//              $letra=$this->getNext($iter);
+//              $iter++;
+//              $objPHPExcel->getActiveSheet()->SetCellValue($letra.'2','Frame');
+//              $letra=$this->getNext($iter);
+//              $objPHPExcel->getActiveSheet()->SetCellValue($letra.'2','Tabla de EG');
+//              $iter++;
+//          }
       }
       $this->SetBold($objPHPExcel,$letras,2);
       $this->Colorear($objPHPExcel,$letras,1);
@@ -163,6 +163,7 @@ class ExportController extends Controller
           }
       }
       else{
+
 
           if($raza->getTipotabla()!=null){
               $tablas=$raza->getTipotabla()->getTablas();//Here
@@ -212,7 +213,7 @@ class ExportController extends Controller
           $reports = $serializer->serialize($toro, 'json');
           $toroarr=json_decode($reports,true);
         //  if($toro->getId()==412)
-        //  { print_r($toroarr);die();}
+
           foreach($mapadatos as $dato){
               $letra=$this->getNext($iter);
               $head=strtolower($dato->getNombre());

@@ -5,6 +5,7 @@ namespace GEMA\gemaBundle\Controller;
 
 
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -53,8 +54,10 @@ class ToroController extends Controller
     public function createAction(Request $request)
     {
        $idraza=$request->request->get('gema_gemabundle_toro')['raza'];
+        $em = $this->getDoctrine()->getManager();
+        $ismocho=$em->getRepository('gemaBundle:Raza')->find($idraza)->getMocho();
         $entity = new Toro();
-        $form = $this->createCreateForm($entity,$idraza);
+        $form = $this->createCreateForm($entity,$idraza,$ismocho);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -83,9 +86,10 @@ class ToroController extends Controller
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createCreateForm(Toro $entity,$idraza)
+    private function createCreateForm(Toro $entity,$idraza,$Ismocho)
     {
-        $form = $this->createForm(new ToroType($idraza), $entity, array(
+
+        $form = $this->createForm(new ToroType($idraza,$Ismocho), $entity, array(
             'action' => $this->generateUrl('admin_toro__create'),
             'method' => 'POST',
         ));
@@ -104,9 +108,10 @@ class ToroController extends Controller
         $entity = new Toro();
         $em = $this->getDoctrine()->getManager();
         $raza=$em->getRepository('gemaBundle:Raza')->find($idraza);
+        $ismocho=$raza->getMocho();
       //  print_r($raza->getNombre());die();
 
-        $form   = $this->createCreateForm($entity,$idraza);
+        $form   = $this->createCreateForm($entity,$idraza,$ismocho);
         $helper=new MyHelper();
     
         return $this->render('gemaBundle:Toro:new.html.twig', array(
@@ -177,7 +182,7 @@ class ToroController extends Controller
     */
     private function createEditForm(Toro $entity)
     {
-        $form = $this->createForm(new ToroType($entity->getRaza()->getId()), $entity, array(
+        $form = $this->createForm(new ToroType($entity->getRaza()->getId(),$entity->getRaza()->getMocho()), $entity, array(
             'action' => $this->generateUrl('admin_toro__update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
@@ -199,10 +204,40 @@ class ToroController extends Controller
     if (!$entity) {
     throw $this->createNotFoundException('Unable to find Toro entity.');
     }
+    //Actualizando Videos
+
+    //Actualizando Dptos
+    $originalvideos=new ArrayCollection();
+    foreach($entity->getYoutubes() as $youtub)
+    {
+
+        $originalvideos->add($youtub);
+    }
+
 
     $deleteForm = $this->createDeleteForm($id);
     $editForm = $this->createEditForm($entity);
     $editForm->handleRequest($request);
+
+    //Continue Update Youtubes
+
+    foreach ($originalvideos as $video) {
+
+        if (false === $entity->getYoutubes()->contains($video)) {
+
+
+            // remove the Task from the Tag
+            $entity->getYoutubes()->removeElement($video);
+            // if it was a many-to-one relationship, remove the relationship  like this
+            $em->remove($video);
+            // $em->persist($dpto);
+
+            // if you wanted to delete the Tag entirely, you can also do that
+            // $em->remove($tag);
+        }
+    }
+    //
+    $em->persist($entity);
     $accion = ' ';
     $this->get("gema.utiles")->traza($accion);
     $em->flush();

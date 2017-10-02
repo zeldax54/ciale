@@ -262,7 +262,61 @@ font-size: 19px;
 
 
 
+    @media (max-width:800px){
+      .fancybox-caption{
+	 margin-bottom:17% !important;
+	
+          }
+		  
+	}
+
+    @media (max-width:500px){
+      .fancybox-caption{
+	 margin-bottom:45% !important;
+  }
+   .pdfgenerator{
+		 display:none;
+	 }
+	}
+@media (max-width:400px){
+      .fancybox-caption{
+	 margin-bottom:42% !important;
+  }
+}
 
 
+@media (max-width:300px){
+      .fancybox-caption{
+	 margin-bottom:72% !important;
+  }
+}
+  
+  
+
+	
+@media (max-width:767px){
+    
+	.fancybox-caption{
+	 margin-bottom:17%;
+	}
+}
+
+    @media (max-width:500px){
+      .fancybox-caption{
+	 margin-bottom:27%;
+  }
+	}
+@media (max-width:400px){
+      .fancybox-caption{
+	 margin-bottom:42%;
+}}
 
 
+@media (max-width:400px){
+      .fancybox-caption{
+	 margin-bottom:72px;
+  }
+
+}
+
+  

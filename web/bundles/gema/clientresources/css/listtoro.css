@@ -172,7 +172,8 @@ display: none;
 @media (max-width:767px){
 	#myTab {
    text-align: center;
-    margin-left: 12%;
+margin-left: 3%;
+width: 117%;
     }
 	#botontotosob,#razadiv1{
 		display:none;
@@ -201,6 +202,30 @@ display: none;
 	#lista-busqueda_length{
 		padding-left: 11%;
 	}
+	
+	#myTabContent{
+		width: 129%;
+margin-left: -12%;
+	}
+	
+	input[type="checkbox"] {
+margin-right: 10px !important;
+	}
+	#cantmsj{
+		margin-left:25% !important;
+	}
+	.pruebacomp
+	{
+		margin-right: 11% !important;
+	}
+	.fullcontainer1{
+		width:78% !important;
+		margin-left: 10% !important;
+	}
+	.fullcontainer2{
+		width:78% !important;
+		margin-left: 10% !important;
+	}
 }
 
 @media (max-width:481px){
@@ -211,7 +236,7 @@ display: none;
 @media (max-width:370px){
 	
 	#datostext,#searchinrazaAllT{
-		width: 217px !important;
+		width: 260px !important;
 		font-size: 13px !important;
 	}
 	

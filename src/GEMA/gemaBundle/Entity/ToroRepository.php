@@ -3,6 +3,8 @@
 namespace GEMA\gemaBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query\ResultSetMapping;
+use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -42,7 +44,6 @@ class ToroRepository extends EntityRepository
             ->orWhere($qb->expr()->like("T.apodo", $qb->expr()->literal("%" . $search . "%")))
             ->orWhere($qb->expr()->like("R.nombre", $qb->expr()->literal("%" . $search . "%")))
             ->orWhere($qb->expr()->like("TR.tipo", $qb->expr()->literal("%" . $search . "%")))
-
             ;
 
         }
@@ -105,13 +106,10 @@ class ToroRepository extends EntityRepository
             ->select("A","R")
             ->from($this->getClassName(), "A")
             ->leftJoin('A.raza', "R");
-
-
-
         foreach($razas as $r)
-        {
             $qb->orWhere("R.id='".$r->getId()."'");
-        }
+
+
         $qb->andWhere("A.publico=1");
         $qb->orderBy('A.apodo',"ASC");
         return $qb->getQuery()->getResult();
@@ -131,6 +129,37 @@ class ToroRepository extends EntityRepository
         $qb->orderBy('T.apodo',"ASC");
         return $qb->getQuery()->getResult();
 
+    }
+
+
+    public function torosPublicosByRazaAndTabla($razaId,$tablaName){
+
+        $tabN='+'.str_replace(' ','+',$tablaName);
+        $em=$this->getEntityManager();
+        $rsm = new ResultSetMappingBuilder($this->getEntityManager());
+        $rsm->addRootEntityFromClassMetadata($this->getClassName(), 't');
+      //  $rsm->addRootEntityFromClassMetadata('MyProject\User', 'u');
+        $queryText='SELECT * FROM toro  WHERE MATCH (tablagenetica) AGAINST (\'"'.$tabN.'"\' IN BOOLEAN MODE) and raza_id='.$razaId;
+       // print($queryText);die();
+      //  print($queryText);die();
+        $query = $em->createNativeQuery('SELECT * FROM toro t WHERE MATCH (t.tablagenetica) AGAINST (\'"'.$tabN.'"\' IN BOOLEAN MODE) and publico=1 and t.raza_id='.$razaId,$rsm);
+        $toros = $query->getResult(); // array of User objects
+        return $toros;
+/*print($toros[0]->getApodo());
+print (count($toros));die();
+        $qb = new QueryBuilder($this->getEntityManager());
+        $qb
+            ->select("T","R")
+            ->from($this->getClassName(), "T")
+
+            ->leftJoin('T.raza', "R")
+
+            ->Where("MATCH (T.tablagenetica) AGAINST ('\"".$tabN."\"' IN BOOLEAN MODE)")
+
+        ->andWhere("T.publico=1");
+        $qb  ->andWhere('R.id='.$razaId);
+        $qb->orderBy('T.apodo',"ASC");
+        return $qb->getQuery()->getResult();*/
     }
 
 

@@ -282,6 +282,7 @@
 
         $("#uploadForm").on('submit',(function(e){
             e.preventDefault();
+            $('#targetLayer').empty();
             $.ajax({
                 url: Routing.generate('gema_admin_uploadexcel'),
                 type: "POST",

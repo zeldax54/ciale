@@ -60,16 +60,19 @@
         <div class="form-group">
             <label  class="col-md-2 control-label">Tipo de Tabla Genética</label>
             <div class="col-md-10">
+                {% if raza.tipotabla!=null %}
         <select class="tag-select form-control" id="tipostablaSelect">
         {% for t in raza.tipotabla.tablas %}
             <option value="{{ t.id }}">{{ t.nombre }}</option>
         {% endfor %}
         </select>
+                {% endif %}
                 </div>
 
             </div>
 
         <div>
+            {% if raza.tipotabla!=null %}
             {% for t in raza.tipotabla.tablas %}
                 <div style="overflow-x:auto;" id="contenedor{{ t.id }}" class="contenedorT">
                 <table class="record_properties table table-hover table table-striped table-vmiddle tablagen" name="{{ t.nombre }}" id="tabla{{ t.id }}">
@@ -95,6 +98,7 @@
                     </table>
                 </div>
             {% endfor %}
+            {% endif %}
         </div>
 
     </fieldset>

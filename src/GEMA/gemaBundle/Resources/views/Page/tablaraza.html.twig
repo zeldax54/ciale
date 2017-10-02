@@ -282,7 +282,7 @@
 					</div>
 
 				</div>
-				<div class="row ">
+				<div class="row fullcontainer1">
 
 
 
@@ -305,13 +305,13 @@
 											<th>Raza</th>
 										{% endif %}
 										<th class="nuevoseach">Nuevo </th>
-										<th class="fpsearch">Facilidad de Parto</th>
+										<th class="fpsearch">FP</th>
 										<th class="cpsearch">CP</th>
 										<th>Padre </th>
 										<th>
 											Abuelo Materno
 										</th>
-										{% if mocho is defined and mocho==true %}
+										{% if mocho is defined and mocho==1 %}
 											<th class="mochosearch">
 												Mocho
 											</th>
@@ -324,10 +324,10 @@
 
 									{% for toro in toros %}
 
-										<tr class="{{ cycle(["even", "odd"], loop.index) }}">
+										<tr class="{{ cycle(["odd", "even"], loop.index) }}">
 											<td >{{ toro.id }}</td>
 											<td >{{ toro.id }}</td>
-											<td ><a href="{{ path('gema_torodetail', {'apodo':toro.apodo}) }}"><img class="toroimg imageresponsiveselect"  src="{{ asset(toro.imgprincipal) }}"  width="110px" height="84px"></a></td>
+											<td ><a href="{{ path('gema_torodetail', {'apodo':toro.apodo}) }}"><img class="toroimg imageresponsiveselect"  src="{{ asset(toro.imgprincipal) }}"  width="96px" height="77px"></a></td>
 
 											{#<td class="verticalalign tip" style="text-align: center" data-tableexport-value="{{ toro.apodo|upper }}">{{ toro.apodo|upper }} <span>Nombre:{{ toro.nombre }} <br/>  Madre:{{ toro.madre }}</span> </td>#}
 											<td class="verticalalign tip" style="text-align: center" data-tableexport-value="{{ toro.apodo|upper }}">{{ toro.apodo|upper }}</td>
@@ -337,7 +337,7 @@
 										    <td class="verticalalign extraza" style="text-align: center">{{ toro.nombreraza }}</td>
 											{% endif %}
 											<td data-nuevo="{{ toro.nuevo }}" class="verticalalign">{{ toro.nuevoflag | raw }}</td>
-											{% if toro.facilidadparto is not null %}
+											{% if toro.facilidadparto is not null and toro.facilidadparto!=0 %}
 												<td data-fp="{{ toro.facilidadparto }}" class="verticalalign">{{ toro.facilidadparto }}M</td>
 											{% else %}
 												<td data-p="0" class="verticalalign"></td>
@@ -353,8 +353,12 @@
 
 											<td class="verticalalign">{{ toro.padre }}</td>
 											<td class="verticalalign">{{ toro.padremadre }}</td>
-											{% if mocho is defined and mocho==true %}
-												<td class="verticalalign" data-mocho="{{ toro.mocho }}">{{ toro.mocho }}</td>
+											{% if mocho is defined and mocho==true%}
+												<td class="verticalalign">
+                                                    {% if toro.mocho==1 %}
+                                                    <span>si</span>
+                                                    {% endif %}
+                                                </td>
 											{% endif %}
 
 											{% if toro.nacionalidadflag is not null %}
@@ -445,7 +449,7 @@
 								{% if mocho==true %}
 									<div class="checkbox">
 										<label>
-											<b> Mocho &nbsp;</b><input id="mochoCheckbox" familyid="todos" class="todos" autocomplete="off" type="checkbox" style="margin:0;width:auto">
+											<b> Mocho &nbsp;</b><input id="mochoCheckbox" familyid="{{ 'family'~tabla.id }}" class="{{ 'family'~tabla.id }}" autocomplete="off" type="checkbox" style="margin:0;width:auto">
 										</label>
 									</div>
 								{% endif %}
@@ -467,7 +471,7 @@
 						</div>
 
 					</div>
-					<div class="row">
+					<div class="row fullcontainer2">
 
 
 
@@ -492,12 +496,18 @@
 									<th class="nombresearch">Nombre</th>
 									<th class="madresearch">Madre</th>
 									<th class="cabecerawith nuevoseach">Nuevo</th>
-									<th class="cabecerawith fpsearch">FP</th>
+									<th class="cabecerawith fpsearch never">FP</th>
 									<th class="cabecerawith cpsearch">CP</th>
 
-									<th data-formater="rowhead" class="cabecerawith"></th>
+                                    {% if mocho is defined and mocho==1 %}
+                                        <th class="mochosearch">
+                                            Mocho
+                                        </th>
+                                    {% endif %}
+
+									<th data-formater="rowhead" class="cabecerawith never"></th>
 									{% for dato in tabla.tabladatos %}
-										<th class="cabecerawith" showinvc="{{ dato.verenpc }}">{{ dato.nombre }}</th>
+										<th class="cabecerawith never" showinvc="{{ dato.verenpc }}">{{ dato.nombre }}</th>
 									{% endfor %}
 
 
@@ -507,15 +517,15 @@
 
 								{% for toro in tabla.toros %}
 
-									<tr class="{{ cycle(["even", "odd"], loop.index) }}">
+									<tr class="{{ cycle(["odd", "even"], loop.index) }}">
 										<td>{{ toro.id }}</td>
 										<td >{{ toro.id }}</td>
-										<td><a href="{{ path('gema_torodetail', {'apodo':toro.apodo }) }}"><img class="toroimg" src="{{ asset(toro.imgprincipal) }}" width="100px" height="81px"></a></td>
+										<td><a href="{{ path('gema_torodetail', {'apodo':toro.apodo }) }}"><img class="toroimg" src="{{ asset(toro.imgprincipal) }}" width="96px" height="77px"></a></td>
 										<td class="verticalalign toroapodo" tnombre="{{ toro.nombre }}" tmadre="{{ toro.madre }}" title=" Padre:{{ toro.padre }}*** Abuelo Materno:{{ toro.padremadre }}" style="text-align: center">{{ toro.apodo|upper }}<br>{{ toro.padre|truncate(20,true) }}<br>{{ toro.padremadre|truncate(20,true) }}</td>
 										<td class="verticalalign" style="text-align: center">{{ toro.nombre }}</td>
 										<td class="verticalalign" style="text-align: center">{{ toro.madre }}</td>
 										<td data-nuevo="{{ toro.nuevo }}" class="verticalalign">{{ toro.nuevoflag | raw }}</td>
-										{% if toro.facilidadparto is not null %}
+										{% if toro.facilidadparto is not null and toro.facilidadparto!=0 %}
 											<td data-fp="{{ toro.facilidadparto }}" class="verticalalign">{{ toro.facilidadparto }}M</td>
 										{% else %}
 											<td data-p="0" class="verticalalign"></td>
@@ -526,6 +536,13 @@
 										{% else %}
 											<td data-cp="{{ toro.cp }}" class="verticalalign"></td>
 										{% endif %}
+                                        {% if mocho is defined and mocho==true%}
+                                            <td class="verticalalign">
+                                                {% if toro.mocho==1 %}
+                                                    <span>si</span>
+                                                {% endif %}
+                                            </td>
+                                        {% endif %}
 										<td style="color:black !important;">
 											{% for tabladata in toro.tablasflag[tabla.nombre] %}
                                                 {% if tabladata['rowhead']|lower=='dep' or tabladata['rowhead']|lower=='ranking' %}
@@ -540,10 +557,10 @@
                                                 {% if tabladata['rowhead']|lower=='dep' or tabladata['rowhead']|lower=='ranking' %}
 
                                                  {% if tabladata['rowhead']|lower=='ranking' and   tabladata[dato.nombre] | replace('%','')<=25 and tabladata[dato.nombre]!='-' and  dato.nombre|lower !='altura' %}
-												<span class="downprom tip">{{ tabladata[dato.nombre] }} <span >{{ dato.nombre }}</span></span><br><br>
+												<span class="downprom tip" >{{ tabladata[dato.nombre] }} <span >{{ dato.nombre }}</span></span><br><br>
 
                                                 {% else %}
-                                                    <span class="tip" >{{ tabladata[dato.nombre] }} <span>{{ dato.nombre }}</span> </span><br><br>
+                                                    <span class="tip updatago" data-up="{{ tabladata[dato.nombre] }}">{{ tabladata[dato.nombre] }} <span>{{ dato.nombre }}</span> </span><br><br>
                                                  {% endif %}
                                                 {% endif %}
 
@@ -651,6 +668,21 @@
                  //    console.log(rows);
                  });
              }
+             var k=0;
+             $('table').each(function () {
+
+                 $(this).find('td').each(function(){
+                      var span=$(this).find('.updatago:first');
+
+                      var orderdata=span.attr('data-up');
+                     console.log(orderdata);
+                     if(orderdata!=undefined){
+                         $(this).attr('data-order',orderdata);
+                     }
+
+                 });
+
+             });
 
 			 $('table').each(function () {
 
@@ -729,10 +761,10 @@
 				 }
 
 				 tabla.on( 'search.dt', function () {
-					 ResetOddEvenGeneral();
+				//	 ResetOddEvenGeneral();
 				 } );
 				 tabla.on( 'order.dt', function () {
-					 ResetOddEvenGeneral();
+				//	 ResetOddEvenGeneral();
 				 } );
 
 
@@ -858,7 +890,7 @@
                  $($.fn.dataTable.tables(true)).DataTable().columns.adjust().draw();
                  var info = table.page.info();
                  $('.'+familyId+'#cantmsj').html(info.recordsDisplay + ' toros en la lista');
-                 ResetOddEvenGeneral();
+              //   ResetOddEvenGeneral();
 
              }, 500);
 
@@ -866,7 +898,7 @@
 		 });
 
          $('table').change(function(){
-             ResetOddEvenGeneral();
+          //   ResetOddEvenGeneral();
          });
 
 
@@ -951,7 +983,7 @@
 			var info = table.page.info();
 
 			$('.'+familyId+'#cantmsj').html(info.recordsDisplay + ' toros en la lista');
-			ResetOddEvenGeneral();
+		//	ResetOddEvenGeneral();
 		 }
 		 function SearchInTableForVal(tableId,value,allrows,familyId)
 		 {
@@ -972,7 +1004,7 @@
 				   $($.fn.dataTable.tables(true)).DataTable().columns.adjust().draw();
 				   var info = table.page.info();
 				   $('.'+familyId+'#cantmsj').html(info.recordsDisplay + ' toros en la lista');
-				   ResetOddEvenGeneral();
+				  // ResetOddEvenGeneral();
                   return;
 			   }
 
@@ -1009,16 +1041,18 @@
 			  table.column('.nuevoseach').search('nuevo').draw();
           }
 
+
              if(ismocho==true){
-				 table.column('.mochosearch').search('true').draw();
+
+				 table.column('.mochosearch').search('si').draw();
              }
-			 else if(!fp15 && !fp18 && !fp24 && !iscp && !isnuevo && !iscp)
+			 else if(!fp15 && !fp18 && !fp24 && !iscp && !isnuevo && !iscp && !ismocho)
 			 {
 				 ShowAllRows(table);
 			 }
 
 			  ShowAndUpdate(table,familyId);
-              ResetOddEvenGeneral();
+            //  ResetOddEvenGeneral();
 		 }
 
 
@@ -1071,29 +1105,46 @@
              var arraypos=[];
              //Pruebas comprimidas
 
+             function ComprimirT(familyId,button){
+console.log(familyId);
+                 var tabla= $('table.' + familyId).not('.DTFC_Cloned').DataTable();
+
+                 if(button.html()=='Ver prueba comprimida') {
+                     button.text('Ver prueba completa');
+
+
+                     tabla
+                             .columns( '[showinvc="0"]').visible( false);
+                     return;
+                 }
+                 if(button.html()=='Ver prueba completa'){
+
+                     button.text('Ver prueba comprimida')
+
+                     tabla
+                             .columns( '[showinvc="0"]').visible( true);
+
+
+                 }
+             }
 				 $(document).on('click','.pruebacomp',function(){
 
                 var familyId=$(this).attr('familyid');
-				var tabla= $('table.' + familyId).not('.DTFC_Cloned').DataTable();
-
-                 if($(this).html()=='Ver prueba comprimida') {
-                     $(this).text('Ver prueba completa');
-
-
-					tabla
-							 .columns( '[showinvc="0"]').visible( false);
-                     return;
-                 }
-                 if($(this).html()=='Ver prueba completa'){
-
-                     $(this).text('Ver prueba comprimida')
-
-					 tabla
-							 .columns( '[showinvc="0"]').visible( true);
-
-
-                 }
+				ComprimirT(familyId,$(this));
              });
+
+
+
+		 $(document).ready(function(){
+
+
+			 $('.pruebacomp').each(function(){
+
+				 var familyId=$(this).attr('familyId');
+				ComprimirT(familyId,$(this));
+			 });
+
+		 });
 
      </script>
 
@@ -1149,7 +1200,7 @@
 			 $('#cantmsj').html(d + ' toros en la lista');
 			 $($.fn.dataTable.tables(true)).css('width', '100%');
 			 $($.fn.dataTable.tables(true)).DataTable().columns.adjust().draw();
-			 ResetOddEvenGeneral();
+			// ResetOddEvenGeneral();
 		 });
 	 </script>
 

@@ -29,6 +29,7 @@ class RazalistController extends Controller
         if($r!=null){
             $isfather=1;
             $id=$r->getId();
+
         }
         else{
             $isfather=0;
@@ -39,7 +40,11 @@ class RazalistController extends Controller
         {
             $father=$em->getRepository('gemaBundle:Razafather')->find($id);
             $razas=$father->getRazas();
+
             $toros=$em->getRepository('gemaBundle:Toro')->torosbyRazas($razas);
+
+       //     print(count($toros));die();
+          //  $toros=$em->getRepository('gemaBundle:Toro')->torosbyRazas($razas);
          //   print_r(count($toros));die();
             $nombreraza=$father->getNombre();
             $tablas=array();
@@ -48,8 +53,12 @@ class RazalistController extends Controller
                 $tablasch=$r->getTipotabla()->getTablas();
                 foreach($tablasch as $t)
                 {
-                    $t->toros=$em->getRepository('gemaBundle:Toro')->torosbyRazaP($r);
-                    $tablas[]=$t;
+                    $torobytabla=$em->getRepository('gemaBundle:Toro')->torosPublicosByRazaAndTabla($r->getId(),$t->getNombre());
+                    if($torobytabla !=null && count($torobytabla)>0)
+                    {
+                        $t->toros=$torobytabla;
+                        $tablas[]=$t;
+                    }
                 }
                 if($r->getMocho()==true)
                     $mocho=true;
@@ -68,8 +77,14 @@ class RazalistController extends Controller
             $nombreraza=$raza->getNombre();
             if( $raza->getTipotabla() !=null){
                 $tablas=$raza->getTipotabla()->getTablas();
-                foreach($tablas as $t)
-                    $t->toros=$em->getRepository('gemaBundle:Toro')->torosbyRazaP($raza);
+                foreach($tablas as $t){
+                    $torobytabla=$em->getRepository('gemaBundle:Toro')->torosPublicosByRazaAndTabla($raza->getId(),$t->getNombre());
+                    if($torobytabla !=null && count($torobytabla)>0)
+                    {
+                        $t->toros=$torobytabla;
+                    }
+                }
+
             }
             else
                 $tablas=null;
@@ -96,7 +111,9 @@ class RazalistController extends Controller
 
         foreach($toros as $toro)
         {
-
+            if($toro->getPublico()==0)
+                unset($toro);
+            else{
                 $img=$helper->randomPic('toro'.DIRECTORY_SEPARATOR.$toro->getGuid().'P'.DIRECTORY_SEPARATOR,true);
                 if($img==null)
                     $img=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'toro.png',true);
@@ -112,6 +129,9 @@ class RazalistController extends Controller
                 $toro->nacionalidadflag=$this->Nacionalidad($helper,$toro->getNacionalidad());
                 $toro->conceptplusflag=$this->ConceptPlus($helper,$toro->getCP());
                 $toro->tablasflag=json_decode($toro->getTablagenetica(),true);
+            }
+
+
 
 
         }
@@ -214,8 +234,22 @@ class RazalistController extends Controller
         {
             $tablasflag=json_decode($toro->getTablagenetica(),true);
             $tablarname=$em->getRepository('gemaBundle:Tabla')->find($toro->getTipotablaselected());
-            $tablasflag=$tablasflag[$tablarname->getNombre()];
-            $tabla=$tablarname;
+            if(isset($tablasflag[$tablarname->getNombre()])){
+                $tablasflag=$tablasflag[$tablarname->getNombre()];
+                $tabla=$tablarname;
+            }
+
+
+           else{
+               $nkey='';
+               foreach($tablasflag as $key=>$tabla){
+                   $tablasflag=$tablasflag[$key];$nkey=$key;break;
+               }
+               $tabla=$em->getRepository('gemaBundle:Tabla')->findOneBy(array(
+                  'nombre'=>$nkey
+               ));
+           }
+
             $tablagennombre=$tablarname->getNombre();
         }
         else{
