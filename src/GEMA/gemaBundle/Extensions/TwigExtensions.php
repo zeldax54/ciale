@@ -13,6 +13,7 @@ class TwigExtensions extends \Twig_Extension
         // In your template you can use it as : {{find(123)}}
         return array(
             new \Twig_SimpleFunction('find', array($this, 'find')),
+            new \Twig_SimpleFunction('isNumber', array($this, 'isNumber')),
         );
     }
 
@@ -51,6 +52,13 @@ class TwigExtensions extends \Twig_Extension
             return $myRepo->find(1)->getUrldatafiscalafip();
         }
 
+    }
+
+    function isNumber($text){
+      $text=str_replace('%','',$text);
+        if(is_numeric($text)==true)
+            return '1';
+        return '0';
     }
 
     public function getName()

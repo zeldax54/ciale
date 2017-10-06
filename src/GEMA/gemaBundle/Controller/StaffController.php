@@ -32,7 +32,7 @@ class StaffController extends Controller
             $result = $this->get("gema.utiles")->paginar($request->get("current"), $request->get("rowCount"), $qb->getQuery());
             return new JsonResponse($result);
         } else {
-            $entities = $em->getRepository('gemaBundle:Staff')->findAll();
+            $entities = $em->getRepository('gemaBundle:Staff')->findBy(array(), array('orden' => 'ASC'));
         }
         $accion = 'Listar Expedientes de Staff';
         $this->get("gema.utiles")->traza($accion);
@@ -301,4 +301,28 @@ class StaffController extends Controller
             ->getForm()
         ;
     }
+
+    public function reorderAction(){
+
+      $value=$_POST["value"];
+        $em = $this->getDoctrine()->getManager();
+        $repo= $em->getRepository('gemaBundle:Staff');
+       foreach($value as $staff){
+
+
+     $entity=$repo   ->findOneBy(
+               array('nombre'=>$staff[1])
+           );
+           $entity->setOrden($staff[0]);
+          // print($entity->getNombre());
+        //   print($entity->getId());
+           $em->persist($entity);
+
+       }
+        $em->flush();
+        return new JsonResponse(array(
+            0=>'yes'
+        ));
+    }
+
 }

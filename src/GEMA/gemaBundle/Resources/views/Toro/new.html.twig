@@ -179,7 +179,9 @@
                     var id=$(this).attr('id');
                     var name=$(this).attr('name');
                     var table = $('#'+id).tableToJSON({ignoreHiddenRows: false});
-                    stringJson+='"'+name+'":'+JSON.stringify(table)+",";
+                    if(table.length>0) {
+                        stringJson += '"' + name + '":' + JSON.stringify(table) + ",";
+                    }
                 });
                 stringJson=stringJson.slice(0,stringJson.length-1);
                 stringJson+="}";

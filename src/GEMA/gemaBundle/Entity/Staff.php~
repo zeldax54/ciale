@@ -68,6 +68,9 @@ class Staff
      */
     private $guid;
 
+
+
+
     /**
      * Get id
      *
@@ -77,6 +80,8 @@ class Staff
     {
         return $this->id;
     }
+
+
 
     /**
      * Set cargo
@@ -214,5 +219,74 @@ class Staff
     public function getProvincia()
     {
         return $this->provincia;
+    }
+
+    /**
+     * Set publico
+     *
+     * @param boolean $publico
+     * @return Staff
+     */
+    public function setPublico($publico)
+    {
+        $this->publico = $publico;
+
+        return $this;
+    }
+
+    /**
+     * Get publico
+     *
+     * @return boolean 
+     */
+    public function getPublico()
+    {
+        return $this->publico;
+    }
+
+    /**
+     * Set orden
+     *
+     * @param integer $orden
+     * @return Staff
+     */
+    public function setOrden($orden)
+    {
+        $this->orden = $orden;
+
+        return $this;
+    }
+
+    /**
+     * Get orden
+     *
+     * @return integer 
+     */
+    public function getOrden()
+    {
+        return $this->orden;
+    }
+
+    /**
+     * Set order
+     *
+     * @param integer $order
+     * @return Staff
+     */
+    public function setOrder($order)
+    {
+        $this->order = $order;
+
+        return $this;
+    }
+
+    /**
+     * Get order
+     *
+     * @return integer 
+     */
+    public function getOrder()
+    {
+        return $this->order;
     }
 }

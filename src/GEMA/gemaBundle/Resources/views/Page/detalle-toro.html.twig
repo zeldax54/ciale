@@ -196,7 +196,7 @@
 
             {%   if mediatoro | length >0 %}
 
-				<div style="text-align: center"><a class="ignorePDF fagosibold" style="margin-left:0% !important">Vea más fotos y videos de éste toro:</a></div>
+				<div style="text-align: center"><a class="ignorePDF fagosibold" style="margin-left:0% !important">Vea más fotos y videos de este toro:</a></div>
 	  {% endif %}
 				</div>
 
@@ -311,7 +311,7 @@
 						<div class="col-lg-3 col-md-4 col-sd-3 col-xs-12">
 							<strong>RP:</strong>&nbsp;{{ toro.rp }}
 						</div>
-						<div class="col-lg-4 col-md-4 col-sd-3 col-xs-12">
+						<div class="col-lg-6 col-md-6 col-sd-3 col-xs-12">
 							<strong>Senasa:</strong>&nbsp;{{ toro.senasa }}
 						</div>
 						
@@ -426,7 +426,7 @@
 	
 			<div class="encabezado-area encabezado-izq">
 					<i class="fa fa-caret-right fa-3x" style="margin:-9px 0 0 -45px;">&nbsp;&nbsp;</i>
-					<strong style="font-size:16px;position:absolute;margin-top:2px;">Pruebas</strong>			
+					<strong style="font-size:16px;position:absolute;margin-top:2px;">Prueba</strong>
 			</div>
 
 			<div class="encabezado-tabla">{{ toro.evaluaciongenetica }}</div>
@@ -451,11 +451,22 @@
 							<tr class="{{ cycle(["alterna", ""], loop.index) }}">
 								<th scope="row">{{ dato['rowhead'] }}</th>
 								{% for td in tabla.tabladatos %}
+								           {% if  isNumber(dato[td.nombre])=='1' %}
+
 									{%   if dato['rowhead']|lower =='ranking' and dato[td.nombre] | replace('%','')<=25 and td.nombre|lower !='altura' and td.nombre|lower !='alt.' and td.nombre|lower !='alt' and td.nombre|lower !='alt.hijas'  and td.nombre|lower !='alt.año'  and dato[td.nombre]!='-' %}
-									<td class="downprom">{{ dato[td.nombre]|replace({' ':''})|round(2) }}</td>
+									<td class="downprom">{{ dato[td.nombre]|replace({' ':''})|round(2)~'%' }}</td>
                            {% else %}
-						       <td>{{ dato[td.nombre]|replace({' ':''})|round(2) }}</td>
+
+                           {% if dato['rowhead']|lower =='ranking'%}
+						       <td>{{ dato[td.nombre]|replace({' ':''})|round(2)~'%' }}</td>
+									{% else %}
+									    <td>{{ dato[td.nombre]|replace({' ':''})|round(2) }}</td>
 									{% endif %}
+
+									{% endif %}
+                                 {% else %}
+	                           <td class="">{{ dato[td.nombre]|replace({' ':''}) }}</td>
+                            {% endif %}
 								{% endfor %}
 							</tr>
 							{% endfor %}
@@ -488,14 +499,7 @@
 		<script src="{{ asset('bundles/gema/clientresources/pdfclient/jspdf.min.js')}}"></script>
 		<script src="{{ asset('bundles/gema/clientresources/pdfclient/addhtml.js')}}"></script>
 		<script src="{{ asset('bundles/gema/clientresources/pdfclient/html2canvas.js')}}"></script>
-		{#<script src="{{ asset('bundles/gema/clientresources/pdfclient/jspdf.debug.js')}}"></script>#}
-		{#<script src="{{ asset('bundles/gema/clientresources/pdfclient/from_html.js')}}"></script>#}
-		{#<script src="{{ asset('bundles/gema/clientresources/pdfclient/split_text_to_size.js')}}"></script>#}
-		{#<script src="{{ asset('bundles/gema/clientresources/pdfclient/standard_fonts_metrics.js')}}"></script>#}
-
-
 		<script src="{{ asset('bundles/gema/js/buscadortoros.js')}}"></script>
-
 		<script>
 
 

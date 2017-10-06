@@ -324,7 +324,7 @@
 
 									{% for toro in toros %}
 
-										<tr class="{{ cycle(["odd", "even"], loop.index) }}">
+										<tr class={{ cycle(["odd", "even"], loop.index) }}">
 											<td >{{ toro.id }}</td>
 											<td >{{ toro.id }}</td>
 											<td ><a href="{{ path('gema_torodetail', {'apodo':toro.apodo}) }}"><img class="toroimg imageresponsiveselect"  src="{{ asset(toro.imgprincipal) }}"  width="96px" height="77px"></a></td>
@@ -498,7 +498,7 @@
 									<th class="cabecerawith nuevoseach">Nuevo</th>
 									<th class="cabecerawith fpsearch never">FP</th>
 									<th class="cabecerawith cpsearch">CP</th>
-
+                                    <th class="cabecerawith cpsearch none" origen="">Origen</th>
                                     {% if mocho is defined and mocho==1 %}
                                         <th class="mochosearch">
                                             Mocho
@@ -536,6 +536,13 @@
 										{% else %}
 											<td data-cp="{{ toro.cp }}" class="verticalalign"></td>
 										{% endif %}
+
+                                        {% if toro.nacionalidadflag is not null %}
+                                            <td class="verticalalign" data-tableexport-value="{{ toro.nacionalidad }}"><img src="{{ asset(toro.nacionalidadflag) }}" alt="{{ toro.nacionalidad }}" ></td>
+                                        {% else %}
+                                            <td data-formater="0" class="verticalalign"></td>
+                                        {% endif %}
+
                                         {% if mocho is defined and mocho==true%}
                                             <td class="verticalalign">
                                                 {% if toro.mocho==1 %}
@@ -556,17 +563,34 @@
 
                                                 {% if tabladata['rowhead']|lower=='dep' or tabladata['rowhead']|lower=='ranking' %}
 
+                                                    {% if  isNumber( tabladata[dato.nombre])=='1' %}
+
                                                  {% if tabladata['rowhead']|lower=='ranking' and   tabladata[dato.nombre] | replace('%','')<=25 and tabladata[dato.nombre]!='-' and  dato.nombre|lower !='altura' %}
-												<span class="downprom tip" >{{ tabladata[dato.nombre] }} <span >{{ dato.nombre }}</span></span><br><br>
+												<span class="downprom tip" >{{ tabladata[dato.nombre]|round(2)~'%' }} <span >{{ dato.nombre }}</span></span><br><br>
 
                                                 {% else %}
-                                                    <span class="tip updatago" data-up="{{ tabladata[dato.nombre]|round(2) }}">{{ tabladata[dato.nombre] }} <span>{{ dato.nombre }}</span> </span><br><br>
+
+													{% if tabladata['rowhead']|lower=='dep'%}
+                                                    <span class="tip updatago newnew" data-up="{{ tabladata[dato.nombre]|round(2) }}">{{ tabladata[dato.nombre]|round(2) }} <span>{{ dato.nombre }}</span> </span><br><br>
+														{% else %}
+															<span class="tip updatago" data-up="{{ tabladata[dato.nombre]|round(2) }}">{{ tabladata[dato.nombre]|round(2)~'%' }} <span>{{ dato.nombre }}</span> </span><br><br>
+													{% endif %}
                                                  {% endif %}
+
+                                                    {% else %}
+
+                                                        <span class="tip updatago nonumber" data-up="300000000">{{ tabladata[dato.nombre] }} <span>{{ dato.nombre }}</span> </span><br><br>
+
+                                                    {% endif %}
+
+
+
                                                 {% endif %}
 
                                             {% endfor %}
 											</td>
 										{% endfor %}
+
 
 
 									</tr>
@@ -675,7 +699,7 @@
                       var span=$(this).find('.updatago:first');
 
                       var orderdata=span.attr('data-up');
-                     console.log(orderdata);
+
                      if(orderdata!=undefined){
                          $(this).attr('data-order',orderdata);
                      }
@@ -757,15 +781,15 @@
 					 leftColumns: 10
                      }
                      );
+
+                     if($(this).attr('id')!='lista-busqueda'){
+                         var column = tabla.column(9);
+                         column.visible( false );
+                     }
                      tabla.columns.adjust().draw( false ); // adjust
 				 }
 
-				 tabla.on( 'search.dt', function () {
-				//	 ResetOddEvenGeneral();
-				 } );
-				 tabla.on( 'order.dt', function () {
-				//	 ResetOddEvenGeneral();
-				 } );
+
 
 				 tabla.order([3, "asc"]).draw();
 
@@ -974,10 +998,14 @@
 		 }
 
 		function  ShowAndUpdate(table,familyId){
+
 			if(familyId!='todos')
-             table.order([10, "desc"]).draw();
+             table.order([7, "desc"]).draw();
              else
 			 table.order([7, "desc"]).draw();
+
+//            if(isseacrh!='none')
+//                table.order([4, "desc"]).draw();
 			$($.fn.dataTable.tables(true)).css('width', '100%');
 			$($.fn.dataTable.tables(true)).DataTable().columns.adjust().draw();
 			var info = table.page.info();
@@ -1026,6 +1054,7 @@
 					 else if(fp15==true){
 						 val.push("15M");
 					 }
+                 console.log(val);
 
 				 var mergedVal = val.join('|');
 				 table.column('.fpsearch').search(mergedVal,true).draw();
@@ -1051,7 +1080,7 @@
 				 ShowAllRows(table);
 			 }
 
-			  ShowAndUpdate(table,familyId);
+			  ShowAndUpdate(table,familyId,'sisi');
             //  ResetOddEvenGeneral();
 		 }
 
@@ -1239,6 +1268,9 @@ console.log(familyId);
 		 });
 
 	 </script>
+
+
+
 
 
  {% endblock %}

@@ -1,6 +1,17 @@
     {% extends 'gemaBundle::layout.html.twig' %}
 
+
+
     {% block gema_page -%}
+
+        <style>
+
+
+
+            table.sorting-table {cursor: move;}
+            table tr.sorting-row td {background-color: #8b8;}
+           .sorter {background-color: #c4ffe9; width: 10px; cursor: move;}
+        </style>
 
         {% if isvendedor==0 %}
             <h2>Miembros del Staff</h2>
@@ -57,6 +68,7 @@
         <table class="record_properties table table-hover table table-striped table-vmiddle" id="data-table-command" >
             <thead>
                 <tr>
+                    <th data-formatter="sorteador"></th>
                     <th data-column-id="id" data-type="numeric" data-identifier="true" data-visible="false">ID</th>
                     <th  data-formatter="foto" data-column-id="foto">Foto</th>
                     {% if isvendedor==0 %}
@@ -65,12 +77,14 @@
                                                                     <th data-column-id="nombre">Nombre</th>
                                                                     <th data-column-id="telefono">Telefono</th>
                                                                     <th data-column-id="email">Email</th>
+
                     <th colspan="3" data-formatter="commands">Acciones</th>
                 </tr>
             </thead>
             <tbody>
             {% for e in entities %}
                 <tr>
+                    <td class="sorter"></td>
                     <td>{{ e.id }} </td>
                     <td>{{ asset(e.foto) }}</td>
                     {% if isvendedor==0 %}
@@ -79,7 +93,7 @@
                     <td>{{ e.nombre }} </td>
                     <td>{{ e.telefono }} </td>
                     <td>{{ e.email }} </td>
-                    <td>{{ e.email }} </td>
+
                 </tr>
             {% endfor %}
             </tbody>
@@ -140,6 +154,9 @@
 
     {% block javascripts -%}
     {{ parent() }}
+
+        <script src="{{ asset('bundles/gema/js/rowsorter.js') }}"></script>
+        <script src="{{ asset('bundles/gema/js/TableToJson/jquery.tabletojson.js') }}"></script>
     <script>
         var param='{{ param }}';
         $("#data-table-command").bootgrid({
@@ -158,6 +175,13 @@
                 "foto": function(column, row) {
                     return '<img width="70px" height="70px" src="'+row.foto+'">';
                 }
+                ,"sorteador":function(column, row) {
+                    return '<span class="sorterhh"></span>';
+                }
+
+
+
+
 
 
             }, templates: {
@@ -174,6 +198,11 @@
             $(".eliminarRegistro").on("click", function (evt) {
                 window.location = url;
             });
+
+            $('.sorterhh').each(function(){
+                $(this).closest('td').addClass('sorter');
+            })
+
 
         });
 
@@ -208,6 +237,7 @@
                 window.location = url;
             });
 
+
         });
 
 
@@ -218,6 +248,41 @@
                 var url = Routing.generate('gema_mixed',{idprovincia:$(this).val()});
                 window.location=url;
 
+            });
+        </script>
+
+        <script>
+            $(document).ready(function(){
+                new RowSorter('#data-table-command',{
+
+                            onDrop: function(tbody, row, new_index, old_index) {
+                                var table = tbody.tagName === "TBODY" ? tbody.parentNode : tbody;
+
+
+                                var arr = $('#'+table.id).tableToJSON({ignoreHiddenRows: false});
+                                var arrfin=[];
+                               for(var i=0;i<arr.length;i++){
+                                   arrfin.push([i,arr[i].Nombre]);
+
+                               }
+                                $.ajax({
+                                    url: Routing.generate('gema_reorder'),
+                                    type: 'POST',
+                                    data: { value: arrfin },
+                                    success: function(result) {
+
+                                    },
+                                    error:function(){
+                                        $.rowSorter.undo('#'+table.id);
+                                    }
+                                });
+
+                            }
+
+                        }
+
+
+                );
             });
         </script>
     {% endblock %}

@@ -284,26 +284,30 @@
             $('.contenedorT').each(function() {
                 var tablename=$(this).find('table').attr('name');
                 var tableid=$(this).find('table').attr('id');
-                var arrtab=arrays[tablename];
 
-                var tabla=$('#'+tableid);
-                var cabeceras=tabla.find('th');
-                var cabecerasArray=[];
-                cabeceras.each(function(){
-                    cabecerasArray.push($(this).attr('data-override'));
-                });
-                for (var f = 0; f < arrtab.length; f++) {
-                    var tr='<tr>';
-                    for (var j = 0; j < cabecerasArray.length; j++) {
-                        var value=arrtab[f][cabecerasArray[j]];
-                        if(cabecerasArray[j]!="rowhead")
-                            tr+='<td data-override='+value+'><input type="text" value="'+value+'" class="form-control tbinput"  style="width: 100%;background:#d0d4d5;text-align: center"></td>';
-                        else
-                            tr+='<td data-override='+value+'>'+value+'</td>';
+                if(arrays[tablename]!=undefined){
+                    var arrtab=arrays[tablename];
+
+                    var tabla=$('#'+tableid);
+                    var cabeceras=tabla.find('th');
+                    var cabecerasArray=[];
+                    cabeceras.each(function(){
+                        cabecerasArray.push($(this).attr('data-override'));
+                    });
+                    for (var f = 0; f < arrtab.length; f++) {
+                        var tr='<tr>';
+                        for (var j = 0; j < cabecerasArray.length; j++) {
+                            var value=arrtab[f][cabecerasArray[j]];
+                            if(cabecerasArray[j]!="rowhead")
+                                tr+='<td data-override='+value+'><input type="text" value="'+value+'" class="form-control tbinput"  style="width: 60px;background:#d0d4d5;text-align: center"></td>';
+                            else
+                                tr+='<td data-override='+value+'>'+value+'</td>';
+                        }
+                        tr+='</tr>';
+                        $(tr).appendTo("#"+tableid+' tbody');
                     }
-                    tr+='</tr>';
-                    $(tr).appendTo("#"+tableid+' tbody');
                 }
+
             });
         }
 
@@ -361,12 +365,13 @@
                 if(name===undefined || name==='')
                         name='Evaluacion genetica';
                 var table = $('#'+id).tableToJSON({ignoreHiddenRows: false});
-                stringJson+='"'+name+'":'+JSON.stringify(table)+",";
+                if(table.length>0){
+                    stringJson+='"'+name+'":'+JSON.stringify(table)+",";
+                }
             });
             stringJson=stringJson.slice(0,stringJson.length-1);
             stringJson+="}";
             document.getElementById('gema_gemabundle_toro_tablagenetica').value =stringJson;
-
         }
 
     </script>

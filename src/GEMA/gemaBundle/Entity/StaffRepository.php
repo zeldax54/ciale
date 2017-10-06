@@ -52,7 +52,7 @@ class StaffRepository extends EntityRepository
             ->select("B")
             ->from($this->getClassName(), "B")
             ->where("B.publico=1");
-        $qb->orderBy('B.id','asc');
+        $qb->orderBy('B.orden','asc');
         return $qb->getQuery()->getResult();
     }
 

@@ -210,8 +210,6 @@
 
 	  {% endif %}
 
-
-	</div>
 	  {% if localdist is not null and localdist|length>0 %}
 		  <div class="row" style="text-align: center">
 			  <h4 class="redventasHeader">Distribuidores   de{{ provname|raw }}</h4>
@@ -219,22 +217,22 @@
 			  <div class="col-md-12" style="margin-bottom: 1em;text-align: center;margin-left: 12%;">
 
 
-				     {% for l in localdist %}
+				  {% for l in localdist %}
 
 					  {% if loop.index is divisible by(3) or loop.index==0%}
 						  <div class=" row" style="">
 					  {% endif %}
 
 					  <div class="col-md-3" style="margin-bottom: 1em;text-align: left">
-					  <strong class="redventastext">{{ l.ciudad }}</strong><br>
-					  <span class="redventastext">{{ l.nombreveterinaria }}</span><br>
-					  {% for d in l.datos %}
-						  <span class="redventastext">{{ d }}</span><br>
-					  {% endfor %}
+						  <strong class="redventastext">{{ l.ciudad }}</strong><br>
+						  <span class="redventastext">{{ l.nombreveterinaria }}</span><br>
+						  {% for d in l.datos %}
+							  <span class="redventastext">{{ d }}</span><br>
+						  {% endfor %}
 					  </div>
 
 
-					    {% if loop.index is divisible by(3) or loop.index==0%}
+					  {% if loop.index is divisible by(3) or loop.index==0%}
 						  </div>
 					  {% endif %}
 				  {% endfor %}
@@ -245,8 +243,10 @@
 	  {% endif %}
 	  <h4 class="redventasHeader" style="text-align: center">INTERNACIONAL</h4>
 	  {% include '@shared/vendinternac.html.twig' with {'distrib':distrib} %}
+	</div>
 
-	  <div style="height: 50px !important;"></div>
+
+
 
 {% endblock %}
 

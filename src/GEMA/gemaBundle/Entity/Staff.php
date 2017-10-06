@@ -68,6 +68,14 @@ class Staff
      */
     private $guid;
 
+
+    /**
+     * @var integer
+     * @ORM\Column(name="orden", type="integer",nullable=false)
+     */
+    private $orden;
+
+
     /**
      * Get id
      *
@@ -77,6 +85,8 @@ class Staff
     {
         return $this->id;
     }
+
+
 
     /**
      * Set cargo
@@ -237,5 +247,51 @@ class Staff
     public function getPublico()
     {
         return $this->publico;
+    }
+
+    /**
+     * Set orden
+     *
+     * @param integer $orden
+     * @return Staff
+     */
+    public function setOrden($orden)
+    {
+        $this->orden = $orden;
+
+        return $this;
+    }
+
+    /**
+     * Get orden
+     *
+     * @return integer 
+     */
+    public function getOrden()
+    {
+        return $this->orden;
+    }
+
+    /**
+     * Set order
+     *
+     * @param integer $order
+     * @return Staff
+     */
+    public function setOrder($order)
+    {
+        $this->order = $order;
+
+        return $this;
+    }
+
+    /**
+     * Get order
+     *
+     * @return integer 
+     */
+    public function getOrder()
+    {
+        return $this->order;
     }
 }

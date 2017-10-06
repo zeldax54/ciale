@@ -234,3 +234,7 @@ gema_torocambpublic:
 gema_exceladmin:
     pattern:  /{razaid}/exceladmin
     defaults: { _controller: "gemaBundle:Export:exceladmin" }
+
+gema_reorder:
+    pattern:  /reorder
+    defaults: { _controller: "gemaBundle:Staff:reorder" }
