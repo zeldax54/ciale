@@ -480,6 +480,13 @@
 							</div>
 						</div>
 
+						{% macro show_number(n) %}
+							{%- spaceless %}
+								{% set decimals = n | split('.')[1] | default('') | length %}
+								{{ n | number_format(decimals, '.', ',') }}
+							{% endspaceless -%}
+						{% endmacro %}
+
 							<table id="{{ tabla.nombreresumido|replace(' ','-') }}" style="width: 100%" familyid="{{ 'family'~tabla.id }}" class="{{ 'family'~tabla.id }} genetictable display nowrap">
 
 
@@ -566,14 +573,14 @@
                                                     {% if  isNumber( tabladata[dato.nombre])=='1' %}
 
                                                  {% if tabladata['rowhead']|lower=='ranking' and   tabladata[dato.nombre] | replace('%','')<=25 and tabladata[dato.nombre]!='-' and  dato.nombre|lower !='altura' %}
-												<span class="downprom tip" >{{ tabladata[dato.nombre]|round(2)~'%' }} <span >{{ dato.nombre }}</span></span><br><br>
+												<span class="downprom tip" >{{recortar(tabladata[dato.nombre])~'%' }} <span >{{ dato.nombre }}</span></span><br><br>
 
                                                 {% else %}
 
 													{% if tabladata['rowhead']|lower=='dep'%}
-                                                    <span class="tip updatago newnew" data-up="{{ tabladata[dato.nombre]|round(2) }}">{{ tabladata[dato.nombre]|round(2) }} <span>{{ dato.nombre }}</span> </span><br><br>
+                                                    <span class="tip updatago newnew" data-up="{{ tabladata[dato.nombre]|round(2) }}">{{ recortar(tabladata[dato.nombre]) }} <span>{{ dato.nombre }}</span> </span><br><br>
 														{% else %}
-															<span class="tip updatago" data-up="{{ tabladata[dato.nombre]|round(2) }}">{{ tabladata[dato.nombre]|round(2)~'%' }} <span>{{ dato.nombre }}</span> </span><br><br>
+															<span class="tip updatago" data-up="{{ tabladata[dato.nombre]|round(2) }}">{{ recortar(tabladata[dato.nombre])~'%' }} <span>{{ dato.nombre }}</span> </span><br><br>
 													{% endif %}
                                                  {% endif %}
 
@@ -788,12 +795,7 @@
                      }
                      tabla.columns.adjust().draw( false ); // adjust
 				 }
-
-
-
 				 tabla.order([3, "asc"]).draw();
-
-
 			 });
 
 			 $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {

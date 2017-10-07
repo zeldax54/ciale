@@ -14,6 +14,7 @@ class TwigExtensions extends \Twig_Extension
         return array(
             new \Twig_SimpleFunction('find', array($this, 'find')),
             new \Twig_SimpleFunction('isNumber', array($this, 'isNumber')),
+            new \Twig_SimpleFunction('recortar', array($this, 'recortar')),
         );
     }
 
@@ -59,6 +60,37 @@ class TwigExtensions extends \Twig_Extension
         if(is_numeric($text)==true)
             return '1';
         return '0';
+    }
+
+    function recortar($number){
+        $number=str_replace('%','',$number);
+        $part= explode('.',$number);
+
+        if(!isset($part[1]))
+            return $part[0];
+
+        $numberchar= strlen($part[1]);
+        if($numberchar>=3){
+            $partdecimal=substr($part[1], 0,  3);
+            if($this->checkZeros($partdecimal))
+                return $part[0];
+            if(substr($partdecimal,-1)=='0')
+                $partdecimal=substr($part[1], 0,  2);
+        }
+        else{
+            $partdecimal=$part[1];
+        }
+
+          return $part[0].'.'.$partdecimal;
+    }
+
+    function checkZeros($strinf){
+        for ($i = 1; $i < strlen($strinf); $i++) {
+
+            if($strinf[$i]!='0')
+                return false;
+        }
+        return true;
     }
 
     public function getName()

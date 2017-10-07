@@ -346,6 +346,19 @@ $(document).on('keyup', '.descrip', function () {
     var descripcion=$(this).val();
     descripcion=descripcion.replace('//','^^');
     descripcion=descripcion.replace('/','^');
+    var alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
+    alphabet.forEach(function(letter) {
+        var upperletter=letter.toUpperCase();
+        descripcion=descripcion.replace('/'+letter,'^'+letter);
+        descripcion=descripcion.replace('/'+upperletter,'^'+upperletter);
+
+    });
+    var numbers = "0123456789".split("");
+    numbers.forEach(function(number) {
+        descripcion=descripcion.replace('/'+number,'^'+number);
+
+    });
+
     console.log(descripcion);
     if(descripcion!=null && descripcion!==undefined && descripcion!=''){
         timeout = setTimeout(function (e) {
