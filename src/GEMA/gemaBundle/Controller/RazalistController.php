@@ -436,6 +436,8 @@ class RazalistController extends Controller
         $em = $this->getDoctrine()->getManager();
         $helper=new MyHelper();
         $toros=$em->getRepository('gemaBundle:Toro')->torosbyLike($dato);
+        $request = $this->getRequest();
+        $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
         if(count($toros)==0)
             return new JsonResponse(0);
         $bulls=array();
@@ -448,7 +450,7 @@ class RazalistController extends Controller
              'apodo'=>$t->getApodo(),
              'nombreraza'=>$t->getRaza()->getNombre(),
              'nombretoro'=>$t->getNombre(),
-             'imagen'=>DIRECTORY_SEPARATOR.$img
+             'imagen'=>$baseurl.DIRECTORY_SEPARATOR.$img
              );
         }
         return new JsonResponse($bulls);
