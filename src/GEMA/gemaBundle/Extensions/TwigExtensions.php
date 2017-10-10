@@ -52,6 +52,9 @@ class TwigExtensions extends \Twig_Extension
         if($param=='afip'){
             return $myRepo->find(1)->getUrldatafiscalafip();
         }
+        if($param=='mailer'){
+            return $myRepo->find(1)->getUrlwebmail();
+        }
 
     }
 
