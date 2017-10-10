@@ -49,16 +49,26 @@ function BuscarToros(dato){
           isresponsive=false;
      var url = Routing.generate('gema_searchtoroscarnelike',{dato:dato});
 
+
+
       var getUrl = window.location;
       var segment=getUrl.pathname.split('/');
       var segundoseg='';
+      var band=false;
       for(var i=0;i<segment.length;i++){
           if(segment[i]=='web')
+          { band=true;
               break;
+
+          }
           segundoseg+=segment[i]+'/';
       }
-      var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + segundoseg;
-console.log(segundoseg);
+      var baseUrl='';
+      if(band==true)
+         baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + segundoseg;
+      else
+          baseUrl=getUrl .protocol + "//" + getUrl.host + "/";
+console.log(baseUrl);
       $.ajax({
           type: 'POST',
           url: url,
@@ -94,9 +104,9 @@ console.log(segundoseg);
                           '<a href="'+torodetalleruta+'">' +
                           '<div><div class="col-xs-4">';
                               if(isresponsive==false)
-                                 lis+= '<img class="imgdynamicli" src="'+segundoseg+data[f].imagen+'">';
+                                 lis+= '<img class="imgdynamicli" src="'+baseUrl+data[f].imagen+'">';
                                else
-                                  lis+= '<img width="40px" height="40px" class="" src="'+segundoseg+data[f].imagen+'">';
+                                  lis+= '<img width="40px" height="40px" class="" src="'+baseUrl+data[f].imagen+'">';
                          lis+= '</div>' +
                           '<div class="col-xs-8">'+
                           '<strong>'+data[f].apodo+'</strong><br>' +
