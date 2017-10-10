@@ -293,13 +293,15 @@ class LibraryController extends Controller
     }
 
 
-  public function setdescriptionAction($folder,$subfolder,$nombre,$description){
+  public function setdescriptionAction(){
 
       try{
-          $nombre=str_replace('&','.',$nombre);
-          $description=str_replace('^','/',$description);
 
-          if($subfolder=='undefined')
+          $nombre=$_POST["nombre"];
+          $description=$_POST["description"];
+          $folder=$_POST["folder"];
+          $subfolder=$_POST["subfolder"];
+          if($subfolder=='undefined' || $subfolder==null)
               $subfolder='';
           $em = $this->getDoctrine()->getManager();
           $descripcionprev=$em->getRepository('gemaBundle:MediaDescription')-> findOneBy(
@@ -360,7 +362,6 @@ class LibraryController extends Controller
     public function getdescriptionAction($folder,$subfolder,$nombre){
 
         try{
-            $nombre=str_replace('&','.',$nombre);
             $em = $this->getDoctrine()->getManager();
             $descripcionprev=$em->getRepository('gemaBundle:MediaDescription')-> findOneBy(
                 array(

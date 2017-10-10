@@ -319,4 +319,44 @@ font-size: 19px;
 
 }
 
+
+.videoinfo{
+	
+margin-left: 33% !important;
+margin-top: -28% !important;
+float: left;
+position: absolute;
+color: white;
+font-size: 19px;
+}
+
+@media (max-width:557px){
+ .videoinfo{
+	
+margin-left: 24% !important;
+margin-top: -28% !important;
+float: left;
+position: absolute;
+color: white;
+font-size: 19px;
+}
+
+}
+
+@media (max-width:451px){
+ .videoinfo{
+	
+margin-left: 24% !important;
+margin-top: -36% !important;
+float: left;
+position: absolute;
+color: white;
+font-size: 14px;
+}
+
+}
+
+
+
+
   

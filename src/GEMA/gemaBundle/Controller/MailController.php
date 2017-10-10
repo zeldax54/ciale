@@ -26,12 +26,14 @@ class MailController extends Controller
         $helper=new MyHelper();
         $gife=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'paperplane.gif');
         $coordenadas = $em->getRepository('gemaBundle:Configuracion')->find(1)->getCoordenadas();
+        $coordenadaslab = $em->getRepository('gemaBundle:Configuracion')->find(1)->getCoordenadaslab();
 
         return $this->render('gemaBundle:Page:contacto.html.twig', array(
            'razas'=>$razas,
             'datosoficina'=>$datosof,
             'gife'=>$gife,
-             'coordenadas'=>$coordenadas
+             'coordenadas'=>$coordenadas,
+            'coordenadaslab'=>$coordenadaslab
         ));
     }
 
@@ -40,6 +42,7 @@ class MailController extends Controller
         $em = $this->getDoctrine()->getManager();
         $datosof=$em->getRepository('gemaBundle:DatosOficina')->find(1);
         $direcciones=explode(';',$datosof->getEmail());
+
         $message = \Swift_Message::newInstance()
             ->setSubject('Contanto de Alta Ciale');
         $message->setFrom('contactos@ciale.com');
@@ -81,9 +84,9 @@ class MailController extends Controller
         if($enviarmail==true)
         {
             $to[]='info@ciale.com';
-            $to[]=$direcciones;
+            foreach($direcciones as $d)
+                $to[]=$d;
         }
-
         $message ->setTo($to);
         $message->setBody(
                 $body

@@ -220,7 +220,7 @@ gema_toropdf:
     defaults: { _controller: "gemaBundle:Export:todopdf" }
 
 gema_setmediadescription:
-    pattern:  /{folder}/{subfolder}/{nombre}/{description}/desc
+    pattern:  /desc
     defaults: { _controller: "gemaBundle:Library:setdescription" }
 
 gema_getmediadescription:

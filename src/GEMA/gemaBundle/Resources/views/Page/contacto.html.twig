@@ -114,10 +114,22 @@
    <div id="do"> {{ datosoficina.datosoficina|raw }}</div><br>
 
 </div>
-            <div id="mapaid" style="text-align: center">
-                <iframe scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com.ar/maps?f=q&amp;source=s_q&amp;hl=es&amp;geocode=&amp;q={{ coordenadas }}&amp;sll={{ coordenadas }}&amp;sspn=2.030164,4.22699&amp;ie=UTF8&amp;t=m&amp;ll={{ coordenadas }}&amp;spn=0.041615,0.050468&amp;z=13&amp;output=embed" width="293" height="293" frameborder="0"></iframe>
+
+            <div id="mapaid" style="text-align: center;">
+                <div style="text-align: center"> <span style="font-family: Fago-normal">Oficina</span></div>
+                <iframe style="height: 170px" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com.ar/maps?f=q&amp;source=s_q&amp;hl=es&amp;geocode=&amp;q={{ coordenadas }}&amp;sll={{ coordenadas }}&amp;sspn=2.030164,4.22699&amp;ie=UTF8&amp;t=m&amp;ll={{ coordenadas }}&amp;spn=0.041615,0.050468&amp;z=13&amp;output=embed" width="293" height="293" frameborder="0"></iframe>
                 <a class="btn btn-gris nw" href="https://maps.google.com.ar/maps?f=q&amp;source=embed&amp;hl=es&amp;geocode=&amp;q={{ coordenadas }}&amp;sll={{ coordenadas }}&amp;sspn=2.030164,4.22699&amp;ie=UTF8&amp;t=m&amp;ll={{ coordenadas }}&amp;spn=0.041615,0.050468&amp;z=13" target="_blank">Ver mapa</a>
+                <div style="text-align: center"> <span style="font-family: Fago-normal">Laboratorio</span></div>
+
+                <iframe style="height: 170px" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com.ar/maps?f=q&amp;source=s_q&amp;hl=es&amp;geocode=&amp;q={{ coordenadaslab }}&amp;sll={{ coordenadaslab }}&amp;sspn=2.030164,4.22699&amp;ie=UTF8&amp;t=m&amp;ll={{ coordenadaslab }}&amp;spn=0.041615,0.050468&amp;z=13&amp;output=embed" width="293" height="293" frameborder="0"></iframe>
+                <a class="btn btn-gris nw" href="https://maps.google.com.ar/maps?f=q&amp;source=embed&amp;hl=es&amp;geocode=&amp;q={{ coordenadaslab }}&amp;sll={{ coordenadaslab }}&amp;sspn=2.030164,4.22699&amp;ie=UTF8&amp;t=m&amp;ll={{ coordenadaslab }}&amp;spn=0.041615,0.050468&amp;z=13" target="_blank">Ver mapa</a>
             </div>
+            {#<div style="text-align: center"> <span style="font-family: Fago-normal">Laboratorio</span></div>#}
+
+            {#<div id="mapaid" style="text-align: center;">#}
+
+            {#</div>#}
+
 
         </div>
 

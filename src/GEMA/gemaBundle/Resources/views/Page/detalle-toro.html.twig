@@ -218,6 +218,10 @@
 										<div class="col-xs-3" style="padding: 1px">
 											<a class="fancybox" href="{{ asset(dato.url |replace({'_small':''})) }}" data-fancybox="gallery" data-caption="{{ dato.descripcion }}" title="{{ dato.descripcion }}">
 												<img   src="{{ asset(dato.rep  ) }}" class="img-responsive thumbnail"/>
+												{% if dato.tipo=='video'%}
+												<span class="videoinfo">VIDEO</span>
+												{% endif %}
+
 											</a>
 										</div>
 
@@ -255,9 +259,9 @@
 						<br>
 						<div class="arbol2"></div>
 						<address class="pedigree-tree">
-							&nbsp;&nbsp;{{ toro.padremadrepadre }}<br>
-							{{ toro.padremadre }}<br>
-							&nbsp;&nbsp;{{ toro.madremadrepadre }}<br>
+							&nbsp;&nbsp;{{ toro.padrepadremadre }}<br>
+							{{ toro.madrepadre }}<br>
+							&nbsp;&nbsp;{{ toro.madrepadremadre }}<br>
 						</address>
 					</div>			
 				</div>
@@ -270,9 +274,9 @@
 						<div class="arbol1"></div>
 						<div class="arbol2"></div>
 						<address class="pedigree-tree">
-							&nbsp;&nbsp;{{ toro.padrepadremadre }}<br>
-							{{ toro.madrepadre }}<br>
-							&nbsp;&nbsp;{{ toro.madrepadremadre }}<br>
+							&nbsp;&nbsp;{{ toro.padremadrepadre }}<br>
+							{{ toro.padremadre }}<br>
+							&nbsp;&nbsp;{{ toro.madremadrepadre }}<br>
 						</address>
 						<br>
 						<div class="arbol2"></div>

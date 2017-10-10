@@ -72,6 +72,7 @@ swiftmailer:
     host:      smtp.mandrillapp.com
     username:  contactos@ciale.com
     password:  jMRgiRPG1GcL7A_qmxMSDQ
+    port:      587
     spool:     { type: memory }
 
 ivory_ck_editor:

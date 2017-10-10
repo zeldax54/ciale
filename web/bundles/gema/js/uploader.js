@@ -342,31 +342,33 @@ $(document).on('keyup', '.descrip', function () {
     var folder=$(this).attr('datafolder');
     var subfolder=$(this).attr('subdatafolder');
     var nombre=$(this).attr('dtanombre');
-    nombre=nombre.replace('.','&');
+    //nombre=nombre.replace('.','&');
     var descripcion=$(this).val();
-    descripcion=descripcion.replace('//','^^');
-    descripcion=descripcion.replace('/','^');
-    var alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
-    alphabet.forEach(function(letter) {
-        var upperletter=letter.toUpperCase();
-        descripcion=descripcion.replace('/'+letter,'^'+letter);
-        descripcion=descripcion.replace('/'+upperletter,'^'+upperletter);
-
-    });
-    var numbers = "0123456789".split("");
-    numbers.forEach(function(number) {
-        descripcion=descripcion.replace('/'+number,'^'+number);
-
-    });
-
+    //descripcion=descripcion.replace('//','^^');
+    //descripcion=descripcion.replace('/','^');
+    //var alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
+    //alphabet.forEach(function(letter) {
+    //    var upperletter=letter.toUpperCase();
+    //    descripcion=descripcion.replace('/'+letter,'^'+letter);
+    //    descripcion=descripcion.replace('/'+upperletter,'^'+upperletter);
+    //
+    //});
+    //var numbers = "0123456789".split("");
+    //numbers.forEach(function(number) {
+    //    descripcion=descripcion.replace('/'+number,'^'+number);
+    //
+    //});
+    //
+    console.log(nombre);
     console.log(descripcion);
     if(descripcion!=null && descripcion!==undefined && descripcion!=''){
         timeout = setTimeout(function (e) {
 
-            var url=Routing.generate('gema_setmediadescription',{folder:folder,subfolder:subfolder,nombre:nombre,description:descripcion});
+            var url=Routing.generate('gema_setmediadescription');
 
             $.ajax({
-                type: 'GET',
+                type: 'POST',
+                data:{folder:folder,subfolder:subfolder,nombre:nombre,description:descripcion},
                 url: url,
                 success: function (data) {
 

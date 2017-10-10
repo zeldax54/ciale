@@ -104,9 +104,15 @@ class Configuracion
 
     /**
      * @var string
-     * @ORM\Column(name="coordenadas", type="string", length=1500)
+     * @ORM\Column(name="coordenadas", type="string", length=500)
      */
     private $coordenadas;
+
+    /**
+     * @var string
+     * @ORM\Column(name="coordenadaslab", type="string", length=500)
+     */
+    private $coordenadaslab;
 
     /**
      * @ORM\Column(name="enviarmaildestinos", type="boolean", nullable=true)
@@ -467,5 +473,28 @@ class Configuracion
     public function getUrlfacebook()
     {
         return $this->urlfacebook;
+    }
+
+    /**
+     * Set coordenadaslab
+     *
+     * @param string $coordenadaslab
+     * @return Configuracion
+     */
+    public function setCoordenadaslab($coordenadaslab)
+    {
+        $this->coordenadaslab = $coordenadaslab;
+
+        return $this;
+    }
+
+    /**
+     * Get coordenadaslab
+     *
+     * @return string 
+     */
+    public function getCoordenadaslab()
+    {
+        return $this->coordenadaslab;
     }
 }

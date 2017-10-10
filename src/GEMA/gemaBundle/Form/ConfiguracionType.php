@@ -73,6 +73,10 @@ class ConfiguracionType extends AbstractType
                 'label'=>'Coordenadas Google Maps',
 
             ))
+            ->add('coordenadaslab',null,array(
+                'label'=>'Coordenadas del Laboratorio',
+
+            ))
             ->add('enviarmaildestinos',null,array(
                 'label'=>'Enviar mail a las direcciones de contacto',
 

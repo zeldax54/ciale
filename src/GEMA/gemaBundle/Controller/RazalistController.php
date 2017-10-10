@@ -335,7 +335,8 @@ class RazalistController extends Controller
 
                         'rep'=>$mediaInpage[$i]['representacion'],
                         'url'=>$mediaInpage[$i]['url'],
-                        'descripcion'=>''
+                        'descripcion'=>'',
+                         'tipo'=>'video'
 
                     );
                 }
@@ -345,6 +346,7 @@ class RazalistController extends Controller
                         'rep'=>$mediaInpage[$i]['representacion'],
                         'url'=>$mediaInpage[$i]['representacion'],
                         'descripcion'=>$mediaInpage[$i]['descripcion'],
+                        'tipo'=>'imagen'
 
                     );
                 }
