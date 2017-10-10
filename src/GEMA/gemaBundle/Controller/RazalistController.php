@@ -448,7 +448,7 @@ class RazalistController extends Controller
              'apodo'=>$t->getApodo(),
              'nombreraza'=>$t->getRaza()->getNombre(),
              'nombretoro'=>$t->getNombre(),
-             'imagen'=>DIRECTORY_SEPARATOR.'web'.DIRECTORY_SEPARATOR.$img
+             'imagen'=>DIRECTORY_SEPARATOR.$img
              );
         }
         return new JsonResponse($bulls);

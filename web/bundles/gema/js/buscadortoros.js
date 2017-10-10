@@ -57,7 +57,8 @@ function BuscarToros(dato){
       var band=false;
       for(var i=0;i<segment.length;i++){
           if(segment[i]=='web')
-          { band=true;
+          {
+              band=true;
               break;
 
           }
@@ -98,15 +99,16 @@ console.log(baseUrl);
 
                   var lis='';
                   for (var f = 0; f < data.length; f++) {
+
                       var torodetalleruta=Routing.generate('gema_torodetail',{apodo:data[f].apodo});
 
                       lis+='<li class="menu-items dynamicliscontainer" >' +
                           '<a href="'+torodetalleruta+'">' +
                           '<div><div class="col-xs-4">';
                               if(isresponsive==false)
-                                 lis+= '<img class="imgdynamicli" src="'+baseUrl+data[f].imagen+'">';
+                                 lis+= '<img class="imgdynamicli" src="'+data[f].imagen+'">';
                                else
-                                  lis+= '<img width="40px" height="40px" class="" src="'+baseUrl+data[f].imagen+'">';
+                                  lis+= '<img width="40px" height="40px" class="" src="'+data[f].imagen+'">';
                          lis+= '</div>' +
                           '<div class="col-xs-8">'+
                           '<strong>'+data[f].apodo+'</strong><br>' +
