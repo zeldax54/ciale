@@ -468,7 +468,7 @@
                            {% if dato['rowhead']|lower =='ranking'%}
 						       <td>{{ dato[td.nombre]|replace({' ':''})|round(2)~'%' }}</td>
 									{% else %}
-									        {% if dato['rowhead']|lower =='prec' and toro.raza.nombre=='Hereford'%}
+									        {% if dato['rowhead']|lower =='prec' and toro.raza.id==25%}
 									           <td>{{ dato[td.nombre]|replace({' ':''})|round(2) }}%</td>
 									        {% else %}
 									    <td>{{ dato[td.nombre]|replace({' ':''})|round(2) }}</td>
