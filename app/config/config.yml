@@ -69,9 +69,9 @@ doctrine:
 # Swiftmailer Configuration
 swiftmailer:
     transport: smtp
-    host:      smtp.mandrillapp.com
-    username:  contactos@ciale.com
-    password:  jMRgiRPG1GcL7A_qmxMSDQ
+    host:      smtp.ciale.com
+    username:  test@ciale.com
+    password:  scNgbWmvZIYpuyufqElI2g
     port:      587
     spool:     { type: memory }
 

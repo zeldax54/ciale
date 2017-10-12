@@ -260,7 +260,7 @@
 						<div class="arbol2"></div>
 						<address class="pedigree-tree">
 							&nbsp;&nbsp;{{ toro.padrepadremadre }}<br>
-							{{ toro.madrepadre }}<br>
+						    {{ toro.padremadre }}<br>
 							&nbsp;&nbsp;{{ toro.madrepadremadre }}<br>
 						</address>
 					</div>			
@@ -275,7 +275,7 @@
 						<div class="arbol2"></div>
 						<address class="pedigree-tree">
 							&nbsp;&nbsp;{{ toro.padremadrepadre }}<br>
-							{{ toro.padremadre }}<br>
+							{{ toro.madrepadre }}<br>
 							&nbsp;&nbsp;{{ toro.madremadrepadre }}<br>
 						</address>
 						<br>
@@ -317,6 +317,10 @@
 						</div>
 						<div class="col-lg-6 col-md-6 col-sd-3 col-xs-12">
 							<strong>Senasa:</strong>&nbsp;{{ toro.senasa }}
+						</div>
+
+						<div class="col-lg-6 col-md-6 col-sd-3 col-xs-12" style="margin-top: 10px">
+							&nbsp;{{ toro.lineagenetica }}
 						</div>
 						
 					</div>
@@ -464,7 +468,11 @@
                            {% if dato['rowhead']|lower =='ranking'%}
 						       <td>{{ dato[td.nombre]|replace({' ':''})|round(2)~'%' }}</td>
 									{% else %}
+									        {% if dato['rowhead']|lower =='prec' and toro.raza.nombre=='Hereford'%}
+									           <td>{{ dato[td.nombre]|replace({' ':''})|round(2) }}%</td>
+									        {% else %}
 									    <td>{{ dato[td.nombre]|replace({' ':''})|round(2) }}</td>
+									    {% endif %}
 									{% endif %}
 
 									{% endif %}

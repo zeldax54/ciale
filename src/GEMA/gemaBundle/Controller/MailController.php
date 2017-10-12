@@ -83,7 +83,7 @@ class MailController extends Controller
         $enviarmail = $em->getRepository('gemaBundle:Configuracion')->find(1)->getEnviarmaildestinos();
         if($enviarmail==true)
         {
-            $to[]='info@ciale.com';
+
             foreach($direcciones as $d)
                 $to[]=$d;
         }
@@ -160,8 +160,9 @@ class MailController extends Controller
         $enviarmail = $em->getRepository('gemaBundle:Configuracion')->find(1)->getEnviarmaildestinos();
         if($enviarmail==true)
         {
-            $to[]='info@ciale.com';
-            $to[]=$direcciones;
+            foreach($direcciones as $d){
+                $to[]=$d;
+            }
         }
         $message ->setTo($to);
         $message->setBody(

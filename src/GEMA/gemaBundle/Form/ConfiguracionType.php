@@ -81,6 +81,7 @@ class ConfiguracionType extends AbstractType
                 'label'=>'Enviar mail a las direcciones de contacto',
 
             ))
+            ->add('virtualurl')
         ;
     }
     

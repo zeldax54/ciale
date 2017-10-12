@@ -242,6 +242,7 @@ class RazalistController extends Controller
 
            else{
                $nkey='';
+             if($tablasflag!=null)
                foreach($tablasflag as $key=>$tabla){
                    $tablasflag=$tablasflag[$key];$nkey=$key;break;
                }
@@ -445,12 +446,20 @@ class RazalistController extends Controller
             $img=$helper->randomPic('toro'.DIRECTORY_SEPARATOR.$t->getGuid().'P'.DIRECTORY_SEPARATOR,true);
             if($img==null)
                 $img=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'toro.png',true);
+            $myRepo = $em->getRepository('gemaBundle:Configuracion');
+            $urlvirtual=$myRepo->find(1)->getVirtualurl();
+            if($urlvirtual==true){
+                $imagen=DIRECTORY_SEPARATOR.$img;
+            }
+            else{
+                $imagen=$baseurl.DIRECTORY_SEPARATOR.$img;
+            }
          $bulls[]=array(
              'id'=>$t->getId(),
              'apodo'=>$t->getApodo(),
              'nombreraza'=>$t->getRaza()->getNombre(),
              'nombretoro'=>$t->getNombre(),
-             'imagen'=>$baseurl.DIRECTORY_SEPARATOR.$img
+             'imagen'=>$imagen
              );
         }
         return new JsonResponse($bulls);

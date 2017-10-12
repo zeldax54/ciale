@@ -121,6 +121,12 @@ class Configuracion
 
 
     /**
+     * @ORM\Column(name="virtualurl", type="boolean", nullable=true)
+     */
+    private $virtualurl;
+
+
+    /**
      * Get id
      *
      * @return integer 

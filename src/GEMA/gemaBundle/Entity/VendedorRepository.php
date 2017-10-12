@@ -44,4 +44,20 @@ class VendedorRepository extends EntityRepository
         }
         return $qb;
     }
+
+    public function findByNombProv($nombre,$idprovincia){
+
+
+        $qb = new QueryBuilder($this->getEntityManager());
+        $qb
+            ->select("V","P")
+            ->from($this->getClassName(), "V")
+
+            ->leftJoin('V.provincia', "P")
+            ->Where("V.publico=1")
+            ->andWhere("V.nombre='".$nombre."'")
+            ->andWhere('P.id='.$idprovincia);
+        return $qb->getQuery()->getResult()[0];
+
+    }
 }

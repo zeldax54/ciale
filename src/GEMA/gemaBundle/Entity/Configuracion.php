@@ -121,6 +121,12 @@ class Configuracion
 
 
     /**
+     * @ORM\Column(name="virtualurl", type="boolean", nullable=true)
+     */
+    private $virtualurl;
+
+
+    /**
      * Get id
      *
      * @return integer 
@@ -496,5 +502,28 @@ class Configuracion
     public function getCoordenadaslab()
     {
         return $this->coordenadaslab;
+    }
+
+    /**
+     * Set virtualurl
+     *
+     * @param boolean $virtualurl
+     * @return Configuracion
+     */
+    public function setVirtualurl($virtualurl)
+    {
+        $this->virtualurl = $virtualurl;
+
+        return $this;
+    }
+
+    /**
+     * Get virtualurl
+     *
+     * @return boolean 
+     */
+    public function getVirtualurl()
+    {
+        return $this->virtualurl;
     }
 }

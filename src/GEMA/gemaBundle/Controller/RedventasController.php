@@ -47,6 +47,8 @@ class RedventasController extends Controller
             $staff=$em->getRepository('gemaBundle:Vendedor')->findBy(array(
                 'provincia'=>$prov->getId(),
                 'publico'=>true
+            ),array(
+                'posicion'=>'ASC'
             ));
             $localdistrib=$em->getRepository('gemaBundle:Distribuidorlocal')->findBy(array(
                 'provincia'=>$prov->getId()

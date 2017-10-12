@@ -305,20 +305,32 @@ class StaffController extends Controller
     public function reorderAction(){
 
       $value=$_POST["value"];
+       $donde=$_POST["donde"];
+        $provinciaid=$_POST['provinciaid'];
         $em = $this->getDoctrine()->getManager();
-        $repo= $em->getRepository('gemaBundle:Staff');
-       foreach($value as $staff){
+        if($donde=='staff'){
+            $repo= $em->getRepository('gemaBundle:Staff');
+            foreach($value as $staff){
 
 
-     $entity=$repo   ->findOneBy(
-               array('nombre'=>$staff[1])
-           );
-           $entity->setOrden($staff[0]);
-          // print($entity->getNombre());
-        //   print($entity->getId());
-           $em->persist($entity);
+                $entity=$repo   ->findOneBy(
+                    array('nombre'=>$staff[1])
+                );
+                $entity->setOrden($staff[0]);
+                $em->persist($entity);
 
-       }
+            }
+        }
+        else{
+            $repo= $em->getRepository('gemaBundle:Vendedor');
+            foreach($value as $vendedor){
+                $entity=$repo   ->findByNombProv($vendedor[1], $provinciaid);
+
+                $entity->setPosicion($vendedor[0]);
+                $em->persist($entity);
+            }
+        }
+
         $em->flush();
         return new JsonResponse(array(
             0=>'yes'
