@@ -4,6 +4,7 @@ namespace GEMA\gemaBundle\Controller;
 
 
 use GEMA\gemaBundle\Entity\Toro;
+use PHPExcel_Shared_Date;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -87,7 +88,7 @@ class UploaderController extends Controller
 
                             $torosUniquesNames[] = $toro[0];
                             $toroF = $toroRepo->findOneByNombreinterno($toro[0]);
-                            $toroF=$this->UpdateCreateToro($raza, $actualizarToros, $toroF, $toro, $mapa,$tablaSelected,$rowhead,$rowheadtabla);
+                            $toroF=$this->UpdateCreateToro($raza, $actualizarToros, $toroF, $toro, $mapa,$tablaSelected,$rowhead,$rowheadtabla,$hoja,$iterator);
                            if(is_string($toroF)){
                                return new JsonResponse($toroF);
                            }
@@ -140,7 +141,7 @@ class UploaderController extends Controller
 
     }
 
-    function UpdateCreateToro($raza, $flag, $toro, $row, $mapa,$tablaSelected,$rowhead,$rowheadtabla)
+    function UpdateCreateToro($raza, $flag, $toro, $row, $mapa,$tablaSelected,$rowhead,$rowheadtabla,$hoja,$iterator)
     {
         try {
             $isnnew=false;
@@ -151,11 +152,6 @@ class UploaderController extends Controller
                 $isnnew=true;
                 $toro = new Toro();
             }
-
-
-
-
-
             $toro->setRaza($raza);
             $toro->setNombre($row[$this->getMapaPos('nombre', $mapa,$rowhead)]);
             $toro->setNacionalidad($row[$this->getMapaPos('nacionalidad', $mapa,$rowhead)]);
@@ -194,10 +190,20 @@ class UploaderController extends Controller
 
             //   print_r(\DateTime::createFromFormat('d-m-Y',str_replace("/", "-", $row[$this->getMapaPos('fechanacimiento', $mapa)]) ));die();
 
+        //    print_r($row[$this->getMapaPos('fechanacimiento', $mapa,$rowhead)]);die();
             if($row[$this->getMapaPos('fechanacimiento', $mapa,$rowhead)]==null || $row[$this->getMapaPos('fechanacimiento', $mapa,$rowhead)]=='')
                 $toro->setFechanacimiento(null);
             else{
-                $fecha=date_create_from_format('d-m-Y',str_replace("/", "-", $row[$this->getMapaPos('fechanacimiento', $mapa,$rowhead)]) );
+                $col=$this->getMapaPos('fechanacimiento', $mapa,$rowhead);
+                $valor=$hoja->getCellByColumnAndRow($col, $iterator+1)->getValue();
+
+                //print_r($col);die();
+              //  print_r($iterator);die();
+            //    print_r($valor);die();
+                $date = date('d-m-Y',PHPExcel_Shared_Date::ExcelToPHP($valor));  // array index 1
+
+              //  print_r($date);die();
+                $fecha=date_create_from_format('d-m-Y',str_replace("/", "-", $date) );
                 $toro->setFechanacimiento($fecha);
             }
             $toro->setADN($row[$this->getMapaPos('ADN', $mapa,$rowhead)]);

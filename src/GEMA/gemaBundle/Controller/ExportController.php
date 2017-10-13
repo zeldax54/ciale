@@ -9,6 +9,7 @@
 namespace GEMA\gemaBundle\Controller;
 use GEMA\gemaBundle\Entity\Tabla;
 use GEMA\gemaBundle\Entity\TablaDatos;
+use PHPExcel_Cell_DataType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -229,9 +230,12 @@ class ExportController extends Controller
                           $valor= substr($valor, 0, 10);
                           $ex=explode('-',$valor);
                           $valor=$ex[2].'/'.$ex[1].'/'.$ex[0];
+                          $objPHPExcel->getActiveSheet()->setCellValue($letra.$rowsiter, $valor );
+                          $objPHPExcel->getActiveSheet()->getStyle($letra.$rowsiter)
+                              ->getNumberFormat()->setFormatCode('dd/mm/yyyy');
                       }
 
-                  }
+                  }else
                   $objPHPExcel->getActiveSheet()->SetCellValue($letra.$rowsiter,$valor);
                   $this->centerCell($objPHPExcel,$letra,$rowsiter);
               }
