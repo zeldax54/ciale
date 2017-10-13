@@ -56,4 +56,13 @@ class StaffRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function stafflistOrder(){
+        $qb = new QueryBuilder($this->getEntityManager());
+        $qb
+            ->select("B")
+            ->from($this->getClassName(), "B");
+        $qb->orderBy('B.orden','asc');
+        return $qb->getQuery()->getResult();
+    }
+
 }

@@ -65,13 +65,14 @@ class StaffController extends Controller
      {
          $imagenin='staff';
          $isvendedor=0;
-         $entities = $em->getRepository('gemaBundle:Staff')->findAll();
+         $entities = $em->getRepository('gemaBundle:Staff')->stafflistOrder();
          $provincianame=null;
          $distribuidores=null;
      }
       else
      {
-       $entities = $em->getRepository('gemaBundle:Vendedor')->findByprovincia($idprovincia);
+
+       $entities = $em->getRepository('gemaBundle:Vendedor')->findByProvOrder($idprovincia);
        $imagenin='vendedor';
        $isvendedor=1;
          $provincianame = $em->getRepository('gemaBundle:Provincia')->find($idprovincia);

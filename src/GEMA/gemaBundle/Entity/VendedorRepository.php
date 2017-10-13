@@ -56,8 +56,26 @@ class VendedorRepository extends EntityRepository
             ->leftJoin('V.provincia', "P")
             ->Where("V.publico=1")
             ->andWhere("V.nombre='".$nombre."'")
-            ->andWhere('P.id='.$idprovincia);
+            ->andWhere('P.id='.$idprovincia)
+            ;
         return $qb->getQuery()->getResult()[0];
+
+    }
+
+    public function findByProvOrder($idprovincia){
+
+
+        $qb = new QueryBuilder($this->getEntityManager());
+        $qb
+            ->select("V","P")
+            ->from($this->getClassName(), "V")
+
+            ->leftJoin('V.provincia', "P")
+            ->Where("V.publico=1")
+            ->andWhere('P.id='.$idprovincia)
+            ->orderBy('V.posicion','asc')
+        ;
+        return $qb->getQuery()->getResult();
 
     }
 }
