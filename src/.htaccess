@@ -5,3 +5,22 @@
     Order deny,allow
     Deny from all
 </IfModule>
+
+
+<IfModule mod_security.c>
+  SecFilterEngine Off
+  SecFilterScanPOST Off
+</IfModule>
+ 
+### DISABLE mod_security firewall
+### Some rules are currently too strict and are blocking legitimate users
+### We only disable it for URLs that contain the regex below
+### The regex below should be placed between "m#" and "#"
+### (this syntax is required when the string contains forward slashes)
+<IfModule mod_security.c>
+ <If "%{REQUEST_URI} =~ /admin/">
+    SecFilterEngine Off
+    SecFilterScanPOST Off
+ </If>
+</IfModule>
+ 

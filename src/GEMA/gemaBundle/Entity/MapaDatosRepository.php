@@ -3,6 +3,8 @@
 namespace GEMA\gemaBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * MapaDatosRepository
@@ -12,4 +14,17 @@ use Doctrine\ORM\EntityRepository;
  */
 class MapaDatosRepository extends EntityRepository
 {
+
+
+public function findBComentInMapa($comentario,$mapaid){
+
+
+
+
+ }
+
+
+
+
+
 }

@@ -196,14 +196,9 @@ class UploaderController extends Controller
             else{
                 $col=$this->getMapaPos('fechanacimiento', $mapa,$rowhead);
                 $valor=$hoja->getCellByColumnAndRow($col, $iterator+1)->getValue();
-
-                //print_r($col);die();
-              //  print_r($iterator);die();
-            //    print_r($valor);die();
-                $date = date('d-m-Y',PHPExcel_Shared_Date::ExcelToPHP($valor));  // array index 1
-
-              //  print_r($date);die();
-                $fecha=date_create_from_format('d-m-Y',str_replace("/", "-", $date) );
+                      if(is_numeric($valor))
+                          $valor=date('d-m-Y',PHPExcel_Shared_Date::ExcelToPHP(str_replace("/","-",$valor)));
+                $fecha=date_create_from_format('d-m-Y',str_replace("/", "-", $valor) );
                 $toro->setFechanacimiento($fecha);
             }
             $toro->setADN($row[$this->getMapaPos('ADN', $mapa,$rowhead)]);
@@ -220,8 +215,9 @@ class UploaderController extends Controller
             $toro->setP365d($row[$this->getMapaPos('p365d', $mapa,$rowhead)]);
             $toro->setP550d($row[$this->getMapaPos('p550d', $mapa,$rowhead)]);
             $toro->setP550d($row[$this->getMapaPos('p550d', $mapa,$rowhead)]);
-            $toro->setPrecio($row[$this->getMapaPos('precio', $mapa,$rowhead)]);
 
+
+            $toro->setPrecio($row[$this->getMapaPos('precio', $mapa,$rowhead)]);
             $toro->setPublico(1);
 
            if($isnnew==true)           {

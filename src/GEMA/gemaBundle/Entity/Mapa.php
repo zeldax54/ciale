@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
+
 /**
  * Raza
  *
@@ -38,6 +39,7 @@ class Mapa
 
     /**
      * @ORM\OneToMany(targetEntity="GEMA\gemaBundle\Entity\MapaDatos" , mappedBy="mapa", cascade={"persist"})
+     * @ORM\OrderBy({"posinExcel" = "ASC"})
      */
 
     private $mapadatos;

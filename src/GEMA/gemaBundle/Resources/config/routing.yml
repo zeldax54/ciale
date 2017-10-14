@@ -238,3 +238,21 @@ gema_exceladmin:
 gema_reorder:
     pattern:  /reorder
     defaults: { _controller: "gemaBundle:Staff:reorder" }
+
+gema_mapaorder:
+    pattern:  admin/mapaorder/
+    defaults: { _controller: "gemaBundle:Reordermapa:razasindex" }
+
+gema_mapindex:
+    pattern:  admin/mapaorder/{id}/
+    defaults: { _controller: "gemaBundle:Reordermapa:mapaindex" }
+
+gema_reordermapa:
+    pattern:  /admin/reordermapa
+    defaults: { _controller: "gemaBundle:Reordermapa:reorder" }
+
+admin_mapadatos_edit:
+    pattern:  /admin/mapadatosedit/{id}/{nombre}
+    defaults: { _controller: "gemaBundle:Reordermapa:edit" }
+
+

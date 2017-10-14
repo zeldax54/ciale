@@ -81,22 +81,22 @@ class ToroType extends AbstractType
             ->add('padre')
             ->add('madre')
             ->add('padrepadre',null,array(
-                'label'=>'Abuelo Paterno(Padre del padre)'
+                'label'=>'Abuelo Paterno'
             ))
-            ->add('madrepadre',null,array('label'=>'Abuela Paterna(Madre del padre)'))
+            ->add('madrepadre',null,array('label'=>'Abuela Paterna'))
 
-            ->add('padremadre',null,array('label'=>'Abuelo materno(Padre de la madre)'))
+            ->add('padremadre',null,array('label'=>'Abuelo Materno'))
 
-            ->add('madremadre',null,array('label'=>'Abuela materna(Madre de la madre)'))
+            ->add('madremadre',null,array('label'=>'Abuela materna)'))
 
-            ->add('padrepadrepadre',null,array('label'=>'Bisabuelo paterno paterno (Padre del padre del padre)'))
-            ->add('madrepadrepadre',null,array('label'=>'Bisabuela paterna paterna (Madre del padre del padre)'))
-            ->add('padremadrepadre',null,array('label'=>'Bisabuelo materno paterno (Padre de la madre del padre)  '))
-            ->add('madremadrepadre',null,array('label'=>'Bisabuela materna paterna (Madre de la madre del padre)'))
-            ->add('padrepadremadre',null,array('label'=>'Bisabuelo paterno materna (Padre del padre de la madre)  '))
-            ->add('madrepadremadre',null,array('label'=>'Bisabuela paterna materna (Madre del padre de la madre)'))
-            ->add('padremadremadre',null,array('label'=>'Bisabuelo materno materno (Padre de la madre de la madre)'))
-            ->add('madremadremadre',null,array('label'=>'Bisabuela materna materna (Madre de la madre de la madre)'))
+            ->add('padrepadrepadre',null,array('label'=>'Bisabuelo 1 (padrepadrepadre)'))
+            ->add('madrepadrepadre',null,array('label'=>'Bisabuelo 2 (madrepadrepadre)'))
+            ->add('padremadrepadre',null,array('label'=>'Bisabuelo 3 (padremadrepadre)'))
+            ->add('madremadrepadre',null,array('label'=>'Bisabuelo 4 (madremadrepadre)'))
+            ->add('padrepadremadre',null,array('label'=>'Bisabuelo 5 (padrepadremadre)'))
+            ->add('madrepadremadre',null,array('label'=>'Bisabuelo 6 (madrepadremadre)'))
+            ->add('padremadremadre',null,array('label'=>'Bisabuelo 7 (padremadremadre)'))
+            ->add('madremadremadre',null,array('label'=>'Bisabuelo 8 (madremadremadre)'))
 
             ->add('evaluaciongenetica',null,array(
                 'label'=>'Evaluación Genética'
