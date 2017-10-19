@@ -246,9 +246,20 @@ function StartDropZone(dropzoneid,param,guidParam,maxFiles,preload,maxFilesize)
                 DeleteFile(param,guidParam,file.name);
             });
 
-            //if(preload===true){
-            //
-            //}
+
+
+            this.on("thumbnail", function(file) {
+               if(file.dataURL.indexOf('data:image/')>=0){
+                  if(file.width>1500){
+                      file.rejectDimensions()
+                  }
+                  else {
+                      file.acceptDimensions();
+                  }
+               }
+
+            });
+
 
 
 
@@ -271,7 +282,8 @@ function StartDropZone(dropzoneid,param,guidParam,maxFiles,preload,maxFilesize)
             if (file.name == "justinbieber.jpg") {
                 done("WTF!!!.JB");
             }
-            else { done(); }
+            file.acceptDimensions = done;
+            file.rejectDimensions = function() { done("Solo imagenes de 1500px de ancho."); };
         },
         success:function(file,response) {
 

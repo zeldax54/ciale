@@ -4,6 +4,12 @@
     {% block gema_page -%}
     <h1>Editar Productosprogramas </h1>
 
+        <fieldset style="background: #63BFE8;width: 50%;text-align: center;margin: 0 auto">
+            <h4>Media</h4>
+            <div class="form-group"> <input type="button" class="btn btn-file" value="Logo" id="editarlogo">
+                <input type="button" class="btn btn-file" value="Otras" id="editarArchivos"></div>
+
+        </fieldset>
     {{ form(edit_form) }}
 
     <ul class="pager">
@@ -15,4 +21,21 @@
             </a></li>
 
     </ul>
+    {% endblock %}
+
+    {% block custom_javascripts %}
+        <script>
+
+            var guid =   $('#gema_gemabundle_productosprogramas_guid').attr('value');
+
+            $('#editarlogo').click(function(){
+                GetData('productoprograma',guid+'L');
+            });
+            $('#editarArchivos').click(function(){
+                GetData('productoprograma',guid);
+            });
+
+
+
+        </script>
     {% endblock %}

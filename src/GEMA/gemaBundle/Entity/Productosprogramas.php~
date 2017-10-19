@@ -27,6 +27,12 @@ class Productosprogramas
 
     /**
      * @var string
+     * @ORM\Column(name="tipo", type="string", length=255)
+     */
+    private $tipo;
+
+    /**
+     * @var string
      * @ORM\Column(name="nombre", type="string", length=255)
      */
     private $nombre;
@@ -54,4 +60,133 @@ class Productosprogramas
     private $guid;
 
 
+
+
+
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set nombre
+     *
+     * @param string $nombre
+     * @return Productosprogramas
+     */
+    public function setNombre($nombre)
+    {
+        $this->nombre = $nombre;
+
+        return $this;
+    }
+
+    /**
+     * Get nombre
+     *
+     * @return string 
+     */
+    public function getNombre()
+    {
+        return $this->nombre;
+    }
+
+    /**
+     * Set introduccion
+     *
+     * @param string $introduccion
+     * @return Productosprogramas
+     */
+    public function setIntroduccion($introduccion)
+    {
+        $this->introduccion = $introduccion;
+
+        return $this;
+    }
+
+    /**
+     * Get introduccion
+     *
+     * @return string 
+     */
+    public function getIntroduccion()
+    {
+        return $this->introduccion;
+    }
+
+    /**
+     * Set descripcion
+     *
+     * @param string $descripcion
+     * @return Productosprogramas
+     */
+    public function setDescripcion($descripcion)
+    {
+        $this->descripcion = $descripcion;
+
+        return $this;
+    }
+
+    /**
+     * Get descripcion
+     *
+     * @return string 
+     */
+    public function getDescripcion()
+    {
+        return $this->descripcion;
+    }
+
+    /**
+     * Set publico
+     *
+     * @param boolean $publico
+     * @return Productosprogramas
+     */
+    public function setPublico($publico)
+    {
+        $this->publico = $publico;
+
+        return $this;
+    }
+
+    /**
+     * Get publico
+     *
+     * @return boolean 
+     */
+    public function getPublico()
+    {
+        return $this->publico;
+    }
+
+    /**
+     * Set guid
+     *
+     * @param string $guid
+     * @return Productosprogramas
+     */
+    public function setGuid($guid)
+    {
+        $this->guid = $guid;
+
+        return $this;
+    }
+
+    /**
+     * Get guid
+     *
+     * @return string 
+     */
+    public function getGuid()
+    {
+        return $this->guid;
+    }
 }

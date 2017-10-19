@@ -60,19 +60,23 @@ class ReordermapaController extends Controller
     }
 
 
-    public function editAction($id,$nombre){
+    public function editAction(){
 
-        $em = $this->getDoctrine()->getManager();
-        $mapadato=$em->getRepository('gemaBundle:MapaDatos')->find($id);
-        $mapadato->setComentario($nombre);
+        $id=$_POST['pk'];
+        $nombre=$_POST['value'];
+       $em = $this->getDoctrine()->getManager();
+       $mapadato=$em->getRepository('gemaBundle:MapaDatos')->find($id);
+       $mapadato->setComentario($nombre);
         $em->persist($mapadato);
-        $em->flush();
-        return new JsonResponse(array(
+       $em->flush();
+       return new JsonResponse(array(
             0=>'yes',
-            1=>$id,
+           1=>$id,
             2=>$nombre
-        ));
+      ));
 
     }
+
+
 
 }

@@ -324,6 +324,57 @@
 				});
 
 
+
+
+               $('form').on('submit',(function(e){
+
+                    e.preventDefault();
+                    $('#newbsubmit').hide();
+                    var src=$('#mygif').attr('src');
+                    vex.dialog.alert({ unsafeMessage:'<div style="text-align: center">' +
+                    '<h5 style="font-family: Fago-Bold">Enviando mensaje</h5>'+
+                    '<img width="200px" height="200px" src="'+src+'"><div>'
+
+                        , className: 'vex-theme-wireframe' ,
+                        overlayClassName: 'success',
+                        contentClassName: 'borderblueclass errormaxwidth',
+                        closeClassName: 'closebleclass'
+                    });
+                    $.ajax({
+                        url: Routing.generate('gema_sendmail'),
+                        type: "POST",
+                        data:  new FormData(this),
+                        contentType: false,
+                        cache: false,
+                        processData:false,
+                        success: function(data){
+                            vex.closeTop();
+                            vex.dialog.alert({ unsafeMessage:'<span>'+data[1]+'</span>'
+
+                                , className: 'vex-theme-wireframe' ,
+                                overlayClassName: 'success',
+                                contentClassName: 'borderblueclass maxwidth',
+                                closeClassName: 'closebleclass',
+
+                            });
+
+                            $('#newbsubmit').show();
+                        },
+                        error: function(error,stat, err){
+                            vex.closeTop();
+                            vex.dialog.alert({ unsafeMessage:err+'.Intente mas tarde'
+
+                                , className: 'vex-theme-wireframe' ,
+                                overlayClassName: 'success',
+                                contentClassName: 'borderblueclass errormaxwidth',
+                                closeClassName: 'closebleclass'
+                            })
+                            $('#newbsubmit').show();
+                        }
+                    });
+                }));
+
+
 			});
 
 				$('option').mousedown(function(e) {
@@ -332,52 +383,10 @@
 					return false;
 				});
 
-				$("form").on('submit',(function(e){
-					e.preventDefault();
-					$('#newbsubmit').hide();
-					var src=$('#mygif').attr('src');
-					vex.dialog.alert({ unsafeMessage:'<div style="text-align: center">' +
-					'<h5 style="font-family: Fago-Bold">Enviando mensaje</h5>'+
-					'<img width="200px" height="200px" src="'+src+'"><div>'
 
-						, className: 'vex-theme-wireframe' ,
-						overlayClassName: 'success',
-						contentClassName: 'borderblueclass errormaxwidth',
-						closeClassName: 'closebleclass'
-					});
-					$.ajax({
-						url: Routing.generate('gema_sendmail'),
-						type: "POST",
-						data:  new FormData(this),
-						contentType: false,
-						cache: false,
-						processData:false,
-						success: function(data){
-							vex.closeTop();
-							vex.dialog.alert({ unsafeMessage:'<span>'+data[1]+'</span>'
 
-								, className: 'vex-theme-wireframe' ,
-								overlayClassName: 'success',
-								contentClassName: 'borderblueclass maxwidth',
-								closeClassName: 'closebleclass',
 
-							});
 
-							$('#newbsubmit').show();
-						},
-						error: function(error,stat, err){
-							vex.closeTop();
-							vex.dialog.alert({ unsafeMessage:err+'.Intente mas tarde'
-
-								, className: 'vex-theme-wireframe' ,
-								overlayClassName: 'success',
-								contentClassName: 'borderblueclass errormaxwidth',
-								closeClassName: 'closebleclass'
-							})
-							$('#newbsubmit').show();
-						}
-					});
-				}));
 
 
 

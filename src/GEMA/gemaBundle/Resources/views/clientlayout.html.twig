@@ -116,9 +116,11 @@
 
                                 {#</ul>#}
                             {#</li>#}
-                            <li class="menu-items"><a href="{{  path('gema_prodprog')  }}">PROGRAMAS</a></li>
+                            <li class="menu-items"><a href="{{  path('gema_prodprog',{tipo:'Prodcutos'})  }}">PRODUCTOS</a></li>
+                            <li class="menu-items"><a href="{{  path('gema_prodprog',{tipo:'Programas'})  }}">PROGRAMAS</a></li>
 
-                            <li class="menu-items"><a href="{{  path('gema_mailindex')  }}">CONTACTO</a></li>
+
+                            <li class="menu-items"><a href="{{  path('gema_correoindex')  }}">CONTACTO</a></li>
 
                             {#<li class="menu-items"><button class="btn btn-default" style="border-radius:50%;border-color:#133775"><i class="fa fa-search"></i></button></li>#}
                         </ul>
@@ -208,10 +210,12 @@
                     <div class="col-lg-4 col-md-5 col-sm-6 col-xs-12 footerdiv">
                         <div> <a href="{{  path('gema_clientsboletines',{'start':0,'end':8})  }}"> INFORMACIÓN </a> </div>
                         <div>
-                            <a href="{{  path('gema_prodprog')  }}">PROGRAMAS</a>
+
+                            <a href="{{  path('gema_prodprog',{tipo:'Productos'})  }}">PRODUCTOS</a>
+                            <a href="{{  path('gema_prodprog',{tipo:'Programas'})  }}">PROGRAMAS</a>
                         </div>
                         <div>
-                            <a href="{{  path('gema_mailindex')  }}">CONTACTO</a>
+                            <a href="{{  path('gema_correoindex')  }}">CONTACTO</a>
                         </div>
 
                         {#<div>#}

@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class ProductosprogramasType extends AbstractType
 {
@@ -16,6 +17,13 @@ class ProductosprogramasType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('tipo', ChoiceType::class, array(
+                'choices'  => array(
+                    'Producto' => 'Producto',
+                    'Programa'=>'Programa',
+
+                ),'label'=>'Tipo'
+            ))
             ->add('nombre')
             ->add('introduccion', CKEditorType::class, array(
                 'config' => array(

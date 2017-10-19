@@ -51,11 +51,26 @@
                                     <div class="row" style="margin: 0 auto">
                                         {% for dato in media %}
 
+                                            {% if dato.tipo=='video' %}
+
+                                                <div class="col-xs-4 col-sm-1" style="padding: 1px">
+                                                    <a href="{{ asset(dato.url|replace({'_small':''})) }}" data-fancybox="gallery">
+                                                        <img style="width: 100px;height: 100px"  src="{{ asset(dato.rep) }}" class="img-responsive thumbnail"/>
+                                                        <span class="videoinfo">VIDEO</span>
+                                                    </a>
+                                                </div>
+
+                                        {% else %}
+
                                             <div class="col-xs-4 col-sm-1" style="padding: 1px">
                                                 <a href="{{ asset(dato.url|replace({'_small':''})) }}" data-fancybox="gallery">
                                                     <img style="width: 100px;height: 100px"  src="{{ asset(dato.rep) }}" class="img-responsive thumbnail"/>
                                                 </a>
                                             </div>
+
+                                            {% endif %}
+
+
 
 
                                         {% endfor %}

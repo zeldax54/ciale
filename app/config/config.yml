@@ -73,7 +73,6 @@ swiftmailer:
     username:  test@ciale.com
     password:  scNgbWmvZIYpuyufqElI2g
     port:      587
-    spool:     { type: memory }
 
 ivory_ck_editor:
     default_config: my_config

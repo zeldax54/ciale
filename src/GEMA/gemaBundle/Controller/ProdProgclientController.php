@@ -15,12 +15,19 @@ class ProdProgclientController extends Controller
 {
 
 
-    public function indexAction(){
+    public function indexAction($tipo){
+
+
 
         $em = $this->getDoctrine()->getManager();
+       if($tipo=='Programas')
+           $tipo='Programa';
+        else
+            $tipo='Producto';
         $prodprogs = $em->getRepository('gemaBundle:Productosprogramas')->findBy(
             array(
-                'publico'=>1
+                'publico'=>1,
+                 'tipo'=>$tipo
             )
         );
         $helper=new MyHelper();

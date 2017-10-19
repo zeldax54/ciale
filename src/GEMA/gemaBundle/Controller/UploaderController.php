@@ -85,9 +85,9 @@ class UploaderController extends Controller
 
                 foreach ($data as $toro) {
                     if ($iterator > 1) {
-
-                            $torosUniquesNames[] = $toro[0];
-                            $toroF = $toroRepo->findOneByNombreinterno($toro[0]);
+                   $nombreinterno=$toro[$this->getMapaPos('nombreinterno', $mapa,$rowhead)];
+                   $torosUniquesNames[] = $nombreinterno;
+                            $toroF = $toroRepo->findOneByNombreinterno($nombreinterno);
                             $toroF=$this->UpdateCreateToro($raza, $actualizarToros, $toroF, $toro, $mapa,$tablaSelected,$rowhead,$rowheadtabla,$hoja,$iterator);
                            if(is_string($toroF)){
                                return new JsonResponse($toroF);
@@ -350,6 +350,16 @@ class UploaderController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $raza = $em->getRepository("gemaBundle:Raza")->find($id);
+        if($raza->getTipoTabla()==null){
+
+            $arr[]=array(
+                'id'=>'',
+                 'nombre'=>''
+            );
+            return new JsonResponse($arr);
+
+        }
+
         $tablas=$raza->getTipoTabla()->getTablas();
 
         $tablasJSON = array();

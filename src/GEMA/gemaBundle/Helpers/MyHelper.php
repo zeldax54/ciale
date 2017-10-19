@@ -380,7 +380,8 @@ class MyHelper
        }
 
 
-        if(count($pictures)>0)
+        if(count($pictures)>0){
+            sort($pictures, SORT_NATURAL | SORT_FLAG_CASE);
             foreach($pictures as $mt){
                 $mediaInpage[]=array(
                     'tipo'=>'img',
@@ -388,6 +389,8 @@ class MyHelper
                     'representacion'=>$mt
                 );
             }
+        }
+
         $lis=array();
         if(count($mediaInpage)>0)
         {
@@ -403,10 +406,11 @@ class MyHelper
 //                $
 //            }
 
+
             $flag=0;
             $flaadd=0;
 
-            shuffle ($mediaInpage);
+           // shuffle ($mediaInpage);
             for($i=0;$i<count($mediaInpage);$i++)
             {
                 if($mediaInpage[$i]['tipo']=='video')
@@ -414,7 +418,8 @@ class MyHelper
                     $lis[$flaadd][]=array(
 
                         'rep'=>$mediaInpage[$i]['representacion'],
-                        'url'=>$mediaInpage[$i]['url']
+                        'url'=>$mediaInpage[$i]['url'],
+                        'tipo'=>'video'
 
                     );
                 }
@@ -422,7 +427,8 @@ class MyHelper
                     $lis[$flaadd][] =array(
 
                         'rep'=>$mediaInpage[$i]['representacion'],
-                        'url'=>$mediaInpage[$i]['representacion']
+                        'url'=>$mediaInpage[$i]['representacion'],
+                        'tipo'=>'imagen'
 
                     );
                 }

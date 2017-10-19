@@ -1271,6 +1271,33 @@ console.log(familyId);
 
 	 </script>
 
+	 <script>
+         $(document).ready(function(){
+
+
+             if($(window).width() <= 767) {
+
+
+
+                 $('.control').click(function(e){
+                     setTimeout(function() {
+                        $('.dtr-data').each(function(){
+
+                            var texto=$(this).html();
+                            console.log(texto);
+                           if(texto=='' || texto=='undefined' || texto==null || texto==' '){
+                               console.log( $(this).closest('.dtr-title'));
+                               $(this).parent('li').hide();
+                           }
+                        });
+                     }, 0);
+
+
+                 });
+             }
+
+         });
+	 </script>
 
 
 

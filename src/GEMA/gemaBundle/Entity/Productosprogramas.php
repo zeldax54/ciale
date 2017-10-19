@@ -27,6 +27,12 @@ class Productosprogramas
 
     /**
      * @var string
+     * @ORM\Column(name="tipo", type="string", length=255)
+     */
+    private $tipo;
+
+    /**
+     * @var string
      * @ORM\Column(name="nombre", type="string", length=255)
      */
     private $nombre;
@@ -52,6 +58,10 @@ class Productosprogramas
      * @ORM\Column(name="guid", type="string",length=255 ,nullable=false)
      */
     private $guid;
+
+
+
+
 
 
 
@@ -178,5 +188,28 @@ class Productosprogramas
     public function getGuid()
     {
         return $this->guid;
+    }
+
+    /**
+     * Set tipo
+     *
+     * @param string $tipo
+     * @return Productosprogramas
+     */
+    public function setTipo($tipo)
+    {
+        $this->tipo = $tipo;
+
+        return $this;
+    }
+
+    /**
+     * Get tipo
+     *
+     * @return string 
+     */
+    public function getTipo()
+    {
+        return $this->tipo;
     }
 }

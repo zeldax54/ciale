@@ -196,10 +196,10 @@ gema_clientcontenido:
     defaults: { _controller: "gemaBundle:Singlehtmlclient:gethtml" }
 
 gema_prodprog:
-    pattern:  /productosprogramas
+    pattern:  info/{tipo}/
     defaults: { _controller: "gemaBundle:ProdProgclient:index" }
 
-gema_mailindex:
+gema_correoindex:
     pattern:  /contacto
     defaults: { _controller: "gemaBundle:Mail:contactindex" }
 
@@ -252,7 +252,7 @@ gema_reordermapa:
     defaults: { _controller: "gemaBundle:Reordermapa:reorder" }
 
 admin_mapadatos_edit:
-    pattern:  /admin/mapadatosedit/{id}/{nombre}
+    pattern:  /admin/mapadatosedit/
     defaults: { _controller: "gemaBundle:Reordermapa:edit" }
 
 
