@@ -539,7 +539,7 @@
 										{% endif %}
 
 										{% if toro.conceptplusflag is not null %}
-											<td data-cp="{{ toro.cp }}" class="verticalalign"><img src="{{ asset(toro.conceptplusflag) }}" width="34" height="34"></td>
+											<td data-cp="{{ toro.cp }}" class="verticalalign"><img src="{{ asset(toro.conceptplusflag) }}" width="34" height="34"><span style="display:none;">cp</span></td>
 										{% else %}
 											<td data-cp="{{ toro.cp }}" class="verticalalign"></td>
 										{% endif %}
