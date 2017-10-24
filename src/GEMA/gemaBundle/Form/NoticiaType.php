@@ -36,7 +36,6 @@ class NoticiaType extends AbstractType
                 'config' => array(
                     'uiColor' => '#00a1e7',
                     'language' => 'es',
-                    'extraPlugins' => 'youtube,slideshow',
                 ),
             ))
 
