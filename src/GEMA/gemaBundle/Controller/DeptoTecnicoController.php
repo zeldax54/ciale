@@ -23,6 +23,8 @@ class DeptoTecnicoController extends Controller
      */
     public function indexAction(Request $request)
     {
+
+
         $em = $this->getDoctrine()->getManager();
 
         $entities = array();

@@ -23,7 +23,8 @@ class ToroController extends Controller
 
     /**
      * Lists all Toro entities.
-     *
+     * @param Request $request
+     * @return JsonResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function indexAction(Request $request)
     {

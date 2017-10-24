@@ -25,6 +25,26 @@
     {% endif %}
 
 
+        <!-- Modal -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Eliminar Registro</h4>
+                    </div>
+                    <div class="modal-body">
+                        ¿Está seguro que desea eliminar el registro definitivamente?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary eliminarRegistro">Aceptar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+
 
             <ul class="pager">
             <li class="next"><a href="{{ path('admin_productosprogramas_new') }}"><i class="fa fa-plus-circle"></i>
