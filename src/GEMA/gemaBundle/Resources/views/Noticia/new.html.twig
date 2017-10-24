@@ -32,7 +32,11 @@
 {% endblock %}
 
 {% block custom_javascripts %}
+    <script src="{{ asset('bundles/gema/js/Tabullet.js') }}"></script>
+    <script src="{{ asset('bundles/gema/js/TableToJson/jquery.tabletojson.js') }}"></script>
+    <script src="{{ asset('bundles/gema/js/youtube.js') }}"></script>
 <script>
+
     $(document).ready(function () {
         var guid = '{{ guid }}';
         $('#gema_gemabundle_noticia_guid').attr('value', guid);
