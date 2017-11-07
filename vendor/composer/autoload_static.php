@@ -55,6 +55,11 @@ class ComposerStaticInit47fb74626f6a69eb747a11e4e844dd5e
         array (
             'Monolog\\' => 8,
         ),
+        'K' => 
+        array (
+            'Knp\\Snappy\\' => 11,
+            'Knp\\Bundle\\SnappyBundle\\' => 24,
+        ),
         'J' => 
         array (
             'JMS\\SerializerBundle\\' => 21,
@@ -153,6 +158,14 @@ class ComposerStaticInit47fb74626f6a69eb747a11e4e844dd5e
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+        ),
+        'Knp\\Snappy\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/knplabs/knp-snappy/src/Knp/Snappy',
+        ),
+        'Knp\\Bundle\\SnappyBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/knplabs/knp-snappy-bundle',
         ),
         'JMS\\SerializerBundle\\' => 
         array (

@@ -255,4 +255,17 @@ admin_mapadatos_edit:
     pattern:  /admin/mapadatosedit/
     defaults: { _controller: "gemaBundle:Reordermapa:edit" }
 
+pdf_generate:
+    pattern:  /pdf
+    defaults: { _controller: "gemaBundle:Export:pdfgenerate" }
+
+toro_pdf:
+    pattern:  /{toroid}/toropdf
+    defaults: { _controller: "gemaBundle:Export:toropdf" }
+
+gema_catalogobaseinfo:
+    pattern:  /catalogbaseinfo
+    defaults: { _controller: "gemaBundle:Export:catalogbaseinfo" }
+
+
 

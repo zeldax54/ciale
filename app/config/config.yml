@@ -94,3 +94,15 @@ services:
          doctrine : '@doctrine'
      tags:
          -  { name: twig.extension }
+
+knp_snappy:
+    pdf:
+        enabled:    true
+        binary:     %kernel.root_dir%/../vendor/h4cc/windows/bin/wkhtmltopdf
+        options:
+            - { name: 'viewport-size', value: '1360x768' }
+            - { name: 'page-size', value: 'A4' }
+    image:
+        enabled:    true
+        binary:    %kernel.root_dir%/../vendor/h4cc/windows/bin/wkhtmltoimage
+        options:    []

@@ -201,9 +201,6 @@ function Change(e){
 
         }
     });
-
-
-
 }
 
 function getUrlParam( paramName ) {

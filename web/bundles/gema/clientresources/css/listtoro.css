@@ -241,3 +241,34 @@ margin-right: 10px !important;
 	}
 	
 }
+
+
+.headercatalog{
+	font-family:'Fago-Bold';
+
+}
+
+.catalotext{
+	font-family:'Fago-normal' !important;
+	font-size: 14px;
+	margin-left: 3px !important;
+}
+.checkheader{
+	margin:0 !important;
+}
+
+.imagenheadercatalog{
+	width:100% !important;
+	height: 200px !important;
+}
+.crearpdfbutton{
+	float: left !important;
+margin-left: 4% !important;
+font-family: 'Fago-Normal';
+/*margin-top: -3% !important;*/
+}
+.imprimirtorosbutton{
+	margin-right: 7% !important;
+	font-family: 'Fago-Normal';
+}
+

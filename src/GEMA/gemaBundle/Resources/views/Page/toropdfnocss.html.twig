@@ -1,25 +1,5 @@
 
-{% if renderscriptcss is defined and  renderscriptcss == 'si'  %}
 
-    {% extends 'gemaBundle::pdflayout.html.twig' %}
-
-
-  {% block customstylesheets %}
-	  <link href="{{absolute_url(asset('bundles/gema/clientresources/fancybox/dist/jquery.fancybox.css'))}}" rel="stylesheet">
-	  <link href="{{absolute_url(asset('bundles/gema/clientresources/jquerybxslider/jquery.bxslider.css'))}}" rel="stylesheet">
-	  <link href="{{absolute_url(asset('bundles/gema/clientresources/watermark/styleimg.css'))}}" rel="stylesheet">
-
-	  <style>
-		  th{
-			  background-color: #98999D !important;
-			  text-align: center !important;
-			  color: #FFFFFF !important;
-		  }
-
-	  </style>
-	  {% endblock %}
-
-    {% endif %}
 
 
   {% block content %}

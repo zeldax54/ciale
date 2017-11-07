@@ -276,7 +276,7 @@
 						<button class="btn btn-sm todos cleanselection"  familyid="todos" >Limpiar Selección</button>
 						<button class="btn btn-sm todos comparer" familyid="todos" >Comparar</button>
 						<button class="btn btn-sm todos expexcel" familyid="todos" >Exportar para Excel</button>
-						{#<button class="btn btn-sm todos" familyid="todos" >Imprimir Catálogo</button>#}
+						<button class="btn btn-sm todos imprimircatalogo" familyid="todos" >Imprimir Catálogo</button>
 						<b id="cantmsj"  familyid="todos" class="todos">{{ toros|length }} toros en lista</b>
 
 					</div>
@@ -465,7 +465,7 @@
 							<button class="btn btn-sm cleanselection {{ 'family'~tabla.id }}" familyid="{{ 'family'~tabla.id }}"  >Limpiar Selección</button>
 							<button class="btn btn-sm comparer {{ 'family'~tabla.id }}"  familyid="{{ 'family'~tabla.id }}" >Comparar</button>
 							<button class="btn btn-sm {{ 'family'~tabla.id }} expexcel" familyid="{{ 'family'~tabla.id }}" >Exportar para Excel</button>
-							{#<button class="btn btn-sm {{ 'family'~tabla.id }}" familyid="{{ 'family'~tabla.id }}" >Imprimir Catálogo</button>#}
+							<button class="btn btn-sm {{ 'family'~tabla.id }} imprimircatalogo" familyid="{{ 'family'~tabla.id }}" >Imprimir Catálogo</button>
 							<b id="cantmsj"  familyid="{{ 'family'~tabla.id }}" class="{{ 'family'~tabla.id }}">{{ tabla.toros|length }} toros en lista</b>
                             <button class="btn btn-xs pruebacomp" familyid="{{ 'family'~tabla.id }}" style="float:right; background-color:#882700;border:none;color:#FFF;">Ver prueba comprimida</button>
 						</div>
@@ -1300,6 +1300,7 @@ console.log(familyId);
 	 </script>
 
 
-
+	 <script src="{{ asset('bundles/gema/js/pdfgenerator.js')}}"></script>
 
  {% endblock %}
+
