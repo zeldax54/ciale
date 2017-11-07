@@ -1,0 +1,658 @@
+{% extends 'gemaBundle::clientlayout.html.twig' %}
+{% block title %}{{  toro.apodo ~' | Ciale Alta'  }}{% endblock %}
+
+  {% block customstylesheets %}
+	  <link href="{{ asset('bundles/gema/clientresources/fancybox/dist/jquery.fancybox.css')}}" rel="stylesheet">
+	  <link href="{{ asset('bundles/gema/clientresources/jquerybxslider/jquery.bxslider.css')}}" rel="stylesheet">
+	  <link href="{{ asset('bundles/gema/clientresources/watermark/styleimg.css')}}" rel="stylesheet">
+
+	  <style>
+		  th{
+			  background-color: #98999D !important;
+			  text-align: center !important;
+			  color: #FFFFFF !important;
+		  }
+
+	  </style>
+	  {% endblock %}
+  {% block content %}
+
+		<div class="row" >
+
+			<div id="fb-root"></div>
+			{#<script>(function(d, s, id) {#}
+					{#var js, fjs = d.getElementsByTagName(s)[0];#}
+					{#if (d.getElementById(id)) return;#}
+					{#js = d.createElement(s); js.id = id;#}
+					{#js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.10";#}
+					{#fjs.parentNode.insertBefore(js, fjs);#}
+				{#}(document, 'script', 'facebook-jssdk'));</script>#}
+
+   <div id="pdfcontent" style="background-color: white">
+			<div class="colapsive-panel" role="navigation">
+
+							<div class="row" id="textoinresp">
+
+								<div class="col-lg-2 col-md-2 col-sm-2 col-xs-9">
+									<ul class="nav navbar-nav">
+										<li style="font-size: 117%;">Raza:</li>
+										<li>
+											<!-- Split button -->
+
+											<select name="principalselector2" class="sel22 newselector">
+												{#<option selected  value="{{ father.nombre }}" class="here">{{ father.nombre }}</option>#}
+												{% if fathersmenu  is defined %}
+
+													{% for r in fathersmenu %}
+														{% if r.nombre == father.nombre %}
+															<option selected  value="{{ father.nombre }}" class="here">{{ father.nombre }}</option>
+														{% else %}
+															<option value="{{ r.nombre }}"> {{ r.nombre }}&nbsp;&nbsp;&nbsp;</option>
+														{% endif %}
+
+													{% endfor %}
+												{% endif %}
+
+												{% if razasmenu is defined %}
+													{% for r in razasmenu %}
+
+													     {% if r.father is null and r.nombre==toro.raza.nombre %}
+														<option selected value="{{ r.nombre }}">{{ r.nombre }}&nbsp;&nbsp;&nbsp;</option>
+														{% else %}
+														<option value="{{ r.nombre }}">{{ r.nombre }}&nbsp;&nbsp;&nbsp;</option>
+                                                    {% endif %}
+													{% endfor %}
+												{% endif %}
+											</select>
+
+										</li>
+
+									</ul>
+								</div>
+							</div>
+							
+
+							<div id="textoinresp2">
+							
+								<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 ignorePDF">
+									<button class="btn btn-warning btn-sm pdfgenerator" id="">Generar PDF</button>
+								</div>
+								<div class="col-lg-7 col-md-6 col-sm-9 col-xs-7 ignorePDF">
+									<div class="form-group buscador" id="padredatotextresp">
+									  <em><input type="text" id="datotextresp" class="form-control" placeholder="Buscar por Nombre, Prefijo o padre ..."></em>
+									</div>
+								</div>
+								<div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
+									{#<a href="#" id="buscartorosresp"><img class="" src="{{ asset('bundles/gema/clientresources/img/bt_buscar.png')}}"></a>#}
+								</div>
+
+						  </div>
+
+			</div>
+
+
+			<nav id="barra-busqueda" class="navbar" role="navigation">
+
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+					  <span class="sr-only">Toggle navigation</span>
+					  <span class="icon-bar"></span>
+					  <span class="icon-bar"></span>
+					  <span class="icon-bar"></span>
+					</button>
+				</div>
+			
+				<!-- Collect the nav links, forms, and other content for toggling -->
+
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				  
+					<div class="row">
+
+						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+
+
+						<!-- Split button -->
+
+
+										<ul class="nav navbar-nav">
+											<li style="font-size: 117%;">Raza:</li>
+											<li>
+												<!-- Split button -->
+
+												<select name="principalselector2" class="sel22 newselector">
+													{#<option selected  value="{{ father.nombre }}" class="here">{{ father.nombre }}</option>#}
+													{% if fathersmenu  is defined %}
+
+														{% for r in fathersmenu %}
+															{% if r.nombre == father.nombre %}
+																<option selected   value="{{ father.nombre }}" class="here">{{ father.nombre }}</option>
+																{% else %}
+															<option value="{{ r.nombre }}"> {{ r.nombre }}&nbsp;&nbsp;&nbsp;</option>
+																{% endif %}
+
+														{% endfor %}
+													{% endif %}
+
+													{% if razasmenu is defined %}
+														{% for r in razasmenu %}
+															     {% if r.father is null and r.nombre==toro.raza.nombre %}
+															<option selected value="{{ r.nombre }}">{{ r.nombre }}&nbsp;&nbsp;&nbsp;</option>
+															{% else %}
+															<option  value="{{ r.nombre }}">{{ r.nombre }}&nbsp;&nbsp;&nbsp;</option>
+															{% endif %}
+
+														{% endfor %}
+													{% endif %}
+												</select>
+
+											</li>
+
+										</ul>
+
+
+
+						</div>
+
+						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 ignorePDF">
+
+						  <div class="navbar-form navbar-right ">
+
+							<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 ">
+								<button id="btn-pdf" type="submit" class="btn btn-warning btn-sm pdfgenerator">Generar PDF</button>
+							</div>
+							<div class="col-lg-7 col-md-6 col-sm-9 col-xs-9">
+								<div class="form-group buscador" id="padredatotext">
+								  <em><input type="text" id="datotext" class="form-control" placeholder="Buscar por Nombre, Prefijo o padre ..."></em>
+								</div>
+							</div>
+ 							{#<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">#}
+								{#<a href="#" id="buscartoros"><img class="btn-buscar-logo" src="{{ asset('bundles/gema/clientresources/img/bt_buscar.png')}}"></a>#}
+     						{#</div>#}
+
+						  </div>
+
+						</div>
+
+					</div>
+
+				</div><!-- /.navbar-collapse -->
+
+			</nav>
+
+
+		<div class="row">
+
+			<div id="izq-primero">
+                <!-- Go to www.addthis.com/dashboard to customize your tools -->
+
+				<div style="position: relative; left: 0; top: 0;" id="imgwatercont" class="example">
+
+				<a data-fancybox="gallery" class="fancybox" href="{{ asset(princimg) }}" data-caption="{{ pricimgdesc }}" title="{{ pricimgdesc }}">	<img  id="imagen-principal" width="95%" height="300" src="{{ asset(princimg) }}" class="img-responsive toroimg"/></a>
+					{#<img id="imagen-wattermark"  src="{{ asset(watermarkimg) }}" class="img-responsive marcaagua" style="display: none"/>#}
+
+				{% if pricimgdesc is not null  and pricimgdesc!='' and pricimgdesc is defined %}
+          <div class="outercaption"><span class="fagosibold">{{ pricimgdesc }}</span></div>
+          {% endif %}
+
+            {%   if mediatoro | length >0 %}
+
+				<div style="text-align: center"><a class="ignorePDF fagosibold" style="margin-left:0% !important">Vea más fotos y videos de este toro:</a></div>
+	  {% endif %}
+				</div>
+
+
+
+
+
+				<br>
+
+				<div class="row ignorePDF" style="padding:15px 20px;">
+					{%   if mediatoro|length >0 %}
+						<ul class="bxslider">
+
+						{% for media in mediatoro %}
+							<li>
+								<div class="row" style="margin: 0 auto">
+								{% for dato in media %}
+
+										<div class="col-xs-3" style="padding: 1px">
+											<a class="fancybox" href="{{ asset(dato.url |replace({'_small':''})) }}" data-fancybox="gallery" data-caption="{{ dato.descripcion }}" title="{{ dato.descripcion }}">
+												<img   src="{{ asset(dato.rep  ) }}" class="img-responsive thumbnail"/>
+												{% if dato.tipo=='video'%}
+												<span class="videoinfo">VIDEO</span>
+												{% endif %}
+
+											</a>
+										</div>
+
+
+								{% endfor %}
+								</div>
+							</li>
+
+
+
+							{% endfor %}
+						</ul>
+					{% endif %}
+				</div>
+
+				<div class="encabezado-area encabezado-izq">
+					<i class="fa fa-caret-right fa-3x" style="margin:-9px 0 0 -45px;">&nbsp;&nbsp;</i>
+					<strong style="font-size:16px;position:absolute;margin-top:2px;">Pedigree</strong>			
+				</div>
+				<br>
+				<div class="row">
+
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+						<br><br><br><strong style="float:right;margin-right:40px;">{{ toro.padre }}</strong>
+					</div>
+
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+						<div class="arbol1"></div>
+						<div class="arbol2"></div>
+						<address class="pedigree-tree">
+							&nbsp;&nbsp;{{ toro.padrepadrepadre }}<br>
+							{{ toro.padrepadre }}<br>
+							&nbsp;&nbsp;{{ toro.madrepadrepadre }}<br>
+						</address>
+						<br>
+						<div class="arbol2"></div>
+							<address class="pedigree-tree">
+							&nbsp;&nbsp;{{ toro.padremadrepadre }}<br>
+							{{ toro.madrepadre }}<br>
+							&nbsp;&nbsp;{{ toro.madremadrepadre }}<br>
+						</address>
+					</div>			
+				</div>
+				<br>
+				<div class="row">
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+						<br><br><br><strong style="float:right;margin-right:40px;">{{ toro.madre }}</strong>
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+						<div class="arbol1"></div>
+						<div class="arbol2"></div>
+
+
+						<address class="pedigree-tree">
+							&nbsp;&nbsp;{{ toro.padrepadremadre }}<br>
+						    {{ toro.padremadre }}<br>
+							&nbsp;&nbsp;{{ toro.madrepadremadre }}<br>
+						</address>
+						<br>
+						<div class="arbol2"></div>
+						<address class="pedigree-tree">
+							&nbsp;&nbsp;{{ toro.padremadremadre }}<br>
+							{{ toro.madremadre }}<br>
+							&nbsp;&nbsp;{{ toro.madremadremadre }}<br>
+						</address>
+					</div>
+				</div>				
+
+			</div>				
+
+			<div id="der-primero">
+	<div class="addthis_inline_share_toolbox" style="margin-top: 4%"></div>
+				<address>
+					<h2><strong>{{ toro.apodo }}</strong></h2>
+					{% if toro.nuevo==1 %}
+					<span id="nuevocartel">NUEVO</span>
+					{% endif %}
+					<strong>{{ toro.nombre }}</strong><br>
+					<div class="row">
+						<div class="col-lg-3 col-md-4 col-sd-3 col-xs-12">
+							<strong>HBA:</strong>&nbsp;{{ toro.hba }}
+						</div>
+						<div class="col-lg-3 col-md-4 col-sd-3 col-xs-12">
+							<strong>ADN:</strong>&nbsp;{{ toro.adn }}
+						</div>
+						<div class="col-lg-3 col-md-4 col-sd-3 col-xs-12">
+							{#<div class="fb-like" data-href="{{ app.request.uri }}"#}
+								 {#data-layout="button_count"#}
+								 {#data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>#}
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-3 col-md-4 col-sd-3 col-xs-12">
+							<strong>RP:</strong>&nbsp;{{ toro.rp }}
+						</div>
+						<div class="col-lg-6 col-md-6 col-sd-3 col-xs-12">
+							<strong>Senasa:</strong>&nbsp;{{ toro.senasa }}
+						</div>
+
+						<div class="col-lg-12 col-md-12 col-sd-3 col-xs-12" style="margin-top: 36px">
+							{{ toro.lineagenetica }}
+						</div>
+						
+					</div>
+					{#<strong>2017</strong>#}
+				</address>
+	
+				<div class="row">
+	
+					<div class="col-lg-4 col-md-4 col-sm-5 col-xs-5">
+						{% if imgfp is not null %}
+						<img src="{{ asset(imgfp) }}" class="img-responsive" style="height:67px;"/>
+						{% endif %}
+					</div>
+					<div class="col-lg-5 col-md-5 col-sm-6 col-xs-6">
+						{% if toro.cp==true %}
+						<img src="{{ asset(imgcp) }}" class="img-responsive" style="height:67px;"/>
+							{% endif %}
+					</div>
+					
+				</div>
+	
+				<br>
+	
+				<address style="color:black;margin-bottom:2px;">
+				{% if toro.nombreraza is not null %}
+					<strong>Raza:</strong>&nbsp;{{ toro.nombreraza }}<br>
+					{% else %}
+					<strong>Raza:</strong>&nbsp;{{ toro.raza.nombre }}<br>
+					{% endif %}
+					<strong>Nacimiento:</strong>&nbsp;{{ toro.fechanacimiento|date('d-m-Y')  }}<br>
+					<strong>Criador:</strong>&nbsp;{{ toro.criador }}<br>
+					<strong>Propietario:</strong>&nbsp;{{ toro.propietario }}
+				</address>
+	
+				<div style="display: none"><strong>Precio de lista:</strong>&nbsp;$ {{ toro.precio }}<br></div>
+	
+			</div>
+
+			<div id="der-segundo">
+
+				<div class="encabezado-area" style="margin-left:25px;">
+					<i class="fa fa-caret-right fa-3x" style="margin:-9px 0 0 -45px;">&nbsp;&nbsp;</i>
+					<strong style="font-size:16px;position:absolute;margin-top:2px;">Medidas Corporales y Pesos</strong>			
+				</div>
+	
+				<br>
+				
+				<div class="contenedor-medidas">
+					
+					<div class="medida medida1"><strong title="Circunferencia Escrotal">{{ toro.circunferenciaescrotal }}</strong></div>
+
+					<div class="medida medida2"><strong title="Alto de la grupa">{{ toro.altogrupa }}</strong></div>
+			
+					<div class="medida medida3"><br> <strong title="Ancho de grupa ">{{ toro.anchogrupa }}</strong></div>
+
+					<div class="medida medida4"><br> <strong title="Largo de grupa">{{ toro.largogrupa }}</strong></div>
+				
+					<div class="medida medida5"><strong title="Largo corporal">{{ toro.largocorporal }}</strong></div>
+
+					<img src="{{ asset(silueta) }}" class="img-responsive" style="margin:0 auto"/>
+					<b id="infodes" style="margin-left:0px;"><em>Deslice el mouse sobre los números para ver la descripción</em></b>
+	
+				</div>						
+
+				<br>
+	
+				<div class="table-responsive tabla-esp">
+					<table class="table table-bordered tablaup">
+						 <thead>
+							<tr>
+								<th>EDAD</th>
+								<th>PN</th>
+								<th>P205D</th>
+								<th>P365D</th>
+								<th>P550D</th>
+								<th>P. ADULTO</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row">PESO (KG)</th>
+								<td>{{ toro.pn1 }}</td>
+								<td>{{ toro.p205d }}</td>
+								<td>{{ toro.p365d }}</td>
+								<td>{{ toro.p550d }}</td>
+								<td>{{ toro.peso }}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+	
+				<br>
+	
+				<div class="encabezado-area" style="margin-left:25px;">
+					<i class="fa fa-caret-right fa-3x" style="margin:-9px 0 0 -45px;">&nbsp;&nbsp;</i>
+					<strong style="font-size:16px;position:absolute;margin-top:2px;">Comentarios</strong>
+				</div>
+	
+				<p>
+					{{ toro.descripcion }}
+				</p>
+				
+				<br>
+
+			</div>
+
+		</div>
+
+	  {% if tabla!=null  %}
+		<div id="ultima-col" class="row">
+	
+			<div class="encabezado-area encabezado-izq">
+					<i class="fa fa-caret-right fa-3x" style="margin:-9px 0 0 -45px;">&nbsp;&nbsp;</i>
+					<strong style="font-size:16px;position:absolute;margin-top:2px;">Prueba</strong>
+			</div>
+
+			<div class="encabezado-tabla">{{ toro.evaluaciongenetica }}</div>
+	
+			<div id="tabla-infeior">		
+				<div class="table-responsive">
+					<table class="table table-bordered">
+						 <thead>
+
+
+							<tr>
+	  <th class=""></th>
+
+	  {% for t in tabla.tabladatos %}
+								<th>{{ t.nombre }}</th>
+		  {% endfor %}
+
+							</tr>
+						</thead>
+						<tbody>
+						{% for dato in tablagenetica %}
+							<tr class="{{ cycle(["alterna", ""], loop.index) }}">
+								<th scope="row">{{ dato['rowhead'] }}</th>
+								{% for td in tabla.tabladatos %}
+								           {% if  isNumber(dato[td.nombre])=='1' %}
+
+									{%   if dato['rowhead']|lower =='ranking' and dato[td.nombre] | replace('%','')<=25 and td.nombre|lower !='altura' and td.nombre|lower !='alt.' and td.nombre|lower !='alt' and td.nombre|lower !='alt.hijas'  and td.nombre|lower !='alt.año'  and dato[td.nombre]!='-' %}
+									<td class="downprom">{{ dato[td.nombre]|replace({' ':''})|round(2)~'%' }}</td>
+                           {% else %}
+
+                           {% if dato['rowhead']|lower =='ranking'%}
+						       <td>{{ dato[td.nombre]|replace({' ':''})|round(2)~'%' }}</td>
+									{% else %}
+									        {% if dato['rowhead']|lower =='prec' and toro.raza.id==25%}
+									           <td>{{ dato[td.nombre]|replace({' ':''})|round(2) }}%</td>
+									        {% else %}
+									    <td>{{ dato[td.nombre]|replace({' ':''})|round(2) }}</td>
+									    {% endif %}
+									{% endif %}
+
+									{% endif %}
+                                 {% else %}
+	                           <td class="">{{ dato[td.nombre]|replace({' ':''}) }}</td>
+                            {% endif %}
+								{% endfor %}
+							</tr>
+							{% endfor %}
+
+						</tbody>
+					</table>
+
+				</div>
+
+			</div>
+		<div id="comentarioresposive" style="display: none">
+					<span style="color: #DA5F00;font-style: italic;font-family: Fago-normal">Desplace el dedo sobre la tabla para navegarla </span>
+                       </div>
+		</div>
+	  {% endif %}
+
+	</div>
+
+
+	  <div id="slider-next" style="display: none"> </div>
+	  <div id="slider-prev" style="display: none"> </div>
+
+{% endblock %}
+
+    {% block custom_javascripts %}
+        <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-59bfe77693358884"></script>
+		<script src="{{ asset('bundles/gema/clientresources/fancybox/dist/jquery.fancybox.js')}}"></script>
+		<script src="{{ asset('bundles/gema/clientresources/jquerybxslider/jquery.bxslider.min.js')}}"></script>
+
+		<script src="{{ asset('bundles/gema/clientresources/pdfclient/jspdf.min.js')}}"></script>
+		<script src="{{ asset('bundles/gema/clientresources/pdfclient/addhtml.js')}}"></script>
+		<script src="{{ asset('bundles/gema/clientresources/pdfclient/html2canvas.js')}}"></script>
+		<script src="{{ asset('bundles/gema/js/buscadortoros.js')}}"></script>
+		<script>
+
+
+
+			$(document).ready(function(){
+
+{#var title='{{ toro.apodo }}'+' | CIALE Alta';#}
+{#$(document).prop('title', title);#}
+
+
+
+
+$(".fancybox").fancybox({
+		openEffect	: 'none',
+		closeEffect	: 'none',
+
+		afterLoad : function( instance, current ) {
+         var capt=$('.fancybox-caption');
+
+		var msj=capt.html();
+		capt.empty();
+		capt.append('<span style="background: black;">'+msj+'</span>');
+	}
+
+
+
+	});
+
+//	$('class=""')
+
+				$('.bxslider').bxSlider(
+						{
+							adaptiveHeight: true,
+                               nextSelector: '#slider-next',
+                               prevSelector: '#slider-prev',
+                               nextText: 'Onward →',
+                               prevText: '← Go back'
+
+						}
+				);
+
+
+				$('#datotext').keyup(function(){
+					if($(this).val().length>1)
+					{
+						buscarTorosLike($(this).val(),'datotext','padredatotext','800px','padredatotext');
+					}
+				});
+
+				$('#datotextresp').keyup(function(){
+					if($(this).val().length>1)
+					{
+						buscarTorosLike($(this).val(),'datotextresp','padredatotextresp','300px','padredatotextresp',true);
+					}
+				});
+
+
+			})
+		</script>
+
+		<script>
+
+
+			$('.sel22').change(function(){
+				var name=$(this).val();
+
+
+					window.location=Routing.generate('gema_razalist', {nombre: name});
+
+
+			});
+			</script>
+
+		<script>
+			$('.pdfgenerator').click(function(){
+
+			 {#var id={{ toro.id }}#}
+		 {#var url=Routing.generate('gema_toropdf',{toroId:id});#}
+		{#//	 window.location=Routing.generate('gema_toropdf',{toroId:id});#}
+			 {#window.open(url, '_blank');#}
+{#return;#}
+
+
+			var specialElementHandlers = {
+  '#ignorePDF': function(element, renderer) {
+    return true;
+   }
+};
+
+var margin = {
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0
+};
+
+var x=$('#pdfcontent').find('.ignorePDF').remove();
+$('#tabla-infeior').css('font-size','10px');
+//$('#pdfcontent').append("<b>Appended text</b>");//Add
+
+
+var x=$('#pdfcontent')[0];
+
+
+//var r=x.find('.ignorePDF');
+
+
+var pdf = new jsPDF('p','pt','a4');
+
+pdf.addHTML(x,10,10,{
+ //  'width': 1150, // max width of content on PDF
+  'elementHandlers': specialElementHandlers,
+
+},
+
+ function () {
+
+     pdf.save('{{ toro.apodo }}.pdf');
+     location.reload();
+ });
+			});
+		</script>
+<script>
+$(document).ready(function(){
+
+ if ($(window).width() < 992) {
+    $("#der-primero").insertBefore($("#izq-primero"));
+  }
+});
+
+$(window).on("resize", function() {
+  $(".currentwidth").text($(window).width());
+  if ($(window).width() < 992) {
+    $("#der-primero").insertBefore($("#izq-primero"));
+  } else {
+    $("#izq-primero").insertBefore($("#der-primero"));
+  }
+
+})
+</script>
+
+	{% endblock %}
