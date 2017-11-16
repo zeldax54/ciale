@@ -1085,7 +1085,8 @@ var buttonsToDOM = function buttonsToDOM (buttons) {
     }
     // Attach click listener to button with closure
     (function (button) {
-      domButton.addEventListener('click', function (e) {
+      domButton.addEventListener('click', function (e) {		 
+		  $('#clicked').val(button.className);
         if (button.click) {
           button.click.call(this, e)
         }

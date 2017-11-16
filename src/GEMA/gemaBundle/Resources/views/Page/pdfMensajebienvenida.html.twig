@@ -1,0 +1,66 @@
+
+
+
+    {% extends 'gemaBundle::pdflayout.html.twig' %}
+
+
+  {% block customstylesheets %}
+	  <link href="{{absolute_url(asset('bundles/gema/clientresources/fancybox/dist/jquery.fancybox.css'))}}" rel="stylesheet">
+	  <link href="{{absolute_url(asset('bundles/gema/clientresources/jquerybxslider/jquery.bxslider.css'))}}" rel="stylesheet">
+	  <link href="{{absolute_url(asset('bundles/gema/clientresources/watermark/styleimg.css'))}}" rel="stylesheet">
+	  <link href="{{absolute_url(asset('bundles/gema/clientresources/css/listtoro.css'))}}" rel="stylesheet">
+
+	  <style>
+
+
+		  .container {
+			  position: relative;
+			  text-align: center;
+			  color: white;
+		  }
+
+		  .menuitem{
+			  font-size: 29px;
+			  color:#008CFF;
+			  font-family: 'Fago-normal';
+		  }
+
+		  .primd{
+   margin-left: 20% !important;
+		  }
+
+
+          .page {
+              overflow: hidden;
+              page-break-after: always;
+          }
+
+	  </style>
+	  {% endblock %}
+
+
+
+
+  {% block content %}
+
+
+
+      <div class="page">
+
+      </div>
+
+	<div class="container">
+
+
+
+        <img src="{{ absolute_url(asset(image)) }}" style="width: 100% !important;">
+
+
+		<div class="top-left">
+			<span class="previatitulo" style="font-size: 66px !important;">{{ titulo }} </span> <br>
+			<span class="previasubtitulo" style="font-size: 30px !important;">{{ cuerpo }} </span>
+		</div>
+
+		</div>
+
+  {% endblock %}

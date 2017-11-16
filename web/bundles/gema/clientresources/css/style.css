@@ -252,13 +252,13 @@ td{
 	margin-bottom:20px;
 }
 #tabla-infeior .table tr td{
-	background-color:#D0D4D5;
+	background-color:#D0D4D5 !important;
 }
 #tabla-infeior .table tr.alterna td{
-	background-color:#E7E8EA;
+	background-color:#E7E8EA !important;
 }
 #tabla-infeior .table tr td.downprom{
-	background-color:#E69659;
+	background-color:#E69659 !important;
 }
 .celdaBlanco{
 	background-color:#FFF;

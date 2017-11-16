@@ -1,0 +1,78 @@
+
+
+
+    {% extends 'gemaBundle::pdflayout.html.twig' %}
+
+
+  {% block customstylesheets %}
+	  <link href="{{absolute_url(asset('bundles/gema/clientresources/fancybox/dist/jquery.fancybox.css'))}}" rel="stylesheet">
+	  <link href="{{absolute_url(asset('bundles/gema/clientresources/jquerybxslider/jquery.bxslider.css'))}}" rel="stylesheet">
+	  <link href="{{absolute_url(asset('bundles/gema/clientresources/watermark/styleimg.css'))}}" rel="stylesheet">
+	  <link href="{{absolute_url(asset('bundles/gema/clientresources/css/listtoro.css'))}}" rel="stylesheet">
+
+	  <style>
+
+
+		  .container {
+			  position: relative;
+			  text-align: center;
+			  color: white;
+		  }
+
+		  /* Bottom left text */
+		  .bottom-left {
+			  position: absolute;
+			  bottom: 8px;
+			  left: 16px;
+		  }
+
+		  /* Top left text */
+		  .top-left {
+			  position: absolute;
+			  top: 8px;
+			  left: 16px;
+		  }
+
+		  /* Top right text */
+		  .top-right {
+			  position: absolute;
+			  top: 8px;
+			  right: 16px;
+		  }
+
+		  /* Bottom right text */
+		  .bottom-right {
+			  position: absolute;
+			  bottom: 8px;
+			  right: 16px;
+		  }
+
+		  /* Centered text */
+		  .centered {
+			  position: absolute;
+			  top: 50%;
+			  left: 50%;
+			  transform: translate(-50%, -50%);
+		  }
+
+
+
+
+	  </style>
+	  {% endblock %}
+
+
+
+
+  {% block content %}
+
+
+
+
+
+	  <div class="container">
+		  <div style="text-align: left; margin-top: 25px !important;"> <h1 style="/*! color: red; */font-family: 'Fago-Bold';color: #133B96;font-size: 54px; margin-left: 10% !important;"> Tabla de contenidos</h1></div>
+		 {{ texto|raw }}
+	  </div>
+
+  {% endblock %}

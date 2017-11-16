@@ -272,3 +272,130 @@ font-family: 'Fago-Normal';
 	font-family: 'Fago-Normal';
 }
 
+
+.imagencapasminuaturas{
+	width: 121% !important;
+height: 143px !important;
+}
+
+.vex-theme-default-hidden {
+    visibility: hidden
+}
+
+.inputtext{
+	/*width: 50% !important;*/
+border: 2px #bc8136 solid !important;
+/*margin-left: 64px !important;*/
+font-size: 13px !important;
+height: 4px !important;
+font-family:'Fago-normal' !important;
+
+}
+
+.divaligncenter{
+	text-align:left;
+	background:#B24E2A !important;
+}
+.bdatapdf{
+	color:white !important;
+	font-family:'Fago-normal' !important;
+}
+
+.bordernaranjaclassMasAncho {
+    border-color: #B24E2A !important;
+	width:600px !important
+}
+
+.bordernaranjaclassMasAncho button {
+    background: #B24E2A !important;
+}
+.previaheader{
+	font-family:'Fago-Bold' !important;
+}
+.previatitulo{
+	font-family:'Fago-Bold'!important;
+	color: #004592 !important;
+    font-size: 24px !important;
+}
+.previasubtitulo{
+	font-family:'Fago-normal'!important;
+	color: #1B82C4 !important;
+    
+}
+
+.previatexto{
+	font-size: 13px !important;
+}
+
+
+.bordernaranjaclassMasAncholistatoroprevia {
+    border-color: #B24E2A !important;
+	width: 504px !important
+}
+
+.bordernaranjaclassMasAncholistatoroprevia button {
+    background: #B24E2A !important;
+}
+
+.bordernaranjaclassMasAnchofin button {
+    background: #B24E2A !important;
+}
+
+.segdafoot{
+	margin-top: 95% !important;
+margin-right: 21% !important;
+text-align: left !important;
+margin-left: 6% !important;
+font-weight: bold;
+color: black;
+}
+.segdafoot span{
+	color:black !important;
+}
+.previatextof{
+	font-size:40px !important;
+}
+
+
+  /* Bottom left text */
+		  .bottom-left {
+			  position: absolute;
+			  bottom: 8px;
+			  left: 16px;
+		  }
+
+		  /* Top left text */
+		  .top-left {
+			  position: absolute;
+			  top: 8px;
+			  left: 16px;
+		  }
+
+		  /* Top right text */
+		  .top-right {
+			  position: absolute;
+			  top: 8px;
+			  right: 16px;
+		  }
+
+		  /* Bottom right text */
+		  .bottom-right {
+			  position: absolute;
+			  bottom: 8px;
+			  right: 16px;
+		  }
+
+		  /* Centered text */
+		  .centered {
+			  position: absolute;
+			  top: 50%;
+			  left: 50%;
+			  transform: translate(-50%, -50%);
+		  }
+		  
+		  .imagenheadercatalogprevia1{
+			  height: 319px !important;
+		  }
+		  
+		 
+

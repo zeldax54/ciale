@@ -267,5 +267,15 @@ gema_catalogobaseinfo:
     pattern:  /catalogbaseinfo
     defaults: { _controller: "gemaBundle:Export:catalogbaseinfo" }
 
+admin_limpiarcatalogos:
+    pattern:  admin/limpiarcatalogos
+    defaults: { _controller: "gemaBundle:Export:limpiarcatalogos" }
+
+pdf_generate_catalogo:
+    pattern:  /catalogo
+    defaults: { _controller: "gemaBundle:Export:generatecatalogo" }
+
+
+
 
 

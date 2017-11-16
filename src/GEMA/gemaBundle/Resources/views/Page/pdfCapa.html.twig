@@ -1,0 +1,41 @@
+
+
+
+{% extends 'gemaBundle::pdflayout.html.twig' %}
+
+
+  {% block customstylesheets %}
+	  <link href="{{absolute_url(asset('bundles/gema/clientresources/fancybox/dist/jquery.fancybox.css'))}}" rel="stylesheet">
+	  <link href="{{absolute_url(asset('bundles/gema/clientresources/jquerybxslider/jquery.bxslider.css'))}}" rel="stylesheet">
+	  <link href="{{absolute_url(asset('bundles/gema/clientresources/watermark/styleimg.css'))}}" rel="stylesheet">
+
+	  <style>
+		  th{
+			  background-color: #98999D !important;
+			  text-align: center !important;
+			  color: #FFFFFF !important;
+		  }
+
+		  .container.wrapped-container {
+			  margin-top: 0px !important;
+
+		  }
+		  .container {
+			  padding: 0 !important;
+		  }
+
+
+
+	  </style>
+  {% endblock %}
+
+
+
+
+  {% block content %}
+
+	  <img src="{{ absolute_url(asset(capaimg)) }}" style="width: 100% !important;">
+
+	  {#<div class="row" style="width: 991px !important; height: 1403px !important;background-image:url({{ absolute_url(asset(capaimg)) }});background-size: cover !important;background-position: bottom !important;">#}
+	  {#</div>#}
+  {% endblock %}

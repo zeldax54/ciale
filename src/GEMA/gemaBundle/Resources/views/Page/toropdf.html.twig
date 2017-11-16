@@ -16,6 +16,30 @@
 			  color: #FFFFFF !important;
 		  }
 
+		  .page {
+			  overflow: hidden;
+			  page-break-after: always;
+		  }
+
+          .tabless{
+              width: 99% !important;
+          }
+
+          td{
+              vertical-align: middle !important;
+              color:black !important;
+          }
+
+          .contenedor-medidas strong{
+              color: #0a0a0a !important;
+          }
+
+          .encabezado-area strong{
+
+              color: #0a0a0a !important;
+
+          }
+
 	  </style>
 	  {% endblock %}
 
@@ -41,7 +65,7 @@
           {% endif %}
 				</div>
 				<br>
-				<div class="encabezado-area encabezado-izq">
+				<div class="encabezado-area encabezado-izq" style="text-align: left !important;">
 					<i class="fa fa-caret-right fa-3x" style="margin:-9px 0 0 -45px;">&nbsp;&nbsp;</i>
 					<strong style="font-size:16px;position:absolute;margin-top:2px;">Pedigree</strong>			
 				</div>
@@ -96,7 +120,7 @@
 
 			</div>				
 
-			<div id="der-primero">
+			<div id="der-primero" style="text-align: left !important;">
 
 				<address>
 					<h2><strong>{{ toro.apodo }}</strong></h2>
@@ -146,7 +170,7 @@
 	
 				<br>
 	
-				<address style="color:black;margin-bottom:2px;">
+				<address style="color:black;margin-bottom:2px;text-align: left !important;">
 				{% if toro.nombreraza is not null %}
 					<strong>Raza:</strong>&nbsp;{{ toro.nombreraza }}<br>
 					{% else %}
@@ -163,7 +187,7 @@
 
 			<div id="der-segundo">
 
-				<div class="encabezado-area" style="margin-left:25px;">
+				<div class="encabezado-area" style="margin-left:25px;text-align: left !important;">
 					<i class="fa fa-caret-right fa-3x" style="margin:-9px 0 0 -45px;">&nbsp;&nbsp;</i>
 					<strong style="font-size:16px;position:absolute;margin-top:2px;">Medidas Corporales y Pesos</strong>			
 				</div>
@@ -216,12 +240,12 @@
 	
 				<br>
 	
-				<div class="encabezado-area" style="margin-left:25px;">
+				<div class="encabezado-area" style="margin-left:25px;text-align: left !important;">
 					<i class="fa fa-caret-right fa-3x" style="margin:-9px 0 0 -45px;">&nbsp;&nbsp;</i>
 					<strong style="font-size:16px;position:absolute;margin-top:2px;">Comentarios</strong>
 				</div>
 	
-				<p>
+				<p style="color: #0a0a0a !important;margin-left: 21px !important;">
 					{{ toro.descripcion }}
 				</p>
 				
@@ -234,7 +258,7 @@
 	  {% if tabla!=null  %}
 		<div id="ultima-col" class="row">
 	
-			<div class="encabezado-area encabezado-izq">
+			<div class="encabezado-area encabezado-izq" style="text-align: left !important;">
 					<i class="fa fa-caret-right fa-3x" style="margin:-9px 0 0 -45px;">&nbsp;&nbsp;</i>
 					<strong style="font-size:16px;position:absolute;margin-top:2px;">Prueba</strong>
 			</div>
@@ -243,7 +267,7 @@
 	
 			<div id="tabla-infeior" style="width: 100% !important;">
 				<div class="table-responsive">
-					<table class="table table-bordered" style="font-size: 8px !important;">
+					<table class="table table-bordered tabless" style="font-size: 8px !important;">
 						 <thead>
 							<tr>
 	  <th class=""></th>
@@ -295,4 +319,7 @@
 		</div>
 	  {% endif %}
 	</div>
+      <div class="page">
+
+      </div>
 {% endblock %}
