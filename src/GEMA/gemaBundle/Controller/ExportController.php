@@ -880,10 +880,10 @@ public function exceladminAction($razaid){
 
 
             $options = [
-                'margin-top'    => 1,
-                'margin-right'  => 1,
-                'margin-bottom' => 1,
-                'margin-left'   => 1,
+                'margin-top'    => 5,
+                'margin-right'  => 5,
+                'margin-bottom' => 5,
+                'margin-left'   => 5,
             ];
             foreach ($options as $margin => $value) {
                 $pdfGenerator->setOption($margin, $value);
