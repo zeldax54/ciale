@@ -845,24 +845,24 @@ public function exceladminAction($razaid){
 
 
 
-//            if(isset($source['listaprecios']) && $source['listaprecios']!='' && $source['listaprecios']!='undefined' && $source['listaprecios']!=null) {
-//
-//               $texto='';
-//
-//                foreach($source['listtoroprocesada'] as $t){
-//                    $texto.='<div class="row">
-//                 <div class="col-md-6" style="text-align: left"><span class="menuitem primd">'.$t[1].'</span></div>
-//              <div class="col-md-6"><span class="menuitem">$'.$t[2].'</span></div>
-//              </div>';
-//
-//
-//                }
-//
-//                $html.= $this->renderView('gemaBundle:Page:pdfListaprecios.html.twig', array(
-//                    'texto'=>$texto
-//
-//                ));
-//            }
+            if(isset($source['listaprecios']) && $source['listaprecios']!='' && $source['listaprecios']!='undefined' && $source['listaprecios']!=null) {
+
+               $texto='';
+
+                foreach($source['listtoroprocesada'] as $t){
+                    $texto.='<div class="row">
+                 <div class="col-md-6" style="text-align: left"><span class="menuitem primd">'.$t[1].'</span></div>
+              <div class="col-md-6"><span class="menuitem">$'.$t[2].'</span></div>
+              </div>';
+
+
+                }
+
+                $html.= $this->renderView('gemaBundle:Page:pdfListaprecios.html.twig', array(
+                    'texto'=>$texto
+
+                ));
+            }
 
 
 
