@@ -96,6 +96,7 @@ services:
          -  { name: twig.extension }
 
 knp_snappy:
+    temporary_folder: %kernel.cache_dir%/snappy
     pdf:
         enabled:    true
         binary:     %kernel.root_dir%/../vendor/h4cc/windows/bin/wkhtmltopdf

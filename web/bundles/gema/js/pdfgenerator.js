@@ -160,6 +160,7 @@ $('.imprimircatalogo').click(function(){
                                     }
                                 });
                                 $('#clicked').val('');
+
                                 return;
                             }
 
@@ -727,9 +728,10 @@ $('.imprimircatalogo').click(function(){
                                                                             }
 
                                                                             if (clickwhere.val().search(/fincontinuarbutton/) != -1) {
+                                                                                console.log(source);
 
 
-                                                                                var vexwaiting2 = vex.dialog.alert({unsafeMessage: '<b>Procesando. Esto puede demorar en dependencia de la cantidad de todos seleccionados. Sea paciente.Espere...</b>',
+                                                                                var vexwaiting2 = vex.dialog.alert({unsafeMessage: '<b>Procesando. Esto puede demorar en dependencia de la cantidad de toros seleccionados. Sea paciente.Espere...</b>',
                                                                                     contentClassName: 'bordernaranjaclassMasAncho',
                                                                                 })
 
@@ -750,6 +752,7 @@ $('.imprimircatalogo').click(function(){
                                                                                             window.open(data[1], '_blank');
                                                                                             //window.location.href="about:blank";
                                                                                             //window.location=data[1];
+
                                                                                         } else {
                                                                                             vex.dialog.alert({
                                                                                                 unsafeMessage: '<b>Error generando PDF</b>',

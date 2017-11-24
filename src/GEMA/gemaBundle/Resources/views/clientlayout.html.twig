@@ -173,6 +173,25 @@
             <script> vex.defaultOptions.className = 'vex-theme-bottom-right-corner'</script>
 
 
+            <!-- Etiqueta global de sitio (gtag.js) de Google Analytics -->
+
+            <script async src="https://www.googletagmanager.com/gtag/js?id=UA-46874293-1"></script>
+
+            <script>
+
+                window.dataLayer = window.dataLayer || [];
+
+                function gtag(){dataLayer.push(arguments)};
+
+                gtag('js', new Date());
+
+
+
+                gtag('config', 'UA-46874293-1');
+
+            </script>
+
+
         {% endblock %}
         {% block custom_javascripts %}
             <script>

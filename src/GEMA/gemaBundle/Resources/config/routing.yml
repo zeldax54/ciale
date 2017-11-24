@@ -275,6 +275,10 @@ pdf_generate_catalogo:
     pattern:  /catalogo
     defaults: { _controller: "gemaBundle:Export:generatecatalogo" }
 
+pdf_capatest:
+    pattern:  /capatest/{capaname}
+    defaults: { _controller: "gemaBundle:Export:capatest" }
+
 
 
 

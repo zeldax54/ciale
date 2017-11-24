@@ -24,7 +24,10 @@
 			  padding: 0 !important;
 		  }
 
-
+          .page {
+              overflow: hidden;
+              page-break-after: always;
+          }
 
 	  </style>
 	  {% endblock %}
@@ -45,10 +48,6 @@
 			  <span class="previasubtitulo" style="font-size: 40px !important;">{{ subtitulo }} </span>
 		  </div>
 
-
-
-
-
 		  <div class="bottom-left" style="text-align: left">
 
 			  <span class="previasubtitulo previatexto previatextof">{{ contacto }}</span><br>
@@ -61,6 +60,10 @@
 		  </div>
 	  </div>
 
-	  {#<div class="row" style="width: 991px !important; height: 1403px !important;background-image:url({{ absolute_url(asset(capaimg)) }});background-size: cover !important;background-position: bottom !important;">#}
-	    {#</div>#}
+
+
+
+      <div class="page">
+
+      </div>
 {% endblock %}

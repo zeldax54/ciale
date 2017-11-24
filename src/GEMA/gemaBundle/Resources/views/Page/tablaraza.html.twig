@@ -329,7 +329,7 @@
 										<tr class={{ cycle(["odd", "even"], loop.index) }}">
 											<td >{{ toro.id }}</td>
 											<td >{{ toro.id }}</td>
-											<td ><a href="{{ path('gema_torodetail', {'apodo':toro.apodo}) }}"><img class="toroimg imageresponsiveselect"  src="{{ asset(toro.imgprincipal) }}"  width="96px" height="77px"></a></td>
+											<td ><a href="{{ path('gema_torodetail', {'apodo':toro.apodo}) }}" target="blank"><img class="toroimg imageresponsiveselect"  src="{{ asset(toro.imgprincipal) }}"  width="96px" height="77px"></a></td>
 
 											{#<td class="verticalalign tip" style="text-align: center" data-tableexport-value="{{ toro.apodo|upper }}">{{ toro.apodo|upper }} <span>Nombre:{{ toro.nombre }} <br/>  Madre:{{ toro.madre }}</span> </td>#}
 											<td class="verticalalign tip" style="text-align: center" data-tableexport-value="{{ toro.apodo|upper }}">{{ toro.apodo|upper }}</td>
@@ -529,7 +529,7 @@
 									<tr class="{{ cycle(["odd", "even"], loop.index) }}">
 										<td>{{ toro.id }}</td>
 										<td >{{ toro.id }}</td>
-										<td><a href="{{ path('gema_torodetail', {'apodo':toro.apodo }) }}"><img class="toroimg" src="{{ asset(toro.imgprincipal) }}" width="96px" height="77px"></a></td>
+										<td><a href="{{ path('gema_torodetail', {'apodo':toro.apodo }) }}" target="blank"><img class="toroimg" src="{{ asset(toro.imgprincipal) }}" width="96px" height="77px"></a></td>
 										<td class="verticalalign toroapodo" tnombre="{{ toro.nombre }}" tmadre="{{ toro.madre }}" title=" Padre:{{ toro.padre }}*** Abuelo Materno:{{ toro.padremadre }}" style="text-align: center">{{ toro.apodo|upper }}<br>{{ toro.padre|truncate(20,true) }}<br>{{ toro.padremadre|truncate(20,true) }}</td>
 										<td class="verticalalign" style="text-align: center">{{ toro.nombre }}</td>
 										<td class="verticalalign" style="text-align: center">{{ toro.madre }}</td>

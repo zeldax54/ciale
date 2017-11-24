@@ -14,15 +14,13 @@ use InvalidArgumentException;
 use PHPExcel_Cell_DataType;
 use Symfony\Component\BrowserKit\Response;
 use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use GEMA\gemaBundle\Helpers\MyHelper;
 use PHPExcel;
-
-
-
-
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 
 class ExportController extends Controller
@@ -508,6 +506,17 @@ public function exceladminAction($razaid){
 
              $pdfGenerator = $this->get('knp_snappy.pdf');
              $pdfGenerator->setTimeout(10000);
+
+
+             $options = [
+
+                 'zoom'=>0.75
+             ];
+             foreach ($options as $margin => $value) {
+                 $pdfGenerator->setOption($margin, $value);
+             }
+
+
              $pdfGenerator->generateFromHtml(
                  $html,
                  $webPath
@@ -526,6 +535,11 @@ public function exceladminAction($razaid){
                  $path=$baseurl.DIRECTORY_SEPARATOR.'/pdfs/'.$guid .'/'.$filename.'.pdf';;
 
              }
+
+//             $response = $this->render('C:\xampp\htdocs\cialesymf\app/Resources/views/asd.pdf');
+//             $response->headers->set('Content-Type', 'application/pdf');
+//
+//             return $response;
 
              return new JsonResponse(array(
                  0=>'1',
@@ -879,11 +893,16 @@ public function exceladminAction($razaid){
             $pdfGenerator->setTimeout(10000);
 
 
+
+
+
             $options = [
                 'margin-top'    => 5,
                 'margin-right'  => 5,
                 'margin-bottom' => 5,
                 'margin-left'   => 5,
+//                'dpi'=>1.33,
+                'zoom'=>0.75
             ];
             foreach ($options as $margin => $value) {
                 $pdfGenerator->setOption($margin, $value);
@@ -924,11 +943,11 @@ public function exceladminAction($razaid){
     }
 
 
-    public function capatestAction(){
+    public function capatestAction($capaname){
 
 
         return $this->render('gemaBundle:Page:pdfCapa.html.twig', array(
-            'capaimg'=>'\pdfresources/tapas/tapa1.png' ));
+            'capaimg'=>'pdfresources/tapas/'.$capaname ));
 
     }
 

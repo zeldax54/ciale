@@ -24,7 +24,10 @@
 			  padding: 0 !important;
 		  }
 
-
+          .page {
+              overflow: hidden;
+              page-break-after: always;
+          }
 
 	  </style>
   {% endblock %}
@@ -34,8 +37,10 @@
 
   {% block content %}
 
+
 	  <img src="{{ absolute_url(asset(capaimg)) }}" style="width: 100% !important;">
 
-	  {#<div class="row" style="width: 991px !important; height: 1403px !important;background-image:url({{ absolute_url(asset(capaimg)) }});background-size: cover !important;background-position: bottom !important;">#}
-	  {#</div>#}
+      <div class="page">
+
+      </div>
   {% endblock %}
