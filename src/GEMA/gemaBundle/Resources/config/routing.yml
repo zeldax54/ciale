@@ -279,6 +279,10 @@ pdf_capatest:
     pattern:  /capatest/{capaname}
     defaults: { _controller: "gemaBundle:Export:capatest" }
 
+pdf_portadatest:
+    pattern:  /portadatest
+    defaults: { _controller: "gemaBundle:Export:portada" }
+
 
 
 

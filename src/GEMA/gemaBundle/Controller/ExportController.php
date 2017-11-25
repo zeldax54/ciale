@@ -784,8 +784,13 @@ public function exceladminAction($razaid){
         try{
             set_time_limit(0);
             $source=$_POST["source"];
+
             $html='';
-            $filename='catalogo';
+            if(!isset($source['nombre']) || $source['nombre']==null || $source['nombre']!='undefined')
+                $filename='catalogo';
+            else
+            $filename=$source['nombre'];
+
             $em = $this->getDoctrine()->getManager();
 
 
@@ -793,6 +798,12 @@ public function exceladminAction($razaid){
             if($source['capas']=='on'){
 
                 $capaimg=$source['capaName'];
+                $capaimg=explode('/',$capaimg);
+               // print_r($capaimg);die();
+
+                $capaimg=$capaimg[count($capaimg)-1];
+                $capaimg='pdfresources/tapas/'.$capaimg;
+
 
                  $html.=$this->renderView('gemaBundle:Page:pdfCapa.html.twig', array(
                       'capaimg'=>$capaimg
@@ -813,18 +824,30 @@ public function exceladminAction($razaid){
             $email=$source['email'];
             $titulopdf=$source['titulopdf'];
 
-            $html.=$this->renderView('gemaBundle:Page:pdfPortada.html.twig', array(
-              'imgIntrodName'=>  $imgIntrodName,
-                'titulo'=>$titulo,
-                'subtitulo'=>$subtitulo,
-                'contacto'=>$contacto,
-                'nombre'=>$nombre,
-                'direccion'=>$direccion,
-                'telefono'=>$telefono,
-                'email'=>$email,
-                'titulopdf'=>$titulopdf
-                )
-            );
+            $band=true;
+            if($titulo==''&&$subtitulo==''&& $contacto==''&&$nombre==''&&$direccion==''&&$telefono==''&&$email==''&&$titulopdf=='')
+            {
+                $band=false;
+            }
+
+            if($band){
+
+                $html.=$this->renderView('gemaBundle:Page:pdfPortada.html.twig', array(
+                        'imgIntrodName'=>  $imgIntrodName,
+                        'titulo'=>$titulo,
+                        'subtitulo'=>$subtitulo,
+                        'contacto'=>$contacto,
+                        'nombre'=>$nombre,
+                        'direccion'=>$direccion,
+                        'telefono'=>$telefono,
+                        'email'=>$email,
+                        'titulopdf'=>$titulopdf
+                    )
+                );
+
+            }
+
+
 
 
             if(isset($source['tablacontenidos']) && $source['tablacontenidos']=='on'){
@@ -897,10 +920,10 @@ public function exceladminAction($razaid){
 
 
             $options = [
-                'margin-top'    => 5,
-                'margin-right'  => 5,
-                'margin-bottom' => 5,
-                'margin-left'   => 5,
+                'margin-top'    => 1,
+                'margin-right'  => 1,
+                'margin-bottom' => 1,
+                'margin-left'   => 1,
 //                'dpi'=>1.33,
                 'zoom'=>0.75
             ];
@@ -954,7 +977,7 @@ public function exceladminAction($razaid){
     public function portadaAction(){
 
 
-        $imgIntrodName='pdfresources/backgroundtitulo/introdtitulo.jpg';
+        $imgIntrodName='pdfresources/backgroundtitulo/imgIntrod.jpg';
         $titulo='Mi titulo';
         $subtitulo='Mi subtitulo';
         $contacto='Contacto';

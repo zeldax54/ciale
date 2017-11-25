@@ -233,14 +233,14 @@ $('.imprimircatalogo').click(function(){
                                         message: '',
                                         input: [
                                             capasHtml + '<br>' +
-                                            '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Título</b></div><div  class="col-md-8"><input class="inputtext" type="text" required name="titulo" value="'+datatitulo+'"></div></div>'+
-                                            '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Sub-Título</b></div><div  class="col-md-8"><input class="inputtext" type="text" required name="subtitulo" value="'+datasubtitulo+'"></div></div>'+
-                                            '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Contacto</b></div><div class="col-md-8"><input class="inputtext" type="text" required name="contacto" value="'+datacontacto+'"></div></div>'+
-                                            '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Nombre</b></div><div class="col-md-8"><input class="inputtext" type="text" required name="nombre" value="'+datanombre+'"></div></div>'+
-                                            '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Dirección</b></div><div class="col-md-8"><input class="inputtext" type="text" required name="direccion" value="'+datadireccion+'"></div></div>'+
-                                            '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Teléfono</b></div><div class="col-md-8"><input class="inputtext" type="text" required name="telefono" value="'+datatelefono+'"></div></div>'+
-                                            '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Email</b></div><div class="col-md-8"><input class="inputtext" type="email" required name="email" value="'+dataemail+'"></div></div>'+
-                                            '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Titulo del PDF</b></div><div class="col-md-8"><input class="inputtext" required type="text" name="titulopdf" value="'+datatitulopdf+'"></div></div>'
+                                            '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Título</b></div><div  class="col-md-8"><input class="inputtext" type="text"  name="titulo" value="'+datatitulo+'"></div></div>'+
+                                            '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Sub-Título</b></div><div  class="col-md-8"><input class="inputtext" type="text"  name="subtitulo" value="'+datasubtitulo+'"></div></div>'+
+                                            '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Contacto</b></div><div class="col-md-8"><input class="inputtext" type="text"  name="contacto" value="'+datacontacto+'"></div></div>'+
+                                            '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Nombre</b></div><div class="col-md-8"><input class="inputtext" type="text"   name="nombre" value="'+datanombre+'"></div></div>'+
+                                            '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Dirección</b></div><div class="col-md-8"><input class="inputtext" type="text"  name="direccion" value="'+datadireccion+'"></div></div>'+
+                                            '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Teléfono</b></div><div class="col-md-8"><input class="inputtext" type="text"  name="telefono" value="'+datatelefono+'"></div></div>'+
+                                            '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Email</b></div><div class="col-md-8"><input class="inputtext" type="email"  name="email" value="'+dataemail+'"></div></div>'+
+                                            '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Titulo del PDF</b></div><div class="col-md-8"><input class="inputtext"  type="text" name="titulopdf" value="'+datatitulopdf+'"></div></div>'
                                         ].join(''),
                                         showCloseButton: true,
                                         buttons: [
@@ -265,14 +265,14 @@ $('.imprimircatalogo').click(function(){
 
                                             if(source['capaName']!=undefined)
                                             source['capaUrl']=$('#'+source['capaName'].replace('pdfresources/tapas/','').replace('.','').replace('_','').replace('\\','').replace('/','').replace('(','').replace(')','')).attr('src');
-                                            source['titulo']=data.titulo;
-                                            source['subtitulo']=data.subtitulo;
-                                            source['contacto']=data.contacto;
-                                            source['nombre']=data.nombre;
-                                            source['direccion']=data.direccion;
-                                            source['telefono']=data.telefono;
-                                            source['email']=data.email;
-                                            source['titulopdf']=data.titulopdf;
+                                            source['titulo']=data.titulo==undefined?'':data.titulo;
+                                            source['subtitulo']=data.subtitulo==undefined?'':data.subtitulo;
+                                            source['contacto']=data.contacto==undefined?'':data.contacto;
+                                            source['nombre']=data.nombre==undefined?'':data.nombre;
+                                            source['direccion']=data.direccion==undefined?'':data.direccion;
+                                            source['telefono']=data.telefono==undefined?'':data.telefono;
+                                            source['email']=data.email==undefined?'':data.email;
+                                            source['titulopdf']=data.titulopdf==undefined?'':data.titulopdf;
 
 
                                             if (clickwhere.val().search(/segundoVolverbutton/) != -1) {
@@ -287,10 +287,25 @@ $('.imprimircatalogo').click(function(){
                                                     var previaCapa='';
                                                     if(source.capas=='on'){
                                                      previaCapa='<div class="col-md-6">' +
-                                                         '<img class="imagenheadercatalogprevia1" src="'+source.capaUrl+'">'+
+                                                         '<img class="imagenheadercatalogprevia1" src="'+source.capaUrl+'" style="width: 101% !important;">'+
                                                          '</div>'
 
                                                     }
+
+                                                    console.log(source);
+
+                                                    //var brContacto=source.contacto==""?'':'<br>';
+                                                    //var brNombre=source.nombre==""?'':'<br>';
+                                                    //var brDireccion=source.direccion==""?'':'<br>';
+                                                    //var brTelefono=source.telefono==""?'':'<br>';
+                                                    //var brEmail=source.email==""?'':'<br>';
+
+                                                    var brContacto='<br>';
+                                                    var brNombre='<br>';
+                                                    var brDireccion='<br>';
+                                                    var brTelefono='<br>';
+                                                    var brEmail='<br>';
+
 
 
                                                     vex.dialog.confirm({
@@ -306,11 +321,11 @@ $('.imprimircatalogo').click(function(){
                                                                 '<span class="previatitulo">'+source.titulo+'</span><br>'+
                                                                '<span class="previasubtitulo">'+source.subtitulo+'</span><br>'+
                                                                 '<div style="height: 143px;"></div>'+
-                                                               '<span class="previasubtitulo previatexto">'+source.contacto+'</span><br>'+
-                                                               '<span class="previasubtitulo previatexto">'+source.nombre+'</span><br>'+
-                                                               '<span class="previasubtitulo previatexto">'+source.direccion+'</span><br>'+
-                                                               '<span class="previasubtitulo previatexto">'+source.telefono+'</span><br>'+
-                                                               '<span class="previasubtitulo previatexto">'+source.email+'</span><br>'+
+                                                               '<span class="previasubtitulo previatexto">'+source.contacto+'</span>'+brContacto+
+                                                               '<span class="previasubtitulo previatexto">'+source.nombre+'</span>'+brNombre+
+                                                               '<span class="previasubtitulo previatexto">'+source.direccion+'</span>'+brDireccion+
+                                                               '<span class="previasubtitulo previatexto">'+source.telefono+'</span>'+brTelefono+
+                                                               '<span class="previasubtitulo previatexto" style="position:absolute;;margin-top: 9px !important;">'+source.email+'</span>'+brEmail+
                                                                 '</div>'+
                                                                 '</div>'
                                                         ].join(''),
@@ -610,15 +625,15 @@ $('.imprimircatalogo').click(function(){
                                                                             '<b class="previaheader">Vista Previa</b><br>'+
                                                                             '<div style="text-align: center ;margin-top: 5% !important;height:450px !important;width: 295px !important;margin-left: 21%;background-image: url'+"("+''+source["imgMsjintrod"].replace('\\','/')+');background-size: cover !important;background-position: bottom !important; ">' +
                                                                             '<span class="previatitulo">'+source['mensajeintroducTitulo']+'</span>' +
-                                                                            '<div> <p class=""> '+source['mensajeintrudCuerpo']+' </p>' +
+                                                                            '<div style="width: 123% !important;"> <p class="" style="/*! overflow: auto; */overflow-y: auto;height: 203px;"> '+source['mensajeintrudCuerpo']+' </p>' +
 
                                                                             ' </div>'+
                                                                                 '<div class="segdafoot">'+
-                                                                            '<span class="previasubtitulo previatexto">'+source.contacto+'</span><br>'+
-                                                                            '<span class="previasubtitulo previatexto">'+source.nombre+'</span><br>'+
-                                                                            '<span class="previasubtitulo previatexto">'+source.direccion+'</span><br>'+
-                                                                            '<span class="previasubtitulo previatexto">'+source.telefono+'</span><br>'+
-                                                                            '<span class="previasubtitulo previatexto">'+source.email+'</span><br>'+
+                                                                            '<span class="previasubtitulo previatexto">'+source.contacto+'</span>'+brContacto+
+                                                                            '<span class="previasubtitulo previatexto">'+source.nombre+'</span>'+brNombre+
+                                                                            '<span class="previasubtitulo previatexto">'+source.direccion+'</span>'+brDireccion+
+                                                                            '<span class="previasubtitulo previatexto">'+source.telefono+'</span>'+brTelefono+
+                                                                            '<span class="previasubtitulo previatexto">'+source.email+'</span>'+brEmail+
                                                                                 '</div>'+
                                                                             '</div>'
 
