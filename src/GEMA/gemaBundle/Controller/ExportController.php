@@ -786,7 +786,7 @@ public function exceladminAction($razaid){
             $source=$_POST["source"];
 
             $html='';
-            if(!isset($source['nombre']) || $source['nombre']==null || $source['nombre']!='undefined')
+            if(!isset($source['nombre']) || $source['nombre']==null || $source['nombre']=='undefined')
                 $filename='catalogo';
             else
             $filename=$source['nombre'];

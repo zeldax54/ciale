@@ -320,7 +320,7 @@ $('.imprimircatalogo').click(function(){
                                                                 '<div class="col-md-6" style="height: 320px !important;background-image: url'+"("+''+source["imgIntrodURL"].replace('\\','/')+');background-size: cover !important;background-position: bottom !important; ">' +
                                                                 '<span class="previatitulo">'+source.titulo+'</span><br>'+
                                                                '<span class="previasubtitulo">'+source.subtitulo+'</span><br>'+
-                                                                '<div style="height: 143px;"></div>'+
+                                                                '<div style="height: 116px;"></div>'+
                                                                '<span class="previasubtitulo previatexto">'+source.contacto+'</span>'+brContacto+
                                                                '<span class="previasubtitulo previatexto">'+source.nombre+'</span>'+brNombre+
                                                                '<span class="previasubtitulo previatexto">'+source.direccion+'</span>'+brDireccion+
