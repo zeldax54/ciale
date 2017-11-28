@@ -234,7 +234,7 @@ $('.imprimircatalogo').click(function(){
                                         input: [
                                             capasHtml + '<br>' +
                                             '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Título</b></div><div  class="col-md-8"><input class="inputtext" type="text"  name="titulo" value="'+datatitulo+'"></div></div>'+
-                                            '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Sub-Título</b></div><div  class="col-md-8"><input class="inputtext" type="text"  name="subtitulo" value="'+datasubtitulo+'"></div></div>'+
+                                            '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Subtítulo</b></div><div  class="col-md-8"><input class="inputtext" type="text"  name="subtitulo" value="'+datasubtitulo+'"></div></div>'+
                                             '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Contacto</b></div><div class="col-md-8"><input class="inputtext" type="text"  name="contacto" value="'+datacontacto+'"></div></div>'+
                                             '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Nombre</b></div><div class="col-md-8"><input class="inputtext" type="text"   name="nombre" value="'+datanombre+'"></div></div>'+
                                             '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Dirección</b></div><div class="col-md-8"><input class="inputtext" type="text"  name="direccion" value="'+datadireccion+'"></div></div>'+
