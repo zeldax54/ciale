@@ -397,5 +397,13 @@ color: black;
 			  height: 319px !important;
 		  }
 		  
+		  @media (max-width:767px){
+	
+	.cleanselection,.comparer,.expexcel,.imprimircatalogo{
+		display:none;
+	}
+	
+}
+		  
 		 
 
