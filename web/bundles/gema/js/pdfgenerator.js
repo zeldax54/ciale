@@ -240,7 +240,7 @@ $('.imprimircatalogo').click(function(){
                                             '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Dirección</b></div><div class="col-md-8"><input class="inputtext" type="text"  name="direccion" value="'+datadireccion+'"></div></div>'+
                                             '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Teléfono</b></div><div class="col-md-8"><input class="inputtext" type="text"  name="telefono" value="'+datatelefono+'"></div></div>'+
                                             '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Email</b></div><div class="col-md-8"><input class="inputtext" type="email"  name="email" value="'+dataemail+'"></div></div>'+
-                                            '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Titulo del PDF</b></div><div class="col-md-8"><input class="inputtext"  type="text" name="titulopdf" value="'+datatitulopdf+'"></div></div>'
+                                            '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Nombre del PDF</b></div><div class="col-md-8"><input class="inputtext"  type="text" name="titulopdf" value="'+datatitulopdf+'"></div></div>'
                                         ].join(''),
                                         showCloseButton: true,
                                         buttons: [

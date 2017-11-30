@@ -786,10 +786,10 @@ public function exceladminAction($razaid){
             $source=$_POST["source"];
 
             $html='';
-            if(!isset($source['nombre']) || $source['nombre']==null || $source['nombre']=='undefined')
+            if(!isset($source['titulopdf']) || $source['titulopdf']==null || $source['titulopdf']=='undefined')
                 $filename='catalogo';
             else
-            $filename=$source['nombre'];
+            $filename=$source['titulopdf'];
 
             $em = $this->getDoctrine()->getManager();
 
