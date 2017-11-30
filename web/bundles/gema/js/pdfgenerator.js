@@ -209,7 +209,7 @@ $('.imprimircatalogo').click(function(){
                                     var capasHtml = '';
                                     if (source.capas === 'on') {
                                         capasHtml = '<b>Escoja su Tapa</b><br><br>' +
-                                            '<div class="row">';
+                                            '<div class="row" style="overflow-y: auto;height: 183px">';
                                         capasImg.forEach(function (capa) {
 
 
