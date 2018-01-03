@@ -1,0 +1,57 @@
+{% extends 'gemaBundle::clientlayout.html.twig' %}
+
+  {% block customstylesheets %}
+      <link href="{{ asset('bundles/gema/clientresources/css/mycss.css')}}" rel="stylesheet">
+      <link href="{{ asset('bundles/gema/clientresources/css/prodprogm.css')}}" rel="stylesheet">
+	  {% endblock %}
+
+  {% block content %}
+
+<div style="margin-bottom: 50px !important;">
+      {% for p in prodprog %}
+
+          <div style="border-bottom: 1px solid !important;margin-bottom: 1em !important;">
+              <div class="myc row">
+             <div class="col-md-2">
+                 {% if p.logo is not null %}
+                 <img src="{{ asset(p.logo) }}" style="max-width: 100%">
+                     {% endif %}
+                 </div>
+
+                  <div class="col-md-10">
+                      <div class="" style="">
+                         <h2 style="font-family: 'Fago-Bold';color:#254389"> {{ p.nombre }}</h2>
+                      </div>
+                      <div class="" style="text-align: left">
+                          {{ p.introduccion|raw }}
+                      </div><br>
+                      <div class="boton">
+                          <a class="btn ppa" family="{{ p.id }}">Leer más</a>
+                          <div class="hiddeninfo">
+                             <textarea id="{{ p.id }}"> {{ p.descripcion }}</textarea>
+                          </div>
+                       </div>
+                    </div>
+     </div>
+          </div>
+
+          {% endfor %}
+
+</div>
+{% endblock %}
+
+    {% block custom_javascripts %}
+<script>
+    $('.ppa').click(function(){
+
+        vex.dialog.alert({ unsafeMessage:'<div style="">'+$('#'+$(this).attr('family')).text()+'</div>'
+
+            , className: 'vex-theme-wireframe' ,
+            overlayClassName: 'success',
+            contentClassName: 'borderblueclass maxwidth',
+            closeClassName: 'closebleclass'
+        })
+    });
+</script>
+
+	{% endblock %}
