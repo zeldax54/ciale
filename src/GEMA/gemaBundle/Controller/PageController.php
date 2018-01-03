@@ -56,7 +56,7 @@ class PageController extends Controller {
         $noticias = $em->getRepository('gemaBundle:Noticia')->lastthree();
          $servername= $_SERVER['SERVER_NAME'];
         sort($sliders, SORT_NATURAL | SORT_FLAG_CASE);
-$slidersdesc=array();
+         $slidersdesc=array();
         foreach($sliders as $s){
             $slidersdesc[]=array(
                 'img'=>$s,

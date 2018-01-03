@@ -283,7 +283,13 @@ pdf_portadatest:
     pattern:  /portadatest
     defaults: { _controller: "gemaBundle:Export:portada" }
 
+prodprog_newwindows:
+    pattern:  /productosprogramas/{id}
+    defaults: { _controller: "gemaBundle:ProdProgclient:newwind" }
 
+fpfilter:
+    pattern:  /admin/{fp}/{isfp}
+    defaults: { _controller: "gemaBundle:Toro:fpFilter" }
 
 
 

@@ -178,6 +178,8 @@ class ToroType extends AbstractType
             ->add('lineagenetica')
 
 
+
+
             ->add('nombreraza',null,array(
                 'label'=>'Nombre de Raza(solo par toros sin raza definida por el sistema(Mas Toros))'
             ))
@@ -199,6 +201,25 @@ class ToroType extends AbstractType
             $builder->add('mocho',null,array(
                 'label'=>'Mocho'
             ));
+
+       $builder ->add('torosSugeridos');
+
+
+//        $builder ->add('torosSugeridos',array(
+//
+////                'class'=>'gemaBundle:Toro',
+//                'required' => false,
+//                 'attr' => array('multiple'=>'multiple'),
+//                'choice_attr' => function ($allChoices, $currentChoiceKey) {
+//
+//                        return array('class' => 'text-muted');
+//
+//
+//
+//                },
+//            )
+//
+//        );
 
 
 

@@ -16,7 +16,7 @@ class MapaDatosRepository extends EntityRepository
 {
 
 
-public function findBComentInMapa($comentario,$mapaid){
+   public function findBComentInMapa($comentario,$mapaid){
 
 
 

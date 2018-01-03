@@ -354,6 +354,13 @@ color: white;
 font-size: 14px;
 }
 
+.sugeridoname{
+	display:none !important;
+ }
+ .sugeridoapodo{
+	font-size: 12px !important;
+ }
+
 }
 
 

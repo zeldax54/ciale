@@ -356,7 +356,28 @@ class RazalistController extends Controller
                     $flaadd++;
             }
         }
+          $sugeridos=$toro->getTorosSugeridos();
+        $lis2=array();
+        $flag=0;
+        $flaadd=0;
+        if(count($sugeridos)>0){
 
+            for($i=0;$i<count($sugeridos);$i++){
+
+                $imgtemp=$helper->randomPic('toro'.DIRECTORY_SEPARATOR.  $sugeridos[$i]->getGuid().'P'.DIRECTORY_SEPARATOR,true);
+                if($imgtemp==null)
+                    $imgtemp=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'toro.png',true);
+                $sugeridos[$i]->miniatura=$imgtemp;
+
+                $lis2[$flaadd][] = $sugeridos[$i];
+
+                $flag++;
+                if($flag==6)
+                    $flaadd++;
+            }
+
+
+        }
 
 
         return $this->render('gemaBundle:Page:detalle-toro.html.twig', array(
@@ -374,10 +395,8 @@ class RazalistController extends Controller
                 'fathersmenu'=>$fathersmenu,
                 'razasmenu'=>$razasmenu,
                 'razaname'=>   $toro->getRaza()->getNombre(),
-                'pricimgdesc'=>$pricimgdesc
-
-
-
+                'pricimgdesc'=>$pricimgdesc,
+                'sugeridos'=>$lis2
             )
         );
     }

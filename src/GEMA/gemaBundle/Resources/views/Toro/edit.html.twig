@@ -78,6 +78,8 @@
 
 
 
+
+
     </fieldset>
 
     {#Tabla Genetica#}
@@ -182,6 +184,19 @@
         {{form_row(edit_form.nombreraza)}}
 
     </fieldset>
+    <br>
+    <div style="text-align: center;margin: 0 auto;background: white">
+        {% if entity.facilidadparto!=null and entity.facilidadparto!=0 %}
+       <input type="button" class="btn btn-success fpfilter" data-fp="{{ entity.facilidadparto }}" value="Filtrar FP {{ entity.facilidadparto }}">
+        {% endif %}
+
+        {% if entity.cp!=null and entity.cp!=0 %}
+            <input type="button" style="margin-left: 10px" class="btn btn-info cpfilter" value="Filtrar CP">
+        {% endif %}
+
+        <input type="button" style="margin-left: 10px" class="btn btn-warning cleanFilter" value="Limpiar Seleccionados">
+    </div>
+    {{form_row(edit_form.torosSugeridos)}}
     {{ form_rest(edit_form) }}
     {{ form_end(edit_form) }}
 
@@ -426,6 +441,81 @@
                 $tagFormLi.remove();
             });
         }
+
+
+    </script>
+
+
+    <script>
+
+        function UpdateSelect(data){
+
+            data.forEach(function(id){
+
+                $('#gema_gemabundle_toro_torosSugeridos').find('option[value="'+ id +'"]').prop('selected', 'selected');
+                $('#gema_gemabundle_toro_torosSugeridos').trigger("chosen:updated");
+
+            });
+        }
+
+
+        function ClearSelect(){
+
+            $('#gema_gemabundle_toro_torosSugeridos').find('option').each(function(){
+                $(this).prop('selected', '');
+                $('#gema_gemabundle_toro_torosSugeridos').trigger("chosen:updated");
+            });
+        }
+
+        $('.fpfilter').click(function(){
+            ClearSelect();
+            var fp=$(this).attr('data-fp');
+            var ruta=Routing.generate('fpfilter', {fp: fp,isfp:'true'})
+            $.ajax({
+                type: 'GET',
+//                data: {source: source},
+                url: ruta,
+                success: function (data) {
+                    UpdateSelect(data);
+
+                },
+                error: function (req, stat, err) {
+                    alert('Error');
+                    console.log(req);
+                    console.log(err);
+                }
+            });
+        });
+
+        $('.cpfilter').click(function(){
+            ClearSelect();
+            var ruta=Routing.generate('fpfilter', {fp: 1,isfp:'false'})
+            $.ajax({
+                type: 'GET',
+//                data: {source: source},
+                url: ruta,
+                success: function (data) {
+                    UpdateSelect(data);
+
+                },
+                error: function (req, stat, err) {
+                    alert('Error');
+                    console.log(req);
+                    console.log(err);
+                }
+            });
+
+        });
+
+
+
+
+
+        $('.cleanFilter').click(function(){
+
+            ClearSelect();
+        });
+
 
 
     </script>

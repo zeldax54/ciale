@@ -80,8 +80,8 @@ class ExportController extends Controller
                 )
             ));
         }
-
     }
+
     function ColorearSingle($objPHPExcel,$columna,$rownumber,$color){
         $style = array(
             'alignment' => array(

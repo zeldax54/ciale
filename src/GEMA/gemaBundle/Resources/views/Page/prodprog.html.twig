@@ -26,10 +26,10 @@
                           {{ p.introduccion|raw }}
                       </div><br>
                       <div class="boton">
-                          <a class="btn ppa" family="{{ p.id }}">Leer más</a>
-                          <div class="hiddeninfo">
-                             <textarea id="{{ p.id }}"> {{ p.descripcion }}</textarea>
-                          </div>
+                          <a class="btn ppa" family="{{ p.id }}" href="{{ path('prodprog_newwindows', {'id':p.id}) }}">Leer más</a>
+                          {#<div class="hiddeninfo">#}
+                             {#<textarea id="{{ p.id }}"> {{ p.descripcion }}</textarea>#}
+                          {#</div>#}
                        </div>
                     </div>
      </div>
@@ -41,17 +41,17 @@
 {% endblock %}
 
     {% block custom_javascripts %}
-<script>
-    $('.ppa').click(function(){
+{#<script>#}
+    {#$('.ppa').click(function(){#}
 
-        vex.dialog.alert({ unsafeMessage:'<div style="">'+$('#'+$(this).attr('family')).text()+'</div>'
+        {#vex.dialog.alert({ unsafeMessage:'<div style="">'+$('#'+$(this).attr('family')).text()+'</div>'#}
 
-            , className: 'vex-theme-wireframe' ,
-            overlayClassName: 'success',
-            contentClassName: 'borderblueclass maxwidth',
-            closeClassName: 'closebleclass'
-        })
-    });
-</script>
+            {#, className: 'vex-theme-wireframe' ,#}
+            {#overlayClassName: 'success',#}
+            {#contentClassName: 'borderblueclass maxwidth',#}
+            {#closeClassName: 'closebleclass'#}
+        {#})#}
+    {#});#}
+{#</script>#}
 
 	{% endblock %}

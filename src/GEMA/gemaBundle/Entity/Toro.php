@@ -8,6 +8,11 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Exclude;
 use JMS\Serializer\Annotation\SerializedName;
+use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\ManyToMany;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\JoinTable;
 
 /**
  * Toro
@@ -346,6 +351,25 @@ class Toro
      * @ORM\Column(name="nombreraza", type="string",length=255,nullable=true)
      */
     private $nombreraza;
+
+
+    // ...
+
+    /**
+     * Many Users have Many Users.
+     * @ManyToMany(targetEntity="Toro", mappedBy="torosSugeridos",cascade={"persist"})
+     */
+    private $torosquemeSugierem;
+
+    /**
+     * Many Users have many Users.
+     * @ManyToMany(targetEntity="Toro", inversedBy="torosquemeSugierem",cascade={"persist"})
+     * @JoinTable(name="sugeridos",
+     *      joinColumns={@JoinColumn(name="toro_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@JoinColumn(name="sugerido_toro_id", referencedColumnName="id")}
+     *      )
+     */
+    private $torosSugeridos;
 
 
     /**
@@ -1468,6 +1492,8 @@ class Toro
     public function __construct()
     {
         $this->youtubes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->torossugeridos = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->torosquemesigieren = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -1562,5 +1588,79 @@ class Toro
     public function getNombreraza()
     {
         return $this->nombreraza;
+    }
+
+
+
+
+
+
+
+
+
+    /**
+     * Add torosquemeSugierem
+     *
+     * @param \GEMA\gemaBundle\Entity\Toro $torosquemeSugierem
+     * @return Toro
+     */
+    public function addTorosquemeSugierem(\GEMA\gemaBundle\Entity\Toro $torosquemeSugierem)
+    {
+        $this->torosquemeSugierem[] = $torosquemeSugierem;
+        $torosquemeSugierem->addTorosSugerido($this);
+        return $this;
+    }
+
+    /**
+     * Remove torosquemeSugierem
+     *
+     * @param \GEMA\gemaBundle\Entity\Toro $torosquemeSugierem
+     */
+    public function removeTorosquemeSugierem(\GEMA\gemaBundle\Entity\Toro $torosquemeSugierem)
+    {
+        $this->torosquemeSugierem->removeElement($torosquemeSugierem);
+    }
+
+    /**
+     * Get torosquemeSugierem
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTorosquemeSugierem()
+    {
+        return $this->torosquemeSugierem;
+    }
+
+    /**
+     * Add torosSugeridos
+     *
+     * @param \GEMA\gemaBundle\Entity\Toro $torosSugeridos
+     * @return Toro
+     */
+    public function addTorosSugerido(\GEMA\gemaBundle\Entity\Toro $torosSugeridos)
+    {
+        $this->torosSugeridos[] = $torosSugeridos;
+        $torosSugeridos->addTorosquemeSugierem($this);
+        return $this;
+    }
+
+    /**
+     * Remove torosSugeridos
+     *
+     * @param \GEMA\gemaBundle\Entity\Toro $torosSugeridos
+     */
+    public function removeTorosSugerido(\GEMA\gemaBundle\Entity\Toro $torosSugeridos)
+    {
+        $this->torosSugeridos->removeElement($torosSugeridos);
+    }
+
+    /**
+     * Get torosSugeridos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTorosSugeridos()
+    {
+        return $this->torosSugeridos;
     }
 }

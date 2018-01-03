@@ -41,4 +41,17 @@ class ProdProgclientController extends Controller
         ));
 
     }
+
+    public function newwindAction($id){
+
+        $em = $this->getDoctrine()->getManager();
+        $prodprogs = $em->getRepository('gemaBundle:Productosprogramas')->find($id);
+        $helper=new MyHelper();
+        $prodprogs->logo=$helper->randomPic('productoprograma'.DIRECTORY_SEPARATOR.$prodprogs->getGuid().'L'.DIRECTORY_SEPARATOR);
+        return $this->render('gemaBundle:Page:prodprognewwind.html.twig', array(
+            'prodprog' => $prodprogs
+
+        ));
+
+    }
 }

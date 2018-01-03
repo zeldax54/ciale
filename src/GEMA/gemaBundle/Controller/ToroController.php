@@ -237,7 +237,7 @@ class ToroController extends Controller
             // $em->remove($tag);
         }
     }
-    //
+
     $em->persist($entity);
     $accion = ' ';
     $this->get("gema.utiles")->traza($accion);
@@ -317,7 +317,41 @@ class ToroController extends Controller
             $arr=array(0=>0);
             return new JsonResponse($arr);
         }
+    }
 
+
+
+    public function fpFilterAction($fp,$isfp){
+
+        try{
+
+
+            $em = $this->getDoctrine()->getManager();
+            if($isfp==='true'){
+                $entities = $em->getRepository('gemaBundle:Toro')->findBy(array(
+                    'facilidadparto'=>$fp
+                ));
+            }
+
+            else{
+
+                $entities = $em->getRepository('gemaBundle:Toro')->findBy(array(
+                    'CP'=>true
+                ));
+            }
+
+            $arr=array();
+            if(count($entities)==0)
+                return -1;
+            foreach($entities as $toro)
+                $arr[]=$toro->getId();
+
+            return new JsonResponse($arr);
+
+        }
+        catch(\Exception $e){
+            return $e->getMessage();
+        }
 
     }
 }
