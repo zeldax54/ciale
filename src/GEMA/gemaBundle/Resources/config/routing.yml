@@ -288,8 +288,22 @@ prodprog_newwindows:
     defaults: { _controller: "gemaBundle:ProdProgclient:newwind" }
 
 fpfilter:
-    pattern:  /admin/{fp}/{isfp}
+    pattern:  /admin/fpfilter/{fp}/{isfp}
     defaults: { _controller: "gemaBundle:Toro:fpFilter" }
+
+sugeridos_index:
+    pattern:  /admin/sugeridos
+    defaults: { _controller: "gemaBundle:Sugeridos:index" }
+
+sugeridos_all_update:
+    pattern:  /admin/allupdte
+    defaults: { _controller: "gemaBundle:Sugeridos:updateall" }
+
+sugeridosone:
+    pattern:  /admin/sugeridosone/{id}
+    defaults: { _controller: "gemaBundle:Sugeridos:updateone" }
+
+
 
 
 

@@ -1644,6 +1644,12 @@ class Toro
         return $this;
     }
 
+    public function setToroSugerido(\GEMA\gemaBundle\Entity\Toro $torosSugeridos)
+    {
+        $this->torosSugeridos[] = $torosSugeridos;
+        return $this;
+    }
+
     /**
      * Remove torosSugeridos
      *
@@ -1653,6 +1659,8 @@ class Toro
     {
         $this->torosSugeridos->removeElement($torosSugeridos);
     }
+
+
 
     /**
      * Get torosSugeridos

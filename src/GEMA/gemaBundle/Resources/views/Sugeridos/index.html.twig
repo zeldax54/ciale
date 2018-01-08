@@ -1,0 +1,190 @@
+    {% extends 'gemaBundle::layout.html.twig' %}
+     {% block mycustomstylesheets %}
+
+         <link href="{{ asset('bundles/gema/clientresources/vex/css/vex.css')}}" rel="stylesheet">
+         <link href="{{ asset('bundles/gema/clientresources/vex/css/vex-theme-bottom-right-corner.css')}}" rel="stylesheet">
+         <link href="{{ asset('bundles/gema/clientresources/vex/css/vex-theme-default.css')}}" rel="stylesheet">
+         <link href="{{ asset('bundles/gema/clientresources/vex/css/vex-theme-os.css')}}" rel="stylesheet">
+         <link href="{{ asset('bundles/gema/clientresources/vex/css/vex-theme-wireframe.css')}}" rel="stylesheet">
+         <link href="{{ asset('bundles/gema/clientresources/vex/css/vex-theme-top.css')}}" rel="stylesheet">
+         <style>
+
+             .actualizartodos,.especifico{
+                 background: #3288E6;
+             }
+         </style>
+      {% endblock %}
+
+    {% block gema_page -%}
+
+        <div class="row">
+            <div class="col-md-6"><label>Actualizar Todos los Toros (Reasignación completa de los toros sugeridos)</label></div>
+            <div class="col-md-6"><input type="button" class="btn btn-info actualizartodos" value="Actualizar"></div>
+            </div>
+
+        <div class="row" style="margin-top: 20px">
+            <div class="col-md-2"><label>Toro específico</label></div>
+            <div class="col-md-4">
+
+                    <select class="tag-select" id="torosselect">
+                        {% for t in toros %}
+
+                            <option value="{{ t.id }}">{{ t.apodo }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            <div class="col-md-6"><input type="button" class="btn btn-info especifico" value="Actualizar"></div>
+        </div>
+
+        <div style="height: 400px"></div>
+        {% endblock %}
+
+    {% block javascripts -%}
+    {{ parent() }}
+
+        <script src="{{ asset('bundles/gema/clientresources/vex/js/vex.combined.js') }}"></script>
+        <script> vex.defaultOptions.className = 'vex-theme-default'</script>
+
+        <script>
+            $('.actualizartodos').click(function(){
+
+
+                vex.dialog.confirm({
+                    contentClassName: 'bordernaranjaclassMasAncho',
+                    closeClassName: 'closebleclass',
+                    message: '',
+                    input: [
+                       '<span>Esta accion reasignará los toros sugeridos para todos los toros en la base de datos. Desea continuar?</span>'
+
+
+                    ].join(''),
+                    showCloseButton: true,
+                    buttons: [
+
+                        $.extend({}, vex.dialog.buttons.YES, {
+                            text: 'Actualizar',
+                            className: 'vex-dialog-button-primary vex-dialog-button vex-first'
+                        }),
+
+                        $.extend({}, vex.dialog.buttons.NO, {
+                            text: 'Cancelar',
+                            className: 'vex-dialog-button-primary vex-dialog-button vex-first '
+                        }),
+
+
+
+                    ],
+
+                    callback: function (data) {
+                        if (!data) {
+                            return console.log('Cancelled')
+                        }
+                        var vexwaiting2 = vex.dialog.alert({unsafeMessage: '<b>Procesando. Sea paciente.Espere...</b>',
+                            contentClassName: 'bordernaranjaclassMasAncho',
+                        });
+
+                        $.ajax({
+                            type: 'GET',
+//                            data: {ids: arra, filename: 'toros'},
+                            url: Routing.generate('sugeridos_all_update'),
+                            success: function (data) {
+                                vex.close(vexwaiting2)
+                                if (data[0] == 1) {
+                                    vex.dialog.alert({unsafeMessage: '<b>Actualizacion exitosa!!!</b>',
+                                        contentClassName: 'bordernaranjaclassMasAncho',
+                                    });
+                                } else {
+                                    vex.dialog.alert({
+                                        unsafeMessage: '<b>Error Actualizando.'+data[0]+'</b>',
+                                        className: 'vex-theme-wireframe',
+                                        overlayClassName: 'success',
+                                        contentClassName: 'bordernaranjaclass',
+                                        closeClassName: 'closebleclass'
+                                    })
+                                }
+
+                            },
+                            error: function (req, stat, err) {
+                                vex.close(vexwaiting2)
+                                console.log(err);
+                            }
+                        });
+
+                    }
+                });
+
+            });
+
+            $('.especifico').click(function(){
+
+                var idtoro=$('#torosselect').val();
+                if(idtoro!=null && idtoro!=''){
+                    var ruta=Routing.generate('sugeridosone',{id:idtoro});
+                    console.log(ruta);
+                    vex.dialog.confirm({
+                        contentClassName: 'bordernaranjaclassMasAncho',
+                        closeClassName: 'closebleclass',
+                        message: '',
+                        input: [
+                            '<span>Esta accion reasignará los toros sugeridos del toro seleccionado. Desea continuar?</span>'
+
+
+                        ].join(''),
+                        showCloseButton: true,
+                        buttons: [
+
+                            $.extend({}, vex.dialog.buttons.YES, {
+                                text: 'Actualizar',
+                                className: 'vex-dialog-button-primary vex-dialog-button vex-first'
+                            }),
+
+                            $.extend({}, vex.dialog.buttons.NO, {
+                                text: 'Cancelar',
+                                className: 'vex-dialog-button-primary vex-dialog-button vex-first '
+                            }),
+                        ],
+
+                        callback: function (data) {
+                            if (!data) {
+                                return console.log('Cancelled')
+                            }
+                            var vexwaiting2 = vex.dialog.alert({unsafeMessage: '<b>Procesando. Sea paciente.Espere...</b>',
+                                contentClassName: 'bordernaranjaclassMasAncho',
+                            });
+
+                            $.ajax({
+                                type: 'GET',//
+                                url: ruta,
+                                success: function (data) {
+                                    vex.close(vexwaiting2)
+                                    if (data[0] == 1) {
+                                        vex.dialog.alert({unsafeMessage: '<b>Actualizacion exitosa!!!</b>',
+                                            contentClassName: 'bordernaranjaclassMasAncho',
+                                        });
+                                    } else {
+                                        vex.dialog.alert({
+                                            unsafeMessage: '<b>Error Actualizando.'+data[0]+'</b>',
+                                            className: 'vex-theme-wireframe',
+                                            overlayClassName: 'success',
+                                            contentClassName: 'bordernaranjaclass',
+                                            closeClassName: 'closebleclass'
+                                        })
+                                    }
+
+                                },
+                                error: function (req, stat, err) {
+                                    vex.close(vexwaiting2)
+                                    console.log(err);
+                                }
+                            });
+
+                        }
+                    });
+                }
+
+            });
+
+        </script>
+
+    {% endblock %}
+

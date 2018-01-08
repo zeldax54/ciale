@@ -125,6 +125,12 @@ class Configuracion
      */
     private $virtualurl;
 
+    /**
+     * @var string
+     * @ORM\Column(name="palabrasclave", type="string", length=1000)
+     */
+    private $palabrasclave;
+
 
     /**
      * Get id
@@ -525,5 +531,28 @@ class Configuracion
     public function getVirtualurl()
     {
         return $this->virtualurl;
+    }
+
+    /**
+     * Set palabrasclave
+     *
+     * @param string $palabrasclave
+     * @return Configuracion
+     */
+    public function setPalabrasclave($palabrasclave)
+    {
+        $this->palabrasclave = $palabrasclave;
+
+        return $this;
+    }
+
+    /**
+     * Get palabrasclave
+     *
+     * @return string 
+     */
+    public function getPalabrasclave()
+    {
+        return $this->palabrasclave;
     }
 }

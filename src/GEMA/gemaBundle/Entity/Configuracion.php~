@@ -125,6 +125,12 @@ class Configuracion
      */
     private $virtualurl;
 
+    /**
+     * @var string
+     * @ORM\Column(name="palabrasclave", type="string", length=1000)
+     */
+    private $palabrasclave;
+
 
     /**
      * Get id
@@ -502,5 +508,28 @@ class Configuracion
     public function getCoordenadaslab()
     {
         return $this->coordenadaslab;
+    }
+
+    /**
+     * Set virtualurl
+     *
+     * @param boolean $virtualurl
+     * @return Configuracion
+     */
+    public function setVirtualurl($virtualurl)
+    {
+        $this->virtualurl = $virtualurl;
+
+        return $this;
+    }
+
+    /**
+     * Get virtualurl
+     *
+     * @return boolean 
+     */
+    public function getVirtualurl()
+    {
+        return $this->virtualurl;
     }
 }

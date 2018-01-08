@@ -17,8 +17,8 @@ security:
         in_memory:
             memory:
                 users:
-                    administrador:  { password: a, roles: [ 'ROLE_ADMINISTRADOR' ] }
-                    admin: { password: a, roles: [ 'ROLE_SUPER_ADMIN' ] }
+                    administrador:  { password: a!!!x, roles: [ 'ROLE_ADMINISTRADOR' ] }
+                    admin: { password: a!!!!x, roles: [ 'ROLE_SUPER_ADMIN' ] }
         base_datos:
                 entity: { class: GEMA\gemaBundle\Entity\Usuario, property: usuario }
 

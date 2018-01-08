@@ -5,6 +5,8 @@
 	  <link href="{{ asset('bundles/gema/clientresources/fancybox/dist/jquery.fancybox.css')}}" rel="stylesheet">
 	  <link href="{{ asset('bundles/gema/clientresources/jquerybxslider/jquery.bxslider.css')}}" rel="stylesheet">
 	  <link href="{{ asset('bundles/gema/clientresources/watermark/styleimg.css')}}" rel="stylesheet">
+	  <link href="{{ asset('bundles/gema/clientresources/owl/assets/owl.carousel.min.css')}}" rel="stylesheet">
+	  <link href="{{ asset('bundles/gema/clientresources/owl/assets/owl.theme.default.min.css')}}" rel="stylesheet">
 
 	  <style>
 		  th{
@@ -501,48 +503,25 @@
 
 {% if sugeridos is not null and sugeridos|length >0 %}
 
-<div class="encabezado-area encabezado-izq">
-					<i class="fa fa-caret-right fa-3x" style="margin:-9px 0 0 -45px;">&nbsp;&nbsp;</i>
-					<strong style="font-size:16px;position:absolute;margin-top:2px;">Toros Sugeridos</strong>
-			</div>
-			<div class="ignorePDF">
-           {%   if sugeridos|length >0 %}
-						<ul class="bxslider">
+    <div class="encabezado-area encabezado-izq">
+        <i class="fa fa-caret-right fa-3x" style="margin:-9px 0 0 -45px;">&nbsp;&nbsp;</i>
+        <strong style="font-size:16px;position:absolute;margin-top:2px;">Toros Sugeridos</strong>
+    </div>
 
-						{% for media in sugeridos %}
-							<li>
-								<div class="row" style="margin: 0 auto">
-								{% for m in media %}
+<div class="owl-carousel owl-theme">
+	{% for s in sugeridos %}
+ <div style="text-align: center;margin: 0 auto">
+ <a href="{{ path('gema_torodetail', {'apodo':s.apodo }) }}"><img src="{{asset(s.miniatura) }}">
+ <br><span>{{ s.apodo }}</span>
 
 
-										<div  class="col-xs-2" style="padding: 1px;text-align: center;margin: 0 auto">
-											<a class="fancybox" href="{{ asset(m.miniatura |replace({'_small':''})) }}" data-fancybox="gallery">
-												<img height="150" width="150"  src="{{ asset(m.miniatura  ) }}" class="img-responsive thumbnail"/>
-												</a>
-												<a href="{{ path('gema_torodetail', {'apodo':m.apodo }) }}">
-												<span class="sugeridoapodo">{{ m.apodo }}</span><br></a>
-												<span class="sugeridoname">{{ m.nombre }}</span>
+ </a></div>
+ 	{% endfor %}
+</div>
 
-
-
-
-										</div>
-
-
-								{% endfor %}
-								</div>
-							</li>
-
-
-
-							{% endfor %}
-						</ul>
-					{% endif %}
-
-
-          </div>
 
 {% endif %}
+
 	  <div id="slider-next" style="display: none"> </div>
 	  <div id="slider-prev" style="display: none"> </div>
 
@@ -557,6 +536,7 @@
 		<script src="{{ asset('bundles/gema/clientresources/pdfclient/addhtml.js')}}"></script>
 		<script src="{{ asset('bundles/gema/clientresources/pdfclient/html2canvas.js')}}"></script>
 		<script src="{{ asset('bundles/gema/js/buscadortoros.js')}}"></script>
+		<script src="{{ asset('bundles/gema/clientresources/owl/owl.carousel.min.js')}}"></script>
 		<script>
 
 
@@ -614,7 +594,35 @@ $(".fancybox").fancybox({
 				});
 
 
-			})
+			});
+
+		var owl=$('.owl-carousel').owlCarousel({
+
+              loop:true,
+              margin:10,
+              nav:true,
+              navText:['Anterior','Siguiente'],
+           responsive:{
+          0:{
+            items:1
+          },
+          600:{
+            items:3
+         },
+         1000:{
+            items:10
+         }
+      }
+});
+
+owl.on('mousewheel', '.owl-stage', function (e) {
+    if (e.deltaY>0) {
+        owl.trigger('next.owl');
+    } else {
+        owl.trigger('prev.owl');
+    }
+    e.preventDefault();
+});
 		</script>
 
 		<script>

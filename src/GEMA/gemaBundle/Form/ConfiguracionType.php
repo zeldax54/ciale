@@ -82,6 +82,13 @@ class ConfiguracionType extends AbstractType
 
             ))
             ->add('virtualurl')
+            ->add('palabrasclave',null,array(
+                'label'=>'Palabras Clave',
+                'attr'=>array(
+                    'placeholder'=>'Palabras clave para los toros sugeridos (separar por coma)'
+                )
+
+            ))
         ;
     }
     

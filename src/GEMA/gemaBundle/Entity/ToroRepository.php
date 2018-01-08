@@ -145,28 +145,66 @@ class ToroRepository extends EntityRepository
         $query = $em->createNativeQuery('SELECT * FROM toro t WHERE MATCH (t.tablagenetica) AGAINST (\'"'.$tabN.'"\' IN BOOLEAN MODE) and publico=1 and t.raza_id='.$razaId,$rsm);
         $toros = $query->getResult(); // array of User objects
         return $toros;
-/*print($toros[0]->getApodo());
-print (count($toros));die();
+    }
+
+    public function torosByFPnotCPnotMyId($fp,$razaId,$id){
+
+        if($fp==null)
+            $fp=0;
         $qb = new QueryBuilder($this->getEntityManager());
         $qb
             ->select("T","R")
             ->from($this->getClassName(), "T")
 
             ->leftJoin('T.raza', "R")
+            ->Where("T.publico=1");
 
-            ->Where("MATCH (T.tablagenetica) AGAINST ('\"".$tabN."\"' IN BOOLEAN MODE)")
-
-        ->andWhere("T.publico=1");
         $qb  ->andWhere('R.id='.$razaId);
-        $qb->orderBy('T.apodo',"ASC");
-        return $qb->getQuery()->getResult();*/
+        $qb  ->andWhere('T.id<>'.$id);
+        $qb  ->andWhere('T.CP=0');
+        $qb  ->andWhere('T.facilidadparto='.$fp);
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function torosMochoNotCpNotMyFacPartoNotMyId($fp,$razaId,$id){
+        if($fp==null)
+            $fp=0;
+        $qb = new QueryBuilder($this->getEntityManager());
+        $qb
+            ->select("T","R")
+            ->from($this->getClassName(), "T")
+
+            ->leftJoin('T.raza', "R")
+            ->Where("T.publico=1");
+
+        $qb  ->andWhere('R.id='.$razaId);
+        $qb  ->andWhere('T.id<>'.$id);
+        $qb  ->andWhere('T.CP=0');
+        $qb  ->andWhere('T.facilidadparto<>'.$fp);
+        $qb  ->andWhere('T.mocho=1');
+
+        return $qb->getQuery()->getResult();
+
     }
 
 
-//
-//    public function torosbyTabla($tablaid){
-//        $em = $this->getDoctrine()->getManager();
-//        return null;
-//
-//    }
+    public function getHijosfromRazaPadreMismaFP($razafatherid,$fp){
+
+        if($fp==null)
+            $fp=0;
+        $qb = new QueryBuilder($this->getEntityManager());
+        $qb
+            ->select("T","R","P")
+            ->from($this->getClassName(), "T")
+
+            ->leftJoin('T.raza', "R")
+            ->leftJoin('R.father', "P")
+
+            ->Where("T.publico=1");
+        $qb  ->andWhere('P.id='.$razafatherid);
+        $qb  ->andWhere('T.facilidadparto='.$fp);
+        return $qb->getQuery()->getResult();
+    }
+
 }
