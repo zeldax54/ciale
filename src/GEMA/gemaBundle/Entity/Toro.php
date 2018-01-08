@@ -1539,7 +1539,7 @@ class Toro
 
     public function __toString()
     {
-        return $this->getNombre();
+        return $this->getApodo();
     }
 
 
