@@ -511,7 +511,7 @@
 <div class="owl-carousel owl-theme">
 	{% for s in sugeridos %}
  <div style="text-align: center;margin: 0 auto">
- <a href="{{ path('gema_torodetail', {'apodo':s.apodo }) }}"><img src="{{asset(s.miniatura) }}">
+ <a href="{{ path('gema_torodetail', {'apodo':s.apodo }) }}" target="_blank"><img src="{{asset(s.miniatura) }}">
  <br><span>{{ s.apodo }}</span>
 
 
