@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use GEMA\gemaBundle\Helpers\MyHelper;
 use GEMA\gemaBundle\Entity\Tabla;
 use GEMA\gemaBundle\Entity\TablaDatos;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * Sugeridos controller.
@@ -106,10 +107,26 @@ class SugeridosController extends Controller
 
          if($toro->getCP()==true){ //SI el toro es CP
 
+             if($toro->getRaza()->getFather()!=null){
+
+                 $qb = new QueryBuilder($em);
+                 $qb
+                     ->select("T","R","P")
+                     ->from('gemaBundle:Toro', "T")
+                     ->leftJoin('T.raza', "R")
+                     ->leftJoin('R.father', "P")
+                     ->Where("T.publico=1")
+                     ->Where("T.CP=1");
+                 $qb  ->andWhere('P.id='.$toro->getRaza()->getFather()->getId());
+                 $qb  ->andWhere('T.id<>'.$toro->getId());
+                 $toroscp=$qb->getQuery()->getResult();
+             }
+             else
              $toroscp=$repo->findBy(
                  array(
                      'CP'=>true,
                      'raza'=>$toro->getRaza(),
+                     'publico'=>true
 
                  )
              );
@@ -121,14 +138,14 @@ class SugeridosController extends Controller
          }
 
            //Facilidad de Parto
-        $torofp=$repo->torosByFPnotCPnotMyId($toro->getFacilidadparto(),$toro->getRaza()->getId(),$toro->getId());
+        $torofp=$repo->torosByFPnotCPnotMyId($toro->getRaza()->getFather(),$toro->getFacilidadparto(),$toro->getRaza()->getId(),$toro->getId(),$toro);
 
          foreach($torofp as $fptoro)
                  $toro->setToroSugerido($fptoro);
          unset($torofp);
          //Mocho
          if($toro->getMocho()==true){
-             $toromocho=$repo->torosMochoNotCpNotMyFacPartoNotMyId($toro->getFacilidadparto(),$toro->getRaza()->getId(),$toro->getId());
+             $toromocho=$repo->torosMochoNotCpNotMyFacPartoNotMyId($toro->getFacilidadparto(),$toro->getRaza()->getId(),$toro->getId(),$toro->getRaza()->getFather(),$toro);
              foreach($toromocho as $mochotoro)
                  $toro->setToroSugerido($mochotoro);
              unset($toromocho);
@@ -138,7 +155,7 @@ class SugeridosController extends Controller
          //PD < 30%
             $pdDato=$this->getDatoFromTablaGen($toro,'RANKING','PD');
              if($pdDato!=null ){
-                  $torosg =$this->restantesRaza($toro,$repo);
+                  $torosg =$this->restantesRaza($toro,$repo,$em);
                   foreach($torosg as $torog){
                       $p=$this->getDatoFromTablaGen($torog,'RANKING','PD');
                       if($p<=30)
@@ -150,7 +167,7 @@ class SugeridosController extends Controller
 
          $pF=$this->getDatoFromTablaGen($toro,'RANKING','PF');
          if($pF!=null and $pF<=30){
-             $torosg  =$this->restantesRaza($toro,$repo);
+             $torosg  =$this->restantesRaza($toro,$repo,$em);
              foreach($torosg as $torog){
                  $p=$this->getDatoFromTablaGen($torog,'RANKING','PF');
                  if($p<=30)
@@ -161,7 +178,7 @@ class SugeridosController extends Controller
          //P.Año
          $pAnno=$this->getDatoFromTablaGen($toro,'RANKING','P.Año');
          if($pAnno!=null and $pAnno<=30){
-             $torosg  =$this->restantesRaza($toro,$repo);
+             $torosg  =$this->restantesRaza($toro,$repo,$em);
              foreach($torosg as $torog){
                  $p=$this->getDatoFromTablaGen($torog,'RANKING','P.Año');
                  if($p<=30)
@@ -179,7 +196,7 @@ class SugeridosController extends Controller
                  if (strpos($descripc, $clave) !== false)
                     $myclavesarray[]=$clave;
 
-             $restantes=$this->restantesRaza($toro,$repo);
+             $restantes=$this->restantesRaza($toro,$repo,$em);
              if(count($myclavesarray)>0){
                  foreach($restantes as $tororest){
 
@@ -196,6 +213,7 @@ class SugeridosController extends Controller
              if($toro->getRaza()->getFather()->getId()==3){//Aberdeen Angus Negro
 
                  $anguscolorado=$repo->getHijosfromRazaPadreMismaFP(4,$toro->getFacilidadparto());
+
                  foreach($anguscolorado as $toroangus){
                      $toro->setToroSugerido($toroangus);
                  }
@@ -270,7 +288,21 @@ class SugeridosController extends Controller
          return $torosg;
      }
 
-    function restantesRaza($toro,$repo){
+    function restantesRaza($toro,$repo,$em){
+        if($toro->getRaza()->getFather()!=null){
+
+            $qb = new QueryBuilder($em);
+            $qb
+                ->select("T","R","P")
+                ->from('gemaBundle:Toro', "T")
+                ->leftJoin('T.raza', "R")
+                ->leftJoin('R.father', "P")
+                ->Where("T.publico=1");
+            $qb  ->andWhere('P.id='.$toro->getRaza()->getFather()->getId());
+            $qb  ->andWhere('T.id<>'.$toro->getId());
+            $torosg=$qb->getQuery()->getResult();
+        }
+        else
         $torosg=$repo->findBy(
             array(
                 'raza'=>$toro->getRaza()

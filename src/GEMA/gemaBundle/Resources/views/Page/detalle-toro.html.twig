@@ -506,12 +506,12 @@
     <div class="encabezado-area encabezado-izq">
         <i class="fa fa-caret-right fa-3x" style="margin:-9px 0 0 -45px;">&nbsp;&nbsp;</i>
         <strong style="font-size:16px;position:absolute;margin-top:2px;">Toros Sugeridos</strong>
-    </div>
+    </div><br>
 
 <div class="owl-carousel owl-theme">
 	{% for s in sugeridos %}
  <div style="text-align: center;margin: 0 auto">
- <a href="{{ path('gema_torodetail', {'apodo':s.apodo }) }}" target="_blank"><img src="{{asset(s.miniatura) }}">
+ <a href="{{ path('gema_torodetail', {'apodo':s.apodo }) }}" target="_blank"><img width="104" height="64" src="{{asset(s.miniatura) }}">
  <br><span>{{ s.apodo }}</span>
 
 
@@ -598,7 +598,7 @@ $(".fancybox").fancybox({
 
 		var owl=$('.owl-carousel').owlCarousel({
 
-              loop:true,
+              loop:false,
               margin:10,
               nav:true,
               navText:['Anterior','Siguiente'],

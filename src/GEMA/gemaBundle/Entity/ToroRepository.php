@@ -147,10 +147,28 @@ class ToroRepository extends EntityRepository
         return $toros;
     }
 
-    public function torosByFPnotCPnotMyId($fp,$razaId,$id){
+    public function torosByFPnotCPnotMyId($father,$fp,$razaId,$id,$toro){
 
         if($fp==null)
             $fp=0;
+        if($father!=null){
+
+            $qb = new QueryBuilder($this->getEntityManager());
+            $qb
+                ->select("T","R","P")
+                ->from($this->getClassName(), "T")
+                ->leftJoin('T.raza', "R")
+                ->leftJoin('R.father', "P")
+                ->Where("T.publico=1")
+                ->Where('P.id='.$toro->getRaza()->getFather()->getId());
+//            $qb  ->andWhere('R.id='.$razaId);
+            $qb  ->andWhere('T.id<>'.$id);
+            $qb  ->andWhere('T.CP=0');
+            $qb  ->andWhere('T.facilidadparto='.$fp);
+
+            return $qb->getQuery()->getResult();
+
+        }
         $qb = new QueryBuilder($this->getEntityManager());
         $qb
             ->select("T","R")
@@ -167,9 +185,29 @@ class ToroRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function torosMochoNotCpNotMyFacPartoNotMyId($fp,$razaId,$id){
+    public function torosMochoNotCpNotMyFacPartoNotMyId($fp,$razaId,$id,$father,$toro){
         if($fp==null)
             $fp=0;
+        if($father!=null){
+
+            $qb = new QueryBuilder($this->getEntityManager());
+            $qb
+                ->select("T","R")
+                ->from($this->getClassName(), "T")
+
+                ->leftJoin('T.raza', "R")
+                ->leftJoin('R.father', "P")
+                ->Where("T.publico=1")
+                ->Where('P.id='.$toro->getRaza()->getFather()->getId());;
+
+//            $qb  ->andWhere('R.id='.$razaId);
+            $qb  ->andWhere('T.id<>'.$id);
+            $qb  ->andWhere('T.CP=0');
+            $qb  ->andWhere('T.facilidadparto<>'.$fp);
+            $qb  ->andWhere('T.mocho=1');
+
+            return $qb->getQuery()->getResult();
+        }
         $qb = new QueryBuilder($this->getEntityManager());
         $qb
             ->select("T","R")

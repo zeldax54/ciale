@@ -372,6 +372,7 @@ class RazalistController extends Controller
         }
 
 
+
         return $this->render('gemaBundle:Page:detalle-toro.html.twig', array(
                 'toro'=>$toro,
                 'princimg'=>$img,
