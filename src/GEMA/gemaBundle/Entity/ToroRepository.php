@@ -245,4 +245,56 @@ class ToroRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
+
+    public function DinamycGet($toro,$paramsArray){
+        $id=$toro->getId();
+        $paramsArray['raza']=$toro->getRaza();
+
+        if(array_key_exists('facilidadparto', $paramsArray) && $paramsArray['facilidadparto']==null )
+            $paramsArray['facilidadparto']=0;
+        if(array_key_exists('mocho', $paramsArray) && $paramsArray['mocho']==null )
+            $paramsArray['mocho']=0;
+        if(array_key_exists('mocho', $paramsArray) && $paramsArray['mocho']==true )
+            $paramsArray['mocho']=1;
+
+
+        $qb = new QueryBuilder($this->getEntityManager());
+        $qb
+            ->select("T","R")
+            ->from($this->getClassName(), "T")
+            ->leftJoin('T.raza', "R");
+        $qb->where('T.publico=1');
+        $qb->andwhere('T.id<>'.$id);
+
+        foreach($paramsArray as $key=>$param){
+            if($key=='raza')
+            {
+                if($param->getFather()!=null){
+                    $base='R.id='.$param->getId();
+                  //  $qb ->andWhere('R.id='.$param->getId());
+                    foreach($param->getFather()->getRazas() as $hija){
+                        if($hija->getId()!=$param->getId()){
+                            $base.=' or R.id='.$hija->getId();
+                          //  $qb->orWhere('R.id='.$hija->getId());
+                        }
+
+                    }
+                    $qb->andWhere($base);
+                }
+                    else
+             $qb ->andWhere('R.id='.$param->getId());
+            }
+                elseif ($key=='mocho' && $param==0)
+                    $qb  ->andWhere('T.mocho is null or T.mocho=0');
+            else
+            $qb  ->andWhere('T.'.$key.'='.$param);
+        }
+
+         //print ($qb->getDQL());die();
+        return $qb->getQuery()->getResult();
+
+
+
+    }
+
 }
