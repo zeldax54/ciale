@@ -2742,13 +2742,14 @@ class SugeridosController extends Controller
             $this->setSugeridos($toro,$sugeridos11);
         }
 
-        //Caso 8 FP 15 MESES	CABAÑA	MOCHO	CRIADOR
+        //Caso 8 FP 15 MESES	CABAÑA	CRIADOR
         elseif($this->TienePalabrasClave($toro,$claves)  && $toro->getCriador()!=null)
         {
+
+
             //Sugeridos_1 FP 15 MESES Y CABAÑA Y MOCHO Y CRIADOR
             $params=array(
                 'facilidadparto'=>$toro->getFacilidadparto(),
-
                 'criador'=>"'".$toro->getCriador()."'"
 
             );
@@ -2756,28 +2757,24 @@ class SugeridosController extends Controller
             $sugeridos=$this->removeNotKeyWords($myclaves,$sugeridos);
             $this->setSugeridos($toro,$sugeridos);
 
-            //Sugeridos_2 FP 15 MESES Y CABAÑA Y MOCHO
+            //Sugeridos_2 FP 15 MESES Y CABAÑA
             $params=array(
                 'facilidadparto'=>$toro->getFacilidadparto(),
 
             );
             $sugeridos2=$sugeridos4Base=  $repo->DinamycGet($toro,$params);
-            $sugeridos2=$this->removeNotKeyWords($myclaves,$sugeridos2);
+            $sugeridos2=$this->removeNotKeyWords($myclaves,$sugeridos2,$toro->getId());
             $sugeridos2=$this->removeArrayAfromBV2($sugeridos2,$toro->getTorosSugeridos());
             $this->setSugeridos($toro,$sugeridos2);
 
-            //Sugeridos_3 FP 15 MESES Y CABAÑA
+            //Sugeridos_3 FP 15 MESES
             $params=array(
                 'facilidadparto'=>$toro->getFacilidadparto(),
             );
             $sugeridos3= $sugeridos6Base= $repo->DinamycGet($toro,$params);
-            $sugeridos3=$this->removeNotKeyWords($myclaves,$sugeridos3);
             $sugeridos3=$this->removeArrayAfromBV2($sugeridos3,$toro->getTorosSugeridos());
             $this->setSugeridos($toro,$sugeridos3);
 
-            //Sugeridos_4 FP 15 MESES Y MOCHO
-            $sugeridos4=$this->removeArrayAfromBV2($sugeridos4Base,$toro->getTorosSugeridos());
-            $this->setSugeridos($toro,$sugeridos4);
 
             //Sugeridos_5 FP 15 MESES y CRIADOR
             $params=array(
@@ -2788,8 +2785,26 @@ class SugeridosController extends Controller
             $sugeridos5=$this->removeArrayAfromBV2($sugeridos5,$toro->getTorosSugeridos());
             $this->setSugeridos($toro,$sugeridos5);
 
+
+
             //Especifico SIN FP
             if($toro->getFacilidadparto()==0 || $toro->getFacilidadparto()==null){
+
+                //  CRIADOR
+                $params=array(
+
+                    'criador'=>"'".$toro->getCriador()."'"
+                );
+                $sugeridos7=  $repo->DinamycGet($toro,$params);
+                $sugeridos7=$this->removeArrayAfromBV2($sugeridos7,$toro->getTorosSugeridos());
+                $this->setSugeridos($toro,$sugeridos7);
+                 // CABANA
+                $params=array(
+                );
+                $sugeridos9=  $repo->DinamycGet($toro,$params);
+                $sugeridos9=$this->removeNotKeyWords($myclaves,$sugeridos9);
+                $sugeridos9=$this->removeArrayAfromBV2($sugeridos9,$toro->getTorosSugeridos());
+                $this->setSugeridos($toro,$sugeridos9);
 
                 $params=array(
                     'facilidadparto'=>24
@@ -2804,100 +2819,106 @@ class SugeridosController extends Controller
                 $sugeridosFPMenor=$repo->DinamycGet($toro,$params);
                 $sugeridosFPMenor=$this->removeArrayAfromBV2($sugeridosFPMenor,$toro->getTorosSugeridos());
                 $this->setSugeridos($toro,$sugeridosFPMenor);
+//                if($toro->getId()==643){
+//                    print (count($sugeridosFPMenor));
+//                    foreach ( $sugeridosFPMenor as $item) {
+//                        print ($item->getApodo().' ,');
+////                        print('<br>');
+////                        print ($item->getDescripcion());
+////                        print('<br>');
+//
+//                    }
+//                    die();
+//                }
+
+            }
+            else{
+
+                //Sugeridos_6 15 MESES
+                $sugeridos6=$this->removeArrayAfromBV2($sugeridos6Base,$toro->getTorosSugeridos());
+                $this->setSugeridos($toro,$sugeridos6);
+
+                if($toro->getFacilidadparto()==18){
+
+                    $params=array(
+                        'facilidadparto'=>15
+                    );
+                    $sugeridosFPMenor=$repo->DinamycGet($toro,$params);
+                    $sugeridosFPMenor=$this->removeArrayAfromBV2($sugeridosFPMenor,$toro->getTorosSugeridos());
+                    $this->setSugeridos($toro,$sugeridosFPMenor);
+                }else if($toro->getFacilidadparto()==24){
+
+                    $params=array(
+                        'facilidadparto'=>18
+                    );
+                    $sugeridosFPMenor=$repo->DinamycGet($toro,$params);
+                    $sugeridosFPMenor=$this->removeArrayAfromBV2($sugeridosFPMenor,$toro->getTorosSugeridos());
+                    $this->setSugeridos($toro,$sugeridosFPMenor);
+
+                }
+
+                //Sugeridos_7  CRIADOR
+                $params=array(
+                    'criador'=>"'".$toro->getCriador()."'"
+                );
+                $sugeridos7=  $repo->DinamycGet($toro,$params);
+                $sugeridos7=$this->removeArrayAfromBV2($sugeridos7,$toro->getTorosSugeridos());
+                $this->setSugeridos($toro,$sugeridos7);
+
+                //Sugeridos_8 MOCHO
+                $params=array(
+
+                );
+                $sugeridos8=  $repo->DinamycGet($toro,$params);
+                $sugeridos8=$this->removeArrayAfromBV2($sugeridos8,$toro->getTorosSugeridos());
+                $this->setSugeridos($toro,$sugeridos8);
+
+                //Sugeridos_9 CABAÑA
+                $params=array(
+                );
+                $sugeridos9=  $repo->DinamycGet($toro,$params);
+                $sugeridos9=$this->removeNotKeyWords($myclaves,$sugeridos9);
+                $sugeridos9=$this->removeArrayAfromBV2($sugeridos9,$toro->getTorosSugeridos());
+                $this->setSugeridos($toro,$sugeridos9);
+
+                //Sugeridos 10 CRIADOR
+                $params=array(
+                    'criador'=>"'".$toro->getCriador()."'"
+                );
+                $sugeridos10=  $repo->DinamycGet($toro,$params);
+                $sugeridos10=$this->removeArrayAfromBV2($sugeridos10,$toro->getTorosSugeridos());
+                $this->setSugeridos($toro,$sugeridos10);
 
             }
 
-            //Sugeridos_6 15 MESES
-            $sugeridos6=$this->removeArrayAfromBV2($sugeridos6Base,$toro->getTorosSugeridos());
-            $this->setSugeridos($toro,$sugeridos6);
 
-            if($toro->getFacilidadparto()==18){
-
-                $params=array(
-                    'facilidadparto'=>15
-                );
-                $sugeridosFPMenor=$repo->DinamycGet($toro,$params);
-                $sugeridosFPMenor=$this->removeArrayAfromBV2($sugeridosFPMenor,$toro->getTorosSugeridos());
-                $this->setSugeridos($toro,$sugeridosFPMenor);
-            }else if($toro->getFacilidadparto()==24){
-
-                $params=array(
-                    'facilidadparto'=>18
-                );
-                $sugeridosFPMenor=$repo->DinamycGet($toro,$params);
-                $sugeridosFPMenor=$this->removeArrayAfromBV2($sugeridosFPMenor,$toro->getTorosSugeridos());
-                $this->setSugeridos($toro,$sugeridosFPMenor);
-
-            }
-
-            //Sugeridos_7 MOCHO Y CRIADOR
-            $params=array(
-
-                'criador'=>"'".$toro->getCriador()."'"
-            );
-            $sugeridos7=  $repo->DinamycGet($toro,$params);
-            $sugeridos7=$this->removeArrayAfromBV2($sugeridos7,$toro->getTorosSugeridos());
-            $this->setSugeridos($toro,$sugeridos7);
-
-            //Sugeridos_8 MOCHO
-            $params=array(
-
-            );
-            $sugeridos8=  $repo->DinamycGet($toro,$params);
-            $sugeridos8=$this->removeArrayAfromBV2($sugeridos8,$toro->getTorosSugeridos());
-            $this->setSugeridos($toro,$sugeridos8);
-
-            //Sugeridos_9 CABAÑA
-            $params=array(
-            );
-            $sugeridos9=  $repo->DinamycGet($toro,$params);
-            $sugeridos9=$this->removeNotKeyWords($myclaves,$sugeridos9);
-            $sugeridos9=$this->removeArrayAfromBV2($sugeridos9,$toro->getTorosSugeridos());
-            $this->setSugeridos($toro,$sugeridos9);
-
-            //Sugeridos 10 CRIADOR
-            $params=array(
-                'criador'=>"'".$toro->getCriador()."'"
-            );
-            $sugeridos10=  $repo->DinamycGet($toro,$params);
-            $sugeridos10=$this->removeArrayAfromBV2($sugeridos10,$toro->getTorosSugeridos());
-            $this->setSugeridos($toro,$sugeridos10);
         }
 
         //Caso 9 FP 15 MESES	MOCHO	CRIADOR
         elseif( $toro->getCriador()!=null)
         {
-            //Sugeridos_1 FP 15 MESES Y MOCHO Y CRIADOR
-            $params=array(
-                'facilidadparto'=>$toro->getFacilidadparto(),
 
-                'criador'=>"'".$toro->getCriador()."'"
-            );
-            $sugeridos=  $repo->DinamycGet($toro,$params);
-            $this->setSugeridos($toro,$sugeridos);
-
-            //Sugeridos_2 FP 15 MESES y MOCHO
-            $params=array(
-                'facilidadparto'=>$toro->getFacilidadparto(),
-
-            );
-            $sugeridos2= $sugeridos6Base= $repo->DinamycGet($toro,$params);
-            $sugeridos2=$this->removeArrayAfromBV2($sugeridos2,$toro->getTorosSugeridos());
-            $this->setSugeridos($toro,$sugeridos2);
-
-            //Sugeridos_3 FP 15 MESES Y CRIADOR
-            $params=array(
-                'facilidadparto'=>$toro->getFacilidadparto(),
-                'criador'=>"'".$toro->getCriador()."'"
-            );
-            $sugeridos3=  $repo->DinamycGet($toro,$params);
-            $sugeridos3=$this->removeArrayAfromBV2($sugeridos3,$toro->getTorosSugeridos());
-            $this->setSugeridos($toro,$sugeridos3);
-
-
-            //Especifico SIN FP
+            //Especifico SIN FP ultimo caso
             if($toro->getFacilidadparto()==0 || $toro->getFacilidadparto()==null){
 
+                //SIN FP  Y CRIADOR
+                $params=array(
+                    'facilidadparto'=>$toro->getFacilidadparto(),
+                    'criador'=>"'".$toro->getCriador()."'"
+                );
+                $sugeridos=  $repo->DinamycGet($toro,$params);
+                $this->setSugeridos($toro,$sugeridos);
+
+                //CRIADOR
+                $params=array(
+
+                    'criador'=>"'".$toro->getCriador()."'"
+                );
+                $sugeridos3=  $repo->DinamycGet($toro,$params);
+                $sugeridos3=$this->removeArrayAfromBV2($sugeridos3,$toro->getTorosSugeridos());
+                $this->setSugeridos($toro,$sugeridos3);
+
+                  //24 MESES
                 $params=array(
                     'facilidadparto'=>24
                 );
@@ -2905,135 +2926,173 @@ class SugeridosController extends Controller
                 $sugeridosFPMenor=$this->removeArrayAfromBV2($sugeridosFPMenor,$toro->getTorosSugeridos());
                 $this->setSugeridos($toro,$sugeridosFPMenor);
 
+                //SIN FP
                 $params=array(
-                    'facilidadparto'=>18
+                    'facilidadparto'=>$toro->getFacilidadparto(),
                 );
                 $sugeridosFPMenor=$repo->DinamycGet($toro,$params);
                 $sugeridosFPMenor=$this->removeArrayAfromBV2($sugeridosFPMenor,$toro->getTorosSugeridos());
                 $this->setSugeridos($toro,$sugeridosFPMenor);
 
             }
+            else{
 
-            //Sugeridos_4 15 MESES
-            $params=array(
-                'facilidadparto'=>$toro->getFacilidadparto(),
-            );
-            $sugeridos4=  $repo->DinamycGet($toro,$params);
-            $sugeridos4=$this->removeArrayAfromBV2($sugeridos4,$toro->getTorosSugeridos());
-            $this->setSugeridos($toro,$sugeridos4);
 
-            if($toro->getFacilidadparto()==18){
-
+                //Sugeridos_1 FP 15 MESES Y MOCHO Y CRIADOR
                 $params=array(
-                    'facilidadparto'=>15
+                    'facilidadparto'=>$toro->getFacilidadparto(),
+                    'criador'=>"'".$toro->getCriador()."'"
                 );
-                $sugeridosFPMenor=$repo->DinamycGet($toro,$params);
-                $sugeridosFPMenor=$this->removeArrayAfromBV2($sugeridosFPMenor,$toro->getTorosSugeridos());
-                $this->setSugeridos($toro,$sugeridosFPMenor);
-            }else if($toro->getFacilidadparto()==24){
+                $sugeridos=  $repo->DinamycGet($toro,$params);
+                $this->setSugeridos($toro,$sugeridos);
 
+                //Sugeridos_2 FP 15 MESES y MOCHO
                 $params=array(
-                    'facilidadparto'=>18
+                    'facilidadparto'=>$toro->getFacilidadparto(),
+
                 );
-                $sugeridosFPMenor=$repo->DinamycGet($toro,$params);
-                $sugeridosFPMenor=$this->removeArrayAfromBV2($sugeridosFPMenor,$toro->getTorosSugeridos());
-                $this->setSugeridos($toro,$sugeridosFPMenor);
+                $sugeridos2= $sugeridos6Base= $repo->DinamycGet($toro,$params);
+                $sugeridos2=$this->removeArrayAfromBV2($sugeridos2,$toro->getTorosSugeridos());
+                $this->setSugeridos($toro,$sugeridos2);
+
+                //Sugeridos_3 FP 15 MESES Y CRIADOR
+                $params=array(
+
+                    'criador'=>"'".$toro->getCriador()."'"
+                );
+                $sugeridos3=  $repo->DinamycGet($toro,$params);
+                $sugeridos3=$this->removeArrayAfromBV2($sugeridos3,$toro->getTorosSugeridos());
+                $this->setSugeridos($toro,$sugeridos3);
+
+
+
+
+                //Sugeridos_4 15 MESES
+                $params=array(
+                    'facilidadparto'=>$toro->getFacilidadparto(),
+                );
+                $sugeridos4=  $repo->DinamycGet($toro,$params);
+                $sugeridos4=$this->removeArrayAfromBV2($sugeridos4,$toro->getTorosSugeridos());
+                $this->setSugeridos($toro,$sugeridos4);
+
+                if($toro->getFacilidadparto()==18){
+
+                    $params=array(
+                        'facilidadparto'=>15
+                    );
+                    $sugeridosFPMenor=$repo->DinamycGet($toro,$params);
+                    $sugeridosFPMenor=$this->removeArrayAfromBV2($sugeridosFPMenor,$toro->getTorosSugeridos());
+                    $this->setSugeridos($toro,$sugeridosFPMenor);
+                }else if($toro->getFacilidadparto()==24){
+
+                    $params=array(
+                        'facilidadparto'=>18
+                    );
+                    $sugeridosFPMenor=$repo->DinamycGet($toro,$params);
+                    $sugeridosFPMenor=$this->removeArrayAfromBV2($sugeridosFPMenor,$toro->getTorosSugeridos());
+                    $this->setSugeridos($toro,$sugeridosFPMenor);
+
+                }
+
+                //Sugeridos_5 MOCHO Y CRIADOR
+                $params=array(
+
+                    'criador'=>"'".$toro->getCriador()."'"
+                );
+                $sugeridos5=  $repo->DinamycGet($toro,$params);
+                $sugeridos5=$this->removeArrayAfromBV2($sugeridos5,$toro->getTorosSugeridos());
+                $this->setSugeridos($toro,$sugeridos5);
+
+                //Sugeridos_6 MOCHO
+                $params=array(
+
+                );
+                $sugeridos6=  $repo->DinamycGet($toro,$params);
+                $sugeridos6=$this->removeArrayAfromBV2($sugeridos6,$toro->getTorosSugeridos());
+                $this->setSugeridos($toro,$sugeridos6);
+
+                //Sugeridos_7 CRIADOR
+                $params=array(
+                    'criador'=>"'".$toro->getCriador()."'"
+                );
+                $sugeridos7=  $repo->DinamycGet($toro,$params);
+                $sugeridos7=$this->removeArrayAfromBV2($sugeridos7,$toro->getTorosSugeridos());
+                $this->setSugeridos($toro,$sugeridos7);
 
             }
 
-            //Sugeridos_5 MOCHO Y CRIADOR
-            $params=array(
 
-                'criador'=>"'".$toro->getCriador()."'"
-            );
-            $sugeridos5=  $repo->DinamycGet($toro,$params);
-            $sugeridos5=$this->removeArrayAfromBV2($sugeridos5,$toro->getTorosSugeridos());
-            $this->setSugeridos($toro,$sugeridos5);
 
-            //Sugeridos_6 MOCHO
-            $params=array(
-
-            );
-            $sugeridos6=  $repo->DinamycGet($toro,$params);
-            $sugeridos6=$this->removeArrayAfromBV2($sugeridos6,$toro->getTorosSugeridos());
-            $this->setSugeridos($toro,$sugeridos6);
-
-            //Sugeridos_7 CRIADOR
-            $params=array(
-                'criador'=>"'".$toro->getCriador()."'"
-            );
-            $sugeridos7=  $repo->DinamycGet($toro,$params);
-            $sugeridos7=$this->removeArrayAfromBV2($sugeridos7,$toro->getTorosSugeridos());
-            $this->setSugeridos($toro,$sugeridos7);
         }
 
         //Caso 10 FP 15 MESES	CRIADOR
 
-        elseif($toro->getCriador()!=null)
-        {
-            //Sugeridos_1 FP 15 MESES Y CRIADOR
-            $params=array(
-                'facilidadparto'=>$toro->getFacilidadparto(),
-                'criador'=>"'".$toro->getCriador()."'"
-            );
-            $sugeridos=  $repo->DinamycGet($toro,$params);
-            $this->setSugeridos($toro,$sugeridos);
+//        elseif($toro->getCriador()!=null)
+//        {
+//            //Sugeridos_1 FP 15 MESES Y CRIADOR
+//            $params=array(
+//                'facilidadparto'=>$toro->getFacilidadparto(),
+//                'criador'=>"'".$toro->getCriador()."'"
+//            );
+//            $sugeridos=  $repo->DinamycGet($toro,$params);
+//            $this->setSugeridos($toro,$sugeridos);
+//
+//            //Especifico SIN FP
+//            if($toro->getFacilidadparto()==0 || $toro->getFacilidadparto()==null){
+//
+//                $params=array(
+//                    'facilidadparto'=>24
+//                );
+//                $sugeridosFPMenor=$repo->DinamycGet($toro,$params);
+//                $sugeridosFPMenor=$this->removeArrayAfromBV2($sugeridosFPMenor,$toro->getTorosSugeridos());
+//                $this->setSugeridos($toro,$sugeridosFPMenor);
+//
+//                $params=array(
+//                    'facilidadparto'=>18
+//                );
+//                $sugeridosFPMenor=$repo->DinamycGet($toro,$params);
+//                $sugeridosFPMenor=$this->removeArrayAfromBV2($sugeridosFPMenor,$toro->getTorosSugeridos());
+//                $this->setSugeridos($toro,$sugeridosFPMenor);
+//
+//            }
+//
+//            //Sugeridos_2 FP 15 MESES
+//            $params=array(
+//                'facilidadparto'=>$toro->getFacilidadparto(),
+//            );
+//            $sugeridos2= $sugeridos6Base= $repo->DinamycGet($toro,$params);
+//            $sugeridos2=$this->removeArrayAfromBV2($sugeridos2,$toro->getTorosSugeridos());
+//            $this->setSugeridos($toro,$sugeridos2);
+//
+//            if($toro->getFacilidadparto()==18){
+//
+//                $params=array(
+//                    'facilidadparto'=>15
+//                );
+//                $sugeridosFPMenor=$repo->DinamycGet($toro,$params);
+//                $sugeridosFPMenor=$this->removeArrayAfromBV2($sugeridosFPMenor,$toro->getTorosSugeridos());
+//                $this->setSugeridos($toro,$sugeridosFPMenor);
+//            }else if($toro->getFacilidadparto()==24){
+//
+//                $params=array(
+//                    'facilidadparto'=>18
+//                );
+//                $sugeridosFPMenor=$repo->DinamycGet($toro,$params);
+//                $sugeridosFPMenor=$this->removeArrayAfromBV2($sugeridosFPMenor,$toro->getTorosSugeridos());
+//                $this->setSugeridos($toro,$sugeridosFPMenor);
+//
+//            }
+//
+//            //Sugeridos_3 CRIADOR
+//            $params=array(
+//                'criador'=>"'".$toro->getCriador()."'"
+//            );
+//            $sugeridos3=  $repo->DinamycGet($toro,$params);
+//            $sugeridos3=$this->removeArrayAfromBV2($sugeridos3,$toro->getTorosSugeridos());
+//            $this->setSugeridos($toro,$sugeridos3);
+//
+//        }
 
-            //Especifico SIN FP
-            if($toro->getFacilidadparto()==0 || $toro->getFacilidadparto()==null){
-
-                $params=array(
-                    'facilidadparto'=>24
-                );
-                $sugeridosFPMenor=$repo->DinamycGet($toro,$params);
-                $sugeridosFPMenor=$this->removeArrayAfromBV2($sugeridosFPMenor,$toro->getTorosSugeridos());
-                $this->setSugeridos($toro,$sugeridosFPMenor);
-
-                $params=array(
-                    'facilidadparto'=>18
-                );
-                $sugeridosFPMenor=$repo->DinamycGet($toro,$params);
-                $sugeridosFPMenor=$this->removeArrayAfromBV2($sugeridosFPMenor,$toro->getTorosSugeridos());
-                $this->setSugeridos($toro,$sugeridosFPMenor);
-
-            }
-
-            //Sugeridos_2 FP 15 MESES
-            $params=array(
-                'facilidadparto'=>$toro->getFacilidadparto(),
-            );
-            $sugeridos2= $sugeridos6Base= $repo->DinamycGet($toro,$params);
-            $sugeridos2=$this->removeArrayAfromBV2($sugeridos2,$toro->getTorosSugeridos());
-            $this->setSugeridos($toro,$sugeridos2);
-
-            if($toro->getFacilidadparto()==18){
-
-                $params=array(
-                    'facilidadparto'=>15
-                );
-                $sugeridosFPMenor=$repo->DinamycGet($toro,$params);
-                $sugeridosFPMenor=$this->removeArrayAfromBV2($sugeridosFPMenor,$toro->getTorosSugeridos());
-                $this->setSugeridos($toro,$sugeridosFPMenor);
-            }else if($toro->getFacilidadparto()==24){
-
-                $params=array(
-                    'facilidadparto'=>18
-                );
-                $sugeridosFPMenor=$repo->DinamycGet($toro,$params);
-                $sugeridosFPMenor=$this->removeArrayAfromBV2($sugeridosFPMenor,$toro->getTorosSugeridos());
-                $this->setSugeridos($toro,$sugeridosFPMenor);
-
-            }
-
-            //Sugeridos_3 CRIADOR
-            $params=array(
-                'criador'=>"'".$toro->getCriador()."'"
-            );
-            $sugeridos3=  $repo->DinamycGet($toro,$params);
-            $sugeridos3=$this->removeArrayAfromBV2($sugeridos3,$toro->getTorosSugeridos());
-            $this->setSugeridos($toro,$sugeridos3);
-
-        }
 
 
         $em->persist($toro);
@@ -3045,21 +3104,27 @@ class SugeridosController extends Controller
 
     function TienePalabrasClave($toro,$claves){
         if($claves==null)
-            return 0;
+            return false;
         return count($this->PalabrasClave($toro,$claves))>0;
     }
 
     function PalabrasClave($toro,$claves){
 
+        $helper=new MyHelper();
         $descripc=$toro->getDescripcion();
 
         $clavesgenarray=explode(',',$claves);
 
 
         $myclavesarray=array();
-        foreach($clavesgenarray as $clave)
-            if (strpos($descripc, $clave) !== false)
-                $myclavesarray[]=$clave;
+        foreach($clavesgenarray as $clave) {
+            if (strpos(strtolower($helper->remove_accents($descripc)), strtolower($helper->remove_accents($clave))) !== false)
+            {
+                $myclavesarray[] = $clave;
+//                print(strtolower($helper->remove_accents($clave)));print ('----');
+//                print(strtolower($helper->remove_accents($descripc)));die();
+            }
+        }
         return $myclavesarray;
 
 
@@ -3152,14 +3217,35 @@ class SugeridosController extends Controller
 
     }
 
-    function removeNotKeyWords($claves,$torosList){
-        if(count($torosList)>0)
-            foreach($torosList as $toro){
-            if(!$this->TienePalabrasClave($toro,$claves))
-                unset($toro);
-            return $torosList;
-        }
+    function removeNotKeyWords($claves,$torosList,$toroId=null){
+        if(count($torosList)>0){
+            foreach($torosList as $key=>$toro){
+//                if($toroId==643){
+//                    print('<br>');
+//                    print (count($torosList));
+//                    print('<br>');
+//                    print ('Procesando:'.$toro->getApodo());
+//                    print('<br>');
+//                }
+                if(!$this->TienePalabrasClave($toro,$claves))
+                {
+                   // $apodo=$toro->getApodo();
+                    unset($torosList[$key]);
+//                    if($toroId==643){
+//                        print('Eliminado:'.$apodo);
+//                        print('<br>');
+//                        print (count($torosList));
+//                        print('<br>');
+//                        die();
+//
+//                    }
+                }
 
+            }
+
+
+        }
+        return $torosList;
 
     }
 
