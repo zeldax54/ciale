@@ -303,6 +303,10 @@ sugeridosone:
     pattern:  /admin/sugeridosone/{id}
     defaults: { _controller: "gemaBundle:Sugeridos:updateone" }
 
+sugeridos_esquemaupdate:
+    pattern:  /admin/sugeridosesquemaupdate/
+    defaults: { _controller: "gemaBundle:Sugeridos:sugeridosesquemaupdate" }
+
 
 
 

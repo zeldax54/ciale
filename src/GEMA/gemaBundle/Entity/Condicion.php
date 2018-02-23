@@ -5,12 +5,12 @@ namespace GEMA\gemaBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Accion
+ * Condicion
  *
- * @ORM\Table(name="accion")
- * @ORM\Entity(repositoryClass="GEMA\gemaBundle\Entity\AccionRepository")
+ * @ORM\Table(name="condicion")
+ * @ORM\Entity(repositoryClass="GEMA\gemaBundle\Entity\CondicionRepository")
  */
-class Accion {
+class Condicion {
 
     /**
      * @var integer
@@ -31,38 +31,15 @@ class Accion {
     /**
      * @var string
      *
-     * @ORM\Column(name="var", type="string",length=255)
-     */
-    private $var;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="value", type="string",length=255)
-     */
-    private $value;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="phpcode", type="string",length=255)
      */
     private $phpcode;
 
-
-
     /**
-     * @var string
-     *
-     * @ORM\Column(name="tipo", type="string",length=20)
-     */
-    private $tipo;
-
-    /**
-     * @ORM\OneToMany(targetEntity="GEMA\gemaBundle\Entity\ComportamientoAccion" , mappedBy="accionnphp", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="GEMA\gemaBundle\Entity\ComportamientoCondicion" , mappedBy="condicionphp", cascade={"persist"})
      */
 
-    private $comportamientoacciones;
+    private $comportamientocondiciones;
 
 
 
@@ -163,61 +140,5 @@ class Accion {
     public function getComportamientocondiciones()
     {
         return $this->comportamientocondiciones;
-    }
-
-    /**
-     * Add comportamientoacciones
-     *
-     * @param \GEMA\gemaBundle\Entity\ComportamientoAccion $comportamientoacciones
-     * @return Accion
-     */
-    public function addComportamientoaccione(\GEMA\gemaBundle\Entity\ComportamientoAccion $comportamientoacciones)
-    {
-        $this->comportamientoacciones[] = $comportamientoacciones;
-
-        return $this;
-    }
-
-    /**
-     * Remove comportamientoacciones
-     *
-     * @param \GEMA\gemaBundle\Entity\ComportamientoAccion $comportamientoacciones
-     */
-    public function removeComportamientoaccione(\GEMA\gemaBundle\Entity\ComportamientoAccion $comportamientoacciones)
-    {
-        $this->comportamientoacciones->removeElement($comportamientoacciones);
-    }
-
-    /**
-     * Get comportamientoacciones
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getComportamientoacciones()
-    {
-        return $this->comportamientoacciones;
-    }
-
-    /**
-     * Set tipo
-     *
-     * @param string $tipo
-     * @return Accion
-     */
-    public function setTipo($tipo)
-    {
-        $this->tipo = $tipo;
-
-        return $this;
-    }
-
-    /**
-     * Get tipo
-     *
-     * @return string 
-     */
-    public function getTipo()
-    {
-        return $this->tipo;
     }
 }

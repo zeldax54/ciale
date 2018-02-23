@@ -2,6 +2,10 @@
 
 namespace GEMA\gemaBundle\Controller;
 
+use GEMA\gemaBundle\Entity\Comportamiento;
+use GEMA\gemaBundle\Entity\ComportamientoAccion;
+use GEMA\gemaBundle\Entity\ComportamientoCondicion;
+use PHPExcel_IOFactory;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -43,15 +47,27 @@ class SugeridosController extends Controller
             $claves=$em->getRepository('gemaBundle:Configuracion')->find(1)->getPalabrasclave();
             $queryEntities1 = $em->createQuery('select t from gemaBundle:Toro t');
             $iterableEntities1 = $queryEntities1->iterate();
+
             while (($toro = $iterableEntities1->next()) !== false) {
                 //$this->UpdateToro($toro[0]);
-                if($toro[0]->getRaza()->getId()==15 || ($toro[0]->getRaza()->getId()==26 && $toro[0]->getMocho()==true))
-                    $this->UpdateToroV2Mocho($toro[0],$claves,$repo,$em);
-                else
-                    $this->UpdateToroV2($toro[0],$claves,$repo,$em);
-
+                if($toro[0]->getRaza()->getId()==15 || ($toro[0]->getRaza()->getId()==26 && $toro[0]->getMocho()==true)){
+                    $comportamientos=$em->getRepository('gemaBundle:Comportamiento')->findBy(
+                        array(
+                            'tipo'=>'MOCHO'
+                        )
+                    );
+                }
+                else{
+                    $comportamientos=$em->getRepository('gemaBundle:Comportamiento')->findBy(
+                        array(
+                            'tipo'=>'NORMAL'
+                        )
+                    );
+                }
+                $this->UpdateSugVdin($toro[0],$claves,$repo,$em,$comportamientos);
                 $em->detach($toro[0]);
             }
+           die();
             return new JsonResponse(
 
                 array(
@@ -1363,40 +1379,80 @@ class SugeridosController extends Controller
              $sugeridos=$this->removeNotKeyWords($myclaves,$sugeridos);
              $this->setSugeridos($toro,$sugeridos);
 
-             //Sugeridos_2 FP 15 MESES Y CABAÑA Y MOCHO
+             //Sugeridos_2 FP 15 MESES y MOCHO Y CABAÑA
              $params=array(
                  'facilidadparto'=>$toro->getFacilidadparto(),
                  'mocho'=>$toro->getMocho(),
-                 );
+
+             );
              $sugeridos2=$sugeridos4Base=  $repo->DinamycGet($toro,$params);
-             $sugeridos2=$this->removeNotKeyWords($myclaves,$sugeridos2);
+             $sugeridos2=$this->removeNotKeyWords($myclaves,$sugeridos2,$toro->getId());
              $sugeridos2=$this->removeArrayAfromBV2($sugeridos2,$toro->getTorosSugeridos());
              $this->setSugeridos($toro,$sugeridos2);
 
-             //Sugeridos_3 FP 15 MESES Y CABAÑA
+             //Sugeridos_3 FP 15 MESES
              $params=array(
                  'facilidadparto'=>$toro->getFacilidadparto(),
+                 'mocho'=>$toro->getMocho()
              );
              $sugeridos3= $sugeridos6Base= $repo->DinamycGet($toro,$params);
-             $sugeridos3=$this->removeNotKeyWords($myclaves,$sugeridos3);
              $sugeridos3=$this->removeArrayAfromBV2($sugeridos3,$toro->getTorosSugeridos());
              $this->setSugeridos($toro,$sugeridos3);
 
-             //Sugeridos_4 FP 15 MESES Y MOCHO
-             $sugeridos4=$this->removeArrayAfromBV2($sugeridos4Base,$toro->getTorosSugeridos());
-             $this->setSugeridos($toro,$sugeridos4);
 
              //Sugeridos_5 FP 15 MESES y CRIADOR
              $params=array(
-             'facilidadparto'=>$toro->getFacilidadparto(),
-             'criador'=>"'".$toro->getCriador()."'"
+                 'facilidadparto'=>$toro->getFacilidadparto(),
+                 'criador'=>"'".$toro->getCriador()."'"
              );
              $sugeridos5=  $repo->DinamycGet($toro,$params);
              $sugeridos5=$this->removeArrayAfromBV2($sugeridos5,$toro->getTorosSugeridos());
              $this->setSugeridos($toro,$sugeridos5);
 
+             //Sugeridos_5 MOCHO y CRIADOR
+             $params=array(
+                 'mocho'=>$toro->getMocho(),
+                 'criador'=>"'".$toro->getCriador()."'"
+             );
+             $sugeridos5=  $repo->DinamycGet($toro,$params);
+             $sugeridos5=$this->removeArrayAfromBV2($sugeridos5,$toro->getTorosSugeridos());
+             $this->setSugeridos($toro,$sugeridos5);
+
+             //MOCHO
+             $params=array(
+                 'mocho'=>$toro->getMocho(),
+             );
+             $sugeridos5=  $repo->DinamycGet($toro,$params);
+             $sugeridos5=$this->removeArrayAfromBV2($sugeridos5,$toro->getTorosSugeridos());
+             $this->setSugeridos($toro,$sugeridos5);
+
+             //CABAÑA
+             $params=array(
+             );
+             $sugeridos5=  $repo->DinamycGet($toro,$params);
+             $sugeridos5=$this->removeNotKeyWords($myclaves,$sugeridos5,$toro->getId());
+             $sugeridos5=$this->removeArrayAfromBV2($sugeridos5,$toro->getTorosSugeridos());
+             $this->setSugeridos($toro,$sugeridos5);
+
+
              //Especifico SIN FP
              if($toro->getFacilidadparto()==0 || $toro->getFacilidadparto()==null){
+
+                 //  CRIADOR
+                 $params=array(
+
+                     'criador'=>"'".$toro->getCriador()."'"
+                 );
+                 $sugeridos7=  $repo->DinamycGet($toro,$params);
+                 $sugeridos7=$this->removeArrayAfromBV2($sugeridos7,$toro->getTorosSugeridos());
+                 $this->setSugeridos($toro,$sugeridos7);
+                 // CABANA
+                 $params=array(
+                 );
+                 $sugeridos9=  $repo->DinamycGet($toro,$params);
+                 $sugeridos9=$this->removeNotKeyWords($myclaves,$sugeridos9);
+                 $sugeridos9=$this->removeArrayAfromBV2($sugeridos9,$toro->getTorosSugeridos());
+                 $this->setSugeridos($toro,$sugeridos9);
 
                  $params=array(
                      'facilidadparto'=>24
@@ -1412,63 +1468,74 @@ class SugeridosController extends Controller
                  $sugeridosFPMenor=$this->removeArrayAfromBV2($sugeridosFPMenor,$toro->getTorosSugeridos());
                  $this->setSugeridos($toro,$sugeridosFPMenor);
 
-             }
-
-             //Sugeridos_6 15 MESES
-             $sugeridos6=$this->removeArrayAfromBV2($sugeridos6Base,$toro->getTorosSugeridos());
-             $this->setSugeridos($toro,$sugeridos6);
-
-             if($toro->getFacilidadparto()==18){
-
                  $params=array(
-                     'facilidadparto'=>15
-                 );
-                 $sugeridosFPMenor=$repo->DinamycGet($toro,$params);
-                 $sugeridosFPMenor=$this->removeArrayAfromBV2($sugeridosFPMenor,$toro->getTorosSugeridos());
-                 $this->setSugeridos($toro,$sugeridosFPMenor);
-             }else if($toro->getFacilidadparto()==24){
-
-                 $params=array(
-                     'facilidadparto'=>18
+                     'facilidadparto'=>$toro->getFacilidadparto(),
                  );
                  $sugeridosFPMenor=$repo->DinamycGet($toro,$params);
                  $sugeridosFPMenor=$this->removeArrayAfromBV2($sugeridosFPMenor,$toro->getTorosSugeridos());
                  $this->setSugeridos($toro,$sugeridosFPMenor);
 
+
+
              }
+             else{
 
-             //Sugeridos_7 MOCHO Y CRIADOR
-             $params=array(
-                 'mocho'=>$toro->getMocho(),
-                 'criador'=>"'".$toro->getCriador()."'"
-             );
-             $sugeridos7=  $repo->DinamycGet($toro,$params);
-             $sugeridos7=$this->removeArrayAfromBV2($sugeridos7,$toro->getTorosSugeridos());
-             $this->setSugeridos($toro,$sugeridos7);
+                 //Sugeridos_6 15 MESES
+                 $sugeridos6=$this->removeArrayAfromBV2($sugeridos6Base,$toro->getTorosSugeridos());
+                 $this->setSugeridos($toro,$sugeridos6);
 
-             //Sugeridos_8 MOCHO
-             $params=array(
-                 'mocho'=>$toro->getMocho(),
-             );
-             $sugeridos8=  $repo->DinamycGet($toro,$params);
-             $sugeridos8=$this->removeArrayAfromBV2($sugeridos8,$toro->getTorosSugeridos());
-             $this->setSugeridos($toro,$sugeridos8);
+                 if($toro->getFacilidadparto()==18){
 
-             //Sugeridos_9 CABAÑA
-             $params=array(
-             );
-             $sugeridos9=  $repo->DinamycGet($toro,$params);
-             $sugeridos9=$this->removeNotKeyWords($myclaves,$sugeridos9);
-             $sugeridos9=$this->removeArrayAfromBV2($sugeridos9,$toro->getTorosSugeridos());
-             $this->setSugeridos($toro,$sugeridos9);
+                     $params=array(
+                         'facilidadparto'=>15
+                     );
+                     $sugeridosFPMenor=$repo->DinamycGet($toro,$params);
+                     $sugeridosFPMenor=$this->removeArrayAfromBV2($sugeridosFPMenor,$toro->getTorosSugeridos());
+                     $this->setSugeridos($toro,$sugeridosFPMenor);
+                 }else if($toro->getFacilidadparto()==24){
 
-             //Sugeridos 10 CRIADOR
-             $params=array(
-                 'criador'=>"'".$toro->getCriador()."'"
-             );
-             $sugeridos10=  $repo->DinamycGet($toro,$params);
-             $sugeridos10=$this->removeArrayAfromBV2($sugeridos10,$toro->getTorosSugeridos());
-             $this->setSugeridos($toro,$sugeridos10);
+                     $params=array(
+                         'facilidadparto'=>18
+                     );
+                     $sugeridosFPMenor=$repo->DinamycGet($toro,$params);
+                     $sugeridosFPMenor=$this->removeArrayAfromBV2($sugeridosFPMenor,$toro->getTorosSugeridos());
+                     $this->setSugeridos($toro,$sugeridosFPMenor);
+
+                 }
+
+                 //Sugeridos_7  CRIADOR
+                 $params=array(
+                     'criador'=>"'".$toro->getCriador()."'"
+                 );
+                 $sugeridos7=  $repo->DinamycGet($toro,$params);
+                 $sugeridos7=$this->removeArrayAfromBV2($sugeridos7,$toro->getTorosSugeridos());
+                 $this->setSugeridos($toro,$sugeridos7);
+
+                 //Sugeridos_8 MOCHO
+                 $params=array(
+
+                 );
+                 $sugeridos8=  $repo->DinamycGet($toro,$params);
+                 $sugeridos8=$this->removeArrayAfromBV2($sugeridos8,$toro->getTorosSugeridos());
+                 $this->setSugeridos($toro,$sugeridos8);
+
+                 //Sugeridos_9 CABAÑA
+                 $params=array(
+                 );
+                 $sugeridos9=  $repo->DinamycGet($toro,$params);
+                 $sugeridos9=$this->removeNotKeyWords($myclaves,$sugeridos9);
+                 $sugeridos9=$this->removeArrayAfromBV2($sugeridos9,$toro->getTorosSugeridos());
+                 $this->setSugeridos($toro,$sugeridos9);
+
+                 //Sugeridos 10 CRIADOR
+                 $params=array(
+                     'criador'=>"'".$toro->getCriador()."'"
+                 );
+                 $sugeridos10=  $repo->DinamycGet($toro,$params);
+                 $sugeridos10=$this->removeArrayAfromBV2($sugeridos10,$toro->getTorosSugeridos());
+                 $this->setSugeridos($toro,$sugeridos10);
+
+             }
          }
 
          //Caso 9 FP 15 MESES	MOCHO	CRIADOR
@@ -1850,7 +1917,6 @@ class SugeridosController extends Controller
             $params=array(
                 'CP'=>1,
                 'facilidadparto'=>$toro->getFacilidadparto(),
-
                 'criador'=>"'".$toro->getCriador()."'"
             );
             $sugeridos=  $repo->DinamycGet($toro,$params);
@@ -3100,7 +3166,125 @@ class SugeridosController extends Controller
 
     }
 
+    //Sugeridos Verison Dinamica.
 
+    function UpdateSugVdin($toro,$claves,$repo,$em,$comportamientos){
+      //Limpiando sugeridos
+        $sugeridosactuales=$toro->getTorosSugeridos();
+        foreach($sugeridosactuales as $s)
+            $toro->removeTorosSugerido($s);
+
+        $myclaves=$this->PalabrasClave($toro,$claves);
+        if(count($myclaves)>0)
+            $myclaves=implode(',',$myclaves);
+        else
+            $myclaves=null;
+
+
+        foreach($comportamientos as $comportamiento){
+
+            $bandera=true;
+
+           foreach($comportamiento->getCondiciones() as $condicion){
+               $phpcode=$condicion->getCondicionphp()->getPhpcode();
+               $result=  eval("$phpcode;");
+               if(!$result)
+               {
+                   $bandera=false;
+                   break;
+               }
+
+           }
+            if($bandera===true){
+
+                $acciones=$comportamiento->getAcciones();
+                $sugeridosNumbers=$this->getArrayNumeroSugeridos($acciones);
+
+                $iteraciones=0;
+                foreach($sugeridosNumbers as $number){
+
+                   $numberaccions=$this->getAccionesFormSugeridoNumber($acciones,$number);
+                    $params=array();
+                    $tipoInner=Array();
+
+                    foreach($numberaccions as $accion){
+                       if($accion->getAccion()->getTipo()=='REPO' && $accion->getAccion()->getValue()!='phpcode')
+                           $params[$accion->getAccion()->getVar()]=$accion->getAccion()->getValue();
+                        elseif ($accion->getAccion()->getTipo()=='REPO' && $accion->getAccion()->getValue()=='phpcode'){
+                            $phpcodeaccion=$accion->getAccion()->getPhpcode();
+                            $varcode=eval("$phpcodeaccion;");
+                            $params[$accion->getAccion()->getVar()]="'".$varcode."'";
+                        }
+                        else if($accion->getAccion()->getTipo()=='INNER')
+                            $tipoInner[]=$accion->getAccion()->getPhpcode();
+                    }
+
+                    //Aplicando params
+                    if(count($params)!=0){
+                        $sugeridos=  $repo->DinamycGet($toro,$params);
+//                        if($number==2)
+//                        {
+//                              $this->printApodos($sugeridos);
+//                         //   print($toro->getId());print_r($params); print (count($sugeridos));die();
+//                        }
+                       // print (count($sugeridos));die();
+                    }
+                    //Aplicando Inners
+                    if(count($tipoInner)>0 && isset($sugeridos)){ // Hay params e inners
+
+                       foreach($tipoInner as $inner){
+                           $sugeridos=eval("$inner");
+
+                       }
+
+                    }
+                    elseif(count($tipoInner)>0 && !isset($sugeridos)){ //Hay inner pero no hay params
+                        $params=array(
+                        );
+                        $sugeridos=  $repo->DinamycGet($toro,$params);
+                        foreach($tipoInner as $inner){
+                            $sugeridos=eval("$inner");
+                        }
+                    }
+                    //If iteraciones < 0 eliminar repetidos
+                    if($iteraciones>0 && isset($sugeridos) && count($sugeridos)>0)
+                        $sugeridos=$this->removeArrayAfromBV2($sugeridos,$toro->getTorosSugeridos());
+                     if(isset($sugeridos) && count($sugeridos)>0)
+                        $this->setSugeridos($toro,$sugeridos);
+                    $iteraciones++;
+                }
+
+            }
+
+
+       }
+        $em->persist($toro);
+        $em->flush();
+
+    }
+
+
+     function getArrayNumeroSugeridos($comportamientoacciones){
+
+         $sugeridosnumbers=Array();
+         foreach($comportamientoacciones as $a){
+             if(!array_key_exists($a->getSugeridosnumber(),$sugeridosnumbers))
+                 $sugeridosnumbers[$a->getSugeridosnumber()]=$a->getSugeridosnumber();
+         }
+         // aplicarle un sort por si las moscas
+         sort($sugeridosnumbers,SORT_NUMERIC);
+         return $sugeridosnumbers;
+     }
+
+     function getAccionesFormSugeridoNumber($comportamientoacciones,$numero){
+         $cacciones=array();
+         foreach($comportamientoacciones as $a){
+             if($a->getSugeridosnumber()==$numero)
+              $cacciones[]=$a;
+         }
+         return $cacciones;
+
+     }
 
     function TienePalabrasClave($toro,$claves){
         if($claves==null)
@@ -3202,14 +3386,14 @@ class SugeridosController extends Controller
 
             if($toro->getTablagenetica()==null)
                 unset($torosList[$key]);
-                elseif($attr=='PF'){
-                   if($this->getDatoFromTablaGenMenor30($toro,'RANKING',$attr)!==true && $this->getDatoFromTablaGenMenor30($toro,'RANKING','P.Año')!==true)
+                elseif($attr=='PFoPAño'){
+                   if($this->getDatoFromTablaGenMenor30($toro,'RANKING','PF')!==true && $this->getDatoFromTablaGenMenor30($toro,'RANKING','P.Año')!==true)
                        unset($torosList[$key]);
                 }
-            elseif($attr=='P.Año'){
-                if($this->getDatoFromTablaGenMenor30($toro,'RANKING',$attr)!==true && $this->getDatoFromTablaGenMenor30($toro,'RANKING','PF')!==true)
-                    unset($torosList[$key]);
-            }
+//            elseif($attr=='P.Año'){
+//                if($this->getDatoFromTablaGenMenor30($toro,'RANKING',$attr)!==true && $this->getDatoFromTablaGenMenor30($toro,'RANKING','PF')!==true)
+//                    unset($torosList[$key]);
+//            }
            elseif( $this->getDatoFromTablaGenMenor30($toro,'RANKING',$attr)!==true)
            unset($torosList[$key]);
         }
@@ -3332,5 +3516,174 @@ class SugeridosController extends Controller
         }
         return false;
     }
+
+    function printApodos($sugeridos){
+        print ('<br>');
+        print ('----------------');
+        foreach($sugeridos as $sug){
+               print ($sug->getApodo());
+            print ('<br>');
+        }
+    }
+
+
+    function  sugeridosesquemaupdateAction(){
+
+        try{
+
+            $this->fecthSugeridosComportamientosTablesMocho('MOCHO','mocho.xlsx');
+
+            $array=Array(
+                0=>1
+            );
+
+            return new JsonResponse(
+               $array
+            );
+
+        }
+        catch(\Exception $e){
+            return new JsonResponse(
+               Array(0=>$e->getMessage())
+            );
+        }
+    }
+
+    function fecthSugeridosComportamientosTablesMocho($tipo,$nombreexcel){
+
+        set_time_limit(0);
+        //Limipiando
+        $em = $this->getDoctrine()->getManager();
+        $condicionesrepo=$em->getRepository('gemaBundle:Condicion');
+        $accionesrepo=$em->getRepository('gemaBundle:Accion');
+        $qb = $em->createQueryBuilder();
+        $query = $qb->delete('gemaBundle:ComportamientoAccion') ->getQuery();;
+        $query->execute();
+        $query = $qb->delete('gemaBundle:ComportamientoCondicion') ->getQuery();;
+        $query->execute();
+        $query = $qb->delete('gemaBundle:Comportamiento') ->getQuery();;
+        $query->execute();
+        ///
+            //->where('buss.id = :bussId') ->setParameter('bussId', "bussId");
+
+        $rutaExcel= $this->get('kernel')->getRootDir() . '/../web/sugeridosexcels/' . $nombreexcel;
+        $helper=new MyHelper();
+        $extexcel= $helper->SaberExt($excelName = $rutaExcel);
+
+        if($extexcel=='xls'){
+            $objReader=PHPExcel_IOFactory::createReader('Excel5');
+        }else
+            $objReader = PHPExcel_IOFactory::createReader('Excel2007');
+        if ($objReader->canRead($rutaExcel))
+            $objPHPExcel = $objReader->load($rutaExcel);
+        else{
+            return new JsonResponse(
+                "No se puede leer el fichero"
+            );
+        }
+        $hoja = $objPHPExcel->getActiveSheet();
+        $maxCell = $hoja->getHighestRowAndColumn();
+        $data = $hoja->rangeToArray('A1:' . $maxCell['column'] . $maxCell['row']);
+        $condicionesColStart=1;
+        $condicionesColEnd=7;
+        $accionesColStat=8;
+        $accionesColend=30;
+        $rowStart=5;
+        $iterator=0;
+        foreach($data as $row){
+
+            if($iterator>=$rowStart){
+                if($row[1]!='' && $row[1]!=null){
+
+                    $condiciones=$this->getCondicionesFromRow($row,$condicionesColStart,$condicionesColEnd);
+                    $acciones=$this->getAccionesFromRow($row,$accionesColStat,$accionesColend);
+
+                    //Creando Comportamiento
+                    $comportamiento=new Comportamiento();
+                    $comportamiento->setLineaenexcel($iterator+1);
+                    $comportamiento->setComentario($this->convertToComentario($condiciones));
+                    $comportamiento->setTipo($tipo);
+                    //Comportamiento Condiciones
+                    $iterorden=1;
+                    foreach($condiciones as $condicion){
+                        $comportamientocondicion=new ComportamientoCondicion();
+                        $comportamientocondicion->setNombre($condicion);
+                        $comportamientocondicion->setOrden($iterorden);
+                        $comportamientocondicion->setComportamiento($comportamiento);
+
+                        $condicionphp=$condicionesrepo->findOneBynombre($condicion);
+                        $comportamientocondicion->setCondicionphp($condicionphp);
+                        $comportamiento->addCondicione($comportamientocondicion);
+                        $iterorden++;
+                    }
+                    $iterordensugeridos=1;
+                    foreach($acciones as $accion){
+                        $accionesSplit= explode('Y',$accion);
+                       // print_r($accionesSplit);die();
+                        $ordenaccion=1;
+                        foreach($accionesSplit as $accionSug){
+                            $comportamientoaccion=new ComportamientoAccion();
+                            $comportamientoaccion->setOrden($ordenaccion);
+                            $comportamientoaccion->setSugeridosnumber($iterordensugeridos);
+                            $accionphp=$accionesrepo->findOneBynombre(trim($accionSug));
+//                            if($accionSug==' CONCEPT PLUS '){
+//                              print (trim($accionSug)); die();
+//                            }
+                            $comportamientoaccion->setAccion($accionphp);
+                            $comportamientoaccion->setComportamiento($comportamiento);
+                            $comportamiento->addAccione($comportamientoaccion);
+                            $ordenaccion++;
+                        }
+                     //   print_r($accionesSplit);die();
+                        $iterordensugeridos++;
+                    }
+
+
+
+                    $em->persist($comportamiento);
+                  //  print_r($condiciones);die();
+                }
+
+            }
+
+           $iterator++;
+        }
+
+        $em->flush();
+
+        die();
+
+
+    }
+
+   function getCondicionesFromRow($row,$colStart,$colEnd){
+       $condiciones=array();
+      for($i=$colStart;$i<=$colEnd;$i++){
+          if($row[$i]==null || $row[$i]=='')
+              break;
+          $condiciones[]=$row[$i];
+      }
+       return $condiciones;
+
+   }
+
+    function getAccionesFromRow($row,$colStart,$colEnd){
+        $acciones=array();
+        for($i=$colStart;$i<=$colEnd;$i++){
+            if($row[$i]==null || $row[$i]=='')
+                break;
+            $acciones[]=$row[$i];
+        }
+        return $acciones;
+
+    }
+
+    function convertToComentario($condiciones){
+        $comentario='';
+        foreach($condiciones as $c)
+            $comentario.=$c.'***';
+        return $comentario;
+    }
+
 
 }

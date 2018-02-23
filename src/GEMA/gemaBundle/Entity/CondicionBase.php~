@@ -1,0 +1,39 @@
+<?php
+
+namespace GEMA\gemaBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * CondicionBase
+ *
+ * @ORM\Table(name="condicionbase")
+ * @ORM\Entity(repositoryClass="GEMA\gemaBundle\Entity\CondicionBaseRepository")
+ */
+class CondicionBase {
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nombre", type="string",length=100)
+     */
+    private $nombre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="php", type="string",length=255)
+     */
+    private $php;
+
+
+}

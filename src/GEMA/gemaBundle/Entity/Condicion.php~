@@ -1,0 +1,48 @@
+<?php
+
+namespace GEMA\gemaBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Condicion
+ *
+ * @ORM\Table(name="condicion")
+ * @ORM\Entity(repositoryClass="GEMA\gemaBundle\Entity\CondicionRepository")
+ */
+class Condicion {
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nombre", type="string",length=100)
+     */
+    private $nombre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="phpcode", type="string",length=255)
+     */
+    private $phpcode;
+
+    /**
+     * @ORM\OneToMany(targetEntity="GEMA\gemaBundle\Entity\ComportamientoCondicion" , mappedBy="condicionphp", cascade={"persist"})
+     */
+
+    private $comportamientocondiciones;
+
+
+
+
+
+}

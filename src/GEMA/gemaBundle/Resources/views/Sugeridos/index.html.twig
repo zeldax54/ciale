@@ -18,6 +18,12 @@
     {% block gema_page -%}
 
         <div class="row">
+
+            <div class="col-md-6"><label>Actualizar Esquemas</label></div>
+            <div class="col-md-6"><input type="button" class="btn btn-info actualizaesquema" value="Actualizar Esquemas"></div>
+        </div><br>
+
+        <div class="row">
             <div class="col-md-6"><label>Actualizar Todos los Toros (Reasignación completa de los toros sugeridos)</label></div>
             <div class="col-md-6"><input type="button" class="btn btn-info actualizartodos" value="Actualizar"></div>
             </div>
@@ -181,6 +187,75 @@
                         }
                     });
                 }
+
+            });
+
+            $('.actualizaesquema').click(function(){
+
+
+                vex.dialog.confirm({
+                    contentClassName: 'bordernaranjaclassMasAncho',
+                    closeClassName: 'closebleclass',
+                    message: '',
+                    input: [
+                        '<span>Esta accion reasignará los esquemas desde los excels. Ejecutelo siempre que haya modificado los excels</span>'
+
+
+                    ].join(''),
+                    showCloseButton: true,
+                    buttons: [
+
+                        $.extend({}, vex.dialog.buttons.YES, {
+                            text: 'Actualizar',
+                            className: 'vex-dialog-button-primary vex-dialog-button vex-first'
+                        }),
+
+                        $.extend({}, vex.dialog.buttons.NO, {
+                            text: 'Cancelar',
+                            className: 'vex-dialog-button-primary vex-dialog-button vex-first '
+                        }),
+
+
+
+                    ],
+
+                    callback: function (data) {
+                        if (!data) {
+                            return console.log('Cancelled')
+                        }
+                        var vexwaiting2 = vex.dialog.alert({unsafeMessage: '<b>Procesando. Sea paciente.Espere...</b>',
+                            contentClassName: 'bordernaranjaclassMasAncho',
+                        });
+
+                        $.ajax({
+                            type: 'GET',
+//                            data: {ids: arra, filename: 'toros'},
+                            url: Routing.generate('sugeridos_esquemaupdate'),
+                            success: function (data) {
+                                vex.close(vexwaiting2)
+                                if (data[0] == 1) {
+                                    vex.dialog.alert({unsafeMessage: '<b>Actualizacion exitosa!!!</b>',
+                                        contentClassName: 'bordernaranjaclassMasAncho',
+                                    });
+                                } else {
+                                    vex.dialog.alert({
+                                        unsafeMessage: '<b>Error Actualizando.'+data[0]+'</b>',
+                                        className: 'vex-theme-wireframe',
+                                        overlayClassName: 'success',
+                                        contentClassName: 'bordernaranjaclass',
+                                        closeClassName: 'closebleclass'
+                                    })
+                                }
+
+                            },
+                            error: function (req, stat, err) {
+                                vex.close(vexwaiting2)
+                                console.log(err);
+                            }
+                        });
+
+                    }
+                });
 
             });
 

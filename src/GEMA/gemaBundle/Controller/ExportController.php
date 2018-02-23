@@ -793,8 +793,6 @@ public function exceladminAction($razaid){
 
             $em = $this->getDoctrine()->getManager();
 
-
-
             if($source['capas']=='on'){
 
                 $capaimg=$source['capaName'];

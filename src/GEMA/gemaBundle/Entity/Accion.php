@@ -220,4 +220,50 @@ class Accion {
     {
         return $this->tipo;
     }
+
+    /**
+     * Set var
+     *
+     * @param string $var
+     * @return Accion
+     */
+    public function setVar($var)
+    {
+        $this->var = $var;
+
+        return $this;
+    }
+
+    /**
+     * Get var
+     *
+     * @return string 
+     */
+    public function getVar()
+    {
+        return $this->var;
+    }
+
+    /**
+     * Set value
+     *
+     * @param string $value
+     * @return Accion
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
+
+        return $this;
+    }
+
+    /**
+     * Get value
+     *
+     * @return string 
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
 }
