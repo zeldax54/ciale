@@ -15,6 +15,8 @@ class TwigExtensions extends \Twig_Extension
             new \Twig_SimpleFunction('find', array($this, 'find')),
             new \Twig_SimpleFunction('isNumber', array($this, 'isNumber')),
             new \Twig_SimpleFunction('recortar', array($this, 'recortar')),
+            new \Twig_SimpleFunction('productos', array($this, 'productos')),
+            new \Twig_SimpleFunction('programas', array($this, 'programas')),
         );
     }
 
@@ -95,6 +97,19 @@ class TwigExtensions extends \Twig_Extension
         }
         return true;
     }
+
+    public function productos(){
+        $em=$this->doctrine->getManager();
+        return $em->getRepository('gemaBundle:Productosprogramas')->findBytipo('Producto');
+
+    }
+
+    public function programas(){
+        $em=$this->doctrine->getManager();
+        return $em->getRepository('gemaBundle:Productosprogramas')->findBytipo('Programa');
+
+    }
+
 
     public function getName()
     {

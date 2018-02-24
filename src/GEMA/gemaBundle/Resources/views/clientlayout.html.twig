@@ -116,8 +116,24 @@
 
                                 {#</ul>#}
                             {#</li>#}
-                            <li class="menu-items"><a href="{{  path('gema_prodprog',{tipo:'Prodcutos'})  }}">PRODUCTOS</a></li>
-                            <li class="menu-items"><a href="{{  path('gema_prodprog',{tipo:'Programas'})  }}">PROGRAMAS</a></li>
+                            <li class="menu-items dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">PRODUCTOS&nbsp;<i class="fa fa-plus"></i><i class="fa fa-minus"></i></a>
+                                <ul class="dropdown-menu">
+                                   {% for prod in productos() %}
+                                       <li><a href="{{  path('prodprog_newwindows',{'id':prod.id})  }}">{{ prod.nombre }}</a></li>
+                                    {% endfor %}
+
+                                </ul>
+                            </li>
+                            <li class="menu-items dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">PROGRAMAS&nbsp;<i class="fa fa-plus"></i><i class="fa fa-minus"></i></a>
+                                <ul class="dropdown-menu">
+                                    {% for prod in programas() %}
+                                        <li><a href="{{  path('prodprog_newwindows',{'id':prod.id})  }}">{{ prod.nombre }}</a></li>
+                                    {% endfor %}
+
+                                </ul>
+                            </li>
 
 
                             <li class="menu-items"><a href="{{  path('gema_correoindex')  }}">CONTACTO</a></li>

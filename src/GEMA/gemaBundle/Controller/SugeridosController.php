@@ -60,14 +60,14 @@ class SugeridosController extends Controller
                 else{
                     $comportamientos=$em->getRepository('gemaBundle:Comportamiento')->findBy(
                         array(
-                            'tipo'=>'NORMAL'
+                            'tipo'=>'SIN_MOCHO'
                         )
                     );
                 }
                 $this->UpdateSugVdin($toro[0],$claves,$repo,$em,$comportamientos);
                 $em->detach($toro[0]);
             }
-           die();
+
             return new JsonResponse(
 
                 array(
@@ -96,11 +96,22 @@ class SugeridosController extends Controller
             $repo = $em->getRepository('gemaBundle:Toro');
             $claves=$em->getRepository('gemaBundle:Configuracion')->find(1)->getPalabrasclave();
             $toro=$repo->find($id);
-            if($toro->getRaza()->getId()==15 || ($toro->getRaza()->getId()==26 && $toro->getMocho()==true))
-                $this->UpdateToroV2Mocho($toro,$claves,$repo,$em);
-            else{
-                $this->UpdateToroV2($toro,$claves,$repo,$em);
+
+            if($toro->getRaza()->getId()==15 || ($toro->getRaza()->getId()==26 && $toro->getMocho()==true)){
+                $comportamientos=$em->getRepository('gemaBundle:Comportamiento')->findBy(
+                    array(
+                        'tipo'=>'MOCHO'
+                    )
+                );
             }
+            else{
+                $comportamientos=$em->getRepository('gemaBundle:Comportamiento')->findBy(
+                    array(
+                        'tipo'=>'SIN_MOCHO'
+                    )
+                );
+            }
+            $this->UpdateSugVdin($toro,$claves,$repo,$em,$comportamientos);
 
 
             return new JsonResponse(
@@ -3531,11 +3542,23 @@ class SugeridosController extends Controller
 
         try{
 
+            //Limipiando
+            $em = $this->getDoctrine()->getManager();
+            $qb = $em->createQueryBuilder();
+            $query = $qb->delete('gemaBundle:ComportamientoAccion') ->getQuery();;
+            $query->execute();
+            $query = $qb->delete('gemaBundle:ComportamientoCondicion') ->getQuery();;
+            $query->execute();
+            $query = $qb->delete('gemaBundle:Comportamiento') ->getQuery();;
+            $query->execute();
+
             $this->fecthSugeridosComportamientosTablesMocho('MOCHO','mocho.xlsx');
+            $this->fecthSugeridosComportamientosTablesMocho('SIN_MOCHO','sin_mocho.xlsx');
 
             $array=Array(
                 0=>1
             );
+
 
             return new JsonResponse(
                $array
@@ -3543,8 +3566,9 @@ class SugeridosController extends Controller
 
         }
         catch(\Exception $e){
+
             return new JsonResponse(
-               Array(0=>$e->getMessage())
+               array(0=>$e->getMessage())
             );
         }
     }
@@ -3556,13 +3580,6 @@ class SugeridosController extends Controller
         $em = $this->getDoctrine()->getManager();
         $condicionesrepo=$em->getRepository('gemaBundle:Condicion');
         $accionesrepo=$em->getRepository('gemaBundle:Accion');
-        $qb = $em->createQueryBuilder();
-        $query = $qb->delete('gemaBundle:ComportamientoAccion') ->getQuery();;
-        $query->execute();
-        $query = $qb->delete('gemaBundle:ComportamientoCondicion') ->getQuery();;
-        $query->execute();
-        $query = $qb->delete('gemaBundle:Comportamiento') ->getQuery();;
-        $query->execute();
         ///
             //->where('buss.id = :bussId') ->setParameter('bussId', "bussId");
 
@@ -3651,7 +3668,7 @@ class SugeridosController extends Controller
 
         $em->flush();
 
-        die();
+
 
 
     }
