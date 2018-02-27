@@ -284,7 +284,7 @@ pdf_portadatest:
     defaults: { _controller: "gemaBundle:Export:portada" }
 
 prodprog_newwindows:
-    pattern:  /productosprogramas/{id}
+    pattern:  /{nombremenu}
     defaults: { _controller: "gemaBundle:ProdProgclient:newwind" }
 
 fpfilter:

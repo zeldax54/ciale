@@ -11,7 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table(name="productosprogramas")
  * @ORM\Entity(repositoryClass="GEMA\gemaBundle\Entity\ProductosprogramasRepository")
- * @UniqueEntity(fields="nombre", message="Este elemento ya existe"))
+ * @UniqueEntity(fields="nombremenu", message="Este elemento ya existe"))
  * @ORM\HasLifecycleCallbacks()
  */
 class Productosprogramas
