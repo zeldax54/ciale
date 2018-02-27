@@ -10,13 +10,14 @@
 <div style="text-align: center;margin: 0 auto">
 
 <div class="row">
-        {% if prodprog.logo is not null %}
-            <div class="col-md-2">
-            <img src="{{ asset(prodprog.logo) }}" style="max-width: 100%">
-          </div>
-        {% endif %}
+    
+        {#{% if prodprog.logo is not null %}#}
+            {#<div class="col-md-2">#}
+            {#<img src="{{ asset(prodprog.logo) }}" style="max-width: 100%">#}
+          {#</div>#}
+        {#{% endif %}#}
 
-    <div class="col-md-10" style="">
+    <div class="col-md-12" style="">
         <h2 style="font-family: 'Fago-Bold';color:#254389"> {{ prodprog.nombre }}</h2>
     </div>
     </div>

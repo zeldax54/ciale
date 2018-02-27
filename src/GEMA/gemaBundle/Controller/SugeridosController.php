@@ -3208,6 +3208,20 @@ class SugeridosController extends Controller
            }
             if($bandera===true){
 
+               // if($toro->getId()==319){
+
+//                print('toro:'.$toro->getApodo());
+//                print ('<br>');
+//                print('Linea del excel:'.$comportamiento->getLineaenexcel());
+//                print ('<br>');
+//                print ('Comportamiento:'.$comportamiento->getComentario());
+//                print ('<br>');
+
+
+
+
+           //     }
+
                 $acciones=$comportamiento->getAcciones();
                 $sugeridosNumbers=$this->getArrayNumeroSugeridos($acciones);
 
@@ -3264,6 +3278,7 @@ class SugeridosController extends Controller
                         $this->setSugeridos($toro,$sugeridos);
                     $iteraciones++;
                 }
+                break;
 
             }
 
@@ -3371,6 +3386,8 @@ class SugeridosController extends Controller
                     if ($row['rowhead'] == $rowhead) {
 
                         if (isset($row[$dato])) {
+                            if($row[$dato]=='-')
+                                return false;
                             if(floatval(str_replace('%','',$row[$dato]))<=30)
                                 return true;
                             return false;

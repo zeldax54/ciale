@@ -24,7 +24,15 @@ class ProductosprogramasType extends AbstractType
 
                 ),'label'=>'Tipo'
             ))
-            ->add('nombre')
+
+            ->add('nombre',null,array(
+                'label'=>'Título'
+            ))
+
+            ->add('nombremenu',null,array(
+                'label'=>'Nombre del menú'
+            ))
+
             ->add('introduccion', CKEditorType::class, array(
                 'config' => array(
                     'uiColor' => '#00a1e7',
