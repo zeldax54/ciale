@@ -128,6 +128,9 @@ class RazaType extends AbstractType
             ->add('tablasmanual',null,array(
                 'label'=>'Manual(toros de esta raza con tabla genetica )'
             ))
+            ->add('sugeridosmostrados',null,array(
+                'label'=>'Numero de sugeridos a mostrar por esta raza'
+            ))
 
 
         ;

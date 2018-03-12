@@ -69,10 +69,9 @@ doctrine:
 # Swiftmailer Configuration
 swiftmailer:
     transport: smtp
-    host:      smtp.ciale.com
-    username:  test@ciale.com
-    password:  scNgbWmvZIYpuyufqElI2g
-    port:      587
+    host:      localhost
+    port:      25
+    spool:     { type: memory }
 
 ivory_ck_editor:
     default_config: my_config

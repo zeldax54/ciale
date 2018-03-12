@@ -356,13 +356,15 @@ class RazalistController extends Controller
                     $flaadd++;
             }
         }
-        if(count($toro->getTorosSugeridos())>30){
+
+
+        if(count($toro->getTorosSugeridos())>$toro->getRaza()->getSugeridosmostrados()){
             $sugAll=Array();
             $cont=0;
             foreach($toro->getTorosSugeridos() as $t){
                 $sugAll[]=$t;
                 $cont++;
-                if($cont>=30)
+                if($cont>=$toro->getRaza()->getSugeridosmostrados())
                     break;
             }
             $sugeridos=$sugAll;

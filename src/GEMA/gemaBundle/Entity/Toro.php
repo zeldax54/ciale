@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\JoinTable;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * Toro
@@ -357,12 +358,14 @@ class Toro
 
     /**
      * Many Users have Many Users.
+     * @JMS\Exclude();
      * @ManyToMany(targetEntity="Toro", mappedBy="torosSugeridos",cascade={"persist"})
      */
     private $torosquemeSugierem;
 
     /**
      * Many Users have many Users.
+     * @JMS\Exclude();
      * @ManyToMany(targetEntity="Toro", inversedBy="torosquemeSugierem",cascade={"persist"})
      * @JoinTable(name="sugeridos",
      *      joinColumns={@JoinColumn(name="toro_id", referencedColumnName="id")},
