@@ -134,6 +134,13 @@ class Raza
     private $tablasmanual;
 
 
+    /**
+     * @var string
+     * @ORM\Column(name="sugeridosmostrados", type="integer",nullable=true)
+     */
+    private $sugeridosmostrados;
+
+
     public function __toString()
     {
         return $this->getNombre();
@@ -600,5 +607,28 @@ class Raza
     public function getTablasmanual()
     {
         return $this->tablasmanual;
+    }
+
+    /**
+     * Set sugeridosmostrados
+     *
+     * @param \number $sugeridosmostrados
+     * @return Raza
+     */
+    public function setSugeridosmostrados(\number $sugeridosmostrados)
+    {
+        $this->sugeridosmostrados = $sugeridosmostrados;
+
+        return $this;
+    }
+
+    /**
+     * Get sugeridosmostrados
+     *
+     * @return \number 
+     */
+    public function getSugeridosmostrados()
+    {
+        return $this->sugeridosmostrados;
     }
 }

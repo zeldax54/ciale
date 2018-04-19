@@ -37,6 +37,13 @@ class Productosprogramas
      */
     private $nombre;
 
+
+    /**
+     * @var string
+     * @ORM\Column(name="nombremenu", type="string", length=255)
+     */
+    private $nombremenu;
+
     /**
      * @var text
      * @ORM\Column(name="introduccion", type="text",nullable=true)
@@ -188,5 +195,28 @@ class Productosprogramas
     public function getGuid()
     {
         return $this->guid;
+    }
+
+    /**
+     * Set tipo
+     *
+     * @param string $tipo
+     * @return Productosprogramas
+     */
+    public function setTipo($tipo)
+    {
+        $this->tipo = $tipo;
+
+        return $this;
+    }
+
+    /**
+     * Get tipo
+     *
+     * @return string 
+     */
+    public function getTipo()
+    {
+        return $this->tipo;
     }
 }

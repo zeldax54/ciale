@@ -793,7 +793,7 @@ public function exceladminAction($razaid){
 
             $em = $this->getDoctrine()->getManager();
 
-            if($source['capas']=='on'){
+            if(isset($source['capas']) && $source['capas']=='on'){
 
                 $capaimg=$source['capaName'];
                 $capaimg=explode('/',$capaimg);
