@@ -280,7 +280,7 @@ pdf_capatest:
     defaults: { _controller: "gemaBundle:Export:capatest" }
 
 pdf_portadatest:
-    pattern:  /portadatest
+    pattern:  /test/portadatest
     defaults: { _controller: "gemaBundle:Export:portada" }
 
 prodprog_newwindows:

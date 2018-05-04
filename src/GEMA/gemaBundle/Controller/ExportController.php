@@ -715,6 +715,7 @@ public function exceladminAction($razaid){
 
         $imglistaprec=$helper->randomPic('pdfresources/backgroundlistaprecios/',true);
         $imgMsjintrod=$helper->randomPic('pdfresources/backgroundintroductorio/',true);
+        $imgpreload=$helper->randomPic('pdfresources/preload/',false);
 
 
 
@@ -740,6 +741,7 @@ public function exceladminAction($razaid){
             $imgIntrod=DIRECTORY_SEPARATOR.$imgIntrod;
             $imglistaprec=DIRECTORY_SEPARATOR.$imglistaprec;
             $imgMsjintrod=DIRECTORY_SEPARATOR.$imgMsjintrod;
+            $imgpreload=DIRECTORY_SEPARATOR.$imgpreload;
 
             foreach($capas as $c){
                 $capasfin[]= array(0=>DIRECTORY_SEPARATOR.$c,1=>DIRECTORY_SEPARATOR.$c,2=> str_replace($toreplace,'',$c));
@@ -752,6 +754,7 @@ public function exceladminAction($razaid){
             $imgIntrod=$baseurl.DIRECTORY_SEPARATOR.$imgIntrod;
             $imglistaprec=$baseurl.DIRECTORY_SEPARATOR.$imglistaprec;
             $imgMsjintrod=$baseurl.DIRECTORY_SEPARATOR.$imgMsjintrod;
+            $imgpreload=$baseurl.DIRECTORY_SEPARATOR.$imgpreload;
 
             foreach($capas as $c){
                 $capasfin[]= array(0=>$baseurl.DIRECTORY_SEPARATOR.$c,1=>DIRECTORY_SEPARATOR.$c,2=>str_replace($toreplace,'',$c));
@@ -769,7 +772,9 @@ public function exceladminAction($razaid){
             'imgIntrodName'=>$imgIntrodName,
             'torosInfo'=>$torosInfo,
             'imglistaprec'=>$imglistaprec,
-            'imgmsjintrod'=>$imgMsjintrod
+            'imgmsjintrod'=>$imgMsjintrod,
+            'imgpreload'=>$imgpreload
+
         );
         return new JsonResponse(
             $datos
@@ -869,9 +874,9 @@ public function exceladminAction($razaid){
 
             }
 
-            if(isset($source['listtoroprocesada'])){
+            if(isset($source['torosInfo'])){
 
-                foreach($source['listtoroprocesada'] as $t){
+                foreach($source['torosInfo'] as $t){
                     $html.= $this->detallehtml($t[0],$em);
                 }
 

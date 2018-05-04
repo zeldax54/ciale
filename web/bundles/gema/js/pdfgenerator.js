@@ -8,6 +8,7 @@ $('.imprimircatalogo').click(function(){
     var torosInfo;
     var imgListaPrec;
     var imgMsjintrod;
+    var imgpreload;
 
 
 
@@ -42,6 +43,7 @@ $('.imprimircatalogo').click(function(){
                 torosInfo=data[0].torosInfo;
                 imgListaPrec=data[0].imglistaprec;
                 imgMsjintrod=data[0].imgmsjintrod;
+                imgpreload=data[0].imgpreload;
 
                 var source = {};
 
@@ -83,7 +85,7 @@ $('.imprimircatalogo').click(function(){
                             '<div class="col-md-6">' +
                             '<h4 class="headercatalog">Crear PDF</h4>' +
                             '<div><label><input class="checkheader" type="checkbox" '+capascheck+' id="capas" name="capas" ><b class="catalotext">Tapas</b> </label></div>' +
-                            '<div><label><input class="checkheader" type="checkbox" '+listaprecioscheck+' id="listaprecios" name="listaprecios" onclick="return false;" checked="checked"><b class="catalotext">Lista de Precios</b> </label></div>' +
+                            '<div><label><input class="checkheader" type="checkbox" '+listaprecioscheck+' id="listaprecios" name="listaprecios"><b class="catalotext">Lista de Precios</b> </label></div>' +
                             '<div><label><input class="checkheader" type="checkbox" '+msjintroduccioncheck+' id="msjintroduccion" name="msjintroduccion"><b class="catalotext">Mensaje de Intruducción</b> </label></div>' +
                             '<div><label><input class="checkheader" type="checkbox" '+tablacontenidoscheck+' id="tablacontenidos" name="tablacontenidos"><b class="catalotext">Tabla de contenidos</b> </label></div>' +
 
@@ -124,8 +126,9 @@ $('.imprimircatalogo').click(function(){
 
 
                             if ($('#clicked').val().search(/imprimirtorosbutton/) != -1) {
-                                var vexwaiting = vex.dialog.alert({unsafeMessage: '<b>Procesando.Espere...</b>',
-                                    contentClassName: 'bordernaranjaclassMasAncho'})
+                                var vexwaiting = vex.dialog.alert({unsafeMessage: '<div style="text-align: center"><img src="'+imgpreload+'" width="400" height="300">'+'<br><b>Procesando.Espere...</b><div>',
+                                    contentClassName: 'bordernaranjaclassMasAncho',
+                                    className:'vex-theme-os'})
 
                                 var arra = [];
                                 $.each(rows_selected, function (index, rowId) {
@@ -525,7 +528,7 @@ $('.imprimircatalogo').click(function(){
                                                                             }
 
                                                                             if (clickwhere.val().search(/previalistaprecioscontinuarbutton/) != -1) {
-                                                                                if(source.msjintroduccion=='on')
+                                                                                if(source.msjintroduccion=="on")
                                                                                     MensajeIntrodDialogo();
                                                                                 else{
                                                                                     FinDialogo();
@@ -546,6 +549,8 @@ $('.imprimircatalogo').click(function(){
                                                                     ListaPrecioDialogo();
                                                                 else if(source.msjintroduccion=='on' && source.listaprecios==undefined)
                                                                     MensajeIntrodDialogo();
+                                                                else if(source.listaprecios==undefined && source.msjintroduccion==undefined)
+                                                                    FinDialogo();
 
 
 
@@ -747,9 +752,10 @@ $('.imprimircatalogo').click(function(){
                                                                                 console.log(source);
 
 
-                                                                                var vexwaiting2 = vex.dialog.alert({unsafeMessage: '<b>Procesando. Esto puede demorar en dependencia de la cantidad de toros seleccionados. Sea paciente.Espere...</b>',
+                                                                                var vexwaiting2 = vex.dialog.alert({unsafeMessage: '<div style="text-align: center"><img src="'+imgpreload+'" width="400" height="300">'+ '<br><b>Procesando. Esto puede demorar en dependencia de la cantidad de toros seleccionados. Sea paciente.Espere...</b></div>',
                                                                                     contentClassName: 'bordernaranjaclassMasAncho',
-                                                                                })
+                                                                                    className:'vex-theme-os'
+                                                                                });
 
                                                                                 var arra = [];
                                                                                 $.each(rows_selected, function (index, rowId) {
