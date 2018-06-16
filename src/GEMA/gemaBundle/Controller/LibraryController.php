@@ -359,10 +359,14 @@ class LibraryController extends Controller
 
   }
 
-    public function getdescriptionAction($folder,$subfolder,$nombre){
+    public function getdescriptionAction(){
 
         try{
+            $folder=$_POST['folder'];
+            $subfolder=$_POST['subfolder'];
+            $nombre=$_POST['nombre'];
             $em = $this->getDoctrine()->getManager();
+
             $descripcionprev=$em->getRepository('gemaBundle:MediaDescription')-> findOneBy(
                 array(
                     'nombre'=>$nombre,

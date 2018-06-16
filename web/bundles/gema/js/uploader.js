@@ -187,11 +187,12 @@ function Change(e){
     inputdesc.attr('subdatafolder',img.attr('param'));
     inputdesc.val('');
     var filename=img.attr('name');
-        filename=filename.replace('.','&');
-    var ruta=Routing.generate('gema_getmediadescription',{folder:img.attr('folder'),subfolder:img.attr('param'),nombre:filename});
+
+    var ruta=Routing.generate('gema_getmediadescription');
 
     $.ajax({
-        type: 'GET',
+        type: 'POST',
+        data:{folder:img.attr('folder'),subfolder:img.attr('param'),nombre:filename},
         url: ruta,
         success: function (data) {
             inputdesc.val(data[0]);

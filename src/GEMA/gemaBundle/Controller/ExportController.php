@@ -387,10 +387,11 @@ public function exceladminAction($razaid){
              $torosIds=$_POST["ids"];
              $filename=$_POST["filename"];
              $html='';
-
+             $em = $this->getDoctrine()->getManager();
+             $zoompdf=$em->getRepository('gemaBundle:Configuracion')->find(1)->getZoompdf();
              foreach($torosIds as $id){
 
-                 $em = $this->getDoctrine()->getManager();
+
                  $toro=$em->getRepository('gemaBundle:Toro')->find($id);
 
                  $helper=new MyHelper();
@@ -507,16 +508,13 @@ public function exceladminAction($razaid){
              $pdfGenerator = $this->get('knp_snappy.pdf');
              $pdfGenerator->setTimeout(10000);
 
-
              $options = [
 
-                 'zoom'=>0.75
+                 'zoom'=>$zoompdf
              ];
              foreach ($options as $margin => $value) {
                  $pdfGenerator->setOption($margin, $value);
              }
-
-
              $pdfGenerator->generateFromHtml(
                  $html,
                  $webPath
@@ -543,7 +541,8 @@ public function exceladminAction($razaid){
 
              return new JsonResponse(array(
                  0=>'1',
-                 1=>$path
+                 1=>$path,
+                 2=>$filename.'.pdf'
              ));
 
          }catch (\Exception $e){
@@ -797,7 +796,7 @@ public function exceladminAction($razaid){
             $filename=$source['titulopdf'];
 
             $em = $this->getDoctrine()->getManager();
-
+            $zoompdf=$em->getRepository('gemaBundle:Configuracion')->find(1)->getZoompdf();
             if(isset($source['capas']) && $source['capas']=='on'){
 
                 $capaimg=$source['capaName'];
@@ -928,7 +927,7 @@ public function exceladminAction($razaid){
                 'margin-bottom' => 1,
                 'margin-left'   => 1,
 //                'dpi'=>1.33,
-                'zoom'=>0.75
+                'zoom'=>$zoompdf
             ];
             foreach ($options as $margin => $value) {
                 $pdfGenerator->setOption($margin, $value);
@@ -952,7 +951,8 @@ public function exceladminAction($razaid){
 
             return new JsonResponse(array(
                 0=>'1',
-                1=>$path
+                1=>$path,
+                2=>$filename.'.pdf'
             ));
 
         }
@@ -1053,7 +1053,7 @@ public function exceladminAction($razaid){
 
 
 
-    private function detallehtml($id,$em){
+    private function detallehtml($id,$em,$margins=0){
 
 
         $toro=$em->getRepository('gemaBundle:Toro')->find($id);
@@ -1203,6 +1203,67 @@ public function exceladminAction($razaid){
         }
         rmdir($dirPath);
     }
+
+    public function toroimgAction(){
+
+        try{
+
+
+            $toroId=$_POST["id"];
+            $em = $this->getDoctrine()->getManager();
+            $repoconf=$em->getRepository('gemaBundle:Configuracion');
+            $zoompdf=$repoconf->find(1)->getZoompdf();
+            $urlvirtual=$repoconf->find(1)->getVirtualurl();
+            $toro=$em->getRepository('gemaBundle:Toro')->find($toroId);
+            $request = $this->getRequest();
+            $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+            $helper=new MyHelper();
+            $guid=$helper->GUID();
+            $filename=$toro->getApodo();
+
+            $html=$this->detallehtml($toroId,$em);
+            $extension='png';
+            $imgGenerator = $this->get('knp_snappy.image');
+            $imgGenerator->setTimeout(10000);
+            $imgGenerator->setDefaultExtension($extension);
+            $imgGenerator->setOption('width', '1400');
+            $imgGenerator->setOption('format', $extension);
+//            $imgGenerator->setOption('height','1080');
+            $imgGenerator->setOption('zoom',$zoompdf);
+            $imgGenerator->setOption('crop-h','1080');
+
+
+            $webPath=$this->get('kernel')->getRootDir().'/../web/pdfs/'.$guid .'/';
+            if (!file_exists($webPath)) {
+                mkdir($webPath, 0777, true);
+            }
+            $webPath=$webPath.$filename.'.'.$extension;
+            $imgGenerator->generateFromHtml(
+                $html,
+                $webPath
+            );
+            if($urlvirtual==true)
+                $path=DIRECTORY_SEPARATOR.'/pdfs/'.$guid .'/'.$filename.'.'.$extension;
+            else
+                $path=$baseurl.DIRECTORY_SEPARATOR.'/pdfs/'.$guid .'/'.$filename.'.'.$extension;
+
+            return new JsonResponse(array(
+                0=>'1',
+                1=>$path,
+                2=>$filename.'.'.$extension
+            ));
+
+        }catch(\Exception $e){
+
+            return new JsonResponse(array(
+                0=>'0',
+                1=>$e->getMessage()
+            ));
+        }
+
+
+    }
+
 
 
 

@@ -131,6 +131,12 @@ class Configuracion
      */
     private $palabrasclave;
 
+    /**
+     * @var string
+     * @ORM\Column(name="zoompdf", type="string", length=4)
+     */
+    private $zoompdf;
+
 
     /**
      * Get id
@@ -554,5 +560,28 @@ class Configuracion
     public function getPalabrasclave()
     {
         return $this->palabrasclave;
+    }
+
+    /**
+     * Set zoompdf
+     *
+     * @param string $zoompdf
+     * @return Configuracion
+     */
+    public function setZoompdf($zoompdf)
+    {
+        $this->zoompdf = $zoompdf;
+
+        return $this;
+    }
+
+    /**
+     * Get zoompdf
+     *
+     * @return string 
+     */
+    public function getZoompdf()
+    {
+        return $this->zoompdf;
     }
 }

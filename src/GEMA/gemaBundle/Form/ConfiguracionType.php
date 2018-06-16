@@ -89,6 +89,13 @@ class ConfiguracionType extends AbstractType
                 )
 
             ))
+            ->add('zoompdf',null,array(
+                'label'=>'Zoom pdf',
+                'attr'=>array(
+                    'placeholder'=>'Valor del zomm del pdf en los catalogos'
+                )
+
+            ))
         ;
     }
     

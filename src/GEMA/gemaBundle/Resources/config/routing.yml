@@ -224,7 +224,7 @@ gema_setmediadescription:
     defaults: { _controller: "gemaBundle:Library:setdescription" }
 
 gema_getmediadescription:
-    pattern:  /{folder}/{subfolder}/{nombre}/getdesc
+    pattern:  /getdesc
     defaults: { _controller: "gemaBundle:Library:getdescription" }
 
 gema_torocambpublic:
@@ -275,6 +275,10 @@ pdf_generate_catalogo:
     pattern:  /catalogo
     defaults: { _controller: "gemaBundle:Export:generatecatalogo" }
 
+toro_img:
+    pattern:  /img
+    defaults: { _controller: "gemaBundle:Export:toroimg" }
+
 pdf_capatest:
     pattern:  /capatest/{capaname}
     defaults: { _controller: "gemaBundle:Export:capatest" }
@@ -283,9 +287,6 @@ pdf_portadatest:
     pattern:  /test/portadatest
     defaults: { _controller: "gemaBundle:Export:portada" }
 
-prodprog_newwindows:
-    pattern:  /{nombremenu}
-    defaults: { _controller: "gemaBundle:ProdProgclient:newwind" }
 
 fpfilter:
     pattern:  /admin/fpfilter/{fp}/{isfp}
@@ -306,6 +307,12 @@ sugeridosone:
 sugeridos_esquemaupdate:
     pattern:  /admin/sugeridosesquemaupdate/
     defaults: { _controller: "gemaBundle:Sugeridos:sugeridosesquemaupdate" }
+
+prodprog_newwindows:
+    pattern:  /{nombremenu}
+    defaults: { _controller: "gemaBundle:ProdProgclient:newwind" }
+
+
 
 
 

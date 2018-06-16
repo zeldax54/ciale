@@ -1,4 +1,41 @@
+function SaveToDisk(fileURL, fileName) {
 
+    try{
+
+        // for non-IE
+        if (!window.ActiveXObject) {
+            var save = document.createElement('a');
+            save.href = fileURL;
+            save.target = '_blank';
+            save.download = fileName || 'unknown';
+
+            var evt = new MouseEvent('click', {
+                'view': window,
+                'bubbles': true,
+                'cancelable': false
+            });
+            save.dispatchEvent(evt);
+
+            (window.URL || window.webkitURL).revokeObjectURL(save.href);
+        }
+
+        // for IE < 11
+        else if (!!window.ActiveXObject && document.execCommand) {
+            var _window = window.open(fileURL, '_blank');
+            _window.document.close();
+            _window.document.execCommand('SaveAs', true, fileName || fileURL)
+            _window.close();
+        }
+    }
+    catch(e){
+        console.log('error');
+        console.log(e);
+
+        window.open(fileURL, '_blank');
+
+    }
+
+}
 $('.imprimircatalogo').click(function(){
 
 
@@ -144,9 +181,17 @@ $('.imprimircatalogo').click(function(){
                                     success: function (data) {
                                         vex.close(vexwaiting)
                                         if (data[0] == 1) {
-                                            window.open(data[1], '_blank');
-                                            //window.location.href="about:blank";
-                                            //window.location=data[1];
+                                            //window.open(data[1], '_blank');
+                                            SaveToDisk(data[1],data[2]);
+                                            //var pom = document.createElement('a');
+                                            //pom.setAttribute('href', 'data:application/octet-stream,' + encodeURIComponent(data[1]));
+                                            //pom.setAttribute('download', data[2]);
+                                            //pom.setAttribute('target', '_blank');
+                                            //pom.style.display = 'none';
+                                            //document.body.appendChild(pom);
+                                            //pom.click();
+                                            //document.body.removeChild(pom);
+
                                         } else {
                                             vex.dialog.alert({
                                                 unsafeMessage: '<b>Error generando PDF</b>',
@@ -771,9 +816,8 @@ $('.imprimircatalogo').click(function(){
                                                                                     success: function (data) {
                                                                                         vex.close(vexwaiting2)
                                                                                         if (data[0] == 1) {
-                                                                                            window.open(data[1], '_blank');
-                                                                                            //window.location.href="about:blank";
-                                                                                            //window.location=data[1];
+                                                                                            //window.open(data[1], '_blank');
+                                                                                            SaveToDisk(data[1],data[2]);
 
                                                                                         } else {
                                                                                             vex.dialog.alert({
@@ -828,4 +872,52 @@ $('.imprimircatalogo').click(function(){
             }
         });
     }
+});
+
+
+$('.imagegenerator').click(function(){
+   var toroid=$(this).attr('id');
+  var vexwaiting=  vex.dialog.alert({ unsafeMessage:'Generando Imagen espere...'
+
+        , className: 'vex-theme-wireframe' ,
+        overlayClassName: 'success',
+        contentClassName: 'bordernaranjaclass',
+        closeClassName: 'closebleclass'
+    });
+    var url = Routing.generate('toro_img');
+    $.ajax({
+        type: 'POST',
+        data: {id: toroid},
+        url: url,
+        success: function (data) {
+            vex.close(vexwaiting)
+            if (data[0] == 1) {
+                //window.open(data[1], '_blank');
+                var pom = document.createElement('a');
+                pom.setAttribute('href', 'data:application/octet-stream,' + encodeURIComponent(data[1]));
+                pom.setAttribute('download', data[2]);
+                pom.setAttribute('target', '_blank');
+                pom.style.display = 'none';
+                document.body.appendChild(pom);
+                pom.click();
+                document.body.removeChild(pom);
+            } else {
+                vex.dialog.alert({
+                    unsafeMessage: '<b>Error generando PDF</b>',
+                    className: 'vex-theme-wireframe',
+                    overlayClassName: 'success',
+                    contentClassName: 'bordernaranjaclass',
+                    closeClassName: 'closebleclass'
+                });
+                console.log(data[1]);
+            }
+
+        },
+        error: function (req, stat, err) {
+            vex.close(vexwaiting)
+            console.log(err);
+        }
+    });
+
+
 });

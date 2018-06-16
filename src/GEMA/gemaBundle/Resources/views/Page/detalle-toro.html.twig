@@ -86,10 +86,12 @@
 								<div class="col-lg-7 col-md-6 col-sm-9 col-xs-7 ignorePDF">
 									<div class="form-group buscador" id="padredatotextresp">
 									  <em><input type="text" id="datotextresp" class="form-control" placeholder="Buscar por Nombre, Prefijo o padre ..."></em>
+
 									</div>
+
 								</div>
 								<div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
-									{#<a href="#" id="buscartorosresp"><img class="" src="{{ asset('bundles/gema/clientresources/img/bt_buscar.png')}}"></a>#}
+									<a href="#" id="{{ toro.id }}" class="imagegenerator"><img class="" src="{{ asset('bundles/gema/clientresources/img/bt_buscar.png')}}"></a>
 								</div>
 
 						  </div>
@@ -161,6 +163,7 @@
 
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 ignorePDF">
 
+
 						  <div class="navbar-form navbar-right ">
 
 							<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 ">
@@ -171,13 +174,14 @@
 								  <em><input type="text" id="datotext" class="form-control" placeholder="Buscar por Nombre, Prefijo o padre ..."></em>
 								</div>
 							</div>
- 							{#<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">#}
-								{#<a href="#" id="buscartoros"><img class="btn-buscar-logo" src="{{ asset('bundles/gema/clientresources/img/bt_buscar.png')}}"></a>#}
-     						{#</div>#}
+ 							<div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
+ 							<a href="#" id="{{ toro.id }}" class="imagegenerator"><img class="btn-buscar-logo" src="{{ asset('bundles/gema/clientresources/img/bt_buscar.png')}}"></a>
+ 							</div>
 
 						  </div>
 
 						</div>
+
 
 					</div>
 
@@ -551,19 +555,40 @@
 {#$(document).prop('title', title);#}
 
 
-
+$.fancybox.defaults.buttons = [
+  'slideShow',
+  'fullScreen',
+  'thumbs',
+  'download',
+  'close'
+];
 
 $(".fancybox").fancybox({
 		openEffect	: 'none',
 		closeEffect	: 'none',
-
+beforeShow : function( instance, current ) {
+		$('.fancybox-download').attr('href', current.src);
+	},
 		afterLoad : function( instance, current ) {
          var capt=$('.fancybox-caption');
 
 		var msj=capt.html();
 		capt.empty();
 		capt.append('<span style="background: black;">'+msj+'</span>');
-	}
+
+
+	},
+	caption : function( instance, item ) {
+		var caption = $(this).data('caption') || '';
+
+		if ( item.type === 'image' ) {
+
+			caption = (caption.length ? caption + '' : '') + '<a  style="color:white;margin-left: 20px" class="btn" download="" href="' + item.src + '" target="_blank">Descargar imagen</a>' ;
+		}
+
+		return caption;
+}
+
 
 
 
@@ -691,6 +716,10 @@ pdf.addHTML(x,10,10,{
  });
 			});
 		</script>
+
+
+
+
 <script>
 $(document).ready(function(){
 
@@ -709,5 +738,7 @@ $(window).on("resize", function() {
 
 })
 </script>
+
+	 <script src="{{ asset('bundles/gema/js/pdfgenerator.js')}}"></script>
 
 	{% endblock %}
