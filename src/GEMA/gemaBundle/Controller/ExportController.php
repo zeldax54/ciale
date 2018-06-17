@@ -508,10 +508,9 @@ public function exceladminAction($razaid){
              $pdfGenerator = $this->get('knp_snappy.pdf');
              $pdfGenerator->setTimeout(10000);
 
-             $options = [
-
+             $options = array(
                  'zoom'=>$zoompdf
-             ];
+             );
              foreach ($options as $margin => $value) {
                  $pdfGenerator->setOption($margin, $value);
              }
@@ -921,14 +920,14 @@ public function exceladminAction($razaid){
 
 
 
-            $options = [
+            $options = array(
                 'margin-top'    => 1,
                 'margin-right'  => 1,
                 'margin-bottom' => 1,
                 'margin-left'   => 1,
 //                'dpi'=>1.33,
                 'zoom'=>$zoompdf
-            ];
+            );
             foreach ($options as $margin => $value) {
                 $pdfGenerator->setOption($margin, $value);
             }

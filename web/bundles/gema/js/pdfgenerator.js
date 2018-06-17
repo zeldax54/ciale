@@ -892,15 +892,8 @@ $('.imagegenerator').click(function(){
         success: function (data) {
             vex.close(vexwaiting)
             if (data[0] == 1) {
-                //window.open(data[1], '_blank');
-                var pom = document.createElement('a');
-                pom.setAttribute('href', 'data:application/octet-stream,' + encodeURIComponent(data[1]));
-                pom.setAttribute('download', data[2]);
-                pom.setAttribute('target', '_blank');
-                pom.style.display = 'none';
-                document.body.appendChild(pom);
-                pom.click();
-                document.body.removeChild(pom);
+                SaveToDisk(data[1],data[2]);
+
             } else {
                 vex.dialog.alert({
                     unsafeMessage: '<b>Error generando PDF</b>',
