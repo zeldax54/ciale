@@ -881,7 +881,14 @@ $('.imagegenerator').click(function(){
         success: function (data) {
             vex.close(vexwaiting)
             if (data[0] == 1) {
-                SaveToDisk(data[1],data[2]);
+              //  SaveToDisk(data[1],data[2]);
+                vex.dialog.alert({
+                    unsafeMessage: '<div style="text-align: center"><b>URL directa</b><br><a target="_blank" href="'+data[1]+'">'+data[2]+'</a><br><b>Whatsapp</b><br><a target="_blank" href="https://api.whatsapp.com/send?text='+data[1]+'">'+data[2]+'</a></div>',
+                    className: 'vex-theme-wireframe',
+                    overlayClassName: 'success',
+                    contentClassName: 'bordernaranjaclass',
+                    closeClassName: 'closebleclass'
+                });
 
             } else {
                 vex.dialog.alert({

@@ -1227,7 +1227,7 @@ public function exceladminAction($razaid){
             $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
             $helper=new MyHelper();
             $guid=$helper->GUID();
-            $filename=$toro->getApodo();
+            $filename=str_replace(' ','',$toro->getApodo());
 
             $html=$this->detallehtml($toroId,$em);
             $extension='png';
