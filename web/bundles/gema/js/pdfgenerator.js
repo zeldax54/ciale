@@ -251,8 +251,6 @@ $('.imprimircatalogo').click(function(){
                                         capasHtml = '<b>Escoja su Tapa</b><br><br>' +
                                             '<div class="row" style="overflow-y: auto;height: 183px">';
                                         capasImg.forEach(function (capa) {
-
-
                                             var isselected='';
                                             if(selectedcapa!=undefined && capa[1].replace('_small','')==selectedcapa)
                                                 isselected='checked';
@@ -876,6 +874,47 @@ $('.imagegenerator').click(function(){
         closeClassName: 'closebleclass'
     });
     var url = Routing.generate('toro_img');
+    $.ajax({
+        type: 'POST',
+        data: {id: toroid},
+        url: url,
+        success: function (data) {
+            vex.close(vexwaiting)
+            if (data[0] == 1) {
+                SaveToDisk(data[1],data[2]);
+
+            } else {
+                vex.dialog.alert({
+                    unsafeMessage: '<b>Error generando IMAGEN</b>',
+                    className: 'vex-theme-wireframe',
+                    overlayClassName: 'success',
+                    contentClassName: 'bordernaranjaclass',
+                    closeClassName: 'closebleclass'
+                });
+                console.log(data[1]);
+            }
+
+        },
+        error: function (req, stat, err) {
+            vex.close(vexwaiting)
+            console.log(err);
+        }
+    });
+
+
+});
+
+$('.pdfgenerator').click(function(){
+
+    var toroid=$(this).attr('data-id');
+    var vexwaiting=  vex.dialog.alert({ unsafeMessage:'Generando PDF espere...'
+
+        , className: 'vex-theme-wireframe' ,
+        overlayClassName: 'success',
+        contentClassName: 'bordernaranjaclass',
+        closeClassName: 'closebleclass'
+    });
+    var url = Routing.generate('toro_singlepdf');
     $.ajax({
         type: 'POST',
         data: {id: toroid},

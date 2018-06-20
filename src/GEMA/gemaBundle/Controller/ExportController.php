@@ -976,6 +976,10 @@ public function exceladminAction($razaid){
 
     }
 
+    /**
+     * Metodo para testtear la portada
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function portadaAction(){
 
 
@@ -1203,6 +1207,11 @@ public function exceladminAction($razaid){
         rmdir($dirPath);
     }
 
+
+    /**
+     * Genera una imagen jpg del html de detalle del toro
+     * @return JsonResponse
+     */
     public function toroimgAction(){
 
         try{
@@ -1260,6 +1269,70 @@ public function exceladminAction($razaid){
             ));
         }
 
+
+    }
+
+
+    /**
+     * Genera un pdf del detalle de un toro mismo html que la foto (no es el html del detalle es uno custom; el que se usa en el catalogo)
+     */
+    public function singletoroPdfAction(){
+
+        try{
+
+
+            $toroId=$_POST["id"];
+            $em = $this->getDoctrine()->getManager();
+            $repoconf=$em->getRepository('gemaBundle:Configuracion');
+            $zoompdf=$repoconf->find(1)->getZoompdf();
+            $urlvirtual=$repoconf->find(1)->getVirtualurl();
+            $toro=$em->getRepository('gemaBundle:Toro')->find($toroId);
+            $request = $this->getRequest();
+            $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+            $helper=new MyHelper();
+            $guid=$helper->GUID();
+            $filename=$toro->getApodo();
+
+            $html=$this->detallehtml($toroId,$em);
+            $pdfGenerator = $this->get('knp_snappy.pdf');
+            $pdfGenerator->setTimeout(10000);
+
+            $options = array(
+                'zoom'=>$zoompdf
+            );
+            foreach ($options as $margin => $value) {
+                $pdfGenerator->setOption($margin, $value);
+            }
+
+
+
+            $webPath=$this->get('kernel')->getRootDir().'/../web/pdfs/'.$guid .'/';
+            if (!file_exists($webPath)) {
+                mkdir($webPath, 0777, true);
+            }
+            $webPath=$webPath.$filename.'.pdf';
+            $pdfGenerator->generateFromHtml(
+                $html,
+                $webPath
+            );
+            if($urlvirtual==true)
+                $path=DIRECTORY_SEPARATOR.'/pdfs/'.$guid .'/'.$filename.'.pdf';
+            else
+                $path=$baseurl.DIRECTORY_SEPARATOR.'/pdfs/'.$guid .'/'.$filename.'.pdf';
+
+            return new JsonResponse(array(
+                0=>'1',
+                1=>$path,
+                2=>$filename.'.pdf'
+            ));
+
+        }catch(\Exception $e){
+
+            return new JsonResponse(array(
+                0=>'0',
+                1=>$e->getMessage()
+            ));
+        }
 
     }
 

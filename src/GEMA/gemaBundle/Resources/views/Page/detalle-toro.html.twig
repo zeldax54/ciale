@@ -81,7 +81,7 @@
 							<div id="textoinresp2">
 							
 								<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 ignorePDF">
-									<button class="btn btn-warning btn-sm pdfgenerator" id="">Generar PDF</button>
+									<button data-id="{{ toro.id }}" class="btn btn-warning btn-sm pdfgenerator" id="">Generar PDF</button>
 								</div>
 								<div class="col-lg-7 col-md-6 col-sm-9 col-xs-7 ignorePDF">
 									<div class="form-group buscador" id="padredatotextresp">
@@ -167,7 +167,7 @@
 						  <div class="navbar-form navbar-right ">
 
 							<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 ">
-								<button id="btn-pdf" type="submit" class="btn btn-warning btn-sm pdfgenerator">Generar PDF</button>
+								<button id="btn-pdf" data-id="{{ toro.id }}" type="submit" class="btn btn-warning btn-sm pdfgenerator">Generar PDF</button>
 							</div>
 							<div class="col-lg-7 col-md-6 col-sm-9 col-xs-9">
 								<div class="form-group buscador" id="padredatotext">
@@ -667,8 +667,8 @@ owl.on('mousewheel', '.owl-stage', function (e) {
 			});
 			</script>
 
-		<script>
-			$('.pdfgenerator').click(function(){
+		{#<script>#}
+			{#$('.pdfgenerator').click(function(){#}
 
 			 {#var id={{ toro.id }}#}
 		 {#var url=Routing.generate('gema_toropdf',{toroId:id});#}
@@ -677,45 +677,45 @@ owl.on('mousewheel', '.owl-stage', function (e) {
 {#return;#}
 
 
-			var specialElementHandlers = {
-  '#ignorePDF': function(element, renderer) {
-    return true;
-   }
-};
+			{#var specialElementHandlers = {#}
+  {#'#ignorePDF': function(element, renderer) {#}
+    {#return true;#}
+   {#}#}
+{#};#}
 
-var margin = {
-  top: 0,
-  left: 0,
-  right: 0,
-  bottom: 0
-};
+{#var margin = {#}
+  {#top: 0,#}
+  {#left: 0,#}
+  {#right: 0,#}
+  {#bottom: 0#}
+{#};#}
 
-var x=$('#pdfcontent').find('.ignorePDF').remove();
-$('#tabla-infeior').css('font-size','10px');
-//$('#pdfcontent').append("<b>Appended text</b>");//Add
-
-
-var x=$('#pdfcontent')[0];
+{#var x=$('#pdfcontent').find('.ignorePDF').remove();#}
+{#$('#tabla-infeior').css('font-size','10px');#}
+{#//$('#pdfcontent').append("<b>Appended text</b>");//Add#}
 
 
-//var r=x.find('.ignorePDF');
+{#var x=$('#pdfcontent')[0];#}
 
 
-var pdf = new jsPDF('p','pt','a4');
+{#//var r=x.find('.ignorePDF');#}
 
-pdf.addHTML(x,10,10,{
- //  'width': 1150, // max width of content on PDF
-  'elementHandlers': specialElementHandlers,
 
-},
+{#var pdf = new jsPDF('p','pt','a4');#}
 
- function () {
+{#pdf.addHTML(x,10,10,{#}
+ {#//  'width': 1150, // max width of content on PDF#}
+  {#'elementHandlers': specialElementHandlers,#}
 
-     pdf.save('{{ toro.apodo }}.pdf');
-     location.reload();
- });
-			});
-		</script>
+{#},#}
+
+ {#function () {#}
+
+     {#pdf.save('{{ toro.apodo }}.pdf');#}
+     {#location.reload();#}
+ {#});#}
+			{#});#}
+		{#</script>#}
 
 
 

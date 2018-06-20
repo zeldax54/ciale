@@ -308,6 +308,10 @@ sugeridos_esquemaupdate:
     pattern:  /admin/sugeridosesquemaupdate/
     defaults: { _controller: "gemaBundle:Sugeridos:sugeridosesquemaupdate" }
 
+toro_singlepdf:
+    pattern:  /singlepdf
+    defaults: { _controller: "gemaBundle:Export:singletoroPdf" }
+
 prodprog_newwindows:
     pattern:  /{nombremenu}
     defaults: { _controller: "gemaBundle:ProdProgclient:newwind" }
