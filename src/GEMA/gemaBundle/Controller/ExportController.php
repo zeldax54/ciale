@@ -1059,6 +1059,112 @@ public function exceladminAction($razaid){
     private function detallehtml($id,$em,$margins=0){
 
 
+    $toro=$em->getRepository('gemaBundle:Toro')->find($id);
+
+    $helper=new MyHelper();
+    $img=$helper->randomPic('toro'.DIRECTORY_SEPARATOR.$toro->getGuid().'P'.DIRECTORY_SEPARATOR);
+
+    if($img==null){
+        $img=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'toro.png');
+        $pricimgdesc='';
+    }
+
+    else{
+        $vowels = array("_small","_large","_medium");
+        $img=str_replace($vowels,"",$img);
+        $data= explode(DIRECTORY_SEPARATOR,$img);
+        $descripcionprinc=$em->getRepository('gemaBundle:MediaDescription')-> findOneBy(
+            array(
+
+                'nombre'=>$data[2],
+                'folder'=>$data[0],
+                'subforlder'=>$data[1]
+
+            )
+
+        );
+        if($descripcionprinc!=null)
+            $pricimgdesc=$descripcionprinc->getDescripcion();
+        else
+            $pricimgdesc='';
+    }
+
+    $imgfp=$this->imgFacilidadParto($helper,$toro->getFacilidadparto());
+    $imgcp=$this->ConceptPlus($helper,$toro->getCP());
+    $silueta=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,$toro->getRaza()->getSilueta().'.jpg');
+    if($toro->getRaza()->getTablasmanual()!=true)
+    {
+        $tablasflag=json_decode($toro->getTablagenetica(),true);
+        $tablarname=$em->getRepository('gemaBundle:Tabla')->find($toro->getTipotablaselected());
+        if(isset($tablasflag[$tablarname->getNombre()])){
+            $tablasflag=$tablasflag[$tablarname->getNombre()];
+            $tabla=$tablarname;
+        }
+
+
+        else{
+            $nkey='';
+            if($tablasflag!=null)
+                foreach($tablasflag as $key=>$tabla){
+                    $tablasflag=$tablasflag[$key];$nkey=$key;break;
+                }
+            $tabla=$em->getRepository('gemaBundle:Tabla')->findOneBy(array(
+                'nombre'=>$nkey
+            ));
+        }
+
+        $tablagennombre=$tablarname->getNombre();
+    }
+    else{
+        $tablasflag=null;
+        $tablagennombre=null;
+        $tabla=null;
+
+        if($toro->getTablagenetica()!=null){
+            $datos=json_decode($toro->getTablagenetica(),true);
+            $tablaname=array_keys($datos);
+            $tablarname=$tablaname[0];
+            $columnas= array_keys($datos[$tablarname][0]);
+            $tablasflag=$datos[$tablarname];
+
+
+            $tabla=new Tabla();
+            foreach($columnas as $col){
+                if($col!='rowhead'){
+                    $td=new TablaDatos();
+                    $td->setNombre($col);
+                    $tabla->addTabladato($td);
+                }
+            }
+        }
+    }
+
+
+    $view='gemaBundle:Page:toropdf.html.twig';
+
+
+    return $this->renderView($view, array(
+            'toro'=>$toro,
+            'princimg'=>$img,
+            'imgfp'=>$imgfp,
+            'imgcp'=>$imgcp,
+            'silueta'=>$silueta,
+            'tablagenetica'=>$tablasflag,
+            'tabla'=>$tabla,
+            'tablagennombre'=>$tablagennombre,
+            'razaname'=>   $toro->getRaza()->getNombre(),
+            'pricimgdesc'=>$pricimgdesc,
+             'margins'=>$margins
+
+
+        )
+    );
+}
+
+
+    public function detallehtmltestAction($id){
+
+        $em = $this->getDoctrine()->getManager();
         $toro=$em->getRepository('gemaBundle:Toro')->find($id);
 
         $helper=new MyHelper();
@@ -1143,7 +1249,7 @@ public function exceladminAction($razaid){
         $view='gemaBundle:Page:toropdf.html.twig';
 
 
-        return $this->renderView($view, array(
+        return $this->render($view, array(
                 'toro'=>$toro,
                 'princimg'=>$img,
                 'imgfp'=>$imgfp,
@@ -1154,6 +1260,7 @@ public function exceladminAction($razaid){
                 'tablagennombre'=>$tablagennombre,
                 'razaname'=>   $toro->getRaza()->getNombre(),
                 'pricimgdesc'=>$pricimgdesc,
+                'margins'=>1
 
 
             )
@@ -1229,12 +1336,12 @@ public function exceladminAction($razaid){
             $guid=$helper->GUID();
             $filename=str_replace(' ','',$toro->getApodo());
 
-            $html=$this->detallehtml($toroId,$em);
+            $html=$this->detallehtml($toroId,$em,1);
             $extension='png';
             $imgGenerator = $this->get('knp_snappy.image');
             $imgGenerator->setTimeout(10000);
             $imgGenerator->setDefaultExtension($extension);
-            $imgGenerator->setOption('width', '1200');
+            $imgGenerator->setOption('width', '1000');
             $imgGenerator->setOption('format', $extension);
 //            $imgGenerator->setOption('height','1080');
             $imgGenerator->setOption('zoom',$zoompdf);

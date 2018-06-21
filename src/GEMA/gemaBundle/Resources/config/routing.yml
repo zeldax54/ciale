@@ -312,6 +312,10 @@ toro_singlepdf:
     pattern:  /singlepdf
     defaults: { _controller: "gemaBundle:Export:singletoroPdf" }
 
+detallehtmltest:
+    pattern:  /detallehtmltest/{id}
+    defaults: { _controller: "gemaBundle:Export:detallehtmltest" }
+
 prodprog_newwindows:
     pattern:  /{nombremenu}
     defaults: { _controller: "gemaBundle:ProdProgclient:newwind" }

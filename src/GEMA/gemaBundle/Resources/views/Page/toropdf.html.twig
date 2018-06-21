@@ -39,6 +39,14 @@
               color: #0a0a0a !important;
 
           }
+          {% if margins==1 %}
+          .container{
+              margin-left: 0px !important;
+          }
+          #pdfcontent{
+              width: 1304px !important;
+          }
+          {% endif %}
 
 	  </style>
 	  {% endblock %}
