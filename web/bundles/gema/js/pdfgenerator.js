@@ -880,6 +880,17 @@ $('.imagegenerator').click(function(){
             vex.close(vexwaiting)
             if (data[0] == 1) {
                 try{
+                   if(screen.width<=700){
+                       vex.dialog.alert({
+                           //  unsafeMessage: '<div style="text-align: center"><b>URL directa</b><br><a target="_blank" href="'+data[1]+'">'+data[2]+'</a><br><b>Whatsapp</b><br><a target="_blank" href="https://api.whatsapp.com/send?text='+data[1]+'">'+data[2]+'</a></div>',
+                           unsafeMessage: '<div style="text-align: center"><b>URL directa</b><br><a target="_blank" href="'+data[1]+'">'+data[2]+'</a></div>',
+                           className: 'vex-theme-wireframe',
+                           overlayClassName: 'success',
+                           contentClassName: 'bordernaranjaclass',
+                           closeClassName: 'closebleclass'
+                       });
+                   }
+                   else
                     SaveToDisk(data[1],data[2]);
                 }
                 catch (e) {
