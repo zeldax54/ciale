@@ -1234,7 +1234,7 @@ public function exceladminAction($razaid){
             $imgGenerator = $this->get('knp_snappy.image');
             $imgGenerator->setTimeout(10000);
             $imgGenerator->setDefaultExtension($extension);
-            $imgGenerator->setOption('width', '1400');
+            $imgGenerator->setOption('width', '1200');
             $imgGenerator->setOption('format', $extension);
 //            $imgGenerator->setOption('height','1080');
             $imgGenerator->setOption('zoom',$zoompdf);
