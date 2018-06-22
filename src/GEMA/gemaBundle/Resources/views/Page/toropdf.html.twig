@@ -39,7 +39,7 @@
               color: #0a0a0a !important;
 
           }
-          {% if margins==1 %}
+          {% if margins is defined and margins==1 %}
           .container{
               margin-left: 0px !important;
               margin-right: 0px !important;

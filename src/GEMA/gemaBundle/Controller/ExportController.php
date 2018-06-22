@@ -1155,8 +1155,6 @@ public function exceladminAction($razaid){
             'razaname'=>   $toro->getRaza()->getNombre(),
             'pricimgdesc'=>$pricimgdesc,
              'margins'=>$margins
-
-
         )
     );
 }
