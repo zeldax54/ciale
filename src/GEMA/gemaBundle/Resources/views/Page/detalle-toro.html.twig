@@ -83,6 +83,9 @@
 								<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 ignorePDF">
 									<button data-id="{{ toro.id }}" class="btn btn-warning btn-sm pdfgenerator" id="">Generar PDF</button>
 								</div>
+								<div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
+									<a href="#" id="{{ toro.id }}" class="imagegenerator"><img class="" src="{{ asset('bundles/gema/clientresources/img/fotomovil.png')}}"></a>
+								</div>
 								<div class="col-lg-7 col-md-6 col-sm-9 col-xs-7 ignorePDF">
 									<div class="form-group buscador" id="padredatotextresp">
 									  <em><input type="text" id="datotextresp" class="form-control" placeholder="Buscar por Nombre, Prefijo o padre ..."></em>
@@ -90,9 +93,7 @@
 									</div>
 
 								</div>
-								<div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
-									<a href="#" id="{{ toro.id }}" class="imagegenerator"><img class="" src="{{ asset('bundles/gema/clientresources/img/fotomovil.png')}}"></a>
-								</div>
+
 
 						  </div>
 
@@ -169,14 +170,17 @@
 							<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 ">
 								<button id="btn-pdf" data-id="{{ toro.id }}" type="submit" class="btn btn-warning btn-sm pdfgenerator">Generar PDF</button>
 							</div>
+							<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 ">
+								<button id="btn-pdf" title="Descargar detalle en imagen" data-id="{{ toro.id }}" type="submit" class="btn btn-warning btn-sm imagegenerator">Generar IMG</button>
+							</div>
 							<div class="col-lg-7 col-md-6 col-sm-9 col-xs-9">
 								<div class="form-group buscador" id="padredatotext">
 								  <em><input type="text" id="datotext" class="form-control" placeholder="Buscar por Nombre, Prefijo o padre ..."></em>
 								</div>
 							</div>
- 							<div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
- 							<a href="#" id="{{ toro.id }}" class="imagegenerator"><img class="btn-buscar-logo" src="{{ asset('bundles/gema/clientresources/img/fotopc.png')}}"></a>
- 							</div>
+ 							{#<div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">#}
+ 							{#<a href="#" id="{{ toro.id }}" class="imagegenerator"><img class="btn-buscar-logo" src="{{ asset('bundles/gema/clientresources/img/fotopc.png')}}"></a>#}
+ 							{#</div>#}
 
 						  </div>
 

@@ -863,7 +863,7 @@ $('.imprimircatalogo').click(function(){
 
 
 $('.imagegenerator').click(function(){
-   var toroid=$(this).attr('id');
+   var toroid=$(this).attr('data-id');
   var vexwaiting=  vex.dialog.alert({ unsafeMessage:'Generando Imagen espere...'
 
         , className: 'vex-theme-wireframe' ,
@@ -883,7 +883,7 @@ $('.imagegenerator').click(function(){
                    if(screen.width<=1200){
                        vex.dialog.alert({
                            //  unsafeMessage: '<div style="text-align: center"><b>URL directa</b><br><a target="_blank" href="'+data[1]+'">'+data[2]+'</a><br><b>Whatsapp</b><br><a target="_blank" href="https://api.whatsapp.com/send?text='+data[1]+'">'+data[2]+'</a></div>',
-                           unsafeMessage: '<div style="text-align: center"><b>URL directa</b><br><a target="_blank" href="'+data[1]+'">'+data[2]+'</a></div>',
+                           unsafeMessage: '<div style="text-align: center"><b>Seleccione el link de abajo para que se abra la imagen detalle del toro, luego mantenga presionada la imagen con el dedo hasta que salga la opción de "Guardar imagen"</b><br><a target="_blank" href="'+data[1]+'">'+data[2]+'</a></div>',
                            className: 'vex-theme-wireframe',
                            overlayClassName: 'success',
                            contentClassName: 'bordernaranjaclass',
@@ -896,7 +896,7 @@ $('.imagegenerator').click(function(){
                 catch (e) {
                     vex.dialog.alert({
                       //  unsafeMessage: '<div style="text-align: center"><b>URL directa</b><br><a target="_blank" href="'+data[1]+'">'+data[2]+'</a><br><b>Whatsapp</b><br><a target="_blank" href="https://api.whatsapp.com/send?text='+data[1]+'">'+data[2]+'</a></div>',
-                        unsafeMessage: '<div style="text-align: center"><b>URL directa</b><br><a target="_blank" href="'+data[1]+'">'+data[2]+'</a></div>',
+                        unsafeMessage: '<div style="text-align: center"><b>Seleccione el link de abajo para que se abra la imagen detalle del toro, luego mantenga presionada la imagen con el dedo hasta que salga la opción de "Guardar imagen"</b><br><a target="_blank" href="'+data[1]+'">'+data[2]+'</a></div>',
                         className: 'vex-theme-wireframe',
                         overlayClassName: 'success',
                         contentClassName: 'bordernaranjaclass',
