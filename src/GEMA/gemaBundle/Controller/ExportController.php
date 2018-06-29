@@ -953,7 +953,6 @@ public function exceladminAction($razaid){
                 1=>$path,
                 2=>$filename.'.pdf'
             ));
-
         }
         catch(\Exception $e){
 
@@ -961,10 +960,7 @@ public function exceladminAction($razaid){
                 0=>'0',
                 1=>$e->getMessage()
             ));
-
         }
-
-
     }
 
 
@@ -1223,15 +1219,12 @@ public function exceladminAction($razaid){
             $tablasflag=null;
             $tablagennombre=null;
             $tabla=null;
-
             if($toro->getTablagenetica()!=null){
                 $datos=json_decode($toro->getTablagenetica(),true);
                 $tablaname=array_keys($datos);
                 $tablarname=$tablaname[0];
                 $columnas= array_keys($datos[$tablarname][0]);
                 $tablasflag=$datos[$tablarname];
-
-
                 $tabla=new Tabla();
                 foreach($columnas as $col){
                     if($col!='rowhead'){
@@ -1242,11 +1235,7 @@ public function exceladminAction($razaid){
                 }
             }
         }
-
-
         $view='gemaBundle:Page:toropdf.html.twig';
-
-
         return $this->render($view, array(
                 'toro'=>$toro,
                 'princimg'=>$img,
@@ -1264,54 +1253,6 @@ public function exceladminAction($razaid){
             )
         );
     }
-
-
-
-    public function limpiarcatalogosAction(){
-
-        $webPath = $this->get('kernel')->getRootDir().'/../web/pdfs';
-
-        $dir = new DirectoryIterator($webPath);
-        foreach ($dir as $fileinfo) {
-            if ($fileinfo->isDir() && !$fileinfo->isDot()) {
-
-                $this->deleteDir($webPath.DIRECTORY_SEPARATOR.$fileinfo);
-
-//                if(file_exists($webPath2)){
-//                    unlink($webPath2);
-//                }
-
-            }
-        }
-
-        return $this->render('gemaBundle:Default:index.html.twig', array(
-
-            )
-        );
-
-
-
-    }
-
-
-    public static function deleteDir($dirPath) {
-        if (! is_dir($dirPath)) {
-            throw new InvalidArgumentException("$dirPath must be a directory");
-        }
-        if (substr($dirPath, strlen($dirPath) - 1, 1) != '/') {
-            $dirPath .= '/';
-        }
-        $files = glob($dirPath . '*', GLOB_MARK);
-        foreach ($files as $file) {
-            if (is_dir($file)) {
-                self::deleteDir($file);
-            } else {
-                unlink($file);
-            }
-        }
-        rmdir($dirPath);
-    }
-
 
     /**
      * Genera una imagen jpg del html de detalle del toro
@@ -1377,8 +1318,6 @@ public function exceladminAction($razaid){
 
 
     }
-
-
     /**
      * Genera un pdf del detalle de un toro mismo html que la foto (no es el html del detalle es uno custom; el que se usa en el catalogo)
      */
@@ -1442,7 +1381,38 @@ public function exceladminAction($razaid){
         }
 
     }
+    public static function deleteDir($dirPath) {
+        if (! is_dir($dirPath)) {
+            throw new InvalidArgumentException("$dirPath must be a directory");
+        }
+        if (substr($dirPath, strlen($dirPath) - 1, 1) != '/') {
+            $dirPath .= '/';
+        }
+        $files = glob($dirPath . '*', GLOB_MARK);
+        foreach ($files as $file) {
+            if (is_dir($file)) {
+                self::deleteDir($file);
+            } else {
+                unlink($file);
+            }
+        }
+        rmdir($dirPath);
+    }
+    public function limpiarcatalogosAction(){
 
+        $webPath = $this->get('kernel')->getRootDir().'/../web/pdfs';
+
+        $dir = new DirectoryIterator($webPath);
+        foreach ($dir as $fileinfo) {
+            if ($fileinfo->isDir() && !$fileinfo->isDot()) {
+
+                $this->deleteDir($webPath.DIRECTORY_SEPARATOR.$fileinfo);
+            }
+        }
+        return $this->render('gemaBundle:Default:index.html.twig', array(
+            )
+        );
+    }
 
 
 
