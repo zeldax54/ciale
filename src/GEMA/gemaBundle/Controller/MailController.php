@@ -46,7 +46,7 @@ class MailController extends Controller
 
             $message = \Swift_Message::newInstance()
                 ->setSubject('Contanto de Alta Ciale');
-            $message->setFrom('contactos@ciale.com');
+            $message->setFrom('info@ciale.com');
 
             $message->setContentType("text/html");
             $nombre=$request->request->get('nombre');
@@ -141,7 +141,7 @@ class MailController extends Controller
         try{
             $message = \Swift_Message::newInstance()
                 ->setSubject('Contanto de Alta Ciale');
-            $message->setFrom('contactos@ciale.com');
+            $message->setFrom('info@ciale.com');
 
             $em = $this->getDoctrine()->getManager();
             $datosof=$em->getRepository('gemaBundle:DatosOficina')->find(1);

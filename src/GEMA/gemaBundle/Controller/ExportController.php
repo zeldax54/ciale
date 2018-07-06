@@ -215,7 +215,6 @@ class ExportController extends Controller
           $toro=$em->getRepository('gemaBundle:Toro')->find($id);
           $reports = $serializer->serialize($toro, 'json');
           $toroarr=json_decode($reports,true);
-        //  if($toro->getId()==412)
 
           foreach($mapadatos as $dato){
               $letra=$this->getNext($iter);
@@ -246,33 +245,34 @@ class ExportController extends Controller
 
 
           if(isset($toroarr['tablagenetica']))
-           $tablasdata=json_decode($toroarr['tablagenetica'],true);
+          {
+              $tablasdata=json_decode($toroarr['tablagenetica'],true);
 
-          foreach($tablas as $t){
-              $iter=$this->getiterfromLetra($generalcolstable[$t->getNombre()][0]);
-              foreach($t->getTablaDatos() as $d){
+              foreach($tablas as $t){
+                  $iter=$this->getiterfromLetra($generalcolstable[$t->getNombre()][0]);
+                  foreach($t->getTablaDatos() as $d){
 
-                 // print($iter);die();
+                      // print($iter);die();
 
-                if(isset($tablasdata[$t->getNombre()])){//Para todas las Tablas
-                      $tabd=$tablasdata[$t->getNombre()];
-                      foreach($t->getTablaBody() as $b){
-                          $myrow=$this->findInTab($b->getRowName(),$tabd);
-                          $value=$myrow[$d->getNombre()];
-                          $letra=$this->getNext($iter);
+                      if(isset($tablasdata[$t->getNombre()])){//Para todas las Tablas
+                          $tabd=$tablasdata[$t->getNombre()];
+                          foreach($t->getTablaBody() as $b){
+                              $myrow=$this->findInTab($b->getRowName(),$tabd);
+                              $value=$myrow[$d->getNombre()];
+                              $letra=$this->getNext($iter);
 
-                          $objPHPExcel->getActiveSheet()->SetCellValue($letra.$rowsiter,$value);
-                          $this->centerCell($objPHPExcel,$letra,$rowsiter);
-                          $iter++;
+                              $objPHPExcel->getActiveSheet()->SetCellValue($letra.$rowsiter,$value);
+                              $this->centerCell($objPHPExcel,$letra,$rowsiter);
+                              $iter++;
+                          }
                       }
-                }
 
-            //    print_r($tabd);die();
+                      //    print_r($tabd);die();
+
+                  }
 
               }
-
-           }
-
+          }
           $rowsiter++;
       }
 
@@ -977,7 +977,6 @@ public function exceladminAction($razaid){
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function portadaAction(){
-
 
         $imgIntrodName='pdfresources/backgroundtitulo/imgIntrod.jpg';
         $titulo='Mi titulo';

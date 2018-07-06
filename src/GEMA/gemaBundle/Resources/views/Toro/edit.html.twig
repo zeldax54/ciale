@@ -264,7 +264,17 @@
                 var nombrt=$('#dynamictable').attr('name');
                 if(nombrt===undefined || nombrt==='')
                     nombrt='Evaluacion genetica';
-               var cols= arrays[nombrt];
+
+                var cols= arrays[nombrt];
+                if(cols==undefined){
+                    nombrt='myevall';
+                     cols= arrays[nombrt];
+                }
+
+
+                console.log(nombrt);
+                console.log(arrays);
+
                 var keys = Object.keys(cols[0]);
                 var t=$('#dynamictable');
                 for (var f = 0; f < keys.length; f++) {
