@@ -1258,10 +1258,45 @@ console.log(familyId);
                      arra.push(rowId);
                  });
                  var mergedVal = arra.join('|');
-				 if(familyId=='todos')
-                    window.location=Routing.generate('gema_export', {toros: mergedVal,alltoros:'true'});
+				 if(familyId=='todos'){
+
+                     $.ajax({
+                         type: 'POST',
+                         url: Routing.generate('gema_export'),
+						 data:{toros: mergedVal,alltoros:'true'},
+                         dataType:'json',
+                         success: function (dataresp) {
+
+                             console.log(dataresp);
+                             vex.dialog.alert({ unsafeMessage:'<div style="text-align: center"><a href="'+dataresp.file+'">Descargar Excel</a></div>'
+
+                                 , className: 'vex-theme-wireframe' ,
+                                 overlayClassName: 'success',
+                                 contentClassName: 'bordernaranjaclass',
+                                 closeClassName: 'closebleclass'
+                             });
+
+
+                         },
+                         error: function (req, stat, err) {
+
+                             vex.dialog.alert({ unsafeMessage:'Error generando excel... Intente mas tarde'
+
+                                 , className: 'vex-theme-wireframe' ,
+                                 overlayClassName: 'success',
+                                 contentClassName: 'bordernaranjaclass',
+                                 closeClassName: 'closebleclass'
+                             });
+                         }
+                     });
+
+				 }
+
 				 else
-                 window.location=Routing.generate('gema_export', {toros: mergedVal,alltoros:'false'});
+				 {
+                   //  window.location=Routing.generate('gema_export', {toros: mergedVal,alltoros:'false'});
+				 }
+
 
 
 

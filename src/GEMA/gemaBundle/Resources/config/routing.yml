@@ -212,7 +212,7 @@ gema_sellermail:
     defaults: { _controller: "gemaBundle:Mail:sellermail" }
 
 gema_export:
-    pattern:  /{toros}/{alltoros}/exportar
+    pattern:  /exportarExcel
     defaults: { _controller: "gemaBundle:Export:excelExport" }
 
 gema_toropdf:

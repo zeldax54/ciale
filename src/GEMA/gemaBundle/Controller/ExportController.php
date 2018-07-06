@@ -107,10 +107,12 @@ class ExportController extends Controller
     }
 
 
-  function excelExportAction($toros,$alltoros){
+  function excelExportAction(){
 
 
-    $torosid=explode('|',$toros);
+      $toros=$_POST['toros'];
+      $alltoros=$_POST['alltoros'];
+      $torosid=explode('|',$toros);
 
     $objPHPExcel = new \PHPExcel();
 
@@ -280,7 +282,16 @@ class ExportController extends Controller
     header('Content-Disposition: attachment;filename="'.$nombexcel.'.xls"'); //tell browser what's the file name
     header('Cache-Control: max-age=0'); //no cache
     $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+      ob_start();
     $objWriter->save('php://output');
+      $xlsData = ob_get_contents();
+      ob_end_clean();
+
+      $response =  array(
+          'op' => 'ok',
+          'file' => "data:application/vnd.ms-excel;base64,".base64_encode($xlsData)
+      );
+      die(json_encode($response));
 
   }
 
