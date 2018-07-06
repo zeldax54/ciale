@@ -151,6 +151,7 @@ class UploaderController extends Controller
             {
                 $isnnew=true;
                 $toro = new Toro();
+                $toro->setPublico(1);
             }
             $toro->setRaza($raza);
             $toro->setNombre($row[$this->getMapaPos('nombre', $mapa,$rowhead)]);
@@ -218,7 +219,6 @@ class UploaderController extends Controller
 
 
             $toro->setPrecio($row[$this->getMapaPos('precio', $mapa,$rowhead)]);
-            $toro->setPublico(1);
 
            if($isnnew==true)           {
                $helper=new MyHelper();
