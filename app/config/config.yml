@@ -69,8 +69,8 @@ doctrine:
 # Swiftmailer Configuration
 swiftmailer:
     transport: smtp
-    host:      localhost
-    port:      25
+    host:      127.0.0.1
+    port:      587
     spool:     { type: memory }
 
 ivory_ck_editor:

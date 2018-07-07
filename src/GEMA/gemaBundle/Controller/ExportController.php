@@ -283,7 +283,15 @@ class ExportController extends Controller
     header('Cache-Control: max-age=0'); //no cache
     $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
       ob_start();
-    $objWriter->save('php://output');
+      try {
+          $objWriter->save('php://output');
+      } catch (\PHPExcel_Writer_Exception $e) {
+          $response =  array(
+              'op' => 'ok',
+              'file' => ''
+          );
+          die(json_encode($response));
+      }
       $xlsData = ob_get_contents();
       ob_end_clean();
 

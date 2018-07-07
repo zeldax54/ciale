@@ -26,20 +26,55 @@ class MailController extends Controller
         $gife=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'paperplane.gif');
         $coordenadas = $em->getRepository('gemaBundle:Configuracion')->find(1)->getCoordenadas();
         $coordenadaslab = $em->getRepository('gemaBundle:Configuracion')->find(1)->getCoordenadaslab();
-
+        $apikey= $this->getParameter('apikey');
         return $this->render('gemaBundle:Page:contacto.html.twig', array(
            'razas'=>$razas,
             'datosoficina'=>$datosof,
             'gife'=>$gife,
              'coordenadas'=>$coordenadas,
-            'coordenadaslab'=>$coordenadaslab
+            'coordenadaslab'=>$coordenadaslab,
+            'apikey'=>$apikey
         ));
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     * @throws \Exception
+     */
     public  function sendmailAction(Request $request){
 
         try
         {
+            //Captcha
+            $recaptcha = $request->request->get('g-recaptcha-response');
+            $url = 'https://www.google.com/recaptcha/api/siteverify';
+            $data = array(
+                'secret' => $this->getParameter('apisecret'),
+                'response' => $recaptcha
+            );
+            $query=http_build_query($data);
+            $options = array(
+                'http' => array (
+                    'header' => "Content-Type: application/x-www-form-urlencoded\r\n".
+                        "Content-Length: ".strlen($query)."\r\n".
+                        "User-Agent:MyAgent/1.0\r\n",
+                    'method' => 'POST',
+                    'content' => $query
+                )
+            );
+            $context  = stream_context_create($options);
+            $verify = file_get_contents($url, false, $context);
+            $captcha_success=json_decode($verify,true);
+            if ($captcha_success['success']==false) {
+                return new JsonResponse(array(
+                    0=>'No Enviado',
+                    1=>'Mensaje no enviado usted es un robot...',
+
+                ));
+            }
+            //
+
             $em = $this->getDoctrine()->getManager();
             $datosof=$em->getRepository('gemaBundle:DatosOficina')->find(1);
             $direcciones=explode(';',$datosof->getEmail());
@@ -75,8 +110,6 @@ class MailController extends Controller
             $body.='<strong>Empresa:</strong> '.$empresa."<br>";
             $body.='<strong>Razas:</strong> '.$razasstr."<br>";
             $body.='<strong>Consulta:</strong> '.$consulta."<br>";
-
-
             $to=array(
                 0 =>$email,
             );
@@ -107,6 +140,9 @@ class MailController extends Controller
             $correo->setEmpresa($empresa);
             $correo->setRazas($razasstr);
             $correo->setConsulta($consulta);
+            date_default_timezone_set('America/Argentina/Buenos_Aires');
+            $date = date('d-m-Y H:i:s');
+            $correo->setFechahora($date);
             $ema = $this->getDoctrine()->getManager();
             $ema->persist($correo);
             $ema->flush();
@@ -137,8 +173,14 @@ class MailController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function sellermailAction(Request $request){
         try{
+
+
             $message = \Swift_Message::newInstance()
                 ->setSubject('Contanto de Alta Ciale');
             $message->setFrom('info@ciale.com');
@@ -170,12 +212,8 @@ class MailController extends Controller
             $body.='<strong>Teléfono:</strong> '.$telefono."<br>";
             $body.='<strong>Empresa:</strong> '.$empresa."<br>";
             $body.='<strong>Consulta:</strong> '.$consulta."<br>";
-
-
-            $to=array(
-                0 =>$email,
-
-            );
+            $to=explode(';',$destino);
+            $to[]=$email;
             $enviarmail = $em->getRepository('gemaBundle:Configuracion')->find(1)->getEnviarmaildestinos();
             if($enviarmail==true)
             {
@@ -189,7 +227,6 @@ class MailController extends Controller
             );
 //
             $this->get('mailer')->send($message);
-
             $correo=new Correo();
             $correo->setNombre($nombre);
             $correo->setApellido($apellido);
@@ -202,10 +239,12 @@ class MailController extends Controller
             $correo->setTelefono($telefono);
             $correo->setEmpresa($empresa);
             $correo->setConsulta($consulta);
+            date_default_timezone_set('America/Argentina/Buenos_Aires');
+            $date = date('d-m-Y H:i:s');
+            $correo->setFechahora($date);
             $ema = $this->getDoctrine()->getManager();
             $ema->persist($correo);
             $ema->flush();
-
 
             return new JsonResponse(array(
                 0=>'Enviado',
@@ -215,6 +254,14 @@ class MailController extends Controller
         }
         catch(Swift_TransportException  $e){
 
+            return new JsonResponse(array(
+                0=>'No Enviado',
+                1=>$e->getMessage(),
+
+            ));
+        }
+
+        catch (\Swift_RfcComplianceException $e){
             return new JsonResponse(array(
                 0=>'No Enviado',
                 1=>$e->getMessage(),

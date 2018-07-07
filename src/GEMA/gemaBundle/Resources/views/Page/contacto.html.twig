@@ -94,7 +94,11 @@
 
                 </div>
 
-
+                <div class="form-group"><label  class=" col-md-2 control-label">Validar</label>
+                    <div class="col-md-10">
+                        <div class="g-recaptcha" data-callback="muestraBoton" data-expired-callback="ocultaboton" data-error-callback="errorboton" data-sitekey="{{ apikey }}"></div>
+                    </div>
+                </div>
 
 
                 <div class="col-md-offset-2 col-md-10">
@@ -141,13 +145,24 @@
 {% endblock %}
 
     {% block custom_javascripts %}
-<script>
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+        <script>
 
-    $(document).ready(function(){
+            $(document).ready(function(){
+                $('#bsubmit').hide();
+            });
+
+            var muestraBoton = function() {
+                $('#bsubmit').show();
+            };
+            var ocultaboton = function() {
+                $('#bsubmit').hide();
+            };
+            var errorboton = function() {
+                $('#bsubmit').hide();
+            };
 
 
-
-    });
 
     $("#sendform").on('submit',(function(e){
         e.preventDefault();

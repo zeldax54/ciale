@@ -15,6 +15,7 @@ class CorreoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('fechahora')
             ->add('nombre')
             ->add('apellido')
             ->add('direccion')

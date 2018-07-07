@@ -95,6 +95,12 @@ class Correo
      */
     private $consulta;
 
+    /**
+     * @var string
+     * @ORM\Column(name="fechahora", type="string",length=500,nullable=true)
+     */
+    private $fechahora;
+
 
 
     /**
@@ -358,5 +364,28 @@ class Correo
     public function getLocalidad()
     {
         return $this->localidad;
+    }
+
+    /**
+     * Set fechahora
+     *
+     * @param string $fechahora
+     * @return Correo
+     */
+    public function setFechahora($fechahora)
+    {
+        $this->fechahora = $fechahora;
+
+        return $this;
+    }
+
+    /**
+     * Get fechahora
+     *
+     * @return string
+     */
+    public function getFechahora()
+    {
+        return $this->fechahora;
     }
 }

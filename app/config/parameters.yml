@@ -15,3 +15,5 @@ parameters:
     debug_toolbar: true
     debug_redirects: false
     use_assetic_controller: true
+    apikey: 6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI
+    apisecret: 6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe
