@@ -46,6 +46,15 @@ class ProdProgclientController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $prodprogs = $em->getRepository('gemaBundle:Productosprogramas')->findOneBynombremenu($nombremenu);
+
+        if($prodprogs==NULL ){
+            $response = $this->forward('gemaBundle:Page:index', array(
+
+            ));
+
+            return $response;
+        }
+
         $helper=new MyHelper();
         $prodprogs->logo=$helper->randomPic('productoprograma'.DIRECTORY_SEPARATOR.$prodprogs->getGuid().'L'.DIRECTORY_SEPARATOR);
         return $this->render('gemaBundle:Page:prodprognewwind.html.twig', array(
