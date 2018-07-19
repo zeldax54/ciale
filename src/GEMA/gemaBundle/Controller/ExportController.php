@@ -109,10 +109,27 @@ class ExportController extends Controller
 
   function excelExportAction(){
 
+     if(isset($_POST['razaid'])){
 
-      $toros=$_POST['toros'];
-      $alltoros=$_POST['alltoros'];
-      $torosid=explode('|',$toros);
+         $em = $this->getDoctrine()->getManager();
+         $raza=$em->getRepository('gemaBundle:Raza')->find($_POST['razaid']);
+         $toros=$raza->getToros();
+         $torosid=array();
+         $alltoros=$_POST['alltoros'];
+         foreach ($toros as $t){
+             $torosid[]=$t->getId();
+         }
+
+
+     }else{
+
+         $toros=$_POST['toros'];
+         $alltoros=$_POST['alltoros'];
+
+         $torosid=explode('|',$toros);
+     }
+
+
 
     $objPHPExcel = new \PHPExcel();
 
@@ -338,7 +355,7 @@ public function exceladminAction($razaid){
             $ids.=$t->getId().'|';
      }
     $this->excelExportAction($ids,'false');
-    //  print_r($ids);die();
+
    }
 
     function todopdfAction($toroId){

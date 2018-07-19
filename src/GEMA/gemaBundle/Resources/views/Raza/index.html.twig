@@ -1,5 +1,21 @@
     {% extends 'gemaBundle::layout.html.twig' %}
 
+     {% block mycustomstylesheets %}
+
+         <link href="{{ asset('bundles/gema/clientresources/vex/css/vex.css')}}" rel="stylesheet">
+         <link href="{{ asset('bundles/gema/clientresources/vex/css/vex-theme-bottom-right-corner.css')}}" rel="stylesheet">
+         <link href="{{ asset('bundles/gema/clientresources/vex/css/vex-theme-default.css')}}" rel="stylesheet">
+         <link href="{{ asset('bundles/gema/clientresources/vex/css/vex-theme-os.css')}}" rel="stylesheet">
+         <link href="{{ asset('bundles/gema/clientresources/vex/css/vex-theme-wireframe.css')}}" rel="stylesheet">
+         <link href="{{ asset('bundles/gema/clientresources/vex/css/vex-theme-top.css')}}" rel="stylesheet">
+         <style>
+
+             .actualizartodos,.especifico{
+                 background: #3288E6;
+             }
+         </style>
+     {% endblock %}
+
     {% block gema_page -%}
     <h2>Listado de Raza</h2>
     {% if entities is empty %}
@@ -56,6 +72,8 @@
 
     {% block javascripts -%}
     {{ parent() }}
+        <script src="{{ asset('bundles/gema/clientresources/vex/js/vex.combined.js') }}"></script>
+        <script> vex.defaultOptions.className = 'vex-theme-default'</script>
     <script>
         $("#data-table-command").bootgrid({
             css: {
@@ -99,7 +117,36 @@
 
             $('.excelexport').click(function(){
                var razaid=$(this).attr('data-id');
-                window.location=Routing.generate('gema_exceladmin', {razaid:razaid});
+
+                $.ajax({
+                    type: 'POST',
+                    url: Routing.generate('gema_export'),
+                    data:{razaid: razaid,alltoros:'false'},
+                    dataType:'json',
+                    success: function (dataresp) {
+
+                        console.log(dataresp);
+                        vex.dialog.alert({ unsafeMessage:'<div style="text-align: center"><a href="'+dataresp.file+'">Descargar Excel</a></div>'
+
+                            , className: 'vex-theme-wireframe' ,
+                            overlayClassName: 'success',
+                            contentClassName: 'bordernaranjaclass',
+                            closeClassName: 'closebleclass'
+                        });
+
+
+                    },
+                    error: function (req, stat, err) {
+
+                        vex.dialog.alert({ unsafeMessage:'Error generando excel... Intente mas tarde'
+
+                            , className: 'vex-theme-wireframe' ,
+                            overlayClassName: 'success',
+                            contentClassName: 'bordernaranjaclass',
+                            closeClassName: 'closebleclass'
+                        });
+                    }
+                });
             });
         });
     </script>
