@@ -1268,12 +1268,16 @@ console.log(familyId);
                          success: function (dataresp) {
 
                              console.log(dataresp);
-                             vex.dialog.alert({ unsafeMessage:'<div style="text-align: center"><a href="'+dataresp.file+'">Descargar Excel</a></div>'
+                             vex.dialog.alert({ unsafeMessage:'<div style="text-align: center"><a href="'+dataresp.file+'">Click aquí para descargar el excel</a></div>'
 
                                  , className: 'vex-theme-wireframe' ,
                                  overlayClassName: 'success',
                                  contentClassName: 'bordernaranjaclass',
-                                 closeClassName: 'closebleclass'
+                                 closeClassName: 'closebleclass',
+                                 buttons: [
+                                     $.extend({}, vex.dialog.buttons.YES, { text: 'Cerrar sin descargar' })
+
+                                 ]
                              });
 
 
@@ -1303,12 +1307,16 @@ console.log(familyId);
                          success: function (dataresp) {
 
                              console.log(dataresp);
-                             vex.dialog.alert({ unsafeMessage:'<div style="text-align: center"><a href="'+dataresp.file+'">Descargar Excel</a></div>'
+                             vex.dialog.alert({ unsafeMessage:'<div style="text-align: center"><a href="'+dataresp.file+'">Click aquí para descargar el excel</a></div>'
 
                                  , className: 'vex-theme-wireframe' ,
                                  overlayClassName: 'success',
                                  contentClassName: 'bordernaranjaclass',
-                                 closeClassName: 'closebleclass'
+                                 closeClassName: 'closebleclass',
+                                 buttons: [
+                                     $.extend({}, vex.dialog.buttons.YES, { text: 'Cerrar sin descargar' })
+
+                                 ]
                              });
 
 
@@ -1320,7 +1328,8 @@ console.log(familyId);
                                  , className: 'vex-theme-wireframe' ,
                                  overlayClassName: 'success',
                                  contentClassName: 'bordernaranjaclass',
-                                 closeClassName: 'closebleclass'
+                                 closeClassName: 'closebleclass',
+
                              });
                          }
                      });

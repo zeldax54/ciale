@@ -117,6 +117,7 @@
 
             $('.excelexport').click(function(){
                var razaid=$(this).attr('data-id');
+               console.log(razaid);
 
                 $.ajax({
                     type: 'POST',
@@ -126,12 +127,17 @@
                     success: function (dataresp) {
 
                         console.log(dataresp);
-                        vex.dialog.alert({ unsafeMessage:'<div style="text-align: center"><a href="'+dataresp.file+'">Descargar Excel</a></div>'
+                        vex.dialog.alert({ unsafeMessage:'<div style="text-align: center"><a href="'+dataresp.file+'">Click aqu para descargar el excel</a></div>'
 
                             , className: 'vex-theme-wireframe' ,
                             overlayClassName: 'success',
                             contentClassName: 'bordernaranjaclass',
-                            closeClassName: 'closebleclass'
+                            closeClassName: 'closebleclass',
+                            buttons: [
+                                $.extend({}, vex.dialog.buttons.YES, { text: 'Cerrar sin descargar' })
+
+                            ]
+
                         });
 
 

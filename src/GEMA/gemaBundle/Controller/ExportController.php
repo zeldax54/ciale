@@ -111,6 +111,7 @@ class ExportController extends Controller
 
      if(isset($_POST['razaid'])){
 
+
          $em = $this->getDoctrine()->getManager();
          $raza=$em->getRepository('gemaBundle:Raza')->find($_POST['razaid']);
          $toros=$raza->getToros();
@@ -133,7 +134,9 @@ class ExportController extends Controller
 
     $objPHPExcel = new \PHPExcel();
 
+
     $objPHPExcel->setActiveSheetIndex(0);
+
     $em = $this->getDoctrine()->getManager();
     $raza=$em->getRepository('gemaBundle:Raza')->find($em->getRepository('gemaBundle:Toro')->find($torosid[0])->getRaza()->getId());
 
@@ -294,12 +297,16 @@ class ExportController extends Controller
           }
           $rowsiter++;
       }
+      header('Content-type: application/vnd.ms-excel');
+      header('Content-Disposition: attachment; filename="'.$nombexcel.'.xls"');
+      header('Cache-Control: max-age=0');
 
-    header('Content-Type: application/vnd.ms-excel; charset=UTF-8'); //mime type
-    header('Content-Disposition: attachment;filename="'.$nombexcel.'.xls"'); //tell browser what's the file name
-    header('Cache-Control: max-age=0'); //no cache
+
+      $objPHPExcel->getActiveSheet()->setTitle($nombexcel);
     $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+
       ob_start();
+
       try {
           $objWriter->save('php://output');
       } catch (\PHPExcel_Writer_Exception $e) {
@@ -309,7 +316,10 @@ class ExportController extends Controller
           );
           die(json_encode($response));
       }
+
       $xlsData = ob_get_contents();
+
+
       ob_end_clean();
 
       $response =  array(
@@ -317,7 +327,6 @@ class ExportController extends Controller
           'file' => "data:application/vnd.ms-excel;base64,".base64_encode($xlsData)
       );
       die(json_encode($response));
-
   }
 
 
