@@ -1,0 +1,64 @@
+
+      <div class="container">
+          <div class="row">
+              <div class="col-sm-12">
+                  <div class="panel panel-pink">
+                      <div class="panel-heading">Busqueda mutiple de razas</div>
+                      <div class="panel-body">
+                          <form id="uploadForm" action="{{ path('muti_busqueda') }}" method="post">
+                          <select data-placeholder="Seleccione las razas..." multiple class="mult" id="razasselect" name="razasselect[]">
+
+                              {% if razasfather  is defined %}
+
+                                  {% for r in razasfather %}
+                                      <option value="{{ r.nombre }}"> {{ r.nombre }}&nbsp;&nbsp;&nbsp;</option>
+
+                                  {% endfor %}
+                              {% endif %}
+
+                              {% if razas is defined %}
+                                  {% for r in razas %}
+                                      <option value="{{ r.nombre }}">{{ r.nombre }}&nbsp;&nbsp;&nbsp;</option>
+
+                                  {% endfor %}
+                              {% endif %}
+                          </select>
+                          <div class="well text-center">
+                              <button type="submit" id="razasserach" class="btn btn-sky text-uppercase"><a href="http://www.positiwitty.com/">Consultar</a></button>
+                          </div>
+                          </form>
+                      </div>
+
+
+                      </div>
+                  </div>
+              </div>
+              <div class="col-sm-12">
+                  <div class="panel panel-blue">
+                      <div class="panel-heading">Búsqueda múltiple de toros</div>
+                      <div class="panel-body">
+                          <form id="uploadForm" action="{{ path('muti_busqueda_toro') }}" method="post">
+                          <select data-placeholder="Seleccione los toros..." multiple class="mult" id="torosselect" name="torosselect[]">
+                              {% for t in toros %}
+                                  <option value="{{ t.id }}"> {{ t.apodo }}&nbsp;&nbsp;&nbsp;</option>
+
+                              {% endfor %}
+                          </select>
+                          <div class="well text-center">
+                              <button type="submit" class="btn btn-sky text-uppercase"><a href="http://www.positiwitty.com/">Consultar</a></button>
+                          </div>
+                          </form>
+                      </div>
+                  </div>
+              </div>
+
+          </div>
+      </div>
+
+
+
+
+
+
+
+

@@ -11,6 +11,10 @@
       <link href="{{ asset('bundles/gema/clientresources/datatables/responsive/css/responsive.dataTables.css')}}" rel="stylesheet">
 
 
+
+	  <link rel="stylesheet" href="{{ asset('bundles/gema/chosen/chosen.min.css')}}">
+	  <link rel="stylesheet" href="{{ asset('bundles/gema/clientresources/multib/multib.css')}}">
+
 	  {% endblock %}
 
   {% block content %}
@@ -37,14 +41,6 @@
 												<!-- Split button -->
 
 												<select name="principalselector2" class="sel22 newselector">
-													<option selected  value="{{ razaname }}" class="here">{{ razaname }}</option>
-													{% if fathersmenu  is defined %}
-
-														{% for r in fathersmenu %}
-															<option value="{{ r.nombre }}"> {{ r.nombre }}&nbsp;&nbsp;&nbsp;</option>
-
-														{% endfor %}
-													{% endif %}
 
 													{% if razasmenu is defined %}
 														{% for r in razasmenu %}
@@ -67,6 +63,7 @@
 
 												</li>
 											{% endif %}
+
 										</ul>
 									</div>
 								</div>
@@ -77,8 +74,10 @@
 
                 <div >
 
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                        {#<button type="submit" class="btn btn-warning btn-sm">Generar PDF</button>#}
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12" style="margin-right: 25%;">
+
+							<button id="bavanzada" class="btn btn-warning btn-sm bavanzada" >Búsqueda avanzada</button>
+
                     </div>
                     <div class="col-lg-7 col-md-6 col-sm-9 col-xs-7">
                         <div class="form-group buscador" id="padredatostext">
@@ -151,6 +150,7 @@
 
 </li>
 								{% endif %}
+
                             </ul>
 
 
@@ -166,8 +166,8 @@
 
 						  <div class="navbar-form navbar-right">
 
-							<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-								{#<button id="btn-pdf" type="submit" class="btn btn-warning btn-sm">Generar PDF</button>#}
+							<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="margin-right: 25%;">
+								<button id="bavanzada" class="btn btn-warning btn-sm bavanzada" >Búsqueda avanzada</button>
 							</div>
 							<div class="col-lg-7 col-md-6 col-sm-9 col-xs-9">
 								<div class="form-group" id="padredatostextresp">
@@ -1376,6 +1376,62 @@ console.log(familyId);
 
 
 	 <script src="{{ asset('bundles/gema/js/pdfgenerator.js')}}"></script>
+
+	 <script>
+
+		 $('.bavanzada').click(function(){
+
+             $.ajax({
+                 type: 'POST',
+                 url: Routing.generate('raza_multisearch'),
+                 data:{},
+               //  dataType:'json',
+                 success: function (dataresp) {
+
+                     vex.dialog.alert({ unsafeMessage:dataresp
+
+                         , className: 'vex-theme-wireframe' ,
+                         overlayClassName: 'success',
+                         contentClassName: 'bordernaranjaclass',
+                         closeClassName: 'closebleclass',
+                         buttons: [
+                             $.extend({}, vex.dialog.buttons.YES, { text: 'Cerrar' })
+
+                         ]
+                     });
+
+                     $(".mult").chosen({
+                         width: "100%",
+                         display_selected_options:false
+                     });
+                 },
+                 error: function (req, stat, err) {
+
+                     vex.dialog.alert({ unsafeMessage:'Error en las busquedas multiples'
+
+                         , className: 'vex-theme-wireframe' ,
+                         overlayClassName: 'success',
+                         contentClassName: 'bordernaranjaclass',
+                         closeClassName: 'closebleclass',
+
+                     });
+                 }
+             });
+		 });
+	 </script>
+
+
+
+	 <script src="{{ asset('bundles/gema/chosen/chosen.jquery.min.js')}}"></script>
+
+	 <script>
+
+
+
+
+
+
+	 </script>
 
  {% endblock %}
 

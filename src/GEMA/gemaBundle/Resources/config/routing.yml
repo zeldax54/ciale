@@ -139,10 +139,6 @@ gema_admin_uploadexcel:
     pattern:  admin/uploadexcel
     defaults: { _controller: gemaBundle:Uploader:upload }
 
-gema_admin_distribuidor:
-    resource: "@gemaBundle/Resources/config/routing/distribuidor.yml"
-    prefix: admin/distribuidor
-
 gema_razalist:
     pattern:  /toros/{nombre}
     defaults: { _controller: "gemaBundle:Razalist:listRaza" }
@@ -316,9 +312,23 @@ detallehtmltest:
     pattern:  /detallehtmltest/{id}
     defaults: { _controller: "gemaBundle:Export:detallehtmltest" }
 
+raza_multisearch:
+  pattern:  /busquedamultiple
+  defaults: { _controller: "gemaBundle:Razalist:mutiSearchIndex" }
+
+muti_busqueda:
+  pattern:  /mutibusqueda
+  defaults: { _controller: "gemaBundle:Razalist:multisearchGoRazas" }
+
+muti_busqueda_toro:
+  pattern:  /mutibusquedatoros
+  defaults: { _controller: "gemaBundle:Razalist:multisearchGToros" }
+
 prodprog_newwindows:
     pattern:  /{nombremenu}
     defaults: { _controller: "gemaBundle:ProdProgclient:newwind" }
+
+
 
 
 

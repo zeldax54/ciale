@@ -130,10 +130,6 @@ class RazalistController extends Controller
                 $toro->conceptplusflag=$this->ConceptPlus($helper,$toro->getCP());
                 $toro->tablasflag=json_decode($toro->getTablagenetica(),true);
             }
-
-
-
-
         }
 
 //        print(count($toros));   print( '<br>');
@@ -517,6 +513,182 @@ class RazalistController extends Controller
           return null;
         return $helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'fp_'.$facilidad.'.png');
     }
+
+
+    function mutiSearchIndexAction(){
+
+        $em = $this->getDoctrine()->getManager();
+        $razasfather=$em->getRepository('gemaBundle:Razafather')->findAll();
+        $razas=$em->getRepository('gemaBundle:Raza')->findBy(
+            array(
+                'father'=>null,
+                'tiporaza'=>1
+            )
+        );
+        $toros=$em->getRepository('gemaBundle:Toro')->findAll();
+
+        return $this->render('gemaBundle:Page:multisearch.html.twig', array(
+            'razasfather'=>$razasfather,
+            'razas'=>$razas,
+            'toros'=>$toros
+        ));
+
+    }
+
+
+    function multisearchGoRazasAction(){
+        $request = $this->getRequest();
+        $data = $request->request->all();
+         $razas= $data['razasselect'];
+         $toros=array();
+         $allrazasentity=array();
+        $em = $this->getDoctrine()->getManager();
+        foreach ($razas as $raza){
+
+            $r=$em->getRepository('gemaBundle:Razafather')->findOneByNombre($raza);
+
+            if($r!=null)
+            {
+
+                $father=$em->getRepository('gemaBundle:Razafather')->find($r->getId());
+                $allrazasentity[]=$father;
+                $razas=$father->getRazas();
+
+              $temp=$em->getRepository('gemaBundle:Toro')->torosbyRazas($razas);
+                foreach ($temp as $t)
+                    $t->setNombreraza($raza);
+              $toros=  array_merge($toros,$temp);
+            }
+
+            else{
+                $rt=$em->getRepository('gemaBundle:Raza')->findOneByNombre($raza);
+                $allrazasentity[]=$rt;
+               $temp=$em->getRepository('gemaBundle:Toro')->torosbyRazaP($rt);
+                foreach ($temp as $t)
+                    $t->setNombreraza($raza);
+                $toros=  array_merge($toros,$temp);
+
+            }
+
+        }
+        $toros=$this->prepareToros($toros);
+
+        $fathersmenu=$em->getRepository('gemaBundle:Razafather')->findAll();
+        $razasmenu=$em->getRepository('gemaBundle:Raza')->findBy(array(
+            'father'=>null,
+            'tiporaza'=>1
+        ));
+
+
+     foreach ($allrazasentity as $are)
+     {
+       // $are['nombreraza']=$are->getNombre();
+         $otherrazasm[]['nombreraza']=$are->getNombre();
+     }
+
+   //  print_r($otherrazasm);die();
+        return $this->render('gemaBundle:Page:tablaraza.html.twig', array(
+            'toros'=>$toros,
+            'razaname'=>'Mutiple',
+            'tablas'=>null,
+            'mocho'=>false,
+            'fathersmenu'=>$fathersmenu,
+            'razasmenu'=>$razasmenu,
+            'otherrazas'=>$otherrazasm,
+
+
+        ));
+
+      //  return $this->redirectToRoute('asd',array(),307);
+
+    }
+
+
+    function multisearchGTorosAction(){
+
+        $request = $this->getRequest();
+        $data = $request->request->all();
+        $torosId= $data['torosselect'];
+        $em = $this->getDoctrine()->getManager();
+        foreach ($torosId as $id)
+            $toros[]=$em->getRepository('gemaBundle:Toro')->find($id);
+
+        $toros=$this->prepareToros($toros);
+        $em = $this->getDoctrine()->getManager();
+        $fathersmenu=$em->getRepository('gemaBundle:Razafather')->findAll();
+        $razasmenu=$em->getRepository('gemaBundle:Raza')->findBy(array(
+            'father'=>null,
+            'tiporaza'=>1
+        ));
+
+        foreach ($toros as $t){
+
+            if($t->getNombreraza()!=null){
+
+                $otherrazasm[]['nombreraza']=$t->getNombreraza();
+                $t->setNombreraza($t->getNombreraza());
+            }
+
+            else if($t->getRaza()->getFather()!=null){
+
+                $otherrazasm[]['nombreraza']=$t->getRaza()->getFather()->getNombre();
+                $t->setNombreraza($t->getRaza()->getFather()->getNombre());
+            }
+            else{
+                $otherrazasm[]['nombreraza']=$t->getRaza()->getNombre();
+                $t->setNombreraza($t->getRaza()->getNombre());
+            }
+
+        }
+
+    //    print_r($otherrazasm);die();
+
+        $otherrazasm=array_unique($otherrazasm, SORT_REGULAR);
+        return $this->render('gemaBundle:Page:tablaraza.html.twig', array(
+            'toros'=>$toros,
+            'razaname'=>'Mutiple',
+            'tablas'=>null,
+            'mocho'=>false,
+            'fathersmenu'=>$fathersmenu,
+            'razasmenu'=>$razasmenu,
+            'otherrazas'=>$otherrazasm,
+
+
+        ));
+
+
+    }
+
+
+    private function prepareToros($toros){
+        $helper=new MyHelper();
+        foreach($toros as $toro)
+        {
+            if($toro->getPublico()==0)
+                unset($toro);
+            else{
+
+                $img=$helper->randomPic('toro'.DIRECTORY_SEPARATOR.$toro->getGuid().'P'.DIRECTORY_SEPARATOR,true);
+                if($img==null)
+                    $img=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'toro.png',true);
+
+                $toro->imgprincipal=$img;
+
+
+                if($toro->getNuevo()==true)
+                    $toro->nuevoflag='<span style="padding: 3px;background: red;color: white;"><strong>Nuevo</strong></span>';
+                else
+                    $toro->nuevoflag=null;
+                $toro->facilidadglag=$this->imgFacilidadParto($helper,$toro->getFacilidadparto());
+                $toro->nacionalidadflag=$this->Nacionalidad($helper,$toro->getNacionalidad());
+                $toro->conceptplusflag=$this->ConceptPlus($helper,$toro->getCP());
+                $toro->tablasflag=json_decode($toro->getTablagenetica(),true);
+            }
+        }
+        return $toros;
+    }
+
+
 
 
 }
