@@ -525,7 +525,9 @@ class RazalistController extends Controller
                 'tiporaza'=>1
             )
         );
-        $toros=$em->getRepository('gemaBundle:Toro')->findAll();
+        $toros=$em->getRepository('gemaBundle:Toro')->findBy(array(
+            'publico'=>1
+        ));
 
         return $this->render('gemaBundle:Page:multisearch.html.twig', array(
             'razasfather'=>$razasfather,

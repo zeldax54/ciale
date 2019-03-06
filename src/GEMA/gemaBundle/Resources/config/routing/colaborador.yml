@@ -1,0 +1,28 @@
+colaborador:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:Colaborador:index" }
+
+colaborador_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:Colaborador:show" }
+
+colaborador_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:Colaborador:new" }
+
+colaborador_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:Colaborador:create" }
+    requirements: { _method: post }
+
+colaborador_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:Colaborador:edit" }
+
+colaborador_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:Colaborador:update" }
+
+colaborador_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:Colaborador:delete" }

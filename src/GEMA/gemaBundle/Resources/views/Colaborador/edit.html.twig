@@ -1,0 +1,39 @@
+    {% extends 'gemaBundle::layout.html.twig' %}
+    {% form_theme edit_form 'gemaBundle:Form:theme.html.twig' %}
+
+    {% block gema_page -%}
+    <h1>Editar Colaborador </h1>
+
+    {{ form(edit_form) }}
+
+    <ul class="pager">
+        <li class="next"><a href="{{path('colaborador')}}"><i class="fa fa-ban"></i>
+                Cancelar
+            </a></li>
+        <li class="next"><a href="{{path('colaborador')}}"><i class="fa fa-list"></i>
+                Listado de Colaborador
+            </a></li>
+
+        <li>
+        <li> <input type="button" class="btn btn-file" value="Editar Archivos" id="editarArchivos"></li>
+        </li>
+
+    </ul>
+    {% endblock %}
+
+
+    {% block custom_javascripts %}
+        <script src="{{ asset('bundles/gema/js/TableToJson/jquery.tabletojson.js') }}"></script>
+        <script>
+            $(document).ready(function(){
+
+
+                $('#gema_gemabundle_colaborador_guid').hide();
+
+                $('#editarArchivos').click(function(){
+                    GetData('colaborador',$('#gema_gemabundle_colaborador_guid').val()+'P');
+                });
+            })
+        </script>
+    {% endblock %}
+

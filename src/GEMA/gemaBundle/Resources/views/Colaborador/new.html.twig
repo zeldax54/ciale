@@ -1,0 +1,35 @@
+{% extends 'gemaBundle::layout.html.twig' %}
+{% form_theme form 'gemaBundle:Form:theme.html.twig' %}
+
+
+{% block gema_page -%}
+    <h1>Crear Colaborador</h1>
+    {#<div id="myUploadDropZoneToro" class="dropzone"> </div>#}
+
+    {{ form(form) }}
+
+
+    <ul class="pager">
+        <li class="next"><a href="{{path('colaborador')}}"><i class="fa fa-list"></i>
+                Listar Colaborador
+            </a></li>
+        <li> <input type="button" class="btn btn-file" value="Editar Archivos" id="editarArchivos"></li>
+    </ul>
+{% endblock %}
+
+
+{% block custom_javascripts %}
+    <script src="{{ asset('bundles/gema/js/TableToJson/jquery.tabletojson.js') }}"></script>
+    <script>
+        $(document).ready(function(){
+            var guid='{{ guid }}';
+            $('#gema_gemabundle_colaborador_guid').attr('value',guid);
+            // StartDropZone('myUploadDropZoneToro','toro',guid);
+            $('#gema_gemabundle_colaborador_guid').hide();
+
+            $('#editarArchivos').click(function(){
+                GetData('colaborador',guid+'P');
+            });
+        })
+    </script>
+{% endblock %}
