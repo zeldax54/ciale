@@ -1,0 +1,40 @@
+    {% extends 'gemaBundle::layout.html.twig' %}
+    {% form_theme edit_form 'gemaBundle:Form:theme.html.twig' %}
+
+    {% block gema_page -%}
+    <h1>Editar Remate </h1>
+
+    {{ form(edit_form) }}
+
+    <ul class="pager">
+        <li><input type="button" class="btn btn-file" value="Logo" style="margin-top: -250px;" id="editarArchivos"></li>
+        <li class="next"><a href="{{path('remate')}}"><i class="fa fa-ban"></i>
+                Cancelar
+            </a></li>
+        <li class="next"><a href="{{path('remate')}}"><i class="fa fa-list"></i>
+                Listado de Remate
+            </a></li>
+
+    </ul>
+    {% endblock %}
+
+
+    {% block custom_javascripts %}
+
+
+        <script>
+
+            $(document).ready(function () {
+
+
+                $('#gema_gemabundle_remate_guid').hide();
+
+
+                $('#editarArchivos').click(function () {
+                    GetData('remates', $('#gema_gemabundle_remate_guid').val());
+                });
+
+            });
+
+        </script>
+    {% endblock %}

@@ -1,0 +1,133 @@
+{% extends 'gemaBundle::clientlayout.html.twig' %}
+
+  {% block customstylesheets %}
+      {#<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">#}
+      <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+      <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+      <!------ Include the above in your HEAD tag ---------->
+
+      <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+      <script src="https://use.fontawesome.com/5a8a7bb461.js"></script>
+      <style>
+
+          *{
+              font-family: 'Poppins', sans-serif;
+          }
+          .testimonial_subtitle{
+              color: #0aaa7a;
+              font-size: 12px;
+          }
+          .testimonial_btn{
+              background-color: #373d4b !important;
+              color: #fff !important;
+          }
+          .seprator {
+              height: 2px;
+              width: 56px;
+              background-color: #0aaa7a;
+              margin: 7px 0 10px 0;
+          }
+
+
+      </style>
+
+
+
+
+  {% endblock %}
+
+
+  {% block content %}
+
+      <div class="container" style="text-align: center;margin:  0 auto">
+          <div class="row" style="text-align: center">
+              <div class="col-sm-6">
+                  <h3><strong>Remates</strong></h3>
+                  <div class="seprator"></div>
+                  <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                      <!-- Wrapper for slides -->
+
+                      <div class="carousel-inner">
+                          {% for remate in remates %}
+
+                              {% if  loop.index ==1 %}
+                                  <div class="item active">
+                                  {% else %}
+                                  <div class="item">
+                              {% endif %}
+
+                                  <div class="row" style="padding: 20px">
+                                      {#<button style="border: none;"><i class="fa fa-quote-left testimonial_fa" aria-hidden="true"></i></button>#}
+
+                                      <div class="row">
+                                          <div class="col-sm-4">
+                                              <img  src="{{ asset(remate.imgprincipal) }}"  class="img-responsive" style="width: 200px">
+                                          </div>
+                                          <div class="col-sm-8">
+                                              <h4><strong>{{ remate.nombre }}</strong></h4>
+
+                                          </div>
+
+                                          <div class="col-sm-8" style="text-align: left">
+                                              <span><strong>Fecha:  </strong></span><span>{{ remate.fecha|date("m/d/Y") }}</span><br>
+                                              {% if remate.localidad is not null %}
+                                                  <span><strong>Localidad:  </strong></span><span>{{ remate.localidad }}</span><br>
+                                              {% endif %}
+
+                                              {% if remate.provincia is not null %}
+                                                  <span><strong>Provincia:  </strong></span><span>{{ remate.provincia }}</span><br>
+                                              {% endif %}
+
+                                              {% if remate.sitioweb is not null %}
+                                                  <span><a href="{{ remate.linksitioweb }}"><strong>{{ remate.sitioweb }}</strong></a></span><br>
+                                              {% endif %}
+
+                                              {% if remate.contacto is not null %}
+                                                  <span><strong>Contacto:  </strong></span><span>{{ remate.contacto }}</span><br>
+                                              {% endif %}
+
+                                              {% if remate.Linkflyer is not null %}
+                                                  <span><a href="{{ remate.Linkflyer }}"><strong>Flyer</strong></a></span><br>
+                                              {% endif %}
+
+                                              {% if remate.linkcatalogo is not null %}
+                                                  <span><a href="{{ remate.linkcatalogo }}"><strong>Catálogo</strong></a></span><br>
+                                              {% endif %}
+
+
+                                          </div>
+
+                                      </div>
+
+                                  </div>
+                              </div>
+                          {% endfor %}
+
+
+                      </div>
+                  </div>
+                  <div class="controls testimonial_control pull-right">
+                      <a class="left fa fa-chevron-left btn btn-default testimonial_btn" href="#carousel-example-generic"
+                         data-slide="prev"></a>
+
+                      <a class="right fa fa-chevron-right btn btn-default testimonial_btn" href="#carousel-example-generic"
+                         data-slide="next"></a>
+                  </div>
+                  <br> <br> <br> <br> <br> <br> <br>
+              </div>
+          </div>
+      </div>
+
+
+          {% endblock %}
+
+
+ {% block custom_javascripts %}
+     <script>
+         $(document).ready(function(){
+             $('.dropdown-toggle').dropdown()
+         });
+     </script>
+
+
+ {% endblock %}

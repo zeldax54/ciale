@@ -96,6 +96,37 @@ class ConfiguracionType extends AbstractType
                 )
 
             ))
+
+            ->add('nombreContacto',null,array(
+                'label'=>'Nombre',
+                'attr'=>array(
+                    'placeholder'=>'Nombre de la lista de mailChimp de los contactos'
+                )
+
+            ))
+
+            ->add('keyContacto',null,array(
+                'label'=>'KeyContacto',
+                'attr'=>array(
+                    'placeholder'=>'Key de la lista de mailChimp de los contactos'
+                )
+
+            ))
+            ->add('nombreVisita',null,array(
+                'label'=>'NombreVisita',
+                'attr'=>array(
+                    'placeholder'=>'Nombre de la lista de mailChimp de las visitas'
+                )
+
+            ))
+
+            ->add('keyVisita',null,array(
+                'label'=>'KeyVisita',
+                'attr'=>array(
+                    'placeholder'=>'Key de la lista de mailChimp de las visitas'
+                )
+
+            ))
         ;
     }
     

@@ -1,0 +1,420 @@
+{% extends 'gemaBundle::clientlayout.html.twig' %}
+
+  {% block customstylesheets %}
+      <link href="{{ asset('bundles/gema/clientresources/css/noticias.css')}}" rel="stylesheet">
+      {#<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">#}
+      <link href="{{ asset('bundles/gema/clientresources/stars/star-rating-svg.css')}}" rel="stylesheet">
+  <style>
+
+      body{
+          /*padding:25px;*/
+      }
+
+      input:focus{
+          outline: none;
+      }
+
+      #formdiv > form{
+          width: 35%;
+          margin-left:auto;
+          margin-right:auto;
+          padding:50px;
+          background:whitesmoke;
+          border-radius:5px;
+          position:relative;
+          font-family: 'Libre Franklin', sans-serif;
+      }
+
+      #formdiv > form > div {
+          float:left;margin-bottom:30px;
+      }
+      #formdiv > form > div > p{
+          font-size: 12px;margin-bottom: 3px;
+      }
+      #formdiv > form > div > input{
+          font-size:12px;letter-spacing:1px;padding:  5px;border: 0;background:  whitesmoke;border-bottom: 1px solid silver;width: 100%;color: gray;
+      }
+
+      #formdiv > form > div > select{
+          font-size:12px;letter-spacing:1px;padding:  5px;border: 0;background:  whitesmoke;border-bottom: 1px solid silver;width: 100%;color: gray;
+      }
+
+      #formdiv > form > p:last-of-type{
+          text-align: center;padding-top: 50px;display:  table;width: 100%;color:white;
+      }
+
+      #formdiv > form > p:last-of-type > a{
+          cursor:pointer;border:0;
+          padding: 10px 25px;
+          background:  silver;
+          border-radius:  28px;
+          font-size: 12px;
+      }
+      #formdiv > form > p:last-of-type > button{
+          cursor:pointer;border:0;
+          padding: 10px 25px;
+          background:  silver;
+          border-radius:  28px;
+          font-size: 12px;
+      }
+
+      .term{
+          padding-top:40px;display: flex;width:  100%;align-items:  center;
+      }
+
+      .term > i{
+          cursor:pointer;width:20px;
+      }
+
+      .term > span{
+          font-size:12px;
+      }
+
+      /* delete */
+      #formdiv > form > a:last-of-type{
+          position:absolute;
+          bottom: 10px;
+          right: 15px;
+          font-size:  10px;
+          letter-spacing:  1px;
+          font-style: italic;
+      }
+      @media (max-width: 800px) {
+          #formdiv > form{
+              width: 95% !important;
+          }
+
+
+      }
+  </style>
+  {% endblock %}
+
+
+  {% block content %}
+      <br>
+      <div style="text-align: center;">
+      <h4 class="noticiastitle">Al completar este formulario recibirá un mail con una muy breve encuesta de valoración de su visita.</h4>
+      </div>
+      <br>
+      <div id="formdiv" style="display:flex;width:100%;">
+          <form id="visitaform" action="{{ path('gema_sendvisita') }}">
+              <div style="width:100%;">
+                  <p>NOMBRE</p>
+                  <input name="name" autofocus>
+              </div>
+              <div style="width:100%;">
+                  <p>APELLIDO</p>
+                  <input name="apellido">
+              </div>
+
+              <div style="width:47%;">
+                  <p>EMAIL</p>
+                  <input name="email">
+              </div>
+              <div style="width:47%;margin-left:6%">
+                  <p>Teléfono</p>
+                  <input name="phone">
+              </div>
+
+              <div style="width:100%;">
+                  <p>Localidad</p>
+                  <input name="localidad">
+              </div>
+
+              <div style="width:100%;">
+                  <p>Provincia</p>
+                  <input name="provincia">
+              </div>
+
+              <div style="width:100%;">
+                  <p>Pais</p>
+                  <input name="pais">
+              </div>
+
+              <div style="width:100%;">
+                  <p>Empresa</p>
+                  <input name="empresa">
+              </div>
+
+
+              <div style="width:100%;">
+                  <p>Ocupacion</p>
+                  <select name="ocupacion" onchange='CheckColors(this.value);' autocomplete="off" >
+                      <option selected name="Ninguna">Ninguna </option>
+                      <option name="Productor">Productor</option>
+                      <option name="Veterinario">Veterinario</option>
+                      <option name="Ing.Agronomo">Ing. Agrónomo</option>
+                      <option name="Zootecnista">Zootecnista</option>
+                      <option name="Asesor">Asesor</option>
+                      <option name="Cabañero">Cabañero</option>
+                      <option name="Estudiante">Estudiante</option>
+                      <option name="Encargado">Encargado</option>
+                      <option name="Propietario">Propietario</option>
+                      <option name="otro">Otro</option>
+                  </select>
+              </div>
+              <div style="width:100%;display: none;" id="divocupacion">
+                  <p>Otra ocupación</p>
+                  <input type="text" placeholder="Escriba la ocupación" value="Ninguna" autocomplete="off"  name="ocupacion" id="ocupacion" style='display:none;'/>
+              </div>
+
+              <div style="width:100%;height: 260px">
+                  <p>Razas de Interés</p>
+                  <select multiple name="razas[]" id="razas" class="selectmultiple" style="height: 100%;">
+                      <option value="Todas las razas">Todas las razas</option>
+                      <option value="Todas las razas de carne">Todas las razas de Carne</option>
+                      <option value="Todas las razas de leche">Todas las razas de Leche</option>
+
+                      {% for r in razas %}
+                          <option value="{{ r.nombre }}">{{ r.nombre }}</option>
+                      {% endfor %}
+                  </select>
+              </div>
+
+              <br>
+              <br>
+
+              <div style="width:100%;margin-top: 24px !important;" id="">
+                  <p>Clasificación</p>
+                  <div class="my-rating"></div>
+                  <input name="rating" id="rating"  hidden style="" value="0">
+
+              </div>
+
+              <div style="width:100%;" id="">
+                  <p>Sugerencias</p>
+                  <input type="text"  name="sugerencias"  />
+              </div>
+
+              <div style="width:100%;">
+                  <p>Imagen</p>
+                  <input  type="file" name="imagen" id="imgInp"  value="">
+                  <img id="blah" src="#"  style="display: none"  />
+              </div>
+
+              <p class="term">
+                  <i class="fa fa-check-square-o" aria-hidden="true"></i><span><a href="#" id="termycond">Acepto términos y condiciones.</a> </span>
+                  {#<input  type="mensaje" name="mensaje"  value="{{ mensaje }}">#}
+                  <div class="g-recaptcha" data-callback="muestraBoton" data-expired-callback="ocultaboton" data-error-callback="errorboton" data-sitekey="{{ apikey }}"></div>
+
+              </p>
+
+              <p>
+                  <button type="submit" id="bsubmit">ENVIAR</button>
+              </p>
+              {#<a>by pablo_corezzola</a>#}
+          </form>
+
+      </div>
+
+      <br>
+
+          {% endblock %}
+
+
+ {% block custom_javascripts %}
+     <script src="{{ asset('bundles/gema/clientresources/stars/jquery.star-rating-svg.min.js')}}"></script>
+     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+     <script>
+         $(document).ready(function(){
+             $('#bsubmit').hide();
+             //-- Click on terms and conditions
+             $(".term").click(function(){
+                 var ctrl = $(this).find("i");
+                 if (ctrl.hasClass("fa-check-square-o")){
+                     ctrl.attr("class","fa fa-square-o");
+                 }else{
+                     ctrl.attr("class", "fa fa-check-square-o");
+                 }
+             })
+
+             $("input").blur(function(){
+                 if ($(this).val() != ""){
+                     $(this).parent().css({"color":"black"});
+                     $(this).css({"border-bottom":"1px solid silver","color":"gray"});
+                 }
+             })
+
+             //--- CONTINUE ---
+             $("form > p > a").click(function(){
+
+
+             })
+         })
+
+         $(".my-rating").starRating({
+             initialRating: 4,
+             strokeColor: '#894A00',
+             strokeWidth: 10,
+             starSize: 25,
+             disableAfterRate: false,
+             callback: function(currentRating, $el){
+
+                 $('#rating').val(currentRating);
+
+
+             }
+         });
+
+         function readURL(input) {
+
+             if (input.files && input.files[0]) {
+                 var reader = new FileReader();
+
+                 reader.onload = function(e) {
+                     $('#blah').attr('src', e.target.result);
+                     $('#blah').attr('width', 200);
+                     $('#blah').attr('height', 200);
+                     $('#blah').attr('style', 'display:block');
+
+                 }
+
+                 reader.readAsDataURL(input.files[0]);
+             }
+         }
+
+         $("#imgInp").change(function() {
+             readURL(this);
+         });
+
+         $('#termycond').click(function(){
+
+             vex.closeAll();
+
+             vex.dialog.alert({ unsafeMessage:'{{ mensaje|raw }}'
+
+                 , className: 'vex-theme-wireframe' ,
+                 overlayClassName: 'success',
+                 contentClassName: 'borderblueclass errormaxwidth',
+                 closeClassName: 'closebleclass'
+             })
+
+         });
+     </script>
+
+     <script>
+         var muestraBoton = function() {
+             $('#bsubmit').show();
+         };
+         var ocultaboton = function() {
+             $('#bsubmit').hide();
+         };
+         var errorboton = function() {
+             $('#bsubmit').hide();
+         };
+     </script>
+
+     <script>
+         $("#visitaform").on('submit',(function(e) {
+             e.preventDefault();
+             //-- Detect terms and conditions
+             var term = false;
+             if ($(".term > i").hasClass('fa-check-square-o')){
+                 term = true;
+             }
+
+             //-- only example
+             var user = {};
+             user.name = $("input[name='name']").val();
+             user.apellido = $("input[name='id']").val();
+             // user.phone = $("input[name='phone']").val();
+             user.email = $("input[name='email']").val();
+             // user.term = term;
+             var errorg=false;
+             var fields='';
+             //-- Validator
+             $("input").each(function(e, valor){
+                 var error = false;
+                 if ($(this).val() == ""){
+                     error = true;
+                 }
+                 if (error === true){
+                     //-- with errors
+                     $(this).parent().css({"color":"red"});
+                     $(this).css({"border-bottom":"1px solid red"});
+                     errorg=true;
+                     fields+=$(this).attr('name');
+                 }else{
+                     //-- without errors
+                     $(this).parent().css({"color":"black"});
+                     $(this).css({"border-bottom":"1px solid silver","color":"gray"});
+                 }
+             });
+
+             //-- msg example
+             // $("body").append(JSON.stringify(user) + "<br>");
+
+             //send
+             console.log(errorg);
+             console.log(fields);
+             if(errorg===false){
+                 $('#bsubmit').hide();
+
+                 $.ajax({
+                     url: Routing.generate('gema_sendvisita'),
+                     type: "POST",
+                     data:  new FormData(this),
+                     contentType: false,
+                     cache: false,
+                     processData:false,
+                     success: function(data){
+                         console.log(data);
+                         vex.closeAll();
+                         vex.dialog.alert({ unsafeMessage:'<span>'+data[1]+'</span>'
+
+                             , className: 'vex-theme-wireframe' ,
+                             overlayClassName: 'success',
+                             contentClassName: 'borderblueclass maxwidth',
+                             closeClassName: 'closebleclass'
+                         });
+                         $("input").each(function(e, valor){
+
+                             $(this).val("");
+
+                         })
+                         $('#bsubmit').show();
+                     },
+                     error: function(error,stat, err){
+                         vex.closeAll();
+                         vex.dialog.alert({ unsafeMessage:err
+
+                             , className: 'vex-theme-wireframe' ,
+                             overlayClassName: 'success',
+                             contentClassName: 'borderblueclass errormaxwidth',
+                             closeClassName: 'closebleclass'
+                         })
+                         $('#bsubmit').show();
+                     }
+                 });
+             }
+
+         }));
+
+
+          function CheckColors(val){
+
+             var element=document.getElementById('ocupacion');
+             var elementdiv=document.getElementById('divocupacion');
+
+             if(val==='Otro'){
+                 element.style.display='block';
+                 elementdiv.style.display='block';
+             }
+             else{
+                 element.style.display='none';
+                 elementdiv.style.display='none';
+                 $('#ocupacion').val(val);
+             }
+         }
+
+
+         $('.selectmultiple option').mousedown(function(e) {
+             e.preventDefault();
+             $(this).prop('selected', !$(this).prop('selected'));
+             return false;
+         });
+
+     </script>
+
+
+ {% endblock %}

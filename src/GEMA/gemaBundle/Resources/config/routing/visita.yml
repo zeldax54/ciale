@@ -1,0 +1,28 @@
+visita:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:Visita:index" }
+
+visita_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:Visita:show" }
+
+visita_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:Visita:new" }
+
+visita_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:Visita:create" }
+    requirements: { _method: post }
+
+visita_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:Visita:edit" }
+
+visita_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:Visita:update" }
+
+visita_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:Visita:delete" }

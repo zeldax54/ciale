@@ -1,0 +1,195 @@
+{% extends 'gemaBundle::clientlayout.html.twig' %}
+
+  {% block customstylesheets %}
+      <link href="{{ asset('bundles/gema/clientresources/css/noticias.css')}}" rel="stylesheet">
+      <style>
+
+          body{
+              /*padding:25px;*/
+          }
+
+          input:focus{
+              outline: none;
+          }
+
+          @media (max-width: 800px) {
+              #formdiv > form{
+                  width: 95% !important;
+              }
+
+
+          }
+
+          #formdiv > form{
+              width: 35%;
+              margin-left:auto;
+              margin-right:auto;
+              padding:50px;
+              background:whitesmoke;
+              border-radius:5px;
+              position:relative;
+              font-family: 'Libre Franklin', sans-serif;
+          }
+
+          #formdiv > form > div {
+              float:left;margin-bottom:30px;
+          }
+          #formdiv > form > div > p{
+              font-size: 12px;margin-bottom: 3px;
+          }
+          #formdiv > form > div > input{
+              font-size:12px;letter-spacing:1px;padding:  5px;border: 0;background:  whitesmoke;border-bottom: 1px solid silver;width: 100%;color: gray;
+          }
+
+          #formdiv > form > p:last-of-type{
+              text-align: center;padding-top: 50px;display:  table;width: 100%;color:white;
+          }
+
+          #formdiv > form > p:last-of-type > a{
+              cursor:pointer;border:0;
+              padding: 10px 25px;
+              background:  silver;
+              border-radius:  28px;
+              font-size: 12px;
+          }
+          #formdiv > form > p:last-of-type > button{
+              cursor:pointer;border:0;
+              padding: 10px 25px;
+              background:  silver;
+              border-radius:  28px;
+              font-size: 12px;
+          }
+
+          .term{
+              padding-top:40px;display: flex;width:  100%;align-items:  center;
+          }
+
+          .term > i{
+              cursor:pointer;width:20px;
+          }
+
+          .term > span{
+              font-size:12px;
+          }
+
+          /* delete */
+          #formdiv > form > a:last-of-type{
+              position:absolute;
+              bottom: 10px;
+              right: 15px;
+              font-size:  10px;
+              letter-spacing:  1px;
+              font-style: italic;
+          }
+      </style>
+  {% endblock %}
+
+
+  {% block content %}
+
+      <br>
+
+      <div style="text-align: center;">
+          <h4 class="noticiastitle">{{ oferta.titulo }}</h4>
+          <span class="resumenot"><strong>{{ oferta.area }}</strong></span><br>
+          <span class="resumenot">{{ oferta.descripcion }}</span>
+      </div>
+      <br>
+      <div id="formdiv" style="display:flex;width:100%;">
+          <form id="" enctype="multipart/form-data" action="{{ path('gema_ofertapostulacionpost') }}" method="post">
+              <div style="width:100%;">
+                  <p>NOMBRE</p>
+                  <input name="name" required autofocus>
+              </div>
+              <div style="width:100%;">
+                  <p>APELLIDO</p>
+                  <input required name="apellido">
+              </div>
+
+              <div style="width:47%;">
+                  <p>EMAIL</p>
+                  <input type="email" required name="email">
+              </div>
+              <div style="width:47%;margin-left:6%">
+              <p>PHONE</p>
+              <input required name="phone">
+              </div>
+              <div style="width:100%;">
+                  <p>Curriculum</p>
+
+                  <input required type="file" name="curriculum" value="">
+              </div>
+
+                  <input required hidden name="oferta" value="{{ oferta.id }}">
+
+
+              <p class="term">
+                  {#<i class="fa fa-check-square-o" aria-hidden="true"></i><span>Acepto términos y condiciones. </span>#}
+
+              <div class="g-recaptcha" data-callback="muestraBoton" data-expired-callback="ocultaboton" data-error-callback="errorboton" data-sitekey="{{ apikey }}"></div>
+
+              </p>
+
+              <p>
+                  <button type="submit" id="bsubmit">ENVIAR</button>
+              </p>
+              {#<a>by pablo_corezzola</a>#}
+          </form>
+
+      </div>
+
+      <br>
+
+      <div class="hidencontainer" style="display: none">
+      <div class="showcontainer">
+      {% for flashMessage in app.session.flashbag.get('error') %}
+
+        <span class="mensajes">{{ flashMessage }}</span><br>
+
+      {% endfor %}
+       </div>
+
+
+   {% endblock %}
+
+
+ {% block custom_javascripts %}
+     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+     <script>
+         $(document).ready(function(){
+             $('#bsubmit').hide();
+
+             var nodes=$('.mensajes');
+             var texto='';
+             nodes.each(function(){
+                 texto+=$( this ).text()+'\n';
+             });
+
+             if(nodes.length>0){
+                 vex.dialog.alert({ unsafeMessage:'<span>'+texto+'</span>'
+
+                     , className: 'vex-theme-wireframe' ,
+                     overlayClassName: 'success',
+                     contentClassName: 'borderblueclass maxwidth',
+                     closeClassName: 'closebleclass'
+                 });
+             }
+
+
+
+         });
+         var muestraBoton = function() {
+             $('#bsubmit').show();
+         };
+         var ocultaboton = function() {
+             $('#bsubmit').hide();
+         };
+         var errorboton = function() {
+             $('#bsubmit').hide();
+         };
+     </script>
+
+
+
+
+ {% endblock %}

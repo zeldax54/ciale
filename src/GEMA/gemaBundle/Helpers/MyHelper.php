@@ -616,4 +616,20 @@ class MyHelper
 
 
 
+
+    public function CopyFile($webPath,$file)
+    {
+        if (!file_exists($webPath)) {
+            mkdir($webPath, 0777, true);
+        }
+        $fileName = $file['name'];
+        $fileName = $this->remove_accents($fileName);
+        if (move_uploaded_file($file['tmp_name'], $webPath . $fileName)) {
+
+            return $webPath . $fileName;
+        }
+
+        return false;
+    }
+
 }

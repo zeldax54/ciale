@@ -1,0 +1,28 @@
+ofertalaboral:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:OfertaLaboral:index" }
+
+ofertalaboral_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:OfertaLaboral:show" }
+
+ofertalaboral_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:OfertaLaboral:new" }
+
+ofertalaboral_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:OfertaLaboral:create" }
+    requirements: { _method: post }
+
+ofertalaboral_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:OfertaLaboral:edit" }
+
+ofertalaboral_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:OfertaLaboral:update" }
+
+ofertalaboral_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:OfertaLaboral:delete" }

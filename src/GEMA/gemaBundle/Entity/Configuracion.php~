@@ -137,6 +137,30 @@ class Configuracion
      */
     private $zoompdf;
 
+    /**
+     * @var string
+     * @ORM\Column(name="nombreContacto", type="string", length=255)
+     */
+    private $nombreContacto;
+
+    /**
+     * @var string
+     * @ORM\Column(name="keyContacto", type="string", length=255)
+     */
+    private $keyContacto;
+
+    /**
+     * @var string
+     * @ORM\Column(name="nombreVisita", type="string", length=255)
+     */
+    private $nombreVisita;
+
+    /**
+     * @var string
+     * @ORM\Column(name="keyVisita", type="string", length=255)
+     */
+    private $keyVisita;
+
 
     /**
      * Get id

@@ -98,12 +98,14 @@ class MailController extends Controller
             if(count($razas)>0)
                 $razasstr.=implode(", ", $razas);
             $consulta=$request->request->get('consulta');
+            $pais=$request->request->get('pais');
             $body='';
             $body.='<strong>Nombre:</strong> '.$nombre."<br>";
             $body.='<strong>Apellido:</strong> '.$apellido."<br>";
             $body.='<strong>Direccion:</strong> '.$direccion."<br>";
             $body.='<strong>Localidad:</strong> '.$localidad."<br>";
             $body.='<strong>Provincia:</strong> '.$provincia."<br>";
+            $body.='<strong>Pais:</strong> '.$pais."<br>";
             $body.='<strong>Codigo Postal:</strong> '.$codigopstal."<br>";
             $body.='<strong>Email:</strong> '.$email."<br>";
             $body.='<strong>Teléfono:</strong> '.$telefono."<br>";
@@ -133,9 +135,9 @@ class MailController extends Controller
             $correo->setDireccion($direccion);
             $correo->setLocalidad($localidad);
             $correo->setProvincia($provincia);
+            $correo->setPais($pais);
             $correo->setCodigopostal($codigopstal);
             $correo->setEmail($email);
-            $correo->setTelefono($telefono);
             $correo->setTelefono($telefono);
             $correo->setEmpresa($empresa);
             $correo->setRazas($razasstr);
@@ -146,6 +148,57 @@ class MailController extends Controller
             $ema = $this->getDoctrine()->getManager();
             $ema->persist($correo);
             $ema->flush();
+
+
+            //MailChimp
+            $contantoNombre = $em->getRepository('gemaBundle:Configuracion')->find(1)->getNombreContacto();
+            $keyContacto=$em->getRepository('gemaBundle:Configuracion')->find(1)->getKeyContacto();
+            $postData = array(
+                "Email Address" => "$email",
+                "email_address" => "$email",
+                'status_if_new' => 'subscribed',
+                "status" => "subscribed",
+                'Last Name'=>$apellido,
+                'Interest'=>'Elija las razas de su interés',
+                'Subscribe'=>'Contacto WEB',
+                'Telefono'=>$telefono,
+                'Direccion'=>$direccion,
+                'Localidad'=>$localidad,
+                'Provincia'=>$provincia,
+                'Pais'=>$pais,
+                'Compania'=>$empresa,
+                'Cod-postal'=>$codigopstal,
+
+
+                "merge_fields" => array(
+                    "First Name"=> $nombre,
+                    "Email Address"=>$email)
+            );
+
+            // Setup cURL
+            $url = 'https://us6.api.mailchimp.com/3.0/lists/'.$contantoNombre.'/members/';
+            $json_data = json_encode($postData);
+            $auth = base64_encode( 'user:'.$keyContacto );
+
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json',
+                'Authorization: Basic '.$auth));
+            curl_setopt($ch, CURLOPT_USERAGENT, 'PHP-MCAPI/2.0');
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $json_data);
+
+            $result = curl_exec($ch);
+
+
+            print_r($result);die();
+
+
+
+
 
 
             return new JsonResponse(array(

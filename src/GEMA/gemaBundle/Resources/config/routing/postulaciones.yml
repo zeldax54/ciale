@@ -1,0 +1,28 @@
+postulaciones:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:Postulaciones:index" }
+
+postulaciones_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:Postulaciones:show" }
+
+postulaciones_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:Postulaciones:new" }
+
+postulaciones_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:Postulaciones:create" }
+    requirements: { _method: post }
+
+postulaciones_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:Postulaciones:edit" }
+
+postulaciones_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:Postulaciones:update" }
+
+postulaciones_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:Postulaciones:delete" }

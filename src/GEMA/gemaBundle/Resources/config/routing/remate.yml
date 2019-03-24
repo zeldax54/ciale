@@ -1,0 +1,28 @@
+remate:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:Remate:index" }
+
+remate_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:Remate:show" }
+
+remate_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:Remate:new" }
+
+remate_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:Remate:create" }
+    requirements: { _method: post }
+
+remate_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:Remate:edit" }
+
+remate_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:Remate:update" }
+
+remate_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:Remate:delete" }

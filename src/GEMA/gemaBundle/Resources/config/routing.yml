@@ -1,6 +1,22 @@
+gema_remate:
+    resource: "@gemaBundle/Resources/config/routing/remate.yml"
+    prefix:   /admin/remate
+
+gema_postulaciones:
+    resource: "@gemaBundle/Resources/config/routing/postulaciones.yml"
+    prefix:   /admin/postulaciones
+
+gema_ofertalaboral:
+    resource: "@gemaBundle/Resources/config/routing/ofertalaboral.yml"
+    prefix:   /admin/ofertalaboral
+
+gema_admin:
+    resource: "@gemaBundle/Resources/config/routing/visita.yml"
+    prefix:   /admin/visita
+
 gema_colaborador:
     resource: "@gemaBundle/Resources/config/routing/colaborador.yml"
-    prefix:   /colaborador
+    prefix:   /admin/colaborador
 
 gema_admin_deptotecnico:
     resource: "@gemaBundle/Resources/config/routing/deptotecnico.yml"
@@ -335,6 +351,39 @@ muti_busqueda_toro:
 cp_new:
   pattern:  /CONCEPT PLUS
   defaults: { _controller: "gemaBundle:ProdProgclient:cp" }
+
+gema_visitaindex:
+  pattern:  /registrarvisita
+  defaults: { _controller: "gemaBundle:Visita:clientVisitaIndex" }
+
+gema_sendvisita:
+  pattern:  /visitapost
+  defaults: { _controller: "gemaBundle:Visita:clienteVisitaPost" }
+
+gema_ofertasindex:
+  pattern:  /ofertas
+  defaults: { _controller: "gemaBundle:OfertaLaboral:OfertasIndex" }
+
+gema_ofertapostulacion:
+  pattern:  /ofertaspostulacion/{idoferta}
+  defaults: { _controller: "gemaBundle:OfertaLaboral:PostulacionIndex" }
+
+gema_ofertapostulacionpost:
+  pattern:  /ofertapostulacionpost
+  methods:  [POST]
+  defaults: { _controller: "gemaBundle:OfertaLaboral:PostulacionPost" }
+
+gema_downloadcv:
+  pattern:  /downloadcv/{id}
+  defaults: { _controller: "gemaBundle:OfertaLaboral:PostulacionDownload" }
+
+gema_downloadimg:
+  pattern:  /downloadimg/{id}
+  defaults: { _controller: "gemaBundle:Visita:ImagenDownload" }
+
+gema_remateindex:
+  pattern:  /remates
+  defaults: { _controller: "gemaBundle:Remate:ClientIndex" }
 
 prodprog_newwindows:
     pattern:  /{nombremenu}

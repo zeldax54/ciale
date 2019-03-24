@@ -103,6 +103,7 @@
                                     <li><a target="_blank" href="{{ find('lecheinter') }}">Leche Internacional</a></li>
                                     <li><a href="{{  path('gema_clientnews',{'tipo':'Carne','start':0,'end':9})  }}">Carne</a></li>
                                     <li><a href="{{  path('gema_clientnews',{'tipo':'Todas','start':0,'end':9})  }}">Todas</a></li>
+                                    <li><a href="{{  path('gema_remateindex')  }}">Remates</a></li>
 
                                 </ul>
                             </li>
@@ -138,8 +139,18 @@
                                 </ul>
                             </li>
 
+                            <li class="menu-items dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">CONTACTO&nbsp;<i class="fa fa-plus"></i><i class="fa fa-minus"></i></a>
+                                <ul class="dropdown-menu">
+                                    <li class="menu-items"><a href="{{  path('gema_correoindex')  }}">CONTACTO</a></li>
+                                    <li class="menu-items"><a href="{{  path('gema_visitaindex')  }}">REGISTRAR VISITA</a></li>
+                                    <li class="menu-items"><a href="{{  path('gema_ofertasindex')  }}">TRABAJE CON NOSOTROS</a></li>
 
-                            <li class="menu-items"><a href="{{  path('gema_correoindex')  }}">CONTACTO</a></li>
+                                </ul>
+                            </li>
+
+
+
                             {#<li class="menu-items"><a href="{{  path('raza_multisearch')  }}">Búsqueda Múltiple</a></li>#}
 
                             {#<li class="menu-items"><button class="btn btn-default" style="border-radius:50%;border-color:#133775"><i class="fa fa-search"></i></button></li>#}

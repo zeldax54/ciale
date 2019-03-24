@@ -1,0 +1,66 @@
+{% extends 'gemaBundle::clientlayout.html.twig' %}
+
+  {% block customstylesheets %}
+<style>
+    .card {position: relative; border-radius: 3px; background-color: #fff;color: #4f5256;border: 1px solid #f2f2f2;margin-bottom: 16px;background:#fff;}
+    .card-header{ padding: 16px;margin:0px;}
+    .card-body {position: relative; padding: 16px;}
+
+    .gaadiex-list {list-style-type: none; margin: 0;padding: 0;}
+    .gaadiex-list>.gaadiex-list-item {padding: 0 22px;}
+    .gaadiex-list-item-img  {
+        float: left;
+        width: 58px;
+        height: 58px;
+        margin-top: 20px;
+        margin-bottom: 8px;
+        margin-right: 20px;
+        border-radius: 50%;
+    }
+    .gaadiex-list-item i  {
+        float: left;
+        font-size:48px;
+        width: 58px;
+        height: 58px;
+        margin-top: 20px;
+        margin-bottom: 8px;
+        margin-right: 20px;
+        border-radius: 50%;
+    }
+    .border-b-1 {border-bottom: 1px solid rgba(162,162,162,.16);}
+</style>
+
+  {% endblock %}
+
+
+  {% block content %}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>Ofertas Laborales Disponibles</h4>
+            </div>
+
+            <div class="gaadiex-list">
+                {% for oferta in ofertas %}
+                    <div class="gaadiex-list-item">
+                        <h3><a href="{{  path('gema_ofertapostulacion',{'idoferta':oferta.id}) }}">{{ oferta.titulo }}</a></h3>
+                        <h4>{{ oferta.area }}</h4>
+                        <p> {{ oferta.descripcion }}</p>
+                    </div>
+                {% endfor %}
+
+
+
+            </div>
+
+        </div>
+    </div>
+          {% endblock %}
+
+
+ {% block custom_javascripts %}
+
+
+ {% endblock %}

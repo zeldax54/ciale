@@ -61,6 +61,12 @@ class Correo
 
     /**
      * @var string
+     * @ORM\Column(name="pais", type="string", length=500,nullable=true)
+     */
+    private $pais;
+
+    /**
+     * @var string
      * @ORM\Column(name="codigopostal", type="string", length=500,nullable=true)
      */
     private $codigopostal;
@@ -369,10 +375,10 @@ class Correo
     /**
      * Set fechahora
      *
-     * @param \fechahora $fechahora
+     * @param string $fechahora
      * @return Correo
      */
-    public function setFechahora(\fechahora $fechahora)
+    public function setFechahora($fechahora)
     {
         $this->fechahora = $fechahora;
 
@@ -382,7 +388,7 @@ class Correo
     /**
      * Get fechahora
      *
-     * @return \fechahora 
+     * @return string
      */
     public function getFechahora()
     {

@@ -1,0 +1,15 @@
+{% extends 'gemaBundle::layout.html.twig' %}
+{% form_theme form 'gemaBundle:Form:theme.html.twig' %}
+
+
+{% block gema_page -%}
+    <h1>Crear Visita</h1>
+
+    {{ form(form) }}
+
+    <ul class="pager">
+        <li class="next"><a href="{{path('visita')}}"><i class="fa fa-list"></i>
+                Listar Visita
+            </a></li>
+    </ul>
+{% endblock %}
