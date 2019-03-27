@@ -28,6 +28,7 @@ class CorreoType extends AbstractType
             ->add('empresa')
             ->add('razas')
             ->add('consulta')
+            ->add('mailChimpResponse')
         ;
     }
     

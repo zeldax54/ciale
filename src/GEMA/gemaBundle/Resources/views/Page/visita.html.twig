@@ -226,7 +226,7 @@
                  }else{
                      ctrl.attr("class", "fa fa-check-square-o");
                  }
-             })
+             });
 
              $("input").blur(function(){
                  if ($(this).val() != ""){
@@ -321,19 +321,20 @@
              user.email = $("input[name='email']").val();
              // user.term = term;
              var errorg=false;
-             var fields='';
+             var fields='<p>';
              //-- Validator
              $("input").each(function(e, valor){
                  var error = false;
                  if ($(this).val() == ""){
                      error = true;
+
                  }
                  if (error === true){
                      //-- with errors
                      $(this).parent().css({"color":"red"});
                      $(this).css({"border-bottom":"1px solid red"});
                      errorg=true;
-                     fields+=$(this).attr('name');
+                     fields+=$(this).attr('name')+", ";
                  }else{
                      //-- without errors
                      $(this).parent().css({"color":"black"});
@@ -385,6 +386,16 @@
                          })
                          $('#bsubmit').show();
                      }
+                 });
+             }
+             else{
+                  fields+='</p>';
+                 vex.dialog.alert({ unsafeMessage:'Los campos marcados en rojo son Obligatorios.'+ fields.toUpperCase()
+
+                     , className: 'vex-theme-wireframe' ,
+                     overlayClassName: 'success',
+                     contentClassName: 'borderblueclass maxwidth',
+                     closeClassName: 'closebleclass'
                  });
              }
 

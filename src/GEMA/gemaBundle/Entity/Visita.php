@@ -105,6 +105,12 @@ class Visita {
     private $archivo;
 
     /**
+     * @var string
+     * @ORM\Column(name="mailChimpResponse", type="text",nullable=true)
+     */
+    private $mailChimpResponse;
+
+    /**
      * @ORM\Column(name="guid", type="string",length=255 ,nullable=true)
      */
     private $guid;
@@ -465,5 +471,28 @@ class Visita {
     public function getGuid()
     {
         return $this->guid;
+    }
+
+    /**
+     * Set mailChimpResponse
+     *
+     * @param string $mailChimpResponse
+     * @return Visita
+     */
+    public function setMailChimpResponse($mailChimpResponse)
+    {
+        $this->mailChimpResponse = $mailChimpResponse;
+
+        return $this;
+    }
+
+    /**
+     * Get mailChimpResponse
+     *
+     * @return string 
+     */
+    public function getMailChimpResponse()
+    {
+        return $this->mailChimpResponse;
     }
 }

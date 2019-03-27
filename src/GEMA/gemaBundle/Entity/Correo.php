@@ -103,6 +103,12 @@ class Correo
 
     /**
      * @var string
+     * @ORM\Column(name="mailChimpResponse", type="text",nullable=true)
+     */
+    private $mailChimpResponse;
+
+    /**
+     * @var string
      * @ORM\Column(name="fechahora", type="string",length=500,nullable=true)
      */
     private $fechahora;
@@ -416,5 +422,28 @@ class Correo
     public function getPais()
     {
         return $this->pais;
+    }
+
+    /**
+     * Set mailChimpResponse
+     *
+     * @param string $mailChimpResponse
+     * @return Correo
+     */
+    public function setMailChimpResponse($mailChimpResponse)
+    {
+        $this->mailChimpResponse = $mailChimpResponse;
+
+        return $this;
+    }
+
+    /**
+     * Get mailChimpResponse
+     *
+     * @return string 
+     */
+    public function getMailChimpResponse()
+    {
+        return $this->mailChimpResponse;
     }
 }

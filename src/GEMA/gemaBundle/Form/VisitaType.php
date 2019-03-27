@@ -30,6 +30,7 @@ class VisitaType extends AbstractType
             ->add('razas')
             ->add('calificacion')
             ->add('sugerencias')
+            ->add('mailChimpResponse')
             ->add('archivo')
         ;
     }

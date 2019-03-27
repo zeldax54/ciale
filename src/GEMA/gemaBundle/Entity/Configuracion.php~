@@ -26,79 +26,79 @@ class Configuracion
 
     /**
      * @var string
-     * @ORM\Column(name="nombresitio", type="string", length=1500)
+     * @ORM\Column(name="nombresitio", type="string", length=255)
      */
     private $nombresitio;
 
     /**
      * @var string
-     * @ORM\Column(name="titulopagprinc", type="string", length=1500)
+     * @ORM\Column(name="titulopagprinc", type="string", length=255)
      */
     private $titulopagprinc;
 
     /**
      * @var string
-     * @ORM\Column(name="descripcgeneral", type="string", length=1500)
+     * @ORM\Column(name="descripcgeneral", type="string", length=255)
      */
     private $descripcgeneral;
 
     /**
      * @var string
-     * @ORM\Column(name="textopie", type="string", length=1500)
+     * @ORM\Column(name="textopie", type="string", length=255)
      */
     private $textopie;
 
     /**
      * @var string
-     * @ORM\Column(name="urldatafiscalafip", type="string", length=1500)
+     * @ORM\Column(name="urldatafiscalafip", type="string", length=255)
      */
     private $urldatafiscalafip;
 
     /**
      * @var string
-     * @ORM\Column(name="urlalta", type="string", length=1500)
+     * @ORM\Column(name="urlalta", type="string", length=255)
      */
     private $urlalta;
 
     /**
      * @var string
-     * @ORM\Column(name="urlkoepon", type="string", length=1500)
+     * @ORM\Column(name="urlkoepon", type="string", length=255)
      */
     private $urlkoepon;
 
     /**
      * @var string
-     * @ORM\Column(name="urlwebmail", type="string", length=1500)
+     * @ORM\Column(name="urlwebmail", type="string", length=255)
      */
     private $urlwebmail;
 
     /**
      * @var string
-     * @ORM\Column(name="urlgplus", type="string", length=1500)
+     * @ORM\Column(name="urlgplus", type="string", length=255)
      */
     private $urlgplus;
 
     /**
      * @var string
-     * @ORM\Column(name="urlfacebook", type="string", length=1500)
+     * @ORM\Column(name="urlfacebook", type="string", length=255)
      */
     private $urlfacebook;
 
     /**
      * @var string
-     * @ORM\Column(name="urlyoutube", type="string", length=1500)
+     * @ORM\Column(name="urlyoutube", type="string", length=255)
      */
     private $urlyoutube;
 
     /**
      * @var string
-     * @ORM\Column(name="urllinkedin", type="string", length=1500)
+     * @ORM\Column(name="urllinkedin", type="string", length=255)
      */
     private $urllinkedin;
 
     /**
      * @var string
-     * @ORM\Column(name="urlnoticiasinternacionales", type="string", length=1500)
+     * @ORM\Column(name="urlnoticiasinternacionales", type="string", length=255)
      */
     private $urlnoticiasinternacionales;
 
@@ -127,7 +127,7 @@ class Configuracion
 
     /**
      * @var string
-     * @ORM\Column(name="palabrasclave", type="string", length=1000)
+     * @ORM\Column(name="palabrasclave", type="string", length=500)
      */
     private $palabrasclave;
 
@@ -138,26 +138,31 @@ class Configuracion
     private $zoompdf;
 
     /**
+     * @ORM\Column(name="registerMailChimp", type="boolean", nullable=true)
+     */
+    private $registerMailChimp;
+
+    /**
      * @var string
-     * @ORM\Column(name="nombreContacto", type="string", length=255)
+     * @ORM\Column(name="nombreContacto", type="string", length=100)
      */
     private $nombreContacto;
 
     /**
      * @var string
-     * @ORM\Column(name="keyContacto", type="string", length=255)
+     * @ORM\Column(name="keyContacto", type="string", length=100)
      */
     private $keyContacto;
 
     /**
      * @var string
-     * @ORM\Column(name="nombreVisita", type="string", length=255)
+     * @ORM\Column(name="nombreVisita", type="string", length=100)
      */
     private $nombreVisita;
 
     /**
      * @var string
-     * @ORM\Column(name="keyVisita", type="string", length=255)
+     * @ORM\Column(name="keyVisita", type="string", length=100)
      */
     private $keyVisita;
 
@@ -607,5 +612,97 @@ class Configuracion
     public function getZoompdf()
     {
         return $this->zoompdf;
+    }
+
+    /**
+     * Set nombreContacto
+     *
+     * @param string $nombreContacto
+     * @return Configuracion
+     */
+    public function setNombreContacto($nombreContacto)
+    {
+        $this->nombreContacto = $nombreContacto;
+
+        return $this;
+    }
+
+    /**
+     * Get nombreContacto
+     *
+     * @return string 
+     */
+    public function getNombreContacto()
+    {
+        return $this->nombreContacto;
+    }
+
+    /**
+     * Set keyContacto
+     *
+     * @param string $keyContacto
+     * @return Configuracion
+     */
+    public function setKeyContacto($keyContacto)
+    {
+        $this->keyContacto = $keyContacto;
+
+        return $this;
+    }
+
+    /**
+     * Get keyContacto
+     *
+     * @return string 
+     */
+    public function getKeyContacto()
+    {
+        return $this->keyContacto;
+    }
+
+    /**
+     * Set nombreVisita
+     *
+     * @param string $nombreVisita
+     * @return Configuracion
+     */
+    public function setNombreVisita($nombreVisita)
+    {
+        $this->nombreVisita = $nombreVisita;
+
+        return $this;
+    }
+
+    /**
+     * Get nombreVisita
+     *
+     * @return string 
+     */
+    public function getNombreVisita()
+    {
+        return $this->nombreVisita;
+    }
+
+    /**
+     * Set keyVisita
+     *
+     * @param string $keyVisita
+     * @return Configuracion
+     */
+    public function setKeyVisita($keyVisita)
+    {
+        $this->keyVisita = $keyVisita;
+
+        return $this;
+    }
+
+    /**
+     * Get keyVisita
+     *
+     * @return string 
+     */
+    public function getKeyVisita()
+    {
+        return $this->keyVisita;
     }
 }

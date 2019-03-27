@@ -138,6 +138,11 @@ class Configuracion
     private $zoompdf;
 
     /**
+     * @ORM\Column(name="registerMailChimp", type="boolean", nullable=true)
+     */
+    private $registerMailChimp;
+
+    /**
      * @var string
      * @ORM\Column(name="nombreContacto", type="string", length=100)
      */
@@ -699,5 +704,28 @@ class Configuracion
     public function getKeyVisita()
     {
         return $this->keyVisita;
+    }
+
+    /**
+     * Set registerMailChimp
+     *
+     * @param boolean $registerMailChimp
+     * @return Configuracion
+     */
+    public function setRegisterMailChimp($registerMailChimp)
+    {
+        $this->registerMailChimp = $registerMailChimp;
+
+        return $this;
+    }
+
+    /**
+     * Get registerMailChimp
+     *
+     * @return boolean 
+     */
+    public function getRegisterMailChimp()
+    {
+        return $this->registerMailChimp;
     }
 }

@@ -302,16 +302,16 @@ class VisitaController extends Controller
              }
 
              $visita=new Visita();
-             $visita->setNombre($request->request->get('name'));
-             $visita->setApellido($request->request->get('apellido'));
-             $visita->setEmail($request->request->get('email'));
+             $visita->setNombre($nombre=$request->request->get('name'));
+             $visita->setApellido($apellido=$request->request->get('apellido'));
+             $visita->setEmail($email=$request->request->get('email'));
              $visita->setFecha(new \DateTime());
-             $visita->setLocalidad($request->request->get('localidad'));
-             $visita->setProvincia($request->request->get('provincia'));
-             $visita->setPais($request->request->get('pais'));
+             $visita->setLocalidad($localidad=$request->request->get('localidad'));
+             $visita->setProvincia($provincia=$request->request->get('provincia'));
+             $visita->setPais($pais=$request->request->get('pais'));
              $visita->setOcupacion($request->request->get('ocupacion'));
-             $visita->setEmpresa($request->request->get('empresa'));
-             $visita->setTelefono($request->request->get('phone'));
+             $visita->setEmpresa($empresa=$request->request->get('empresa'));
+             $visita->setTelefono($telefono=$request->request->get('phone'));
 
              $razasstr='';
              if(count($request->request->get('razas'))>0)
@@ -328,9 +328,60 @@ class VisitaController extends Controller
              $weppath= $this->get('kernel')->getRootDir() . '/../web/visitas/' . $guid . '/';
              $copiado=$helper->CopyFile($weppath,$file);
 
+             $result='Registro en Mail_Chimp desactivado';
              if($copiado!=false) {
                  $visita->setArchivo($copiado);
                  $ema = $this->getDoctrine()->getManager();
+                 //MailChimp
+
+                 if($coordenadas = $ema->getRepository('gemaBundle:Configuracion')->find(1)->getRegisterMailChimp()==true){
+                     $contantoNombre = $ema->getRepository('gemaBundle:Configuracion')->find(1)->getNombreVisita();
+                     $keyContacto=$ema->getRepository('gemaBundle:Configuracion')->find(1)->getKeyVisita();
+                     $postData = array(
+                         "Email Address" => "$email",
+                         "email_address" => "$email",
+                         'status_if_new' => 'subscribed',
+                         "status" => "subscribed",
+                         'Last Name'=>$apellido,
+                         'Interest'=>'Elija las razas de su interés',
+                         'Subscribe'=>'Contacto WEB',
+                         'Telefono'=>$telefono,
+                         'Localidad'=>$localidad,
+                         'Provincia'=>$provincia,
+                         'Pais'=>$pais,
+                         'MMERGE3'=>$empresa,
+                         'MMERGE16'=>'Visita CIALE',
+
+
+
+                         "merge_fields" => array(
+                             "First Name"=> $nombre,
+                             "Email Address"=>$email)
+                     );
+
+                     // Setup cURL
+                     $url = 'https://us6.api.mailchimp.com/3.0/lists/'.$contantoNombre.'/members/';
+                     $json_data = json_encode($postData);
+                     $auth = base64_encode( 'user:'.$keyContacto );
+
+                     $ch = curl_init();
+                     curl_setopt($ch, CURLOPT_URL, $url);
+                     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json',
+                         'Authorization: Basic '.$auth));
+                     curl_setopt($ch, CURLOPT_USERAGENT, 'PHP-MCAPI/2.0');
+                     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                     curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+                     curl_setopt($ch, CURLOPT_POST, true);
+                     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                     curl_setopt($ch, CURLOPT_POSTFIELDS, $json_data);
+
+                     $result = curl_exec($ch);
+                     // $result= json_encode ( $result,0 ,512 ) ;
+                 }
+
+
+                 $visita->setMailChimpResponse($result);
+
                  $ema->persist($visita);
                  $ema->flush();
                  //Correo
@@ -355,6 +406,8 @@ class VisitaController extends Controller
                      1=>'Vista Registrada!!!',
 
                  ));
+
+
              }
 
              else{

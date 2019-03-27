@@ -82,6 +82,7 @@ class ConfiguracionType extends AbstractType
 
             ))
             ->add('virtualurl')
+
             ->add('palabrasclave',null,array(
                 'label'=>'Palabras Clave',
                 'attr'=>array(
@@ -97,10 +98,12 @@ class ConfiguracionType extends AbstractType
 
             ))
 
+            ->add('registerMailChimp')
+
             ->add('nombreContacto',null,array(
                 'label'=>'Nombre',
                 'attr'=>array(
-                    'placeholder'=>'Nombre de la lista de mailChimp de los contactos'
+                    'placeholder'=>'Id de la lista de mailChimp de los contactos'
                 )
 
             ))
@@ -115,7 +118,7 @@ class ConfiguracionType extends AbstractType
             ->add('nombreVisita',null,array(
                 'label'=>'NombreVisita',
                 'attr'=>array(
-                    'placeholder'=>'Nombre de la lista de mailChimp de las visitas'
+                    'placeholder'=>'Id de la lista de mailChimp de las visitas'
                 )
 
             ))

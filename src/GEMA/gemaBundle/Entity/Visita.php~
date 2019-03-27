@@ -105,6 +105,12 @@ class Visita {
     private $archivo;
 
     /**
+     * @var string
+     * @ORM\Column(name="mailChimpResponse", type="text",nullable=true)
+     */
+    private $mailChimpResponse;
+
+    /**
      * @ORM\Column(name="guid", type="string",length=255 ,nullable=true)
      */
     private $guid;

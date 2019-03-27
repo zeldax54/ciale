@@ -129,6 +129,60 @@ class MailController extends Controller
 //
             $this->get('mailer')->send($message);
 
+
+
+
+            //MailChimp
+            $result='Configuracion Mail_Chimp desactivada';
+            if($coordenadas = $em->getRepository('gemaBundle:Configuracion')->find(1)->getRegisterMailChimp()==true){
+                $contantoNombre = $em->getRepository('gemaBundle:Configuracion')->find(1)->getNombreContacto();
+                $keyContacto=$em->getRepository('gemaBundle:Configuracion')->find(1)->getKeyContacto();
+                $postData = array(
+                    "Email Address" => "$email",
+                    "email_address" => "$email",
+                    'status_if_new' => 'subscribed',
+                    "status" => "subscribed",
+                    'Last Name'=>$apellido,
+                    'Interest'=>'Elija las razas de su interés',
+                    'Subscribe'=>'Contacto WEB',
+                    'Telefono'=>$telefono,
+                    'Direccion'=>$direccion,
+                    'Localidad'=>$localidad,
+                    'Provincia'=>$provincia,
+                    'Pais'=>$pais,
+                    'Compania'=>$empresa,
+                    'Cod-postal'=>$codigopstal,
+
+
+                    "merge_fields" => array(
+                        "First Name"=> $nombre,
+                        "Email Address"=>$email)
+                );
+
+                // Setup cURL
+                $url = 'https://us6.api.mailchimp.com/3.0/lists/'.$contantoNombre.'/members/';
+                $json_data = json_encode($postData);
+                $auth = base64_encode( 'user:'.$keyContacto );
+
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, $url);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json',
+                    'Authorization: Basic '.$auth));
+                curl_setopt($ch, CURLOPT_USERAGENT, 'PHP-MCAPI/2.0');
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+                curl_setopt($ch, CURLOPT_POST, true);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $json_data);
+
+                $result = curl_exec($ch);
+               // $result= json_encode ( $result,0 ,512 ) ;
+            }
+
+
+           //  print_r($result);die();
+
+
             $correo=new Correo();
             $correo->setNombre($nombre);
             $correo->setApellido($apellido);
@@ -142,62 +196,13 @@ class MailController extends Controller
             $correo->setEmpresa($empresa);
             $correo->setRazas($razasstr);
             $correo->setConsulta($consulta);
+            $correo->setMailChimpResponse($result);
             date_default_timezone_set('America/Argentina/Buenos_Aires');
             $date = date('d-m-Y H:i:s');
             $correo->setFechahora($date);
             $ema = $this->getDoctrine()->getManager();
             $ema->persist($correo);
             $ema->flush();
-
-
-            //MailChimp
-            $contantoNombre = $em->getRepository('gemaBundle:Configuracion')->find(1)->getNombreContacto();
-            $keyContacto=$em->getRepository('gemaBundle:Configuracion')->find(1)->getKeyContacto();
-            $postData = array(
-                "Email Address" => "$email",
-                "email_address" => "$email",
-                'status_if_new' => 'subscribed',
-                "status" => "subscribed",
-                'Last Name'=>$apellido,
-                'Interest'=>'Elija las razas de su interés',
-                'Subscribe'=>'Contacto WEB',
-                'Telefono'=>$telefono,
-                'Direccion'=>$direccion,
-                'Localidad'=>$localidad,
-                'Provincia'=>$provincia,
-                'Pais'=>$pais,
-                'Compania'=>$empresa,
-                'Cod-postal'=>$codigopstal,
-
-
-                "merge_fields" => array(
-                    "First Name"=> $nombre,
-                    "Email Address"=>$email)
-            );
-
-            // Setup cURL
-            $url = 'https://us6.api.mailchimp.com/3.0/lists/'.$contantoNombre.'/members/';
-            $json_data = json_encode($postData);
-            $auth = base64_encode( 'user:'.$keyContacto );
-
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json',
-                'Authorization: Basic '.$auth));
-            curl_setopt($ch, CURLOPT_USERAGENT, 'PHP-MCAPI/2.0');
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 10);
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $json_data);
-
-            $result = curl_exec($ch);
-
-
-            print_r($result);die();
-
-
-
 
 
 
