@@ -5,8 +5,8 @@
 	  <link href="{{ asset('bundles/gema/clientresources/fancybox/dist/jquery.fancybox.css')}}" rel="stylesheet">
 	  <link href="{{ asset('bundles/gema/clientresources/jquerybxslider/jquery.bxslider.css')}}" rel="stylesheet">
 	  <link href="{{ asset('bundles/gema/clientresources/watermark/styleimg.css')}}" rel="stylesheet">
-	  <link href="{{ asset('bundles/gema/clientresources/owl/assets/owl.carousel.min.css')}}" rel="stylesheet">
-	  <link href="{{ asset('bundles/gema/clientresources/owl/assets/owl.theme.default.min.css')}}" rel="stylesheet">
+	  {#<link href="{{ asset('bundles/gema/clientresources/owl/assets/owl.carousel.min.css')}}" rel="stylesheet">#}
+	  {#<link href="{{ asset('bundles/gema/clientresources/owl/assets/owl.theme.default.min.css')}}" rel="stylesheet">#}
 
 	  <style>
 		  th{
@@ -18,6 +18,8 @@
 		  .owl-carousel .owl-item img{
 		  width: 89% !important;
 		  }
+
+
 
 	  </style>
 	  {% endblock %}
@@ -548,7 +550,7 @@
 		<script src="{{ asset('bundles/gema/clientresources/pdfclient/addhtml.js')}}"></script>
 		<script src="{{ asset('bundles/gema/clientresources/pdfclient/html2canvas.js')}}"></script>
 		<script src="{{ asset('bundles/gema/js/buscadortoros.js')}}"></script>
-		<script src="{{ asset('bundles/gema/clientresources/owl/owl.carousel.min.js')}}"></script>
+		{#<script src="{{ asset('bundles/gema/clientresources/owl/owl.carousel.min.js')}}"></script>#}
 		<script>
 
 
@@ -598,6 +600,9 @@ beforeShow : function( instance, current ) {
 
 	});
 
+
+
+
 //	$('class=""')
 
 				$('.bxslider').bxSlider(
@@ -606,7 +611,8 @@ beforeShow : function( instance, current ) {
                                nextSelector: '#slider-next',
                                prevSelector: '#slider-prev',
                                nextText: 'Onward →',
-                               prevText: '← Go back'
+                               prevText: '← Go back',
+                                 touchEnabled: false
 
 						}
 				);

@@ -174,7 +174,7 @@ class ExportController extends Controller
       $tablas=array();
 
       if($alltoros==='true' && $raza->getfather()!=null){
-          $nombexcel=$raza->getfather()->getNombre();
+          $nombexcel=substr($raza->getfather()->getNombre(),0,30);
 
           $razas=$raza->getFather()->getRazas();
 
@@ -194,7 +194,7 @@ class ExportController extends Controller
               $tablas=$raza->getTipotabla()->getTablas();//Here
           }
 
-          $nombexcel=$raza->getNombre();
+          $nombexcel=substr($raza->getNombre(),0,30);
       }
 
       $generalcolstable=array();
@@ -769,6 +769,7 @@ public function exceladminAction($razaid){
         $torosInfo=array();
 
         $ids=$_POST['torosid'];
+
         foreach($ids as $id){
 
             $torosInfo[]=array(

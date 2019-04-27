@@ -51,11 +51,19 @@ $('.imprimircatalogo').click(function(){
     var familyId=$(this).attr('familyId');
     var table=$('table.'+familyId).not('.DTFC_Cloned').DataTable();
     var rows_selected = table.column(0).checkboxes.selected();
+
     var arratid=[];
     // Iterate over all selected checkboxes
-    $.each(rows_selected, function(index, rowId) {
-        arratid.push(rowId);
+
+    $.each(table.column(0).data(), function(index, value){
+        if($.inArray(value, rows_selected) !== -1){
+            arratid.push(value);
+        }
     });
+
+    // $.each(rows_selected, function(index, rowId) {
+    //
+    // });
     if(rows_selected.length===0){
 
         vex.dialog.alert({ unsafeMessage:'No ha seleccionado ningún toro'
@@ -66,6 +74,7 @@ $('.imprimircatalogo').click(function(){
             closeClassName: 'closebleclass'
         })
     }else {
+        console.log(arratid);
         $.ajax({
             type: 'POST',
             data:{torosid:arratid},

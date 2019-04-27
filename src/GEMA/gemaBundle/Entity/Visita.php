@@ -90,7 +90,7 @@ class Visita {
     private $razas;
 
     /**
-     * @ORM\Column(name="calificacion", type="string",length=2 ,nullable=true)
+     * @ORM\Column(name="calificacion", type="string",length=5 ,nullable=true)
      */
     private $calificacion;
 

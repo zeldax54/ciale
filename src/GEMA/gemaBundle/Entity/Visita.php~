@@ -90,7 +90,7 @@ class Visita {
     private $razas;
 
     /**
-     * @ORM\Column(name="calificacion", type="string",length=2 ,nullable=true)
+     * @ORM\Column(name="calificacion", type="string",length=5 ,nullable=true)
      */
     private $calificacion;
 
@@ -471,5 +471,28 @@ class Visita {
     public function getGuid()
     {
         return $this->guid;
+    }
+
+    /**
+     * Set mailChimpResponse
+     *
+     * @param string $mailChimpResponse
+     * @return Visita
+     */
+    public function setMailChimpResponse($mailChimpResponse)
+    {
+        $this->mailChimpResponse = $mailChimpResponse;
+
+        return $this;
+    }
+
+    /**
+     * Get mailChimpResponse
+     *
+     * @return string 
+     */
+    public function getMailChimpResponse()
+    {
+        return $this->mailChimpResponse;
     }
 }
