@@ -1,0 +1,28 @@
+area:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:Area:index" }
+
+area_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:Area:show" }
+
+area_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:Area:new" }
+
+area_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:Area:create" }
+    requirements: { _method: post }
+
+area_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:Area:edit" }
+
+area_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:Area:update" }
+
+area_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:Area:delete" }

@@ -270,12 +270,16 @@ class OfertaLaboralController extends Controller
 
         $ema = $this->getDoctrine()->getManager();
         $apikey= $this->getParameter('apikey');
+        $actividades=$ema->getRepository('gemaBundle:Actividad')->findAll();
+        $areas=$ema->getRepository('gemaBundle:Area')->findAll();
         $oferta= $ema->getRepository('gemaBundle:OfertaLaboral')->find(
            $idoferta
         );
         return $this->render('gemaBundle:Page:postulacion.html.twig', array(
             'oferta'=>$oferta,
-            'apikey'=>$apikey
+            'apikey'=>$apikey,
+             'actividades'=>$actividades,
+             'areas'=>$areas
 
         ));
     }
@@ -323,6 +327,23 @@ class OfertaLaboralController extends Controller
                 $postulacion->setTelefono($request->request->get('phone'));
                 $postulacion->setOferta($oferta );
                 $postulacion->setFecha(new \DateTime());
+                $postulacion->setNacionalidad($request->request->get('nacionalidad'));
+                $postulacion->setProvincia($request->request->get('provincia'));
+                $postulacion->setLocalidad($request->request->get('localidad'));
+                $postulacion->setFechanacimiento($request->request->get('fechanacimiento'));
+                $postulacion->setSexo($request->request->get('sexo'));
+                $postulacion->setEstadocivil($request->request->get('estadocivil'));
+                $postulacion->setHijos($request->request->get('hijos'));
+
+                $postulacion->setActividad($ema->getRepository('gemaBundle:Actividad')->find(
+                $request->request->get('actividad'))->getTitulo());
+
+                $postulacion->setArea($ema->getRepository('gemaBundle:Area')->find(
+                    $request->request->get('area'))->getTitulo());
+                $postulacion->setTrabajo($request->request->get('trabajo'));
+
+
+
                 $helper=new MyHelper();
 
                 $guid=$helper->GUID();
@@ -344,8 +365,9 @@ class OfertaLaboralController extends Controller
                     $message->setContentType("text/html");
                     $message->setFrom('info@ciale.com');
                     $message ->setTo($request->request->get('email'));
+                    $message->setBcc('Diego.Peralta@altagenetics.com');
 
-                    $html= 'Se ha postulado a '.$oferta->getTitulo();
+                    $html= 'Hemos recibido tu solicitud. ¡Muchas gracias!.Se ha postulado a '.$oferta->getTitulo();
                     $message->setBody(
                         $html
                     );
@@ -357,7 +379,6 @@ class OfertaLaboralController extends Controller
                         'Postulacion exitosa!!!. Le hemos enviado un correo de confirmación.'
                     );
                     return $this->redirect($this->generateUrl('gema_ofertapostulacion',array(
-
                         'idoferta'=>$request->request->get('oferta')
                     )));
 

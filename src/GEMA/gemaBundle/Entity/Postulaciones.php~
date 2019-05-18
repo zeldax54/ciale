@@ -67,6 +67,56 @@ class Postulaciones {
 
     private $oferta;
 
+    /**
+ * @ORM\Column(name="nacionalidad", type="string",length=500 ,nullable=false)
+ */
+    private $nacionalidad;
+
+    /**
+     * @ORM\Column(name="provincia", type="string",length=500 ,nullable=false)
+     */
+    private $provincia;
+
+    /**
+     * @ORM\Column(name="localidad", type="string",length=500 ,nullable=false)
+     */
+    private $localidad;
+
+    /**
+     * @ORM\Column(name="fechanacimiento", type="string",length=30 ,nullable=false)
+     */
+    private $fechanacimiento;
+
+    /**
+     * @ORM\Column(name="sexo", type="string",length=2 ,nullable=false)
+     */
+    private $sexo;
+
+    /**
+     * @ORM\Column(name="estadocivil", type="string",length=20 ,nullable=false)
+     */
+    private $estadocivil;
+
+    /**
+     * @ORM\Column(name="hijos", type="string",length=2 ,nullable=false)
+     */
+    private $hijos;
+
+    /**
+     * @ORM\Column(name="actividad", type="string",length=200 ,nullable=false)
+     */
+    private $actividad;
+
+    /**
+     * @ORM\Column(name="area", type="string",length=200 ,nullable=false)
+     */
+    private $area;
+
+    /**
+     * @ORM\Column(name="$trabajo", type="string",length=200 ,nullable=false)
+     */
+    private $trabajo;
+
 
     /**
      * @ORM\Column(name="guid", type="string",length=255 ,nullable=false)
@@ -244,5 +294,28 @@ class Postulaciones {
     public function getOferta()
     {
         return $this->oferta;
+    }
+
+    /**
+     * Set guid
+     *
+     * @param string $guid
+     * @return Postulaciones
+     */
+    public function setGuid($guid)
+    {
+        $this->guid = $guid;
+
+        return $this;
+    }
+
+    /**
+     * Get guid
+     *
+     * @return string 
+     */
+    public function getGuid()
+    {
+        return $this->guid;
     }
 }

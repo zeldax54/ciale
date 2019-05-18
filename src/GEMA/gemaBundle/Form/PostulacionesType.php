@@ -23,11 +23,44 @@ class PostulacionesType extends AbstractType
             ))
             ->add('email')
             ->add('telefono')
+            ->add('nacionalidad',null,array(
+                'label'=>'Nacionalidad'
+            ))
+            ->add('provincia',null,array(
+                'label'=>'Provincia'
+            ))
+
+            ->add('localidad',null,array(
+                'label'=>'Localidad'
+            ))
+            ->add('fechanacimiento',null,array(
+                'label'=>'Fecha de Nacimiento'
+            ))
+            ->add('sexo',null,array(
+                'label'=>'Sexo'
+            ))
+
+            ->add('estadocivil',null,array(
+                'label'=>'Estado Civil'
+            ))
+            ->add('hijos',null,array(
+                'label'=>'Hijos'
+            ))
+            ->add('actividad',null,array(
+                'label'=>'Actividad'
+            ))
+            ->add('area',null,array(
+                'label'=>'Area en la que le gustaría desempeñarse'
+            ))
+
+            ->add('trabajo',null,array(
+                'label'=>'Trabajo previo o actual'
+            ))
+
             ->add('archivo')
             ->add('oferta','entity',array(
                 'class'=>'gemaBundle:OfertaLaboral',
                 'required'=>true,
-
                 'label'=>'Oferta',
 
             ))

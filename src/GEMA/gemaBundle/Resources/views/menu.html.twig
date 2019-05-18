@@ -34,9 +34,7 @@
                     <li><a href="{{path("admin_toro_")}}"><i class="zmdi zmdi-menu icon-navbar fa-lg hidden-md"></i>Toros</a></li>
                     <li><a href="{{path("sugeridos_index")}}"><i class="zmdi zmdi-menu icon-navbar fa-lg hidden-md"></i>Toros Sugeridos</a></li>
 
-                    <li><a href="{{path("visita")}}"><i class="zmdi zmdi-menu icon-navbar fa-lg hidden-md"></i>Visitas</a></li>
-                    <li><a href="{{path("ofertalaboral")}}"><i class="zmdi zmdi-menu icon-navbar fa-lg hidden-md"></i>Ofertas Laborales</a></li>
-                    <li><a href="{{path("postulaciones")}}"><i class="zmdi zmdi-menu icon-navbar fa-lg hidden-md"></i>Postulaciones</a></li>
+
 
                     <li class="divider"></li>
 
@@ -97,7 +95,7 @@
                     <li><a href="{{path("admin_singlehtml")}}"><i class="fa fa-weibo icon-navbar fa-lg hidden-md"></i>Contenidos HTML</a></li>
                     <li><a href="{{path("admin_productosprogramas")}}"><i class="zmdi zmdi-code icon-navbar fa-lg hidden-md"></i>Productos y Programas</a></li>
                     <li><a href="{{path("admin_correo")}}"><i class="zmdi zmdi-email icon-navbar fa-lg hidden-md"></i>Mails enviados</a></li>
-                    <li><a href="{{path("remate")}}"><i class="zmdi zmdi-menu icon-navbar fa-lg hidden-md"></i>Remates</a></li>
+
                 </ul>
 
             </li>
@@ -107,6 +105,19 @@
                 <ul role="menu" class="dropdown-menu">
                     <li><a  href="#" id="bletincarne"><i class="fa fa-angle-down icon-navbar fa-lg"></i>Boletin de Carne</a></li>
                     <li><a href="#" id="bletinleche"><i class="fa fa-caret-down icon-navbar fa-lg hidden-md"></i>Boletin de Leche</a></li>
+
+                </ul>
+
+            </li>
+
+            <li class="dropdown {% block gema_navbar_externos %}{% endblock %}">
+                <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="fa fa-sellsy icon-navbar fa-lg hidden-md"></i>Externos<b class="caret"></b></a>
+                <ul role="menu" class="dropdown-menu">
+                    <li><a href="{{path("area")}}"><i class="zmdi zmdi-menu icon-navbar fa-lg hidden-md"></i>Areas</a></li>
+                    <li><a href="{{path("visita")}}"><i class="zmdi zmdi-menu icon-navbar fa-lg hidden-md"></i>Visitas</a></li>
+                    <li><a href="{{path("ofertalaboral")}}"><i class="zmdi zmdi-menu icon-navbar fa-lg hidden-md"></i>Ofertas Laborales</a></li>
+                    <li><a href="{{path("postulaciones")}}"><i class="zmdi zmdi-menu icon-navbar fa-lg hidden-md"></i>Postulaciones</a></li>
+                    <li><a href="{{path("remate")}}"><i class="zmdi zmdi-menu icon-navbar fa-lg hidden-md"></i>Remates</a></li>
 
                 </ul>
 

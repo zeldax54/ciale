@@ -1,0 +1,62 @@
+{% extends 'gemaBundle::layout.html.twig' %}
+
+    {% block gema_page -%}
+        <h2>Listado de Area</h2>
+        {% if entities is empty %}
+            <div class="bs-callout bs-callout-info">
+                <i class="fa fa-info-circle img-responsive info_icon"></i>
+                <h4>Aviso</h4>
+                <p>No existen registros de activos en la base de datos.</p>
+            </div>
+        {% else %}
+
+            <div class="table-responsive">
+                <table class="record_properties table table-hover table table-striped table-vmiddle" id="data-table-command" data-ajax="true" data-url="{{path('area')}}" >
+                    <thead>
+                    <tr>                                                                <th data-column-id="titulo">Titulo</th>
+
+                        <th colspan="3" data-formatter="commands">Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+
+
+
+        <ul class="pager">
+            <li class="next"><a href="{{ path('area_new') }}"><i class="fa fa-plus-circle"></i>
+                    Nuevo Area
+                </a></li>
+        </ul>
+    {% endblock %}
+
+    {% block javascripts -%}
+        {{ parent() }}
+        <script>
+            $("#data-table-command").bootgrid({
+                css: {
+                    icon: 'md icon',
+                    iconColumns: 'md-view-module',
+                    iconDown: 'md-expand-more',
+                    iconRefresh: 'md-refresh',
+                    iconUp: 'md-expand-less'
+                },
+                formatters: {
+                    "commands": function(column, row) {
+                        return "<a href='" + Routing.generate('area_edit', {id: row.id}) + "'  class=\"btn btn-icon command-edit\" ><span class=\"md md-edit\"></span></a> " +
+                            "<a href='" + Routing.generate('area_delete', {id: row.id}) + "'  class=\"btn btn-icon command-delete\" ><span class=\"md md-delete\"></span></a>";
+                    }
+                    /* ,
+                     "area": function(column, row) {
+                         return "" + row.area.nombre;
+                     }*/
+                }, templates: {
+                    loading: "<tr><td colspan='9' class=\"loading\"><div class='loading'><img src='{{ asset('bundles/gema/images/loading.gif') }}' class='img-responsive'></div></td></tr>"
+                }
+            });
+        </script>
+    {% endblock %}
+

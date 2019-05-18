@@ -10,13 +10,13 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
 /**
- * Area
+ * Boletin
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="GEMA\gemaBundle\Entity\AreaRepository")
- * @ORM\Table(name="AREA")
+ * @ORM\Entity(repositoryClass="GEMA\gemaBundle\Entity\ActividadRepository")
+ * @ORM\Table(name="actividad")
  */
-class Area {
+class Actividad {
 
     /**
      * @var integer
@@ -33,7 +33,6 @@ class Area {
      * @ORM\Column(name="titulo", type="text",nullable=false )
      */
     private $titulo;
-
 
 
 }

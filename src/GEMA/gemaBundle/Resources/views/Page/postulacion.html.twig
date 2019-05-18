@@ -41,6 +41,13 @@
               font-size:12px;letter-spacing:1px;padding:  5px;border: 0;background:  whitesmoke;border-bottom: 1px solid silver;width: 100%;color: gray;
           }
 
+           #formdiv > form > div > select{
+              font-size:12px;letter-spacing:1px;padding:  5px;border: 0;background:  whitesmoke;border-bottom: 1px solid silver;width: 100%;color: gray;
+          }
+            #formdiv > form > div > option{
+              font-size:12px;letter-spacing:1px;padding:  5px;border: 0;background:  whitesmoke;border-bottom: 1px solid silver;width: 100%;color: gray;
+          }
+
           #formdiv > form > p:last-of-type{
               text-align: center;padding-top: 50px;display:  table;width: 100%;color:white;
           }
@@ -81,6 +88,19 @@
               letter-spacing:  1px;
               font-style: italic;
           }
+
+        select {
+    width: 268px;
+    padding: 5px;
+    font-size: 16px;
+    line-height: 1;
+    border: 0;
+    border-radius: 5px;
+    height: 34px;
+    background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png) no-repeat right #ddd !important;
+    -webkit-appearance: none;
+    background-position-x: 244px;
+}
       </style>
   {% endblock %}
 
@@ -114,6 +134,76 @@
               <p>PHONE</p>
               <input required name="phone">
               </div>
+
+
+             <div style="width:47%">
+              <p>Nacionalidad</p>
+              <input required name="nacionalidad">
+              </div>
+
+               <div style="width:47%;margin-left:6%">
+              <p>Provincia</p>
+              <input required name="provincia">
+              </div>
+
+              <div style="width:47%">
+              <p>Localidad</p>
+              <input required name="localidad">
+              </div>
+
+               <div style="width:47%;margin-left:6%">
+              <p>Fecha/Nacimiento</p>
+              <input type="date" required name="fechanacimiento">
+              </div>
+
+              <div style="width:47%">
+               <p>Sexo</p>
+              <select required name="sexo">
+               <option value="M">Masculino</option>
+               <option value="M">Femenino</option>
+              </select>
+              </div>
+
+                <div style="width:47%;margin-left:6%">
+               <p>Estado/Civil</p>
+              <select required name="estadocivil">
+               <option value="soltero">Soltero</option>
+               <option value="casado">Casado</option>
+              </select>
+              </div>
+
+              <div style="width:47%">
+               <p>Hijos</p>
+              <select required name="hijos">
+               <option value="si">Si</option>
+               <option value="no">No</option>
+              </select>
+              </div>
+
+                <div style="width:100%">
+               <p>Actividad</p>
+              <select required name="actividad">
+               {% for actividad in actividades %}
+                <option value="{{ actividad.id }}">{{ actividad.titulo }}</option>
+               {% endfor %}
+              </select>
+              </div>
+
+              <div style="width:100%">
+               <p>Aerea en la que le gustaría desempeñarse</p>
+              <select required name="area">
+               {% for area in areas %}
+                <option value="{{ area.id }}">{{ area.titulo }}</option>
+               {% endfor %}
+              </select>
+              </div>
+
+               <div style="width:100%;">
+                  <p>Trabajo actual o anterior</p>
+                  <input required name="trabajo">
+              </div>
+
+
               <div style="width:100%;">
                   <p>Curriculum</p>
 

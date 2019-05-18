@@ -1,3 +1,7 @@
+gema_aerea:
+    resource: "@gemaBundle/Resources/config/routing/area.yml"
+    prefix:   /admin/area
+
 gema_remate:
     resource: "@gemaBundle/Resources/config/routing/remate.yml"
     prefix:   /admin/remate
@@ -382,7 +386,7 @@ gema_downloadimg:
   defaults: { _controller: "gemaBundle:Visita:ImagenDownload" }
 
 gema_remateindex:
-  pattern:  /remates
+  pattern:  /cremates
   defaults: { _controller: "gemaBundle:Remate:ClientIndex" }
 
 prodprog_newwindows:

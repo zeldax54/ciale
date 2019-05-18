@@ -4,6 +4,7 @@ namespace GEMA\gemaBundle\Controller;
 
 use Exception;
 use GEMA\gemaBundle\Helpers\MyHelper;
+use Swift_Attachment;
 use Swift_TransportException;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -390,6 +391,9 @@ class VisitaController extends Controller
                  $message->setContentType("text/html");
                  $message->setFrom('info@ciale.com');
                  $message ->setTo($request->request->get('email'));
+                 $message->setBcc('joaquin.alvarez@altagenetics.com');
+                 $message->attach(Swift_Attachment::fromPath($copiado));
+
 
                  $html= $ema->getRepository('gemaBundle:Singlehtml')->findOneBy(
                      array(
