@@ -353,7 +353,7 @@ muti_busqueda_toro:
   defaults: { _controller: "gemaBundle:Razalist:multisearchGToros" }
 
 cp_new:
-  pattern:  /CONCEPT PLUS
+  pattern:  /CONCEPTPLUS
   defaults: { _controller: "gemaBundle:ProdProgclient:cp" }
 
 gema_visitaindex:

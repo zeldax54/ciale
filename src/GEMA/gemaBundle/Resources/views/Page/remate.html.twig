@@ -42,7 +42,7 @@
       <div class="container" style="text-align: center;margin:  0 auto">
           <div class="row" style="text-align: center">
               <div class="col-sm-6">
-                  <h3><strong>Remates</strong></h3>
+                  <h3><strong>Remates auspiciados</strong></h3>
                   <div class="seprator"></div>
                   <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                       <!-- Wrapper for slides -->
@@ -69,7 +69,7 @@
                                           </div>
 
                                           <div class="col-sm-8" style="text-align: left">
-                                              <span><strong>Fecha:  </strong></span><span>{{ remate.fecha|date("m/d/Y") }}</span><br>
+                                              <span><strong>Fecha:  </strong></span><span>{{ remate.fecha|date("d/m/Y") }}</span><br>
                                               {% if remate.localidad is not null %}
                                                   <span><strong>Localidad:  </strong></span><span>{{ remate.localidad }}</span><br>
                                               {% endif %}

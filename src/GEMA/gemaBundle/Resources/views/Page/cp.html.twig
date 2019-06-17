@@ -55,23 +55,46 @@
 }
 .post-title {
     font-weight: bold;
-    margin-left: 2%;
+    margin-left: 4%;
+    text-align: left;
 
 }
 
-.categotitle{
-    text-decoration: underline;
+.categotitle:before{
+    content: "";
 
-    text-decoration-style: dotted;
+    position: absolute;
+
+    width: 123px;
+
+
+
+    left: 51%;
+
+    margin-left: -70px;
+
+    height: 1px;
+
+    background: #ebebeb;
+
+    bottom: -7px;
+
+
 }
+
+
 
           .box > .icon { text-align: center; position: relative; }
 .box > .icon > .image { position: relative; z-index: 2; margin: auto; width: 88px; height: 88px; border: 8px solid white; line-height: 88px; border-radius: 50%; background: #f5f5f5; vertical-align: middle; }
-.box > .icon:hover > .image { background: #333; -webkit-transition: all 0.4s ease-in-out; -moz-transition: all 0.4s ease-in-out; -o-transition: all 0.4s ease-in-out; transition: all 0.4s ease-in-out; -webkit-transform:rotate(360deg) scale(1.5); -moz-transform:rotate(360deg) scale(1.5); -o-transform:rotate(360deg) scale(1.5); -ms-transform:rotate(360deg) scale(1.5); transform:rotate(360deg) scale(1.5); }
+.box > .icon:hover > .image {
+/*
+    background: #333; -webkit-transition: all 0.4s ease-in-out; -moz-transition: all 0.4s ease-in-out; -o-transition: all 0.4s ease-in-out; transition: all 0.4s ease-in-out; -webkit-transform:rotate(360deg) scale(1.5); -moz-transform:rotate(360deg) scale(1.5); -o-transform:rotate(360deg) scale(1.5); -ms-transform:rotate(360deg) scale(1.5); transform:rotate(360deg) scale(1.5);
+*/
+}
 .box > .icon > .image > i { font-size: 36px !important; color: #f04436 !important; }
-.box > .icon:hover > .image > i { color: white !important; }
+
 .box > .icon > .info { margin-top: -24px; background: rgba(0, 0, 0, 0.04); border: 1px solid #e0e0e0; padding: 15px 0 10px 0; }
-.box > .icon:hover > .info { background: rgba(0, 0, 0, 0.04); border-color: #e0e0e0; color: white; }
+
 .box > .icon > .info > h3.title { font-family: "Roboto",sans-serif !important; font-size: 16px; color: #222; font-weight: 500; }
 .box > .icon > .info > p { font-family: "Roboto",sans-serif !important; font-size: 13px; color: #666; line-height: 1.5em; margin: 20px;}
 .box > .icon:hover > .info > h3.title, .box > .icon:hover > .info > p, .box > .icon:hover > .info > .more > a { color: #222; }
@@ -95,7 +118,13 @@
               }
           }
 
+.imagelist{
+    width: -webkit-fill-available;
+}
 
+          .imagelist{
+              width:-moz-fit-content;
+          }
           .imageresponsiveselect{
               width: auto;
               height: 123px;
@@ -106,6 +135,18 @@
 
     font-family: 'Fago-bold' !important;
 }
+
+          .directbtn{
+
+              padding: .5rem 1rem;
+
+             background: #e9503c;
+
+              line-height: 1.5;
+              border-color: transparent;
+              float: right;
+              border-radius: .3rem;
+          }
       </style>
   {% endblock %}
 
@@ -113,6 +154,9 @@
 <div class="row">
 
       <div class="col-12 col-sm-8 text-left cptitle"><h1  class="title1">Concept Plus</h1></div>
+      <div class="col-12 col-sm-4 text-left cptitle"><h1  class="title1">
+              <a  class="btn btn-lg btn-primary directbtn" href="http://conceptplus.altagenetics.com.br" target="_blank"> Directo al Sistema </a>
+          </h1></div>
       <br>  <br>  <br>  <br>  <br>  <br>
 
       <div class="col-md-12 primdiv" style="background-size: cover !important;background-position: center !important;background-image:url( {{'https://'~servername~'/'~asset(redimg)|replace('\\','/') }} )  ">
@@ -241,7 +285,7 @@
 
         {% for toro in toros %}
 
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="text-align: center;">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3" style="text-align: center;">
                 <a href="{{ path('gema_torodetail', {'apodo':toro.apodo}) }}" target="_blank">
                     <img class="toroimg imageresponsiveselect"  src="{{ asset(toro.imgprincipal) }}"></a><br>
                 <a href="{{ path('gema_torodetail', {'apodo':toro.apodo}) }}" target="_blank">
