@@ -21,7 +21,7 @@
           }
 
           #formdiv > form{
-              width: 35%;
+              width: 70%;
               margin-left:auto;
               margin-right:auto;
               padding:50px;
@@ -35,17 +35,17 @@
               float:left;margin-bottom:30px;
           }
           #formdiv > form > div > p{
-              font-size: 12px;margin-bottom: 3px;
+              font-size: 18px;margin-bottom: 3px;
           }
           #formdiv > form > div > input{
-              font-size:12px;letter-spacing:1px;padding:  5px;border: 0;background:  whitesmoke;border-bottom: 1px solid silver;width: 100%;color: gray;
+              font-size:18px;letter-spacing:1px;padding:  5px;border: 0;background:  whitesmoke;border-bottom: 1px solid silver;width: 100%;color: gray;
           }
 
            #formdiv > form > div > select{
-              font-size:12px;letter-spacing:1px;padding:  5px;border: 0;background:  whitesmoke;border-bottom: 1px solid silver;width: 100%;color: gray;
+              font-size:18px;letter-spacing:1px;padding:  5px;border: 0;background:  whitesmoke;border-bottom: 1px solid silver;width: 100%;color: gray;
           }
             #formdiv > form > div > option{
-              font-size:12px;letter-spacing:1px;padding:  5px;border: 0;background:  whitesmoke;border-bottom: 1px solid silver;width: 100%;color: gray;
+              font-size:18px;letter-spacing:1px;padding:  5px;border: 0;background:  whitesmoke;border-bottom: 1px solid silver;width: 100%;color: gray;
           }
 
           #formdiv > form > p:last-of-type{
@@ -57,14 +57,14 @@
               padding: 10px 25px;
               background:  silver;
               border-radius:  28px;
-              font-size: 12px;
+              font-size: 18px;
           }
           #formdiv > form > p:last-of-type > button{
               cursor:pointer;border:0;
               padding: 10px 25px;
               background:  silver;
               border-radius:  28px;
-              font-size: 12px;
+              font-size: 18px;
           }
 
           .term{
@@ -76,7 +76,7 @@
           }
 
           .term > span{
-              font-size:12px;
+              font-size:18px;
           }
 
           /* delete */
@@ -88,6 +88,35 @@
               letter-spacing:  1px;
               font-style: italic;
           }
+
+          @media only screen and (max-width: 400px) {
+             #formdiv > form > p:last-of-type > button{
+               font-size: 12px !important;
+             }
+              #formdiv > form > p:last-of-type > a{
+                font-size: 12px !important;
+              }
+               #formdiv > form > div > option{
+                font-size: 12px !important;
+               }
+                #formdiv > form > div > select{
+                font-size: 12px !important;
+               }
+                         #formdiv > form > div > input{
+                         font-size: 12px !important;
+                         }
+
+                          #formdiv > form > div > p{
+                         font-size: 12px !important;
+                         }
+
+                         .contenedor{
+                         text-align: left;
+                         width: 81%;
+                         margin-left: 9%;
+                         }
+
+    }
 
         select {
     width: 268px;
@@ -101,6 +130,9 @@
     -webkit-appearance: none;
     background-position-x: 244px;
 }
+  .imglist{
+       width: 99% !important;
+    }
       </style>
   {% endblock %}
 
@@ -109,7 +141,10 @@
 
       <br>
 
-      <div style="text-align: center;">
+  <div class="imgcab">
+  <img class="imglist" src="{{asset(imgpostulacion) }}">
+  </div>
+      <div style="text-align: center;" class="contenedor">
           <h4 class="noticiastitle">{{ oferta.titulo }}</h4>
           <span class="resumenot"><strong>{{ oferta.area }}</strong></span><br>
           <span class="resumenot">{{ oferta.descripcion }}</span>

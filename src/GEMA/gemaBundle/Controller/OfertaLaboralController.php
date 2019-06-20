@@ -259,9 +259,11 @@ class OfertaLaboralController extends Controller
                 'activa'=>true
             )
         );
+        $helper=new MyHelper();
+        $imgoferta=$helper->directPic('ofertas'.DIRECTORY_SEPARATOR,'img_list.jpg');
         return $this->render('gemaBundle:Page:ofertas.html.twig', array(
-            'ofertas'=>$ofertas
-
+            'ofertas'=>$ofertas,
+             'imgofertas'=>$imgoferta
         ));
 
     }
@@ -275,11 +277,15 @@ class OfertaLaboralController extends Controller
         $oferta= $ema->getRepository('gemaBundle:OfertaLaboral')->find(
            $idoferta
         );
+        $helper=new MyHelper();
+        $imgpostulacion=$helper->directPic('ofertas'.DIRECTORY_SEPARATOR,'img_psotulacion.jpg');
+
         return $this->render('gemaBundle:Page:postulacion.html.twig', array(
             'oferta'=>$oferta,
             'apikey'=>$apikey,
              'actividades'=>$actividades,
-             'areas'=>$areas
+             'areas'=>$areas,
+              'imgpostulacion'=>$imgpostulacion
 
         ));
     }

@@ -27,7 +27,19 @@
               background-color: #0aaa7a;
               margin: 7px 0 10px 0;
           }
+          @media only screen and (max-width: 400px) {
+              .texcontainter {
+                  text-align: center !important;
+              }
+              .imgrem{
+                  max-width: 380px !important;
+              }
 
+          }
+          
+          li a{
+              font-size: 14px !important;
+          }
 
       </style>
 
@@ -41,34 +53,25 @@
 
       <div class="container" style="text-align: center;margin:  0 auto">
           <div class="row" style="text-align: center">
-              <div class="col-sm-6">
-                  <h3><strong>Remates auspiciados</strong></h3>
+              <div class="col-sm-12">
+                  <h3><strong>Remates Auspiciados</strong></h3>
                   <div class="seprator"></div>
-                  <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                  <div >
                       <!-- Wrapper for slides -->
 
-                      <div class="carousel-inner">
+                      <div class="">
                           {% for remate in remates %}
 
-                              {% if  loop.index ==1 %}
-                                  <div class="item active">
-                                  {% else %}
-                                  <div class="item">
-                              {% endif %}
-
-                                  <div class="row" style="padding: 20px">
-                                      {#<button style="border: none;"><i class="fa fa-quote-left testimonial_fa" aria-hidden="true"></i></button>#}
-
-                                      <div class="row">
+                       <div class="row">
+                                          <div class="col-sm-7">
+                                              <img  src="{{ asset(remate.imgprincipal) }}"  class="imgrem" style="max-width: 600px;float: left">
+                                          </div>
                                           <div class="col-sm-4">
-                                              <img  src="{{ asset(remate.imgprincipal) }}"  class="img-responsive" style="width: 200px">
-                                          </div>
-                                          <div class="col-sm-8">
-                                              <h4><strong>{{ remate.nombre }}</strong></h4>
+                                              <h4 style="font-size: 24px"><strong>{{ remate.nombre }}</strong></h4>
+                                              <br>
+                                              <div class="texcontainter" style="text-align: left ">
 
-                                          </div>
 
-                                          <div class="col-sm-8" style="text-align: left">
                                               <span><strong>Fecha:  </strong></span><span>{{ remate.fecha|date("d/m/Y") }}</span><br>
                                               {% if remate.localidad is not null %}
                                                   <span><strong>Localidad:  </strong></span><span>{{ remate.localidad }}</span><br>
@@ -79,7 +82,7 @@
                                               {% endif %}
 
                                               {% if remate.sitioweb is not null %}
-                                                  <span><a href="{{ remate.linksitioweb }}"><strong>{{ remate.sitioweb }}</strong></a></span><br>
+                                                  <span><a href="{{ remate.linksitioweb }}" target="_blank"><strong>{{ remate.sitioweb }}</strong></a></span><br>
                                               {% endif %}
 
                                               {% if remate.contacto is not null %}
@@ -87,33 +90,28 @@
                                               {% endif %}
 
                                               {% if remate.Linkflyer is not null %}
-                                                  <span><a href="{{ remate.Linkflyer }}"><strong>Flyer</strong></a></span><br>
+                                                  <span><a href="{{ remate.Linkflyer }}" target="_blank"><strong>Flyer</strong></a></span><br>
                                               {% endif %}
 
                                               {% if remate.linkcatalogo is not null %}
-                                                  <span><a href="{{ remate.linkcatalogo }}"><strong>Catálogo</strong></a></span><br>
+                                                  <span><a href="{{ remate.linkcatalogo }}" target="_blank"><strong>Catálogo</strong></a></span><br>
                                               {% endif %}
-
+                                              </div>
 
                                           </div>
 
                                       </div>
 
-                                  </div>
-                              </div>
+                      </div>
+                      <br><br>
+
                           {% endfor %}
 
 
                       </div>
                   </div>
-                  <div class="controls testimonial_control pull-right">
-                      <a class="left fa fa-chevron-left btn btn-default testimonial_btn" href="#carousel-example-generic"
-                         data-slide="prev"></a>
 
-                      <a class="right fa fa-chevron-right btn btn-default testimonial_btn" href="#carousel-example-generic"
-                         data-slide="next"></a>
-                  </div>
-                  <br> <br> <br> <br> <br> <br> <br>
+
               </div>
           </div>
       </div>

@@ -28,6 +28,25 @@
         border-radius: 50%;
     }
     .border-b-1 {border-bottom: 1px solid rgba(162,162,162,.16);}
+
+    .imglist{
+        max-width: 15%;
+        float: right;
+        margin-top: -4% !important;
+        margin-right: -1% !important;
+    }
+
+    @media only screen and (max-width: 400px) {
+        .imglist {
+            max-width: 30% !important;
+            margin-top: 0% !important;
+            margin-right: 0% !important;
+        }
+    }
+
+    .imglist2{
+        width: 99% !important;
+    }
 </style>
 
   {% endblock %}
@@ -38,15 +57,20 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
+
             <div class="card-header">
-                <h4>Ofertas Laborales Disponibles</h4>
+                <div>
+                    <img class="imglist2" src="{{asset(imgofertas) }}">
+                </div>
+                <h4>¡Sumate al equipo líder en genética!</h4>
+
             </div>
 
             <div class="gaadiex-list">
                 {% for oferta in ofertas %}
                     <div class="gaadiex-list-item">
                         <h3><a href="{{  path('gema_ofertapostulacion',{'idoferta':oferta.id}) }}">{{ oferta.titulo }}</a></h3>
-                        <h4>{{ oferta.area }}</h4>
+                        {#<h4>{{ oferta.area }}</h4>#}
                         <p> {{ oferta.descripcion }}</p>
                     </div>
                 {% endfor %}

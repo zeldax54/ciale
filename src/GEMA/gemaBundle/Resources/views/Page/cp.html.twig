@@ -126,8 +126,8 @@
               width:-moz-fit-content;
           }
           .imageresponsiveselect{
-              width: auto;
-              height: 123px;
+              width: 266px;
+              height: auto;
           }
 
 .apodo{
@@ -139,29 +139,45 @@
           .directbtn{
 
               padding: .5rem 1rem;
-
-             background: #e9503c;
-
+               background: #e9503c;
               line-height: 1.5;
               border-color: transparent;
               float: right;
               border-radius: .3rem;
           }
+
+          @media only screen and (max-width: 400px) {
+              .terc p{
+                  padding: 13px !important;
+              }
+
+          }
+
+          @media only screen and (max-width: 400px) {
+              .torol {
+                 text-align: center !important;
+              }
+              .card{
+                  padding: 11px !important;
+              }
+          }
+
+
       </style>
   {% endblock %}
 
   {% block content %}
 <div class="row">
 
-      <div class="col-12 col-sm-8 text-left cptitle"><h1  class="title1">Concept Plus</h1></div>
+      <div class="col-12 col-sm-8 text-left cptitle"><h1 style="font-family: Fago-Normal"  class="title1">Concept Plus</h1></div>
       <div class="col-12 col-sm-4 text-left cptitle"><h1  class="title1">
-              <a  class="btn btn-lg btn-primary directbtn" href="http://conceptplus.altagenetics.com.br" target="_blank"> Directo al Sistema </a>
+              <a  class="btn btn-lg btn-primary directbtn" style="font-family: Fago-Normal" href="http://conceptplus.altagenetics.com.br" target="_blank"> Directo al Sistema </a>
           </h1></div>
       <br>  <br>  <br>  <br>  <br>  <br>
 
       <div class="col-md-12 primdiv" style="background-size: cover !important;background-position: center !important;background-image:url( {{'https://'~servername~'/'~asset(redimg)|replace('\\','/') }} )  ">
           <div class="col py-2 segdiv ">
-              <div class="video"><iframe width="690" height="388" src="https://www.youtube.com/embed/9lon1ahBChM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+              <div class="video"><iframe width="690" height="388" src="https://www.youtube.com/embed/tvlRPZ88_jM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
           </div>
       </div>
 
@@ -281,17 +297,21 @@
         <h2 class="ventajas categotitle">TOROS CONCEPT PLUS</h2>
     </div>
       <br>
-    <div class="row">
+    <div class="row" style="padding: 20px">
 
         {% for toro in toros %}
 
-            <div class="col-12 col-sm-6 col-md-4 col-lg-3" style="text-align: center;">
-                <a href="{{ path('gema_torodetail', {'apodo':toro.apodo}) }}" target="_blank">
-                    <img class="toroimg imageresponsiveselect"  src="{{ asset(toro.imgprincipal) }}"></a><br>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 torol" style="text-align: left;">
                 <a href="{{ path('gema_torodetail', {'apodo':toro.apodo}) }}" target="_blank">
                     <span class="apodo">{{ toro.apodo }}</span>
+                </a><br>
+
+                <a href="{{ path('gema_torodetail', {'apodo':toro.apodo}) }}" target="_blank">
+                    <img class="toroimg imageresponsiveselect"  src="{{ asset(toro.imgprincipal) }}">
                 </a>
+
             </div>
+
 
         {% endfor %}
 
