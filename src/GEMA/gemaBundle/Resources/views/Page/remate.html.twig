@@ -27,12 +27,21 @@
               background-color: #0aaa7a;
               margin: 7px 0 10px 0;
           }
-          @media only screen and (max-width: 400px) {
+          @media only screen and (max-width: 700px) {
               .texcontainter {
                   text-align: center !important;
+
+              }
+              .titlecontainer{
+                  margin-top: -4px;
+
               }
               .imgrem{
-                  max-width: 380px !important;
+                  max-width: 100% !important;
+                  float:none !important;
+              }
+              .marquer{
+                  margin-top: 10px !important;
               }
 
           }
@@ -64,11 +73,15 @@
 
                        <div class="row">
                                           <div class="col-sm-7">
-                                              <img  src="{{ asset(remate.imgprincipal) }}"  class="imgrem" style="max-width: 600px;float: left">
-                                          </div>
-                                          <div class="col-sm-4">
-                                              <h4 style="font-size: 24px"><strong>{{ remate.nombre }}</strong></h4>
-                                              <br>
+                                              <img  src="{{ asset(remate.imgprincipal) }}"  class="imgrem" style="max-width: 100%;float: right">
+                                          </div><br>
+
+                                          <div class="col-sm-4 marquer">
+                                              <div class="row">
+                                                  <div class="titlecontainer">
+                                              <h4 class="" style="font-size: 24px"><strong>{{ remate.nombre }}</strong></h4>
+                                                  </div>
+
                                               <div class="texcontainter" style="text-align: left ">
 
 
@@ -96,6 +109,7 @@
                                               {% if remate.linkcatalogo is not null %}
                                                   <span><a href="{{ remate.linkcatalogo }}" target="_blank"><strong>Catálogo</strong></a></span><br>
                                               {% endif %}
+                                              </div>
                                               </div>
 
                                           </div>
