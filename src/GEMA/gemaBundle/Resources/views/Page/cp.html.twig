@@ -207,7 +207,7 @@
         </div>
 
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-      <img src="{{ asset(imagelist) }}" class="imagelist">
+      <img src="{{ asset(imagelist) }}" class="imagelist" style="width: 100%">
         </div>
         <div class="col-md-8">
             <div class="row">
@@ -301,7 +301,7 @@
 
         {% for toro in toros %}
 
-            <div class="col-12 col-sm-6 col-md-4 col-lg-3 torol" style="text-align: left;">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 torol" style="text-align: left; margin-top: 20px">
                 <a href="{{ path('gema_torodetail', {'apodo':toro.apodo}) }}" target="_blank">
                     <span class="apodo">{{ toro.apodo }}</span>
                 </a><br>
@@ -311,6 +311,7 @@
                 </a>
 
             </div>
+
 
 
         {% endfor %}
@@ -376,7 +377,7 @@
     <br>
     <div class="col-md-12 primdiv" style="background-size: cover !important;background-position: center !important;background-image:url( {{'https://'~servername~'/'~asset(redimg)|replace('\\','/') }} )  ">
         <div class="col py-2 segdiv ">
-            <div class="video"><iframe width="690" height="388" src="https://www.youtube.com/embed/R-LQ03rI_Pg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+            <div class="video"><iframe width="690" height="388" src="https://www.youtube.com/embed/cTqrc-j13L8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
         </div>
     </div>
 

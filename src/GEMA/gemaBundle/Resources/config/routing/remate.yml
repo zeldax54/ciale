@@ -1,5 +1,5 @@
 remate:
-    pattern:  /
+    pattern:  /remateinicio
     defaults: { _controller: "gemaBundle:Remate:index" }
 
 remate_show:

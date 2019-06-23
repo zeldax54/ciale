@@ -288,7 +288,7 @@ class MyHelper
                    return $fin;
                 }
             }
-                $img = array_rand($final, 1);
+            $img = array_rand($final, 1);
             $imgfin=$final[$img];
             //No ha sido creda una _small ver de ser posible su creación.
              $realpath= $kernel->getRootDir() . DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'web'.DIRECTORY_SEPARATOR;
@@ -306,7 +306,13 @@ class MyHelper
 
 
         }else
-        $img = array_rand($final, 1);
+            $cpy=array();
+            foreach($final as $fin){
+                if (strpos($fin, '_small') == false) {
+                    $cpy[]=$fin;
+                }
+            }
+        $img = array_rand($cpy, 1);
         return $final[$img];
     }
 

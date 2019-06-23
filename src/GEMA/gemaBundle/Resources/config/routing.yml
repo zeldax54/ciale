@@ -4,7 +4,7 @@ gema_aerea:
 
 gema_remate:
     resource: "@gemaBundle/Resources/config/routing/remate.yml"
-    prefix:   /admin/remate
+    prefix:   /admin/cremate
 
 gema_postulaciones:
     resource: "@gemaBundle/Resources/config/routing/postulaciones.yml"
@@ -365,7 +365,7 @@ gema_sendvisita:
   defaults: { _controller: "gemaBundle:Visita:clienteVisitaPost" }
 
 gema_ofertasindex:
-  pattern:  /ofertas
+  pattern:  /contacto/ofertas
   defaults: { _controller: "gemaBundle:OfertaLaboral:OfertasIndex" }
 
 gema_ofertapostulacion:
@@ -386,7 +386,7 @@ gema_downloadimg:
   defaults: { _controller: "gemaBundle:Visita:ImagenDownload" }
 
 gema_remateindex:
-  pattern:  /cremates
+  pattern:  /noticias/remates
   defaults: { _controller: "gemaBundle:Remate:ClientIndex" }
 
 prodprog_newwindows:
