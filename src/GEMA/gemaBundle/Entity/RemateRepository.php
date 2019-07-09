@@ -2,6 +2,7 @@
 
 namespace GEMA\gemaBundle\Entity;
 
+use DateTimeZone;
 use Doctrine\ORM\EntityRepository;
 
 use Doctrine\ORM\Query\ResultSetMapping;
@@ -56,5 +57,17 @@ class RemateRepository extends EntityRepository
             }
         }
         return $qb;
+    }
+
+
+    public function findByfecha($date) {
+
+        $date->setTimezone(new DateTimeZone('America/Argentina/Buenos_Aires'));
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+        $qb->addSelect('T')
+            ->from($this->getClassName(), 'T');
+           $qb->where('T.fecha >='."'".$date->format('Y-m-d')."'");
+        return $qb->getQuery()->getResult();
     }
 }

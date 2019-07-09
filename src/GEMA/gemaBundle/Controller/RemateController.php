@@ -252,7 +252,7 @@ class RemateController extends Controller
     public function ClientIndexAction(){
 
         $em = $this->getDoctrine()->getManager();
-        $remaets = $em->getRepository('gemaBundle:Remate')->findAll();
+        $remaets = $em->getRepository('gemaBundle:Remate')->findByfecha(new \DateTime());
         $helper=new MyHelper();
         foreach ($remaets as $remate){
             $img=$helper->randomPic('remates'.DIRECTORY_SEPARATOR.$remate->getGuid().DIRECTORY_SEPARATOR,false);

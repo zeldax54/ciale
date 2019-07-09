@@ -479,7 +479,7 @@
 								{% for td in tabla.tabladatos %}
 								           {% if  isNumber(dato[td.nombre])=='1' %}
 
-									{%   if dato['rowhead']|lower =='ranking' and dato[td.nombre] | replace('%','')<=25 and td.nombre|lower !='altura' and td.nombre|lower !='alt.' and td.nombre|lower !='alt' and td.nombre|lower !='alt.hijas'  and td.nombre|lower !='alt.año'  and dato[td.nombre]!='-' %}
+									{%   if dato['rowhead']|lower =='ranking' and dato[td.nombre] | replace('%','')<=30 and td.nombre|lower !='altura' and td.nombre|lower !='alt.' and td.nombre|lower !='alt' and td.nombre|lower !='alt.hijas'  and td.nombre|lower !='alt.año'  and dato[td.nombre]!='-' %}
 									<td class="downprom">{{ dato[td.nombre]|replace({' ':''})|round(2)~'%' }}</td>
                            {% else %}
 
