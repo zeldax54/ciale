@@ -266,6 +266,10 @@
                     nombrt='Evaluacion genetica';
 
                 var cols= arrays[nombrt];
+				if(cols==undefined){				
+				 var keysc = Object.keys(arrays)
+				 cols= arrays[keysc[0]];
+				}
                 if(cols==undefined){
                     nombrt='myevall';
                      cols= arrays[nombrt];
