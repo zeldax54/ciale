@@ -424,7 +424,8 @@ public function exceladminAction($razaid){
      public function pdfgenerateformovileAction()
      {
        try{
-
+           ignore_user_abort(true);
+           set_time_limit(0);
            $torosIds=$_POST["ids"];
            $filename=$_POST["filename"];
            $emails=explode(',',$_POST["emails"]);
@@ -877,6 +878,7 @@ public function exceladminAction($razaid){
     public function generatecatalogformovilAction(){
 
           try  {
+              ignore_user_abort(true);
               set_time_limit(0);
               $source=$_POST["source"];
               $data=$this->gencatalogo($source);
