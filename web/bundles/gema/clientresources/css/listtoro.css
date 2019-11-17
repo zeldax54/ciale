@@ -399,9 +399,23 @@ color: black;
 		  
 		  @media (max-width:767px){
 	
-	.cleanselection,.comparer,.expexcel,.imprimircatalogo{
+	.cleanselection,.comparer,.expexcel{
 		display:none;
+
 	}
+
+			  .imagenheadercatalog{
+				  display:none;
+			  }
+			  .dt-checkboxes-cell{
+				  display: block !important;
+			  }
+			  
+			  .vex-dialog-button-primary,.vex-dialog-button-secondary{
+
+				  font-size: 10px !important;
+				  margin-top: 10px !important;
+			  }
 	
 }
 		  

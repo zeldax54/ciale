@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class ToroRepository extends EntityRepository
 {
+
     public function listarDQL() {
 
         $em = $this->getEntityManager();
@@ -86,13 +87,14 @@ class ToroRepository extends EntityRepository
         $qb
             ->select("T","R")
             ->from($this->getClassName(), "T")
-            ->leftJoin('T.raza', "R")
+           // ->leftJoin('T.raza', "R")
             ->where("T.nombre like '%".$dato."%'")
             ->orWhere("T.padre like '%".$dato."%'")
             ->orWhere("T.padremadre like '%".$dato."%'")
             ->orWhere("T.apodo like '%".$dato."%'")
             ->orWhere("R.nombre like '%".$dato."%'")
             ->andWhere("T.publico=1")
+            ->orderBy('T.apodo')
         ;
         return $qb->getQuery()->getResult();
 

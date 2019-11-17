@@ -283,6 +283,10 @@ pdf_generate:
     pattern:  /pdf
     defaults: { _controller: "gemaBundle:Export:pdfgenerate" }
 
+pdf_generateformovile:
+  pattern:  /pdfformovile
+  defaults: { _controller: "gemaBundle:Export:pdfgenerateformovile" }
+
 toro_pdf:
     pattern:  /{toroid}/toropdf
     defaults: { _controller: "gemaBundle:Export:toropdf" }
@@ -298,6 +302,10 @@ admin_limpiarcatalogos:
 pdf_generate_catalogo:
     pattern:  /catalogo
     defaults: { _controller: "gemaBundle:Export:generatecatalogo" }
+
+pdf_generate_catalogoformovil:
+  pattern:  /catalogoformovil
+  defaults: { _controller: "gemaBundle:Export:generatecatalogformovil" }
 
 toro_img:
     pattern:  /img

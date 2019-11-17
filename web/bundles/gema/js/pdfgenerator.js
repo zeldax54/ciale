@@ -111,6 +111,8 @@ $('.imprimircatalogo').click(function(){
                             tablacontenidoscheck=null;
 
                     }
+                    var classname=$(window).width() <= 767? 'vex-theme-wireframe':'vex-theme-bottom-right-corner';
+                    var isformovile=$(window).width() <= 767;
 
 
                     vex.dialog.confirm({
@@ -118,7 +120,7 @@ $('.imprimircatalogo').click(function(){
 
                         contentClassName: 'bordernaranjaclass',
                         closeClassName: 'closebleclass',
-                        //  className: 'primmodalflag' ,
+                        className:  classname ,
 
                         message: '',
 
@@ -126,7 +128,7 @@ $('.imprimircatalogo').click(function(){
                         input: [
 
                             '<div class="row"> ' +
-                            '<div class="col-md-6">' +
+                            '<div class="col-md-6 col-xs-6">' +
                             '<h4 class="headercatalog">Crear PDF</h4>' +
                             '<div><label><input class="checkheader" type="checkbox" '+capascheck+' id="capas" name="capas" ><b class="catalotext">Tapas</b> </label></div>' +
                             '<div><label><input class="checkheader" type="checkbox" '+listaprecioscheck+' id="listaprecios" name="listaprecios"><b class="catalotext">Lista de Precios</b> </label></div>' +
@@ -134,7 +136,7 @@ $('.imprimircatalogo').click(function(){
                             '<div><label><input class="checkheader" type="checkbox" '+tablacontenidoscheck+' id="tablacontenidos" name="tablacontenidos"><b class="catalotext">Tabla de contenidos</b> </label></div>' +
 
                             '</div>' +
-                            '<div class="col-md-6">' +
+                            '<div class="col-md-6 col-xs-6">' +
                             '<h4 class="headercatalog">Imprimir Toros</h4>' +
                             '<div><label><input class="checkheader" onclick="return false;" type="checkbox" checked="checked" id="capas" ><b class="catalotext">Toros Individuales</b> </label></div>' +
 
@@ -170,42 +172,86 @@ $('.imprimircatalogo').click(function(){
 
 
                             if ($('#clicked').val().search(/imprimirtorosbutton/) != -1) {
-                                var vexwaiting = vex.dialog.alert({unsafeMessage: '<div style="text-align: center"><img src="'+imgpreload+'" width="400" height="300">'+'<br><b>Procesando.Espere...</b><div>',
-                                    contentClassName: 'bordernaranjaclassMasAncho',
-                                    className:'vex-theme-os'})
-
                                 var arra = [];
                                 $.each(rows_selected, function (index, rowId) {
                                     arra.push(rowId);
                                 });
+                                if(isformovile===false){
+                                    var vexwaiting = vex.dialog.alert({unsafeMessage: '<div style="text-align: center"><img src="'+imgpreload+'" width="400" height="300">'+'<br><b>Procesando.Espere...</b><div>',
+                                        contentClassName: 'bordernaranjaclassMasAncho',
+                                        className:'vex-theme-os'})
+                                    var url = Routing.generate('pdf_generate');
 
-                                var url = Routing.generate('pdf_generate');
+                                    $.ajax({
+                                        type: 'POST',
+                                        data: {ids: arra, filename: 'toros'},
+                                        url: url,
+                                        success: function (data) {
+                                            vex.close(vexwaiting)
+                                            if (data[0] == 1) {
+                                                //window.open(data[1], '_blank');
+                                                SaveToDisk(data[1],data[2]);
+                                            } else {
+                                                vex.dialog.alert({
+                                                    unsafeMessage: '<b>Error generando PDF</b>',
+                                                    className: 'vex-theme-wireframe',
+                                                    overlayClassName: 'success',
+                                                    contentClassName: 'bordernaranjaclass',
+                                                    closeClassName: 'closebleclass'
+                                                })
+                                            }
 
-                                $.ajax({
-                                    type: 'POST',
-                                    data: {ids: arra, filename: 'toros'},
-                                    url: url,
-                                    success: function (data) {
-                                        vex.close(vexwaiting)
-                                        if (data[0] == 1) {
-                                            //window.open(data[1], '_blank');
-                                            SaveToDisk(data[1],data[2]);
-                                        } else {
-                                            vex.dialog.alert({
-                                                unsafeMessage: '<b>Error generando PDF</b>',
-                                                className: 'vex-theme-wireframe',
-                                                overlayClassName: 'success',
-                                                contentClassName: 'bordernaranjaclass',
-                                                closeClassName: 'closebleclass'
-                                            })
+                                        },
+                                        error: function (req, stat, err) {
+                                            vex.close(vexwaiting)
+                                            console.log(err);
                                         }
+                                    });
+                                }
 
-                                    },
-                                    error: function (req, stat, err) {
-                                        vex.close(vexwaiting)
-                                        console.log(err);
-                                    }
-                                });
+                                else{
+                                    //Single for Movile
+                                    var url = Routing.generate('pdf_generateformovile');
+                                    vex.dialog.open({
+                                        className: 'vex-theme-wireframe',
+                                        overlayClassName: 'success',
+                                        contentClassName: 'bordernaranjaclass',
+                                        message: 'Entre los emails a los que se le enviará el pdf:',
+                                        input: [
+                                            '<input name="emails" type="text" placeholder="email1@email.com,email2@email.com " required />'
+                                        ].join(''),
+                                        buttons: [
+                                            $.extend({}, vex.dialog.buttons.YES, { text: 'Generar' }),
+                                            $.extend({}, vex.dialog.buttons.NO, { text: 'Cancelar' })
+                                        ],
+                                        callback: function (data) {
+                                            if (!data) {
+                                                console.log('Cancelled')
+                                            } else {
+                                                var emails=data.emails;
+                                                vex.dialog.alert({
+                                                    unsafeMessage: '<b>La url al pdf generado se enviará a '+source.email+' cuando esté lista</b>',
+                                                    className: 'vex-theme-wireframe',
+                                                    overlayClassName: 'success',
+                                                    contentClassName: 'bordernaranjaclass',
+                                                    closeClassName: 'closebleclass'
+                                                });
+
+                                                $.ajax({
+                                                    type: 'POST',
+                                                    data: {ids: arra, filename: 'toros',emails:emails},
+                                                    url: url
+                                                });
+
+                                            }
+                                        }
+                                    })
+
+                                }
+
+
+
+
                                 $('#clicked').val('');
 
                                 return;
@@ -255,13 +301,13 @@ $('.imprimircatalogo').click(function(){
 
                                     var capasHtml = '';
                                     if (source.capas === 'on') {
-                                        capasHtml = '<b>Escoja su Tapa</b><br><br>' +
+                                        capasHtml = '<b>Seleccione su Tapa</b><br><br>' +
                                             '<div class="row" style="overflow-y: auto;height: 183px">';
                                         capasImg.forEach(function (capa) {
                                             var isselected='';
                                             if(selectedcapa!=undefined && capa[1].replace('_small','')==selectedcapa)
                                                 isselected='checked';
-                                            capasHtml += '<div class="col-md-4" style="text-align: center;">' +
+                                            capasHtml += '<div class="col-md-4 col-xs-3" style="text-align: center;">' +
                                                 '<img src="' + capa[0] + '" class="imagencapasminuaturas" id="'+capa[2]+'" name="'+capa[1]+'"/><br>' +
                                                 '<input  type="radio" '+isselected+' required name="capasradio" value="' + capa[1] + '">' +
                                                 '</div>'
@@ -284,7 +330,7 @@ $('.imprimircatalogo').click(function(){
                                             '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Nombre</b></div><div class="col-md-8"><input class="inputtext" type="text"   name="nombre" value="'+datanombre+'"></div></div>'+
                                             '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Dirección</b></div><div class="col-md-8"><input class="inputtext" type="text"  name="direccion" value="'+datadireccion+'"></div></div>'+
                                             '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Teléfono</b></div><div class="col-md-8"><input class="inputtext" type="text"  name="telefono" value="'+datatelefono+'"></div></div>'+
-                                            '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Email</b></div><div class="col-md-8"><input class="inputtext" type="email"  name="email" value="'+dataemail+'"></div></div>'+
+                                            '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Email</b></div><div class="col-md-8"><input class="inputtext" type="text" placeholder="Ej mail1@mail.com,mail2@mail.com"  name="email" value="'+dataemail+'"></div></div>'+
                                             '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Nombre del PDF</b></div><div class="col-md-8"><input class="inputtext"  type="text" name="titulopdf" value="'+datatitulopdf+'"></div></div>'
                                         ].join(''),
                                         showCloseButton: true,
@@ -792,45 +838,70 @@ $('.imprimircatalogo').click(function(){
                                                                             if (clickwhere.val().search(/fincontinuarbutton/) != -1) {
                                                                                 console.log(source);
 
-
-                                                                                var vexwaiting2 = vex.dialog.alert({unsafeMessage: '<div style="text-align: center"><img src="'+imgpreload+'" width="400" height="300">'+ '<br><b>Procesando. Esto puede demorar en dependencia de la cantidad de toros seleccionados. Sea paciente.Espere...</b></div>',
-                                                                                    contentClassName: 'bordernaranjaclassMasAncho',
-                                                                                    className:'vex-theme-os'
-                                                                                });
-
+                                                                                       if(isformovile==false){
+                                                                                           var vexwaiting2 = vex.dialog.alert({unsafeMessage: '<div style="text-align: center"><img src="'+imgpreload+'" width="400" height="300">'+ '<br><b>Procesando. Esto puede demorar en dependencia de la cantidad de toros seleccionados. Sea paciente.Espere...</b></div>',
+                                                                                               contentClassName: 'bordernaranjaclassMasAncho',
+                                                                                               className:'vex-theme-os'
+                                                                                           });
+                                                                                       }
                                                                                 var arra = [];
                                                                                 $.each(rows_selected, function (index, rowId) {
                                                                                     arra.push(rowId);
                                                                                 });
+                                                                                if(isformovile===false){
+                                                                                    var url = Routing.generate('pdf_generate_catalogo');
+                                                                                    $.ajax({
+                                                                                        type: 'POST',
+                                                                                        data: {source: source},
+                                                                                        url: url,
+                                                                                        success: function (data) {
+                                                                                            vex.close(vexwaiting2)
+                                                                                            if (data[0] == 1) {
+                                                                                                //window.open(data[1], '_blank');
+                                                                                                SaveToDisk(data[1],data[2]);
 
-                                                                                var url = Routing.generate('pdf_generate_catalogo');
+                                                                                            } else {
+                                                                                                vex.dialog.alert({
+                                                                                                    unsafeMessage: '<b>Error generando PDF</b>',
+                                                                                                    className: 'vex-theme-wireframe',
+                                                                                                    overlayClassName: 'success',
+                                                                                                    contentClassName: 'bordernaranjaclass',
+                                                                                                    closeClassName: 'closebleclass'
+                                                                                                });
+                                                                                            }
 
-                                                                                $.ajax({
-                                                                                    type: 'POST',
-                                                                                    data: {source: source},
-                                                                                    url: url,
-                                                                                    success: function (data) {
-                                                                                        vex.close(vexwaiting2)
-                                                                                        if (data[0] == 1) {
-                                                                                            //window.open(data[1], '_blank');
-                                                                                            SaveToDisk(data[1],data[2]);
-
-                                                                                        } else {
-                                                                                            vex.dialog.alert({
-                                                                                                unsafeMessage: '<b>Error generando PDF</b>',
-                                                                                                className: 'vex-theme-wireframe',
-                                                                                                overlayClassName: 'success',
-                                                                                                contentClassName: 'bordernaranjaclass',
-                                                                                                closeClassName: 'closebleclass'
-                                                                                            })
+                                                                                        },
+                                                                                        error: function (req, stat, err) {
+                                                                                            vex.close(vexwaiting2)
+                                                                                            console.log(err);
                                                                                         }
+                                                                                    });
+                                                                                }
 
-                                                                                    },
-                                                                                    error: function (req, stat, err) {
-                                                                                        vex.close(vexwaiting2)
-                                                                                        console.log(err);
-                                                                                    }
-                                                                                });
+                                                                                else{
+
+                                                                                    var url2 = Routing.generate('pdf_generate_catalogoformovil');
+                                                                                    console.log(url2);
+                                                                                    $.ajax({
+                                                                                        type: 'POST',
+                                                                                        data: {source: source},
+                                                                                        url: url2
+                                                                                    });
+                                                                                    vex.dialog.alert({
+                                                                                        unsafeMessage: '<b>La url al catálogo generado se enviará a '+source.email+' cuando esté lista</b>',
+                                                                                        className: 'vex-theme-wireframe',
+                                                                                        overlayClassName: 'success',
+                                                                                        contentClassName: 'bordernaranjaclass',
+                                                                                        closeClassName: 'closebleclass'
+                                                                                    });
+
+
+                                                                                }
+
+
+
+
+
                                                                                 $('#clicked').val('');
 
                                                                             }
