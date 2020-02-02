@@ -41,13 +41,21 @@
 												<!-- Split button -->
 
 												<select name="principalselector2" class="sel22 newselector">
+		                                  <option selected  value="{{ razaname }}" class="here">{{ razaname }}</option>
+											{% if fathersmenu  is defined %}
 
-													{% if razasmenu is defined %}
-														{% for r in razasmenu %}
-															<option value="{{ r.nombre }}">{{ r.nombre }}&nbsp;&nbsp;&nbsp;</option>
+												{% for r in fathersmenu %}
+													<option value="{{ r.nombre }}"> {{ r.nombre }}&nbsp;&nbsp;&nbsp;</option>
 
-														{% endfor %}
-													{% endif %}
+												{% endfor %}
+											{% endif %}
+
+											{% if razasmenu is defined %}
+												{% for r in razasmenu %}
+												<option value="{{ r.nombre }}">{{ r.nombre }}&nbsp;&nbsp;&nbsp;</option>
+
+												{% endfor %}
+											{% endif %}
 												</select>
 
 											</li>

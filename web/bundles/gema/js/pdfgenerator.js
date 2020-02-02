@@ -34,6 +34,13 @@ function SaveToDisk(fileURL, fileName) {
     }
 
 }
+
+function noClick(e) {
+   
+    e.preventDefault();
+   
+}
+
 $('.imprimircatalogo').click(function(){
 
 
@@ -111,13 +118,11 @@ $('.imprimircatalogo').click(function(){
                             tablacontenidoscheck=null;
 
                     }
-                    var classname=$(window).width() <= 767? 'vex-theme-wireframe':'vex-theme-bottom-right-corner';
-                    var isformovile=$(window).width() <= 767;
+                    var classname=$(window).width() <= 900? 'vex-theme-wireframe':'vex-theme-bottom-right-corner';
+                    var isformovile=$(window).width() <= 900;
 
 
                     vex.dialog.confirm({
-
-
                         contentClassName: 'bordernaranjaclass',
                         closeClassName: 'closebleclass',
                         className:  classname ,
@@ -308,13 +313,12 @@ $('.imprimircatalogo').click(function(){
                                             if(selectedcapa!=undefined && capa[1].replace('_small','')==selectedcapa)
                                                 isselected='checked';
                                             capasHtml += '<div class="col-md-4 col-xs-3" style="text-align: center;">' +
-                                                '<img src="' + capa[0] + '" class="imagencapasminuaturas" id="'+capa[2]+'" name="'+capa[1]+'"/><br>' +
+                                                '<img src="' + capa[0] + '" class="imagencapasminuaturas" onclick="noClick(event)" id="'+capa[2]+'" name="'+capa[1]+'"/><br>' +
                                                 '<input  type="radio" '+isselected+' required name="capasradio" value="' + capa[1] + '">' +
                                                 '</div>'
 
                                         });
-                                        capasHtml += '</div>';
-
+                                        capasHtml += '</div>';                                       
 
                                     }
 
@@ -326,9 +330,9 @@ $('.imprimircatalogo').click(function(){
                                             capasHtml + '<br>' +
                                             '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Título</b></div><div  class="col-md-8"><input class="inputtext" type="text"  name="titulo" value="'+datatitulo+'"></div></div>'+
                                             '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Subtítulo</b></div><div  class="col-md-8"><input class="inputtext" type="text"  name="subtitulo" value="'+datasubtitulo+'"></div></div>'+
-                                            '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Contacto</b></div><div class="col-md-8"><input class="inputtext" type="text"  name="contacto" value="'+datacontacto+'"></div></div>'+
-                                            '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Nombre</b></div><div class="col-md-8"><input class="inputtext" type="text"   name="nombre" value="'+datanombre+'"></div></div>'+
-                                            '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Dirección</b></div><div class="col-md-8"><input class="inputtext" type="text"  name="direccion" value="'+datadireccion+'"></div></div>'+
+                                            '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Mi Contacto</b></div><div class="col-md-8"><input class="inputtext" type="text"  name="contacto" value="'+datacontacto+'"></div></div>'+
+                                            '<div class="divaligncenter row" style="display:none !important"><div class="col-md-4"><b class="bdatapdf">Nombre</b></div><div class="col-md-8"><input class="inputtext" type="text"   name="nombre" value="'+datanombre+'"></div></div>'+
+                                            '<div class="divaligncenter row" style="display:none !important"><div class="col-md-4"><b class="bdatapdf">Dirección</b></div><div class="col-md-8"><input class="inputtext" type="text"  name="direccion" value="'+datadireccion+'"></div></div>'+
                                             '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Teléfono</b></div><div class="col-md-8"><input class="inputtext" type="text"  name="telefono" value="'+datatelefono+'"></div></div>'+
                                             '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Email</b></div><div class="col-md-8"><input class="inputtext" type="text" placeholder="Ej mail1@mail.com,mail2@mail.com"  name="email" value="'+dataemail+'"></div></div>'+
                                             '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Nombre del PDF</b></div><div class="col-md-8"><input class="inputtext"  type="text" name="titulopdf" value="'+datatitulopdf+'"></div></div>'
@@ -351,6 +355,7 @@ $('.imprimircatalogo').click(function(){
 
                                         callback: function (data) {
                                             var clickwhere=$('#clicked');
+                                          
 
                                             source['capaName'] = data.capasradio==undefined?undefined: data.capasradio.replace('_small', '');
 
@@ -378,7 +383,7 @@ $('.imprimircatalogo').click(function(){
                                                     var previaCapa='';
                                                     if(source.capas=='on'){
                                                         previaCapa='<div class="col-md-6">' +
-                                                            '<img class="imagenheadercatalogprevia1" src="'+source.capaUrl+'" style="width: 101% !important;">'+
+                                                            '<img class="imagenheadercatalogprevia1" src="'+source.capaUrl+'" style="width: 101%;">'+
                                                             '</div>'
 
                                                     }
@@ -408,13 +413,13 @@ $('.imprimircatalogo').click(function(){
                                                             '<b class="previaheader">Vista Previa</b><br>'+
                                                             '<div class="row">'+
                                                             previaCapa+
-                                                            '<div class="col-md-6" style="height: 320px !important;background-image: url'+"("+''+source["imgIntrodURL"].replace('\\','/')+');background-size: cover !important;background-position: bottom !important; ">' +
+                                                            '<div class="col-md-6 imgprev1_2" style="height: 320px !important;background-image: url'+"("+''+source["imgIntrodURL"].replace('\\','/')+');background-size: cover !important;background-position: bottom !important; ">' +
                                                             '<span class="previatitulo">'+source.titulo+'</span><br>'+
                                                             '<span class="previasubtitulo">'+source.subtitulo+'</span><br>'+
                                                             '<div style="height: 116px;"></div>'+
                                                             '<span class="previasubtitulo previatexto">'+source.contacto+'</span>'+brContacto+
-                                                            '<span class="previasubtitulo previatexto">'+source.nombre+'</span>'+brNombre+
-                                                            '<span class="previasubtitulo previatexto">'+source.direccion+'</span>'+brDireccion+
+                                                            //'<span class="previasubtitulo previatexto">'+source.nombre+'</span>'+brNombre+
+                                                            //'<span class="previasubtitulo previatexto">'+source.direccion+'</span>'+brDireccion+
                                                             '<span class="previasubtitulo previatexto">'+source.telefono+'</span>'+brTelefono+
                                                             '<span class="previasubtitulo previatexto" style="position:absolute;;margin-top: 9px !important;">'+source.email+'</span>'+brEmail+
                                                             '</div>'+

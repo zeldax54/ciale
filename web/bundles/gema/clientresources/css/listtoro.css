@@ -413,8 +413,12 @@ color: black;
 			  
 			  .vex-dialog-button-primary,.vex-dialog-button-secondary{
 
-				  font-size: 10px !important;
+				  font-size: 75% !important;
 				  margin-top: 10px !important;
+			  }
+
+			  .imagenheadercatalogprevia1,.imgprev1_2{
+				  width: 58% !important;
 			  }
 	
 }

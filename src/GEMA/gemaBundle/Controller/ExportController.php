@@ -1081,7 +1081,7 @@ public function exceladminAction($razaid){
 
 
         $options = array(
-            'margin-top'    => 1,
+            'margin-top'    => 2,
             'margin-right'  => 1,
             'margin-bottom' => 1,
             'margin-left'   => 1,
