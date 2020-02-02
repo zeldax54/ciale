@@ -894,7 +894,7 @@ public function exceladminAction($razaid){
                 $message ->setTo($emails);
 
               $message->setBody(
-                  '<span>Este enlace solo se mantendrá por 7 dias.Puede descargarlo desde el siguiente link <a href="'.$path.'">'.$filename.'</a> </span>'
+                  '<span>Este enlace solo se mantendrá por 7 dias. Puede descargarlo desde el siguiente link <a href="'.$path.'">'.$filename.'.</a> </span>'
               );
               $this->get('mailer')->send($message);
               return new JsonResponse(array(
@@ -1081,7 +1081,7 @@ public function exceladminAction($razaid){
 
 
         $options = array(
-            'margin-top'    => 2,
+            'margin-top'    => 4,
             'margin-right'  => 1,
             'margin-bottom' => 1,
             'margin-left'   => 1,
