@@ -289,8 +289,7 @@ class MailController extends Controller
         //
 
         $nombre=$request->request->get('nombre');
-        $apellido=$request->request->get('apellido');
-        $direccion=$request->request->get('direccion');
+        $apellido=$request->request->get('apellido');   
         $localidad=$request->request->get('localidad');
         $provincia=$request->request->get('provincia');       
         $email= strtolower($request->request->get('email'));
@@ -335,30 +334,33 @@ class MailController extends Controller
         $result='Configuracion Mail_Chimp desactivada';
         if( $em->getRepository('gemaBundle:Configuracion')->find(1)->getRegisterMailChimp()==true){
             $contantoNombre = $em->getRepository('gemaBundle:Configuracion')->find(1)->getNombreContacto();
-            $keyContacto=$em->getRepository('gemaBundle:Configuracion')->find(1)->getKeyContacto();
-            $postData = array(
-                "Email Address" => "$email",
+            $keyContacto=$em->getRepository('gemaBundle:Configuracion')->find(1)->getKeyContacto();         
+
+            $postData = array(              
                 "email_address" => "$email",
                 'status_if_new' => 'subscribed',
-                "status" => "subscribed",
-                'Last Name'=>$apellido,
-                'Interest'=>'Solicitud from facebook',
-                'Subscribe'=>'Contacto WEB',
-                'Telefono'=>$telefono,              
-                'Localidad'=>$localidad,
-                'Provincia'=>$provincia,
-                'Pais'=>$pais,                   
- 
- 
-                "merge_fields" => array(
-                    "First Name"=> $nombre,
-                    "Email Address"=>$email)
- 
-            );
+                "status" => "subscribed",                
+                 'merge_fields'  => [
+                    "FNAME"=> $nombre,
+                    'LNAME'=>$apellido,
+                    'MMERGE8'=>'Formulario de Solicitud',
+                    'Subscribe'=>'Contacto WEB',
+                    'MMERGE12'=>$telefono,
+                    'MMERGE4'=>$localidad,
+                    'MMERGE5'=>$provincia,
+                    'MMERGE10'=>$pais,
+                    'MMERGE9'=>'',
+                    'MMERGE3'=>'',
+                    'MMERGE16'=>'Formulario de solicitud',
+                 ]
+                );
+
+
+
               // Setup cURL
-              $url = 'https://us6.api.mailchimp.com/3.0/lists/'.$contantoNombre.'/members/';
+              $url = 'https://us6.api.mailchimp.com/3.0/lists/a03f2c9901/members/';
               $json_data = json_encode($postData);
-              $auth = base64_encode( 'user:'.$keyContacto );
+              $auth = base64_encode( 'user:41bcb93a80723f3ba69ddc3b75af6005-us6');
  
               $ch = curl_init();
               curl_setopt($ch, CURLOPT_URL, $url);
