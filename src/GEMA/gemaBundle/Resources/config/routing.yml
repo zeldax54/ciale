@@ -401,6 +401,14 @@ gema_remateindex:
   pattern:  /noticias/remates
   defaults: { _controller: "gemaBundle:Remate:ClientIndex" }
 
+gema_solicitud:
+    pattern:  /solicitud
+    defaults: { _controller: "gemaBundle:Mail:solicitudIndex" }
+
+gema_sendsolicitud:
+    pattern:  /sendsolicitudmail
+    defaults: { _controller: "gemaBundle:Mail:sendSolicitudMail" }
+
 prodprog_newwindows:
     pattern:  /{nombremenu}
     defaults: { _controller: "gemaBundle:ProdProgclient:newwind" }

@@ -620,8 +620,13 @@ public function exceladminAction($razaid){
          $pdfGenerator->setTimeout(10000);
 
          $options = array(
-             'zoom'=>$zoompdf
-         );
+            'margin-top'    => 4,
+            'margin-right'  => 1,
+            'margin-bottom' => 1,
+            'margin-left'   => 1,
+//                'dpi'=>1.33,
+            'zoom'=>$zoompdf
+        );
          foreach ($options as $margin => $value) {
              $pdfGenerator->setOption($margin, $value);
          }

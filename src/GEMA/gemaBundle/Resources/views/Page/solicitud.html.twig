@@ -1,0 +1,229 @@
+{% extends 'gemaBundle::clientlayout.html.twig' %}
+
+  {% block customstylesheets %}
+      <link href="{{ asset('bundles/gema/clientresources/css/contactcss.css')}}" rel="stylesheet">
+      <link href="{{ asset('bundles/gema/clientresources/css/contactcssspecial.css')}}" rel="stylesheet">
+      <style>
+     .navbar-nav{
+          display:none;
+      }
+      .parentdiv{
+                
+                margin-left:8%;
+          
+      }
+      #logotipo{
+          margin-left: 141% !important;
+      }
+      .top-navegacion{
+display:none !important;
+
+      }
+      .footer-superior, .footer-medio, .footer-inferior{
+
+          display:none;
+      }
+      </style>
+	  {% endblock %}
+
+  {% block content %}
+
+<div style="margin-bottom: 50px !important;" id="formcontainer">
+
+    <h3 style="font-family: 'Fago-Bold';color:#254389;font-size:22px !important">Por favor, completa los siguientes datos para que podamos atender mejor tu consulta.</h3>
+<br><br>
+    <div class="row">
+        <div class="col-md-8 parentdiv">
+<div style="width: 100%">
+            <form name="form" method="post" id="sendform" action="{{ path('gema_sendmail') }}">
+                <div id="form">
+                    <div class="form-group"><label  class="required col-md-2 control-label" >Nombre</label>
+                        <div class="col-md-10">
+                            <input class="form-control" id="nombre" name="nombre" required="required" maxlength="255" type="text">
+                        </div>
+                    </div>
+
+                    <div class="form-group"><label  class="required col-md-2 control-label">Apellido</label>
+                        <div class="col-md-10">
+                            <input class="form-control" id="apellido" required="required" name="apellido"  maxlength="255" type="text">
+                        </div>
+                    </div>
+
+                   {# <div class="form-group"><label  class="col-md-2 control-label">Direccion</label>
+                        <div class="col-md-10">
+                            <input class="form-control" id="direccion" name="direccion"   type="text">
+                        </div>
+                    </div>#}
+
+                    <div class="form-group"><label  class="required col-md-2 control-label">Localidad</label>
+                        <div class="col-md-10">
+                            <input class="form-control" id="localidad" required="required" name="localidad"   type="text">
+                        </div>
+                    </div>
+
+                    <div class="form-group"><label  class="required col-md-2 control-label">Provincia</label>
+                        <div class="col-md-10">
+                            <input class="form-control" id="provincia" required="required" name="provincia"   type="text">
+                        </div>
+                    </div>
+
+                    <div class="form-group"><label  class="required col-md-2 control-label">Pais</label>
+                        <div class="col-md-10">
+                            <input class="form-control" id="pais" required="required" name="pais"   type="text">
+                        </div>
+                    </div>
+
+                  {#  <div class="form-group"><label  class=" col-md-2 control-label">CP</label>
+                        <div class="col-md-10">
+                            <input placeholder="Código Postal" class="form-control" id="codigopostal" name="codigopostal"   type="text">
+                        </div>
+                    </div>
+                    {#<div style="height: 10px"> </div>#}
+
+
+                    <div class="form-group"><label  class="required col-md-2 control-label">Email</label>
+                        <div class="col-md-10">
+                            <input class="form-control" id="email" name="email" required   type="email">
+                        </div>
+                    </div>
+
+                    <div class="form-group"><label  class="required col-md-2 control-label">Teléfono</label>
+                        <div class="col-md-10">
+                            <input class="form-control" id="telefono" name="telefono" required   type="number">
+                        </div>
+                    </div>
+
+                    {# <div class="form-group"><label  class=" col-md-2 control-label">Empresa</label>
+                        <div class="col-md-10">
+                            <input class="form-control" id="empresa" name="empresa"    type="text">
+                        </div>
+                    </div>#}
+
+                   {#  <div class="form-group"><label  class="required col-md-2 control-label">Elija las razas de su interés</label>
+                        <div class="col-md-10">
+                            <select multiple name="razas[]" id="razas" class="selectmultiple">
+                                <option value="Todas las razas">Todas las razas</option>
+                                <option value="Todas las razas de carne">Todas las razas de Carne</option>
+                                <option value="Todas las razas de leche">Todas las razas de Leche</option>
+
+                                {% for r in razas %}
+                                    <option value="{{ r.nombre }}">{{ r.nombre }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>#}
+
+                  {#  <div class="form-group"><label  class="required col-md-2 control-label">Consulta</label>
+                        <div class="col-md-10">
+                            <textarea class="form-control" required="required"  id="consulta" name="consulta" ></textarea>
+                        </div>
+                    </div>#}
+
+
+                </div>
+
+                <div class="form-group"><label  class=" col-md-2 control-label">Validar</label>
+                    <div class="col-md-10">
+                        <div class="g-recaptcha" data-callback="muestraBoton" data-expired-callback="ocultaboton" data-error-callback="errorboton" data-sitekey="{{ apikey }}"></div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-offset-2 col-md-10">
+                    <button title="Enviar Correo" class="btn btn-default sb" type="submit" id="bsubmit" name="bsubmit">Enviar</button>
+                    <img id="mygif" src="{{ asset(gife) }}" style="display: none">
+                </div>
+
+            </form>
+</div>
+         </div>
+
+
+
+
+      
+
+
+
+  </div>
+
+</div>
+{% endblock %}
+
+    {% block custom_javascripts %}
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+        <script>
+
+            $(document).ready(function(){
+                $('#bsubmit').hide();
+            });
+
+            var muestraBoton = function() {
+                $('#bsubmit').show();
+            };
+            var ocultaboton = function() {
+                $('#bsubmit').hide();
+            };
+            var errorboton = function() {
+                $('#bsubmit').hide();
+            };
+
+
+
+    $("#sendform").on('submit',(function(e){
+        e.preventDefault();
+        $('#bsubmit').hide();
+            var src=$('#mygif').attr('src');
+            vex.dialog.alert({ unsafeMessage:'<div style="text-align: center">' +
+                    '<h5 style="font-family: Fago-Bold">Enviando mensaje</h5>'+
+            '<img width="200px" height="200px" src="'+src+'"><div>'
+
+            , className: 'vex-theme-wireframe' ,
+            overlayClassName: 'success',
+            contentClassName: 'borderblueclass errormaxwidth',
+            closeClassName: 'closebleclass'
+        });
+        $.ajax({
+            url: Routing.generate('gema_sendsolicitud'),
+            type: "POST",
+            data:  new FormData(this),
+            contentType: false,
+            cache: false,
+            processData:false,
+            success: function(data){
+                console.log(data);
+                vex.closeAll();
+                vex.dialog.alert({ unsafeMessage:'<span>'+data[1]+'</span>'
+
+                    , className: 'vex-theme-wireframe' ,
+                    overlayClassName: 'success',
+                    contentClassName: 'borderblueclass maxwidth',
+                    closeClassName: 'closebleclass'
+                });
+                console.log(data[2]);
+                $('#bsubmit').show();
+            },
+            error: function(error,stat, err){
+                vex.closeAll();
+                vex.dialog.alert({ unsafeMessage:err
+
+                    , className: 'vex-theme-wireframe' ,
+                    overlayClassName: 'success',
+                    contentClassName: 'borderblueclass errormaxwidth',
+                    closeClassName: 'closebleclass'
+                })
+                $('#bsubmit').show();
+            }
+        });
+    }));
+
+    $('option').mousedown(function(e) {
+        e.preventDefault();
+        $(this).prop('selected', !$(this).prop('selected'));
+        return false;
+    });
+
+
+</script>
+
+	{% endblock %}

@@ -37,6 +37,26 @@ class MailController extends Controller
         ));
     }
 
+    public function solicitudIndexAction(){
+
+        $em = $this->getDoctrine()->getManager();
+        $razas = $em->getRepository('gemaBundle:Raza')->findAll();
+        $datosof=$em->getRepository('gemaBundle:DatosOficina')->find(1);
+        $helper=new MyHelper();
+        $gife=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'paperplane.gif');
+        $coordenadas = $em->getRepository('gemaBundle:Configuracion')->find(1)->getCoordenadas();
+        $coordenadaslab = $em->getRepository('gemaBundle:Configuracion')->find(1)->getCoordenadaslab();
+        $apikey= $this->getParameter('apikey');
+        return $this->render('gemaBundle:Page:solicitud.html.twig', array(
+           'razas'=>$razas,
+            'datosoficina'=>$datosof,
+            'gife'=>$gife,
+             'coordenadas'=>$coordenadas,
+            'coordenadaslab'=>$coordenadaslab,
+            'apikey'=>$apikey
+        ));
+    }
+
     /**
      * @param Request $request
      * @return JsonResponse
@@ -230,6 +250,159 @@ class MailController extends Controller
         }
 
     }
+
+     /**
+     * @param Request $request
+     * @return JsonResponse
+     * @throws \Exception
+     */
+    public function sendSolicitudMailAction(Request $request){
+       //MailChimp
+       try{
+
+        $recaptcha = $request->request->get('g-recaptcha-response');
+        $url = 'https://www.google.com/recaptcha/api/siteverify';
+        $data = array(
+            'secret' => $this->getParameter('apisecret'),
+            'response' => $recaptcha
+        );
+        $query=http_build_query($data);
+        $options = array(
+            'http' => array (
+                'header' => "Content-Type: application/x-www-form-urlencoded\r\n".
+                    "Content-Length: ".strlen($query)."\r\n".
+                    "User-Agent:MyAgent/1.0\r\n",
+                'method' => 'POST',
+                'content' => $query
+            )
+        );
+        $context  = stream_context_create($options);
+        $verify = file_get_contents($url, false, $context);
+        $captcha_success=json_decode($verify,true);
+        if ($captcha_success['success']==false) {
+            return new JsonResponse(array(
+                0=>'No Enviado',
+                1=>'Mensaje no enviado usted es un robot...',
+
+            ));
+        }
+        //
+
+        $nombre=$request->request->get('nombre');
+        $apellido=$request->request->get('apellido');
+        $direccion=$request->request->get('direccion');
+        $localidad=$request->request->get('localidad');
+        $provincia=$request->request->get('provincia');       
+        $email= strtolower($request->request->get('email'));
+        $telefono=$request->request->get('telefono');   
+        $pais=$request->request->get('pais');
+        $em = $this->getDoctrine()->getManager();
+         
+        //Email
+        $message = \Swift_Message::newInstance()
+        ->setSubject('Formulario de solicitud');
+        $message->setFrom('info@ciale.com');
+    $message->setContentType("text/html");   
+    $body='';
+    $body.='<strong>Nombre:</strong> '.$nombre."<br>";
+    $body.='<strong>Apellido:</strong> '.$apellido."<br>";
+    $body.='<strong>Direccion:</strong> '.$direccion."<br>";
+    $body.='<strong>Localidad:</strong> '.$localidad."<br>";
+    $body.='<strong>Provincia:</strong> '.$provincia."<br>";
+    $body.='<strong>Pais:</strong> '.$pais."<br>";
+    $body.='<strong>Email:</strong> '.$email."<br>";
+    $body.='<strong>Teléfono:</strong> '.$telefono."<br>";   
+    $to=array(
+        0 =>$email,
+    );
+    $enviarmail = $em->getRepository('gemaBundle:Configuracion')->find(1)->getEnviarmaildestinos();
+    $datosof=$em->getRepository('gemaBundle:DatosOficina')->find(1);
+    $direcciones=explode(';',$datosof->getEmail());
+    if($enviarmail==true)
+    {
+
+        foreach($direcciones as $d)
+            $to[]=$d;
+    }
+    $message ->setTo($to);
+    $message->setBody(
+        $body
+    );
+
+    $this->get('mailer')->send($message);
+
+        // MailCHimp
+        $result='Configuracion Mail_Chimp desactivada';
+        if( $em->getRepository('gemaBundle:Configuracion')->find(1)->getRegisterMailChimp()==true){
+            $contantoNombre = $em->getRepository('gemaBundle:Configuracion')->find(1)->getNombreContacto();
+            $keyContacto=$em->getRepository('gemaBundle:Configuracion')->find(1)->getKeyContacto();
+            $postData = array(
+                "Email Address" => "$email",
+                "email_address" => "$email",
+                'status_if_new' => 'subscribed',
+                "status" => "subscribed",
+                'Last Name'=>$apellido,
+                'Interest'=>'Solicitud from facebook',
+                'Subscribe'=>'Contacto WEB',
+                'Telefono'=>$telefono,              
+                'Localidad'=>$localidad,
+                'Provincia'=>$provincia,
+                'Pais'=>$pais,                   
+ 
+ 
+                "merge_fields" => array(
+                    "First Name"=> $nombre,
+                    "Email Address"=>$email)
+ 
+            );
+              // Setup cURL
+              $url = 'https://us6.api.mailchimp.com/3.0/lists/'.$contantoNombre.'/members/';
+              $json_data = json_encode($postData);
+              $auth = base64_encode( 'user:'.$keyContacto );
+ 
+              $ch = curl_init();
+              curl_setopt($ch, CURLOPT_URL, $url);
+              curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json',
+                  'Authorization: Basic '.$auth));
+              curl_setopt($ch, CURLOPT_USERAGENT, 'PHP-MCAPI/2.0');
+              curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+              curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+              curl_setopt($ch, CURLOPT_POST, true);
+              curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+              curl_setopt($ch, CURLOPT_POSTFIELDS, $json_data);
+ 
+              $result = curl_exec($ch);
+        }
+        return new JsonResponse(array(
+            0=>'Enviado',
+            1=>'Mensaje enviado con exito! Se ha copiado el mensaje a su dirección de correo.',
+            2=>$result
+
+        ));
+       
+       }
+       catch(\Swift_TransportException  $e){
+        return new JsonResponse(array(
+            0=>'No Enviado',
+            1=>$e->getMessage(),
+
+        ));
+      }
+      catch (\Swift_RfcComplianceException $e){
+        return new JsonResponse(array(
+            0=>'No Enviado',
+            1=>$e->getMessage(),
+
+        ));
+    }
+       catch(Exception  $e){
+        return new JsonResponse(array(
+            0=>'No Enviado',
+            1=>$e->getMessage(),
+
+        ));
+        }
+      }
 
     /**
      * @param Request $request
