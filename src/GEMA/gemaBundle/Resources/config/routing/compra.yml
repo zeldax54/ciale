@@ -1,0 +1,28 @@
+compra:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:Compra:index" }
+
+compra_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:Compra:show" }
+
+compra_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:Compra:new" }
+
+compra_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:Compra:create" }
+    requirements: { _method: post }
+
+compra_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:Compra:edit" }
+
+compra_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:Compra:update" }
+
+compra_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:Compra:delete" }

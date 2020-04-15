@@ -1,0 +1,28 @@
+pedidobase:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:Pedidobase:index" }
+
+pedidobase_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:Pedidobase:show" }
+
+pedidobase_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:Pedidobase:new" }
+
+pedidobase_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:Pedidobase:create" }
+    requirements: { _method: post }
+
+pedidobase_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:Pedidobase:edit" }
+
+pedidobase_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:Pedidobase:update" }
+
+pedidobase_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:Pedidobase:delete" }

@@ -1,0 +1,57 @@
+    {% extends 'gemaBundle::layout.html.twig' %}
+
+    {% block gema_page -%}
+    <h2>Compra</h2>
+
+    <div class="table-responsive">
+        <table class="record_properties table table-hover">
+            <thead>
+                <tr>                                                                <th>Nombre</th>
+                                                                    <th>Apellido</th>
+                                                                    <th>Empresa</th>
+                                                                    <th>Localidad</th>
+                                                                    <th>Provincia</th>
+                                                                    <th>Telefono</th>
+                                                                    <th>Email</th>
+                                                                    <th>Descuento</th>
+                        
+                    <th colspan="3">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>                                        
+                        <td>{{ entity.nombre }}</td>
+                                        
+                        <td>{{ entity.apellido }}</td>
+                                        
+                        <td>{{ entity.empresa }}</td>
+                                        
+                        <td>{{ entity.localidad }}</td>
+                                        
+                        <td>{{ entity.provincia }}</td>
+                                        
+                        <td>{{ entity.telefono }}</td>
+                                        
+                        <td>{{ entity.email }}</td>
+                                        
+                        <td>{{ entity.descuento }}</td>
+                    
+    <td><a href="{{ path('compra_show', { 'id': entity.id }) }}"><i class="fa fa-eye"></i> Mostrar</a></td>
+    <td><a href="{{ path('compra_edit', { 'id': entity.id }) }}"><i class="fa fa-edit"></i> Editar</a></td>
+    <td><a href="{{ path('compra_delete', { 'id': entity.id }) }}"><i class="fa fa-minus-circle"></i> Eliminar</a></td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <ul class="pager">
+        <li class="next"><a href="{{path('compra')}}"><i class="fa fa-list"></i>
+                Listado de Compra
+            </a>
+        </li>
+    </ul>
+
+
+    {% endblock %}

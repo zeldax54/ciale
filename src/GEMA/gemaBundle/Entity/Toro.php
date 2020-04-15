@@ -374,6 +374,11 @@ class Toro
      */
     private $torosSugeridos;
 
+     /**
+     * @ORM\OneToMany(targetEntity="GEMA\gemaBundle\Entity\Pedidobase" , mappedBy="toro", cascade={"persist"})
+     */
+    private $pedidosbase;
+
 
     /**
      * Get id
@@ -1673,5 +1678,37 @@ class Toro
     public function getTorosSugeridos()
     {
         return $this->torosSugeridos;
+    }
+
+    /**
+     * Add pedidosbase
+     *
+     * @param \GEMA\gemaBundle\Entity\Pedidobase $pedidosbase
+     * @return Toro
+     */
+    public function addPedidosbase(\GEMA\gemaBundle\Entity\Pedidobase $pedidosbase)
+    {
+        $this->pedidosbase[] = $pedidosbase;
+        return $this;
+    }
+
+    /**
+     * Remove pedidosbase
+     *
+     * @param \GEMA\gemaBundle\Entity\Pedidobase $pedidosbase
+     */
+    public function removePedidosbase(\GEMA\gemaBundle\Entity\Pedidobase $pedidosbase)
+    {
+        $this->pedidosbase->removeElement($pedidosbase);
+    }
+
+    /**
+     * Get pedidosbase
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPedidosbase()
+    {
+        return $this->pedidosbase;
     }
 }

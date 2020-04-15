@@ -1,3 +1,27 @@
+gema_compra:
+    resource: "@gemaBundle/Resources/config/routing/compra.yml"
+    prefix:   /admin/compra
+
+gema_metodopago:
+    resource: "@gemaBundle/Resources/config/routing/metodopago.yml"
+    prefix:   /admin/metodopago
+
+gema_vendedorcompra:
+    resource: "@gemaBundle/Resources/config/routing/vendedorcompra.yml"
+    prefix:   /admin/vendedorcompra
+
+gema_pedidobase:
+    resource: "@gemaBundle/Resources/config/routing/pedidobase.yml"
+    prefix:   /admin/pedidobase
+
+gema_premio:
+    resource: "@gemaBundle/Resources/config/routing/premio.yml"
+    prefix:   /admin/premio
+
+gema_ruleta:
+    resource: "@gemaBundle/Resources/config/routing/ruleta.yml"
+    prefix:   /admin/ruleta
+
 gema_aerea:
     resource: "@gemaBundle/Resources/config/routing/area.yml"
     prefix:   /admin/area
@@ -408,6 +432,14 @@ gema_solicitud:
 gema_sendsolicitud:
     pattern:  /sendsolicitudmail
     defaults: { _controller: "gemaBundle:Mail:sendSolicitudMail" }
+
+gema_compras:
+    pattern:  /compras
+    defaults: { _controller: "gemaBundle:Compra:comprasindex" }
+
+gema_comprasdo:
+    pattern:  /comprasdo
+    defaults: { _controller: "gemaBundle:Compra:comprasDo" }
 
 prodprog_newwindows:
     pattern:  /{nombremenu}

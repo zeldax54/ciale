@@ -1,0 +1,28 @@
+vendedorcompra:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:VendedorCompra:index" }
+
+vendedorcompra_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:VendedorCompra:show" }
+
+vendedorcompra_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:VendedorCompra:new" }
+
+vendedorcompra_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:VendedorCompra:create" }
+    requirements: { _method: post }
+
+vendedorcompra_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:VendedorCompra:edit" }
+
+vendedorcompra_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:VendedorCompra:update" }
+
+vendedorcompra_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:VendedorCompra:delete" }

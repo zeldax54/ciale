@@ -123,6 +123,19 @@
                 </ul>
 
             </li>
+             <li class="dropdown {% block gema_navbar_compras %}{% endblock %}">
+                <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="fa fa-shopping-cart icon-navbar fa-lg hidden-md"></i>Compras<b class="caret"></b></a>
+                <ul role="menu" class="dropdown-menu">
+                    <li><a href="{{path("ruleta")}}"><i class="zmdi zmdi-menu icon-navbar fa-lg hidden-md"></i>Ruletas</a></li>
+                    <li><a href="{{path("premio")}}"><i class="zmdi zmdi-menu icon-navbar fa-lg hidden-md"></i>Premios</a></li>
+                    <li><a href="{{path("pedidobase")}}"><i class="zmdi zmdi-menu icon-navbar fa-lg hidden-md"></i>Pedidos Base</a></li>
+                    <li><a href="{{path("vendedorcompra")}}"><i class="zmdi zmdi-menu icon-navbar fa-lg hidden-md"></i>Vendedores</a></li> 
+                    <li><a href="{{path("metodopago")}}"><i class="zmdi zmdi-menu icon-navbar fa-lg hidden-md"></i>Metodos de Pago</a></li> 
+                     <li><a href="{{path("compra")}}"><i class="zmdi zmdi-menu icon-navbar fa-lg hidden-md"></i>Compras</a></li> 
+
+                </ul>
+
+            </li>
 
             <li class="dropdown {% block gema_navbar_seguridad %}{% endblock %}">
 

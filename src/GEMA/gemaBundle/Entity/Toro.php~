@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\JoinTable;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * Toro
@@ -357,12 +358,14 @@ class Toro
 
     /**
      * Many Users have Many Users.
+     * @JMS\Exclude();
      * @ManyToMany(targetEntity="Toro", mappedBy="torosSugeridos",cascade={"persist"})
      */
     private $torosquemeSugierem;
 
     /**
      * Many Users have many Users.
+     * @JMS\Exclude();
      * @ManyToMany(targetEntity="Toro", inversedBy="torosquemeSugierem",cascade={"persist"})
      * @JoinTable(name="sugeridos",
      *      joinColumns={@JoinColumn(name="toro_id", referencedColumnName="id")},
@@ -370,6 +373,11 @@ class Toro
      *      )
      */
     private $torosSugeridos;
+
+     /**
+     * @ORM\OneToMany(targetEntity="GEMA\gemaBundle\Entity\Pedidobase" , mappedBy="toro", cascade={"persist"})
+     */
+    private $pedidosbase;
 
 
     /**
@@ -1539,7 +1547,7 @@ class Toro
 
     public function __toString()
     {
-        return $this->getNombre();
+        return $this->getApodo();
     }
 
 
@@ -1597,4 +1605,111 @@ class Toro
 
 
 
+
+    /**
+     * Add torosquemeSugierem
+     *
+     * @param \GEMA\gemaBundle\Entity\Toro $torosquemeSugierem
+     * @return Toro
+     */
+    public function addTorosquemeSugierem(\GEMA\gemaBundle\Entity\Toro $torosquemeSugierem)
+    {
+        $this->torosquemeSugierem[] = $torosquemeSugierem;
+        $torosquemeSugierem->addTorosSugerido($this);
+        return $this;
+    }
+
+    /**
+     * Remove torosquemeSugierem
+     *
+     * @param \GEMA\gemaBundle\Entity\Toro $torosquemeSugierem
+     */
+    public function removeTorosquemeSugierem(\GEMA\gemaBundle\Entity\Toro $torosquemeSugierem)
+    {
+        $this->torosquemeSugierem->removeElement($torosquemeSugierem);
+    }
+
+    /**
+     * Get torosquemeSugierem
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTorosquemeSugierem()
+    {
+        return $this->torosquemeSugierem;
+    }
+
+    /**
+     * Add torosSugeridos
+     *
+     * @param \GEMA\gemaBundle\Entity\Toro $torosSugeridos
+     * @return Toro
+     */
+    public function addTorosSugerido(\GEMA\gemaBundle\Entity\Toro $torosSugeridos)
+    {
+        $this->torosSugeridos[] = $torosSugeridos;
+        $torosSugeridos->addTorosquemeSugierem($this);
+        return $this;
+    }
+
+    public function setToroSugerido(\GEMA\gemaBundle\Entity\Toro $torosSugeridos)
+    {
+        $this->torosSugeridos[] = $torosSugeridos;
+        return $this;
+    }
+
+    /**
+     * Remove torosSugeridos
+     *
+     * @param \GEMA\gemaBundle\Entity\Toro $torosSugeridos
+     */
+    public function removeTorosSugerido(\GEMA\gemaBundle\Entity\Toro $torosSugeridos)
+    {
+        $this->torosSugeridos->removeElement($torosSugeridos);
+    }
+
+
+
+    /**
+     * Get torosSugeridos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTorosSugeridos()
+    {
+        return $this->torosSugeridos;
+    }
+
+    /**
+     * Add pedidosbase
+     *
+     * @param \GEMA\gemaBundle\Entity\Pedidosbase $pedidosbase
+     * @return Toro
+     */
+    public function addPedidosbase(\GEMA\gemaBundle\Entity\Pedidosbase $pedidosbase)
+    {
+        $this->pedidosbase[] = $pedidosbase;
+
+        return $this;
+    }
+
+    /**
+     * Remove pedidosbase
+     *
+     * @param \GEMA\gemaBundle\Entity\Pedidosbase $pedidosbase
+     */
+    public function removePedidosbase(\GEMA\gemaBundle\Entity\Pedidosbase $pedidosbase)
+    {
+        $this->pedidosbase->removeElement($pedidosbase);
+    }
+
+    /**
+     * Get pedidosbase
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPedidosbase()
+    {
+        return $this->pedidosbase;
+    }
 }

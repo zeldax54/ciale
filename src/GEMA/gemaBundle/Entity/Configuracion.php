@@ -166,6 +166,11 @@ class Configuracion
      */
     private $keyVisita;
 
+   /**
+     * @ORM\Column(name="activarCompras", type="boolean", nullable=true)
+     */
+    private $activarCompras;
+
 
     /**
      * Get id
@@ -727,5 +732,28 @@ class Configuracion
     public function getRegisterMailChimp()
     {
         return $this->registerMailChimp;
+    }
+
+    /**
+     * Set activarCompras
+     *
+     * @param boolean $activarCompras
+     * @return Configuracion
+     */
+    public function setActivarCompras($activarCompras)
+    {
+        $this->activarCompras = $activarCompras;
+
+        return $this;
+    }
+
+    /**
+     * Get activarCompras
+     *
+     * @return boolean 
+     */
+    public function getActivarCompras()
+    {
+        return $this->activarCompras;
     }
 }

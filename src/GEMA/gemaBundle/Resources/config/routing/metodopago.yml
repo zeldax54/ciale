@@ -1,0 +1,28 @@
+metodopago:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:Metodopago:index" }
+
+metodopago_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:Metodopago:show" }
+
+metodopago_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:Metodopago:new" }
+
+metodopago_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:Metodopago:create" }
+    requirements: { _method: post }
+
+metodopago_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:Metodopago:edit" }
+
+metodopago_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:Metodopago:update" }
+
+metodopago_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:Metodopago:delete" }

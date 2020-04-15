@@ -130,6 +130,10 @@ class ConfiguracionType extends AbstractType
                 )
 
             ))
+            ->add('activarCompras',null,array(
+                'label'=>'Activar Compras'              
+
+            ))
         ;
     }
     

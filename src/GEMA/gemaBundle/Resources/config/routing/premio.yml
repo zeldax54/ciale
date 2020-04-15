@@ -1,0 +1,28 @@
+premio:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:Premio:index" }
+
+premio_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:Premio:show" }
+
+premio_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:Premio:new" }
+
+premio_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:Premio:create" }
+    requirements: { _method: post }
+
+premio_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:Premio:edit" }
+
+premio_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:Premio:update" }
+
+premio_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:Premio:delete" }
