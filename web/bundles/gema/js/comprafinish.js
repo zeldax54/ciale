@@ -9,7 +9,8 @@
      
       
         vex.dialog.confirm({
-            message: 'Desea continuar con su compra?',
+            message: 'Confirmar la compra y tirar la ruleta. ¡Suerte 🤞🏻!',
+            className: 'vex-theme-default' ,
             callback: function (value) {
                 if(value==false){
                     $('#bsubmit').show();
@@ -35,7 +36,7 @@
                                 'outerRadius'  : 212,       // The size of the wheel.
                                 'centerX'      : 217,       // Used to position on the background correctly.
                                 'centerY'      : 219,
-                                'textFontSize' : 10,        // Font size.
+                                'textFontSize' : 15,        // Font size.
                                 'segments'     :            // Definition of all the segments.
                                 [
                                    {'fillStyle' : '#eae56f', 'text' : ruleta.premios[0].nombre},
@@ -64,8 +65,8 @@
                             {
                                 premiotext = indicatedSegment.text;
                                 //delay here
-                                wait(2000);
-                                $("#canvasModal").modal('hide');
+                               // wait(2000);
+                               
                                 sendCompra(new FormData(that),premiotext,ruletagen,totlaahorro);
                                 return;
 
@@ -130,7 +131,7 @@ vex.dialog.alert({ unsafeMessage:'<div style="text-align: center">' +
         '<h5 style="font-family: Fago-Bold">Enviando pedido</h5>'+
 '<img width="200px" height="200px" src="'+src+'"><div>'
 
-, className: 'vex-theme-wireframe' ,
+, className: 'vex-theme-default' ,
 overlayClassName: 'success',
 contentClassName: 'borderblueclass errormaxwidth',
 closeClassName: 'closebleclass'
@@ -157,7 +158,13 @@ formdata.append('descuento',descuento);
             success: function(data){
                 console.log(data);
                 vex.closeAll();
-                vex.dialog.alert({ unsafeMessage:'<span>'+data[1]+'</span>'
+           //     $("#canvasModal").modal('hide');
+            var msj;
+            if(ruletagen==null)
+                 msj = '<span> Te enviamos un resumen de tu compra a tu correo electrónico. Gracias 😊</span>';
+             else
+                msj = '<span>Ganaste '+premiotext + '!</span><br><span> Te enviamos un resumen de tu compra y el premio obtenido a tu correo electrónico. Gracias 😊</span>';
+                vex.dialog.alert({ unsafeMessage:msj
 
                     , className: 'vex-theme-wireframe' ,
                     overlayClassName: 'success',
@@ -169,9 +176,9 @@ formdata.append('descuento',descuento);
             },
             error: function(error,stat, err){
                 vex.closeAll();
-                vex.dialog.alert({ unsafeMessage:err
+                vex.dialog.alert({ unsafeMessage:err,
 
-                    , className: 'vex-theme-wireframe' ,
+                    className: 'vex-theme-default'  ,
                     overlayClassName: 'success',
                     contentClassName: 'borderblueclass errormaxwidth',
                     closeClassName: 'closebleclass'

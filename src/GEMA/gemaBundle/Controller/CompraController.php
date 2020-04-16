@@ -409,6 +409,7 @@ class CompraController extends Controller
     $body.='<strong>Total Ahorrado:</strong> '.$totlaahorro."<br>";   
     $body.='<strong>Total Pagado:</strong> '.($totalPagado- $descuento)."<br>";    
 
+    if($compraReloades->getPremio()!=null)
     $body.='<strong>Premio:</strong> '.$compraReloades->getPremio()->getNombre()."<br>";
     $to=array(
         0 =>$email,

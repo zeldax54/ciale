@@ -51,12 +51,59 @@ table.dataTable tbody tr.selected {
     background-color: #eeeeee !important;
 }
 
-td:hover{
+td:hover,#ahelp{
     cursor: pointer
 }
 th{
     background-color:#254389 !important;
 }
+.modal-footer{
+    text-align:center !important;
+}
+
+#totalresponsivecontainer{
+   display:none;
+
+}
+
+@media (max-width: 700px) {
+ #tablapedidos_wrapper{
+margin-left:0%;
+
+}
+.modal-content{
+    
+  
+}
+#canvas{
+    margin-left: 22% !important;
+    width: 96% !important;;
+}
+
+.wrapped-container{
+    width: 100% !important;
+}
+
+#logotipo{
+    display:none !important;
+}
+
+#mypin{
+    width: 6% !important;
+    background-color: white !important;
+    text-align: center !important;
+    margin-left: -55% !important;
+}
+
+#totalresponsivecontainer{
+   display:block;
+
+}
+
+
+}
+
+
  
 
 
@@ -165,7 +212,11 @@ th{
                             </select>
                         </div>
                     </div>  
-                            
+<div class="form-group"><label  class=" col-md-2 control-label"></label>
+                        <div class="col-md-10">
+                    <span>Hace clic en el nombre del toro de la lista de abajo y luego hacer clic en el botón "Cantidad" para poder indicar la cantidad deseada.<a id="ahelp"> CLIC AQUI PARA MAS AYUDA</a></span>
+                 </div>
+                    </div>               
 
       </div>
   
@@ -181,6 +232,7 @@ th{
 										<th class="total">Total</th>
 										<th class="totallista">TotalLista</th>
                                         <th class="pedidobaseid">pedidobaseid</th>
+                                      
 										
 
 									
@@ -203,6 +255,11 @@ th{
                                         </tfoot>
                                     </tbody>
                     <table>
+                    <div class="form-group" id="totalresponsivecontainer" style=""><label  class="required col-md-2 control-label">Desglose</label>
+                        <div class="col-md-10">
+                            <span id="totalresponsive"></span>
+                        </div>
+                    </div>  
  <br>
 
                     <div class="form-group"><label  class="required col-md-2 control-label">Metodo de Pago</label>
@@ -271,10 +328,10 @@ th{
       <!-- Modal body -->
       <div class="modal-body">
         <div class="" style="width:750px">
-        <img src="{{ asset('mediainpage/wheel/pin.png')}}" style="width: 6%;
+        <img id="mypin" src="{{ asset('mediainpage/wheel/pin.png')}}" style="width: 6%;
           background-color: white;text-align: center;margin-left: 32%;">
         </div>
-        <canvas id='canvas' width='750' height='450' style="margin-left:9% !important">
+        <canvas id='canvas' width='750' height='450' style="margin-left:9%">
             Canvas not supported, use another browser.
         </canvas>
       
@@ -282,7 +339,7 @@ th{
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
       </div>
 
     </div>
@@ -340,8 +397,7 @@ th{
           var descrip2 = isUndefined(mpvar.descrip2) ==true?'':' y '+mpvar.descrip2;      
           $("table").children('tfoot').eq(1).find("th").eq(0).html(descrips1+descrip2+'_____________________Ahorro $'+totlaahorro);
           $("table").children('tfoot').eq(1).find("th").eq(1).html("$"+totalfinal);
-
-         
+          $("#totalresponsive").html(descrips1+' '+descrip2+'___Ahorro $'+totlaahorro+'___Total $'+totalfinal);        
 
 
       }
@@ -356,7 +412,7 @@ th{
 
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
        <script src="{{ asset('bundles/gema/chosen/chosen.jquery.js')}}"></script>
- 
+
  <script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
  <script src="https://cdn.datatables.net/buttons/1.1.2/js/dataTables.buttons.min.js"></script>
  <script src="https://cdn.datatables.net/select/1.1.2/js/dataTables.select.min.js"></script>
@@ -365,7 +421,8 @@ th{
  <script src="{{ asset('bundles/gema/clientresources/datatables/altedit/dataTables.altEditor.free.js')}}"></script>
  <script src="{{ asset('bundles/gema/clientresources/winwheel/Winwheel.js')}}"></script>
  <script src="{{ asset('bundles/gema/js/comprafinish.js')}}"></script>
- <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+  <script src="{{ asset('bundles/gema/clientresources/winwheel/TweenMax.min.js')}}"></script>
+
 
         <script>
 
@@ -522,7 +579,7 @@ jQuery.fn.dataTable.Api.register( 'sum()', function ( ) {
     },
     {
       extend: 'selected', 
-      text: 'Eliminar',
+      text: 'Eliminar Toro',
       name: 'delete'  
    }],
   
@@ -566,7 +623,7 @@ $("select").chosen({
              tabla.row.add( [
             p.toro.id,
             p.toro.apodo,
-            200,
+            1,
             p.preciolista,
             p.preciopromo,
             p.preciopromo,
@@ -590,6 +647,10 @@ $(document).on('show.bs.modal','.modal', function () {
  $('.modal-body').find('#alteditor-row-4').hide();
  $('.modal-body').find('#alteditor-row-5').hide();
  $('.modal-body').find('#alteditor-row-6').hide();
+ $('.modal-body').find('#alteditor-row-7').hide();
+
+
+
 
 
 })
