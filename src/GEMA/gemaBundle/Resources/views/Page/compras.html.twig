@@ -76,8 +76,8 @@ margin-left:0%;
   
 }
 #canvas{
-    margin-left: 22% !important;
-    width: 96% !important;;
+      margin-left: 0% !important;
+    width: 165% !important;
 }
 
 .wrapped-container{
@@ -114,7 +114,7 @@ margin-left:0%;
 
 <div style="margin-bottom: 50px !important;" id="formcontainer">
 
-    <h3 style="font-family: 'Fago-Bold';color:#254389;font-size:22px !important">Complete éste formulario para registrar su compra y acceder a la ruleta por más beneficios.</h3>
+    <h3 style="font-family: 'Fago-Bold';color:#254389;font-size:22px !important">Complete este formulario para registrar su compra y acceder a la ruleta por más beneficios.</h3>
     <h4 style="font-family: 'Fago-Bold';color:#254389;font-size:16px !important;text-align: center">Disponible solo para Argentina</h4>
 <br><br>
 <input type="text" id="clicked" hidden>
@@ -135,7 +135,7 @@ margin-left:0%;
                         </div>
                     </div>
 
-                  <div class="form-group"><label  class="col-md-2 control-label">Empresa</label>
+                  <div class="form-group"><label  class="required col-md-2 control-label">Empresa</label>
                         <div class="col-md-10">
                             <input class="form-control" id="empresa" required="required" name="empresa"   type="text">
                         </div>
@@ -293,7 +293,7 @@ margin-left:0%;
 
 
                 <div class="col-md-offset-2 col-md-10">
-                    <button title="Enviar Correo" class="btn btn-default sb" type="submit" id="bsubmit" name="bsubmit">Enviar</button>
+                    <button title="Enviar pedido" class="btn btn-default sb" type="submit" id="bsubmit" name="bsubmit">Enviar</button>
                     <img id="mygif" src="{{ asset(gife) }}" style="display: none">
                 </div>
 
@@ -632,7 +632,19 @@ $("select").chosen({
         ] ).draw( false );
         }
 
-    })    
+    })
+    //calcular total 
+    var mpl = $("#metodopagolabel").val();   
+    if(mpl!=-1){
+        calcular(mpl)
+    }
+    else{
+         var totalc = tabla.column(5).data().sum();
+     var totlaahorroc = tabla.column(6).data().sum() - total;
+     $("#totalresponsive").html("Ahorro: $"+totlaahorroc+" Total: $"+totalc);
+    }
+    
+
  })
 
 
@@ -654,6 +666,25 @@ $(document).on('show.bs.modal','.modal', function () {
 
 
 })
+
+$(document).on('hide.bs.modal','.modal', function () {
+
+
+ var mpl = $("#metodopagolabel").val();   
+    if(mpl!=-1){
+        calcular(mpl)
+    }
+    else{
+         var totalc = tabla.column(5).data().sum();
+     var totlaahorroc = tabla.column(6).data().sum() - total;
+     $("#totalresponsive").html("Ahorro: $"+totlaahorroc+" Total: $"+totalc);
+    }
+
+
+
+})
+
+
 </script>
 <script>
 $(document).ready(function(){

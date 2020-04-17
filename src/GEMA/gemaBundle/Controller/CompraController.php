@@ -250,7 +250,10 @@ class CompraController extends Controller
        $helper=new MyHelper();
        $apikey= $this->getParameter('apikey');
        $gife=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'paperplane.gif');
-       $vendedores= $em->getRepository('gemaBundle:VendedorCompra')->findAll();
+       $vendedores= $em->getRepository('gemaBundle:VendedorCompra')->findBy([
+        'deshabilitado' => false,
+        
+    ]);     
        $pedisosbase = $em->getRepository('gemaBundle:Pedidobase')->findAll();
        $serializer = $this->container->get('jms_serializer');       
      

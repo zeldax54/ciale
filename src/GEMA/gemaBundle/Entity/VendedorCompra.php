@@ -35,6 +35,13 @@ class VendedorCompra {
      */
     private $email;
 
+     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="deshabilitado", type="boolean")
+     */
+     private $deshabilitado;
+
        /**
      * @ORM\OneToMany(targetEntity="GEMA\gemaBundle\Entity\Compra" , mappedBy="vendedor", cascade={"persist"})
      */
@@ -142,5 +149,30 @@ class VendedorCompra {
     public function getCompras()
     {
         return $this->compras;
+    }
+
+    
+
+    /**
+     * Set deshabilitado
+     *
+     * @param boolean $deshabilitado
+     * @return VendedorCompra
+     */
+    public function setDeshabilitado($deshabilitado)
+    {
+        $this->deshabilitado = $deshabilitado;
+
+        return $this;
+    }
+
+    /**
+     * Get deshabilitado
+     *
+     * @return boolean 
+     */
+    public function getDeshabilitado()
+    {
+        return $this->deshabilitado;
     }
 }

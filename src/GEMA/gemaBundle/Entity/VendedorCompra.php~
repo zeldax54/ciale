@@ -35,12 +35,24 @@ class VendedorCompra {
      */
     private $email;
 
+     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="deshabilitado", type="boolean")
+     */
+     private $deshabilitado;
+
        /**
      * @ORM\OneToMany(targetEntity="GEMA\gemaBundle\Entity\Compra" , mappedBy="vendedor", cascade={"persist"})
      */
     private $compras;
 
    
+
+    public function __toString(){
+
+        return $this->getNombre().' '.$this->getEmail();
+    }
   
 
     /**
@@ -98,4 +110,46 @@ class VendedorCompra {
     {
         return $this->email;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->compras = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add compras
+     *
+     * @param \GEMA\gemaBundle\Entity\Compra $compras
+     * @return VendedorCompra
+     */
+    public function addCompra(\GEMA\gemaBundle\Entity\Compra $compras)
+    {
+        $this->compras[] = $compras;
+
+        return $this;
+    }
+
+    /**
+     * Remove compras
+     *
+     * @param \GEMA\gemaBundle\Entity\Compra $compras
+     */
+    public function removeCompra(\GEMA\gemaBundle\Entity\Compra $compras)
+    {
+        $this->compras->removeElement($compras);
+    }
+
+    /**
+     * Get compras
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCompras()
+    {
+        return $this->compras;
+    }
+
+    
 }

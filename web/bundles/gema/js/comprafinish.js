@@ -1,94 +1,111 @@
 
     $("#sendform").on('submit',(function(e){
-     
         e.preventDefault();
-        $('#bsubmit').hide();
         var clickwhere=$('#clicked');
-         var theWheel;
-         var that = this;
-     
-      
+        var theWheel;
+        var that = this;
+
         vex.dialog.confirm({
-            message: 'Confirmar la compra y tirar la ruleta. ¡Suerte 🤞🏻!',
+            message: 'IMPORTANTE! El envío de este formulario es una confirmación formal de su pedido, por favor revisar antes de enviar.',
             className: 'vex-theme-default' ,
             callback: function (value) {
-                if(value==false){
-                    $('#bsubmit').show();
+                if(value==false){                  
                     return;
                 }
                 else{
-                     // Ruleta
-                     console.log(ruletas);
-                     var dosis = tabla.column(2).data().sum();
-                     console.log(dosis);
-                     var showruleta=false;
-                     var ruletagen = null;  
-                     var premiotext = null;         
-         
-                     $.each(ruletas, function( index, ruleta ) {            
-                       if( dosis>=ruleta.min && dosis<=ruleta.max)
-                        {
-                            //Vex
-                            ruletagen=ruleta;                            
-                            showruleta=true;
-                             theWheel = new Winwheel({
-                                'numSegments'  : 8,         // Number of segments
-                                'outerRadius'  : 212,       // The size of the wheel.
-                                'centerX'      : 217,       // Used to position on the background correctly.
-                                'centerY'      : 219,
-                                'textFontSize' : 15,        // Font size.
-                                'segments'     :            // Definition of all the segments.
-                                [
-                                   {'fillStyle' : '#eae56f', 'text' : ruleta.premios[0].nombre},
-                                   {'fillStyle' : '#89f26e', 'text' : ruleta.premios[1].nombre},
-                                   {'fillStyle' : '#7de6ef', 'text' : ruleta.premios[2].nombre},
-                                   {'fillStyle' : '#e7706f', 'text' : ruleta.premios[3].nombre},
-                                   {'fillStyle' : '#eae56f', 'text' : ruleta.premios[4].nombre},
-                                   {'fillStyle' : '#89f26e', 'text' : ruleta.premios[5].nombre},
-                                   {'fillStyle' : '#7de6ef', 'text' : ruleta.premios[6].nombre},
-                                   {'fillStyle' : '#e7706f', 'text' : ruleta.premios[7].nombre}
-                                ],
-                                'animation' :               // Definition of the animation
-                                {
-                                    'type'     : 'spinToStop',
-                                    'duration' : 5,
-                                    'spins'    : 8,
-                                    'callbackFinished' : alertPrize
-                                },
-             
-                            });
-                            theWheel.animation.spins = 8;
-                          
+                   
+                    $('#bsubmit').hide();
+                   
+                    
                  
-                            // Called when the animation has finished.
-                            function alertPrize(indicatedSegment)
-                            {
-                                premiotext = indicatedSegment.text;
-                                //delay here
-                               // wait(2000);
-                               
-                                sendCompra(new FormData(that),premiotext,ruletagen,totlaahorro);
-                                return;
-
-                               
-                            }
-                        }            
-                
-                    });    
-
-                    if(showruleta==true){
-                        $('#canvasModal').modal('show');
-                        theWheel.startAnimation();
-                    }
-                    else{
-                        sendCompra(new FormData(that),premiotext,ruletagen,totlaahorro);
-                        return;
-
-                    }
                   
+                    vex.dialog.confirm({
+                        message: 'Confirmar la compra y tirar la ruleta. ¡Suerte 🤞🏻!',
+                        className: 'vex-theme-default' ,
+                        callback: function (value) {
+                            if(value==false){
+                                $('#bsubmit').show();
+                                return;
+                            }
+                            else{
+                                 // Ruleta
+                                 console.log(ruletas);
+                                 var dosis = tabla.column(2).data().sum();
+                                 console.log(dosis);
+                                 var showruleta=false;
+                                 var ruletagen = null;  
+                                 var premiotext = null;         
+                     
+                                 $.each(ruletas, function( index, ruleta ) {            
+                                   if( dosis>=ruleta.min && dosis<=ruleta.max)
+                                    {
+                                        //Vex
+                                        ruletagen=ruleta;                            
+                                        showruleta=true;
+                                         theWheel = new Winwheel({
+                                            'numSegments'  : 8,         // Number of segments
+                                            'outerRadius'  : 212,       // The size of the wheel.
+                                            'centerX'      : 217,       // Used to position on the background correctly.
+                                            'centerY'      : 219,
+                                            'textFontSize' : 15,        // Font size.
+                                            'segments'     :            // Definition of all the segments.
+                                            [
+                                               {'fillStyle' : '#eae56f', 'text' : ruleta.premios[0].nombre},
+                                               {'fillStyle' : '#89f26e', 'text' : ruleta.premios[1].nombre},
+                                               {'fillStyle' : '#7de6ef', 'text' : ruleta.premios[2].nombre},
+                                               {'fillStyle' : '#e7706f', 'text' : ruleta.premios[3].nombre},
+                                               {'fillStyle' : '#eae56f', 'text' : ruleta.premios[4].nombre},
+                                               {'fillStyle' : '#89f26e', 'text' : ruleta.premios[5].nombre},
+                                               {'fillStyle' : '#7de6ef', 'text' : ruleta.premios[6].nombre},
+                                               {'fillStyle' : '#e7706f', 'text' : ruleta.premios[7].nombre}
+                                            ],
+                                            'animation' :               // Definition of the animation
+                                            {
+                                                'type'     : 'spinToStop',
+                                                'duration' : 5,
+                                                'spins'    : 8,
+                                                'callbackFinished' : alertPrize
+                                            },
+                         
+                                        });
+                                        theWheel.animation.spins = 8;
+                                      
+                             
+                                        // Called when the animation has finished.
+                                        function alertPrize(indicatedSegment)
+                                        {
+                                            premiotext = indicatedSegment.text;
+                                            //delay here
+                                           // wait(2000);
+                                           
+                                            sendCompra(new FormData(that),premiotext,ruletagen,totlaahorro);
+                                            return;
+            
+                                           
+                                        }
+                                    }            
+                            
+                                });    
+            
+                                if(showruleta==true){
+                                    $('#canvasModal').modal('show');
+                                    theWheel.startAnimation();
+                                }
+                                else{
+                                    sendCompra(new FormData(that),premiotext,ruletagen,totlaahorro);
+                                    return;
+            
+                                }
+                              
+                            }
+                        }
+                    });
+
                 }
             }
-        });
+         });
+     
+       
 
 
 
