@@ -1,0 +1,628 @@
+{% extends 'gemaBundle::clientlayout.html.twig' %}
+
+  {% block customstylesheets %}
+
+      <link href="{{ asset('bundles/gema/clientresources/cpnew/cpnew.css')}}" rel="stylesheet">
+        <link href="{{ asset('bundles/gema/clientresources/rvslider/css/rvslider.css')}}" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.min.css">
+   <link href="{{ asset('calostro/extraresources/calostrocc.css')}}" rel="stylesheet">
+   <link href="{{ asset('calostro/extraresources/galleryone.css')}}" rel="stylesheet">
+
+
+      <style>
+          @import "//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css";
+          @import "http://fonts.googleapis.com/css?family=Roboto:400,500";
+          @font-face {
+            font-family: 'Calibribold'; 
+            src: url({{asset('calostro/FUENTES/Calibribold.TTF')}}) format('truetype')
+            }
+            @font-face {
+            font-family: 'Calibriregular'; 
+            src: url({{asset('calostro/FUENTES/Calibriregular.ttf')}}) format('truetype')
+            }
+            @font-face {
+            font-family: 'Interstatemazdabold'; 
+            src: url({{asset('calostro/FUENTES/Interstatemazdabold.ttf')}}) format('truetype')
+            }
+            @font-face {
+            font-family: 'Interstatemazdaregular'; 
+            src: url({{asset('calostro/FUENTES/Interstatemazdaregular.ttf')}}) format('truetype')
+            }
+
+           .acordiontitle,.panel-heading h4{
+             font-family:'Interstatemazdaregular' !important;          
+              font-size : 170% !important;
+              color: #004390 !important;
+
+           }
+           .acordiontext,.panel-body p{
+              font-family:'Interstatemazdaregular'!important;            
+              font-size : 150% !important;  
+              color: #004390 !important;  
+           }
+
+          .centerdivcalostro{
+              text-align:center;
+              margin:0 auto;
+          }
+          .calostrotitles{
+              font-family:'Calibribold';          
+              font-size : 170%;
+              color: #004390;
+          }   
+          .calostrosubtitles{
+              font-family:'Calibribold';          
+              font-size : 170%;             
+          }     
+          .calostrosubsubtitles{
+              font-family:'Calibriregular';          
+              font-size : 170%;             
+          }  
+          .calostrotexts{
+              font-family:'Calibriregular';  
+                  margin-left: 0;
+                  font-size: 150%;
+           } 
+           .imagecolumsOne{
+             width:90%;
+           }    
+           .card,.panel-heading {
+             box-shadow:0 0px 0px 0 #d4d4d5, 0 0 0 0px #d4d4d5 !important;
+             background:none !important;
+           }
+  
+  .sticky {
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 24px;
+  float:right;
+  font-size:50px;
+  z-index:50000;
+  
+  }
+  .habladata{
+    position: absolute;
+    top: 23%;
+    transform: translateY(-50%);
+    left: 25%;
+    right: 0;
+
+  }
+  .hablaname{
+     font-family:'Calibribold';          
+    font-size: 50px;
+     color: #FFFF;
+  }
+  .hablasubname{
+     font-family:'Calibriregular';          
+    font-size: 20px;
+     color: #FFFF;
+  }
+  .divi{
+      margin-top:10px !important;
+    }
+   @media (max-width: 700px) {
+    .calostrotitles{
+     font-size: 11px !important;
+    }
+    iframe{
+      width:100% !important;
+    }
+    .columnas div{     
+      text-align:center !important; 
+    }
+    .columnas img{     
+     
+    }
+    #imgapple,#imgandroid{
+          float: none !important;
+    }
+    .hablaname{
+      font-size:22px !important;
+    }
+    .habladata{
+          top: 19% !important;
+    }
+    .hablasubname{
+      font-size:10px !important;
+    }
+    .habladata i{
+       font-size:10px !important;
+    }
+    .divi{
+      margin-top:0px !important;
+    }   
+
+ }
+
+ #bsubmit{
+   color:#ffff;
+   border:none;
+ }
+
+
+      </style>
+  {% endblock %}
+
+  {% block content %}
+  
+<div class="sticky">
+<a id="ventasbtn"  title="Ventas"> <i class="fa fa-envelope-o"></i></a>
+</div>
+<div>
+<div class="row centerdivcalostro">
+<img src="{{ asset(logo) }}" alt="Logo" class="">
+</div>
+<br>
+<div class="row centerdivcalostro">
+<img src="{{ asset(calostro100) }}" alt="Calostro 100%" class="">
+</div>
+<br>
+<div class="row centerdivcalostro">
+<ul class="gallery_box">
+	<li>
+	<a id="queescalostro" href="#"><img src="{{ asset(queescalostro) }}" alt="Que es calostro" class="">
+  	<div class="box_data">
+			<span class="calostrotitles">¿QUÉ ES EL CALOSTRO?</span>
+		</div></a>
+	</li>
+		<li>
+	<a id="comoprepararlo" href="#"><img src="{{ asset(comoprepararlo) }}" alt="Como prepararlo" class=""> 
+  <div class="box_data">
+			<span class="calostrotitles">COMO PREPARARLO</span>
+		</div>
+ </a>
+	</li>
+		<li>
+	<a id="preguntasfec" href="#"><img src="{{ asset(preguntasfec) }}" alt="Preguntas frecuentes" class=""> 
+  <div class="box_data">
+			<span class="calostrotitles">PREGUNTAS FRECUENTES</span>
+		</div>
+	 </a>
+		</li>
+</ul>
+
+
+
+</div>
+
+<div id="queescalostrodiv">
+ <span class="calostrotitles">¿QUÉ ES EL CALOSTRO?</span><br>
+  <p class="calostrotexts">El calostro es el primer líquido secretado de las glándulas mamarias inmediatamente después del nacimiento.
+    Es el único alimento que necesita el ternero para construir su sistema inmune, para lidiar con su ambiente y prosperar para alcanzar su 
+     máximo potencial genético.</p>
+</div>
+<br><br>
+<div class="centerdivcalostro">
+ <iframe width="644" height="362" src="https://www.youtube.com/embed/2hVNneLIfL8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+<br>
+<div>
+ <span class="calostrotitles">¿Cuáles son las ventajas de calostro 100®?</span>
+</div><br>
+
+<div class="row centerdivcalostro columnas">
+<div class="col-md-6 col-xs-6"><img  class="imagecolumsOne" style="float:left;" src="{{ asset(ventajas1) }}" alt="" class=""></div>
+<div class="col-md-6 col-xs-6">
+<div class="row">
+<div class="col-md-4 col-xs-4"><img class="imagecolumsOne" src="{{ asset(calostroboliviano) }}" alt="Calostro Boliviano" class=""> </div>
+<div class="col-md-4 col-xs-4"><img class="imagecolumsOne" src="{{ asset(seguroyefectivo) }}" alt="Seguro y Efectivo" class=""> </div>
+<div class="col-md-4 col-xs-4"><img class="imagecolumsOne" src="{{ asset(altatransferencia) }}" alt="Alta Transferencia" class=""> </div>
+<div class="col-md-4 col-xs-4"><img class="imagecolumsOne" src="{{ asset(altoengrasas) }}" alt="Alto en Grasas" class=""> </div>
+<div class="col-md-4 col-xs-4"><img class="imagecolumsOne" src="{{ asset(polvofacil) }}" alt="Polvo de Facil Preparación" class=""> </div>
+<div class="col-md-4 col-xs-4"><img class="imagecolumsOne" src="{{ asset(puedealmacenarse) }}" alt="Puede Almacenarse" class=""> </div>
+</div> 
+</div>
+</div>
+<br>
+<div id="comoprepararlodiv">
+ <span class="calostrotitles">¿CÓMO PREPARARLO?</span>
+</div><br>
+<div>
+ <span class="calostrosubtitles">COMO SUSTITUTO</span><br>
+ <div><img class="" style="width:100%" src="{{ asset(cuadrodepasos) }}" alt="Cuadro de pasos" class=""> </div><br>
+ <span class="calostrosubtitles">COMO COMPLEMENTO</span><br>
+ <span class="calostrosubsubtitles">Enriqueciendo el Calostro de mi tambo.</span><br>
+ <div><img class="" style="width:100%" src="{{ asset(cuadropasosdos) }}" alt="Cuadro de pasos dos" class=""> </div><br>
+</div>
+
+<div>
+ <div class="centerdivcalostro"><a href="{{ asset(instructivo) }}"><img class="" src="{{ asset(btndescargarinstructivos) }}" alt="Descargar instructivos de preparación" class=""></a> </div><br><br><br>
+ <span class="calostrotitles">DESCARGATE LA APP PARA CALCULAR FÁCILMENTE LA DOSIS NECESARIA DE CALOSTRO 100® COMO COMPLEMENTO</span><br>
+ <div class="centerdivcalostro"><img class=""  src="{{ asset(celulares) }}" alt="Celular" class=""> </div><br>
+ <div class="row">
+ <div class="col-md-6 centerdivcalostro"><img id="imgapple" style="float:right;" class="" src="{{ asset(apple) }}" alt="Apple" class=""> </div>
+ <div class="col-md-6 centerdivcalostro"><img id="imgandroid" class="" style="float:left;"  src="{{ asset(android) }}" alt="Android" class=""> </div>
+ </div>
+</div><br><br>
+<div>
+<span class="calostrotitles">VIDEOS RELACIONADOS</span><br>
+<div class="rvs-container rvs-horizontal rvs-light rvs-blue-highlight rvs-bordered-circle-play">
+	<div class="rvs-item-container">
+		<div class="rvs-item-stage">
+		
+      {% for video in videos %}
+      	<div class="rvs-item" style="background-image: url({{ video.urlbackimg }})">
+				<p class="rvs-item-text">{{ video.titulo }}<small>{{ video.videoby }}</small></p>
+				<a href="{{ video.urlvideo }}" class="rvs-play-video"></a>
+			</div>
+
+      {% endfor %}
+      
+			
+		</div>
+	</div>
+	<div class="rvs-nav-container">
+		<a class="rvs-nav-prev"></a>
+		<div class="rvs-nav-stage">
+     {% for video in videos %}
+			<a class="rvs-nav-item">
+				<span class="rvs-nav-item-thumb" style="background-image: url({{ video.urlminiatura }})"></span>
+				<h4 class="rvs-nav-item-title">{{ video.titulo }}</h4>
+				<small class="rvs-nav-item-credits">{{ video.videoby }}</small>
+			</a>	
+       {% endfor %}	
+		</div>
+		<a class="rvs-nav-next"></a>
+	</div>
+</div>
+</div>
+<br><br><br>
+<div id="preguntasfecdiv">
+ <span class="calostrotitles">PREGUNTAS FRECUENTES</span>
+</div><br><br><br>
+
+<div aria-multiselectable="true" class="panel-group" id="accordion" role="tablist">
+<div class="panel panel-default">
+<div class="panel-heading" id="heading1" role="tab">
+<h4><a aria-controls="collapse1" aria-expanded="true" data-parent="#accordion" data-toggle="collapse" href="#collapse1">1-&iquest;Qu&eacute; es CALOSTRO 100? </a></h4>
+</div>
+
+<div aria-labelledby="heading1" class="collapse in panel-collapse" id="collapse1" role="tabpanel">
+<div class="panel-body">
+<p>El calostro es la primera secreci&oacute;n l&aacute;ctea que todos los mam&iacute;feros producen inmediatamente despu&eacute;s del parto. Es un l&iacute;quido complejo que la naturaleza ha dise&ntilde;ado espec&iacute;ficamente para satisfacer las necesidades &uacute;nicas de los reci&eacute;n nacidos. No se puede formular artificialmente. CALOSTRO 100 es simplemente calostro bovino natural en polvo que contiene 100 gramos de IgG, embazado para administrar en cualquier momento y lugar.</p>
+</div>
+</div>
+</div>
+
+<div class="panel panel-default">
+<div class="panel-heading" id="heading2" role="tab">
+<h4><a aria-controls="collapse2" aria-expanded="false" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse2">2-&iquest;Cu&aacute;les son los ingredientes clave en el calostro? </a></h4>
+</div>
+
+<div aria-labelledby="heading2" class="collapse panel-collapse" id="collapse2" role="tabpanel">
+<div class="panel-body">
+<p>El calostro puede ser descripto como la super leche de la naturaleza. Proporciona al reci&eacute;n nacido ingredientes que son cr&iacute;ticos para la supervivencia durante el momento m&aacute;s vulnerable de su vida. El calostro es rico en factores inmunes, grasa, factores de crecimiento, vitaminas, minerales y prote&iacute;nas. Sus beneficios se pueden aplicar a cualquier especie en cualquier etapa de la vida. CALOSTRO 100 asegura cantidades m&iacute;nimas de 100gr de IgG, 65,8gr de Prote&iacute;nas, 3,75 &ndash; 5,17gr de grasa y 37,6gr de materia mineral.</p>
+</div>
+</div>
+</div>
+
+<div class="panel panel-default">
+<div class="panel-heading" id="heading3" role="tab">
+<h4><a aria-controls="collapse3" aria-expanded="false" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse3">4-&iquest;De d&oacute;nde se obtiene el calostro? </a></h4>
+</div>
+
+<div aria-labelledby="heading3" class="collapse panel-collapse" id="collapse3" role="tabpanel">
+<div class="panel-body">
+<p>CALOSTRO 100 es colectado en m&aacute;s de 2.000 tambos en Canad&aacute;. La vaca produce aproximadamente 20 litros de calostro, mientras que el ternero s&oacute;lo puede ingerir aproximadamente 2-4 litros. Lo que sobra de calostro a menudo se descarta; nosotros usamos ese exceso de calostro para producir CALOSTRO 100.</p>
+</div>
+</div>
+</div>
+
+<div class="panel panel-default">
+<div class="panel-heading" id="heading4" role="tab">
+<h4><a aria-controls="collapse4" aria-expanded="false" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse4">5-&iquest;D&oacute;nde se procesa CALOSTRO 100? </a></h4>
+</div>
+
+<div aria-labelledby="heading4" class="collapse panel-collapse" id="collapse4" role="tabpanel">
+<div class="panel-body">
+<p>Cada gramo de producto es procesado en las instalaciones en Saskatoon, Saskatchewan, Canad&aacute;.</p>
+</div>
+</div>
+</div>
+
+<div class="panel panel-default">
+<div class="panel-heading" id="heading5" role="tab">
+<h4><a aria-controls="collapse5" aria-expanded="false" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse5">6-&iquest;Qu&eacute; pasa con las vacas? </a></h4>
+</div>
+
+<div aria-labelledby="heading5" class="collapse panel-collapse" id="collapse5" role="tabpanel">
+<div class="panel-body">
+<p>Naturalmente la calidad del calostro de las vacas es muy variable dependiendo de muchos factores c&oacute;mo su edad, n&uacute;mero de lactancias, condiciones ambientales, raza, tiempo de secado, enfermedades, vacunas, dieta, etc. De esta manera, cuando administramos calostro fresco, refrigerado o congelado, nunca sabemos qu&eacute; tipo de calostro estamos entregando a nuestros terneros. Con CALOSTRO 100 tenemos la tranquilidad de entregar un calostro de calidad estandarizada en todo momento.</p>
+</div>
+</div>
+</div>
+
+<div class="panel panel-default">
+<div class="panel-heading" id="heading6" role="tab">
+<h4><a aria-controls="collapse6" aria-expanded="false" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse6">7-&iquest;Qu&eacute; pasa con el ternero? </a></h4>
+</div>
+
+<div aria-labelledby="heading6" class="collapse panel-collapse" id="collapse6" role="tabpanel">
+<div class="panel-body">
+<p>A diferencia de los humanos, la &uacute;nica fuente de inmunidad en los terneros al nacer es el calostro. El ternero nace totalmente desprotegido frente a microorganismos causantes de enfermedades (Diarrea y Neumon&iacute;a) y frente a las condiciones ambientales c&oacute;mo fr&iacute;o y calor extremos. CALOSTRO 100 asegura la inmunidad (nivel de anticuerpos) y aporta la energ&iacute;a (grasa) necesaria para que el ternero pueda regular su temperatura corporal en los primeros d&iacute;as de vida.</p>
+</div>
+</div>
+</div>
+
+<div class="panel panel-default">
+<div class="panel-heading" id="heading7" role="tab">
+<h4><a aria-controls="collapse7" aria-expanded="false" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse7">8-&iquest;Cu&aacute;nto CALOSTRO 100 debo administrar? </a></h4>
+</div>
+
+<div aria-labelledby="heading7" class="collapse panel-collapse" id="collapse7" role="tabpanel">
+<div class="panel-body">
+<p>1 bolsa (700gr) por ternero.</p>
+</div>
+</div>
+</div>
+
+<div class="panel panel-default">
+<div class="panel-heading" id="heading8" role="tab">
+<h4><a aria-controls="collapse8" aria-expanded="false" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse8">9-&iquest;C&oacute;mo preparo CALOSTRO 100? </a></h4>
+</div>
+
+<div aria-labelledby="heading8" class="collapse panel-collapse" id="collapse8" role="tabpanel">
+<div class="panel-body">
+<p>En un balde limpio diluir el contenido de una bolsa (700gr) en 1.25 lts de agua potable limpia a 45&deg;C, mezclando con batidor de cocina o mixer el&eacute;ctrico.</p>
+</div>
+</div>
+</div>
+
+<div class="panel panel-default">
+<div class="panel-heading" id="heading9" role="tab">
+<h4><a aria-controls="collapse9" aria-expanded="false" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse9">10-&iquest;C&oacute;mo administro CALOSTRO 100?</a></h4>
+</div>
+
+<div aria-labelledby="heading9" class="collapse panel-collapse" id="collapse9" role="tabpanel">
+<div class="panel-body">
+<p>Colocar los 2lts de mezcla en mamadera limpia y entregar al ternero a 39&deg;C.</p>
+</div>
+</div>
+</div>
+
+<div class="panel panel-default">
+<div class="panel-heading" id="heading10" role="tab">
+<h4><a aria-controls="collapse10" aria-expanded="false" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse10">11-&iquest;Cu&aacute;ndo es el mejor momento para administrar CALOSTRO 100? </a></h4>
+</div>
+
+<div aria-labelledby="heading10" class="collapse panel-collapse" id="collapse10" role="tabpanel">
+<div class="panel-body">
+<p>Dentro de las primeras 2 horas de vida. Al igual que con el calostro fresco, pasado ese tiempo disminuye la absorci&oacute;n de anticuerpos en el ternero.</p>
+</div>
+</div>
+</div>
+
+<div class="panel panel-default">
+<div class="panel-heading" id="heading11" role="tab">
+<h4><a aria-controls="collapse11" aria-expanded="false" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse11">12-&iquest;Qu&eacute; grado de inmunidad me aporta CALOSTRO 100?</a></h4>
+</div>
+
+<div aria-labelledby="heading11" class="collapse panel-collapse" id="collapse11" role="tabpanel">
+<div class="panel-body">
+<p>El nivel de anticuerpos en los terneros luego del calostrado depende de m&uacute;ltiples factores que disminuyen su absorci&oacute;n c&oacute;mo el tipo de parto (normal vs dist&oacute;cico), la temperatura ambiente, la posici&oacute;n durante la toma (acostado y sentado vs parado) y otros. Cuando se administra en condiciones normales, una toma de CALOSTRO 100 permite lograr 10mg/ml de IgG en sangre generando en los terneros una adecuada inmunidad.</p>
+</div>
+</div>
+</div>
+
+<div class="panel panel-default">
+<div class="panel-heading" id="heading12" role="tab">
+<h4><a aria-controls="collapse12" aria-expanded="false" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse12">13-&iquest;D&oacute;nde puedo comprar CALOSTRO 100?</a></h4>
+</div>
+
+<div aria-labelledby="heading12" class="collapse panel-collapse" id="collapse12" role="tabpanel">
+<div class="panel-body">
+<p>Comunicate con nosotros: 02478-481013 / info@ciale.com / Av. Alem 901 Capit&aacute;n Sarmiento (Buenos Aires)</p>
+</div>
+</div>
+</div>
+
+<div class="panel panel-default">
+<div class="panel-heading" id="heading13" role="tab">
+<h4><a aria-controls="collapse13" aria-expanded="false" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse13">14-&iquest;CALOSTRO 100 es seguro?</a></h4>
+</div>
+
+<div aria-labelledby="heading13" class="collapse panel-collapse" id="collapse13" role="tabpanel">
+<div class="panel-body">
+<p>Nuestro calostro se recolecta de lecher&iacute;as canadienses que est&aacute;n reguladas por la Agencia de Inspecci&oacute;n Alimentaria de Canad&aacute; (CFIA). La potencia del calostro se monitorea al inicio, durante y al final del procesamiento y desde luego al final del proceso de fabricaci&oacute;n y envasado. A trav&eacute;s de estrictos controles y siguiendo procedimientos de BPM (Buenas Practicas de Manufactura) nuestros productos son continuamente revisados para asegurar la potencia e inocuidad. Nuestra planta de fabricaci&oacute;n est&aacute; autorizada y regulada por el CFIA como planta de producci&oacute;n de Biol&oacute;gicos Veterinarios. Es un producto aprobado por SENASA.</p>
+</div>
+</div>
+</div>
+
+<div class="panel panel-default">
+<div class="panel-heading" id="heading14" role="tab">
+<h4><a aria-controls="collapse14" aria-expanded="false" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse14">15-&iquest;Qu&eacute; efectos adversos pueden ocurrir por usar Calostro?</a></h4>
+</div>
+
+<div aria-labelledby="heading14" class="collapse panel-collapse" id="collapse14" role="tabpanel">
+<div class="panel-body">
+<p>No se conoce ninguna interacci&oacute;n de calostro con otros medicamentos y puede ser consumido por la mayor&iacute;a de los mam&iacute;feros sin efectos secundarios. El calostro no es recomendable para mam&iacute;feros con intolerancia a la lactosa (az&uacute;car de la leche) o hipersensibles (al&eacute;rgicos) a las prote&iacute;nas de la leche.</p>
+</div>
+</div>
+</div>
+<br><br><br>
+<div>
+ <span class="calostrotitles">NOTICIAS</span>
+</div><br><br>
+<div class="container center">   
+    <div class="row">
+        <div class="col-md-12">
+            <div id="news-slider3" class="owl-carousel">
+
+               {% for noticia in noticias %}
+                <div class="post-slide3">
+                    <div class="post-img">
+                        <img src="{{ asset(noticia.portada) }}" alt="">
+                        <span class="post-icon">
+                            <i class="fa fa-book"></i>
+                        </span>
+                    </div>
+                    <ul class="post-bar">
+                        <li>{{ noticia.fechanoticia|date('d-M-Y') }}</li>
+                        <li>
+                            <a href="#">Leche</a>
+                            <a href="#">calostro</a>
+                        </li>
+                    </ul>
+                    <h3 class="post-title"><a href="{{ path('gema_clientsinglenews',{'id':noticia.id}) }}">{{ noticia.titulo }}</a></h3>
+                    <p class="post-description">
+                        {{ (noticia.introduccion|striptags|slice(0, 200)~'...')|raw }}
+                    </p>
+                    <a href="{{ path('gema_clientsinglenews',{'id':noticia.id}) }}" class="read-more">
+                        <i class="fa fa-long-arrow-right"></i>
+                        <span>leer mas</span>
+                    </a>
+                </div>    
+
+   
+                
+               {% endfor %}                
+               
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+ <span class="calostrotitles">HABLÁ CON NUESTROS EXPERTOS</span>
+</div>
+<br><br>
+<div class"row">
+  <div class="col-md-12 imaghabla"><img class="imagecolumsOne" src="{{ asset(imaghabla) }}" alt="Habla con nuestros expertos" class=""> 
+    <div class="habladata">
+		 <div>	<span class="hablaname">LEONARDO MIAN</span></div>
+      <div> <span class="hablasubname">Gerente Producto CALOSTRO 100® Argentina</span><div>
+      <div class="divi"> <a href="https://wa.me/3462557246"><i class="fa fa-whatsapp" style="font-size: 29px;color: white;" aria-hidden="true">&nbsp; 346 255 - 7246</i></a></div>
+     <div class="divi"> <i class="fa fa-envelope-o" style="font-size: 29px;color: white;">&nbsp;Leonardo.Mian@sccl.com </i>	</div>
+		</div>
+    
+  </div>
+</div><br><br><br>
+
+<div class=""><a href="https://wa.me/3462557246"><img class="" src="{{ asset(chatonline) }}" alt="Chat Online" class=""></a> </div>
+
+
+
+
+  {% endblock %}
+  {% block custom_javascripts %}
+<script src="{{ asset('bundles/gema/clientresources/rvslider/js/rvslider.js')}}"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
+      <script>    
+      $(document).ready(function(){
+         $(".rvs-container").rvslider();
+      });     
+    
+ $("#news-slider3").owlCarousel({
+        items:3,
+        itemsDesktop:[1199,2],
+        itemsDesktopSmall:[1000,2],
+        itemsMobile:[700,1],
+        pagination:false,
+        navigationText:false,
+        autoPlay:true
+    });
+    //queescalostro,comoprepararlo,preguntasfec
+       function goToByScroll(id){
+          // Reove "link" from the ID
+      //  id = id.replace("link", "");
+          // Scroll
+        $('html,body').animate({
+            scrollTop: $("#"+id).offset().top},
+            'slow');
+    }
+    $('#queescalostro').click(function(e){
+        e.preventDefault();  
+        goToByScroll("queescalostrodiv");  
+    });
+     $('#comoprepararlo').click(function(e){
+        e.preventDefault();  
+        goToByScroll("comoprepararlodiv");  
+
+    });
+     $('#preguntasfec').click(function(e){
+        e.preventDefault();  
+        goToByScroll("preguntasfecdiv");  
+    });
+
+    $('#ventasbtn').click(function(){
+
+vex.dialog.open({
+  className: 'vex-theme-default' ,
+overlayClassName: 'success',
+contentClassName: 'borderblueclass errormaxwidth',
+closeClassName: 'closebleclass',
+    message: 'Envíenos su consulta:',
+    input: [
+        '<input name="nombre" type="text" placeholder="Nombre" required />',
+        '<input name="apellido" type="text" placeholder="Apellido" required />',
+            '<input name="email" type="email" placeholder="Email" required />',
+            '<input name="telefono" type="text" placeholder="Telefono" required />',
+            '<textarea name="consulta"  placeholder="Consulta" required /></textarea>',
+
+
+    ].join(''),
+    buttons: [
+        $.extend({}, vex.dialog.buttons.YES, { text: 'Enviar' }),
+        $.extend({}, vex.dialog.buttons.NO, { text: 'Cerrar' })
+    ],
+    callback: function (data) {
+        if (!data) {
+            console.log('Cancelled')
+        } else {        
+            var formdata = new FormData();
+             formdata.append('nombre', JSON.stringify(data.nombre));
+             formdata.append('apellido', JSON.stringify(data.apellido));
+             formdata.append('email', JSON.stringify(data.email));
+             formdata.append('telefono', JSON.stringify(data.telefono));
+             formdata.append('consulta', JSON.stringify(data.consulta));        
+
+              $.ajax({
+            url: Routing.generate('gema_calostromsg'),
+            type: "POST",
+            data:  formdata,
+            contentType: false,
+            cache: false,
+            processData:false,
+            success: function(data){
+                console.log(data);
+                vex.closeAll();
+            var msj = '<span> Te enviamos una copia de tu mensaje a tu correo electrónico. Gracias 😊</span>';        
+
+                vex.dialog.alert({ unsafeMessage:msj
+                    , className: 'vex-theme-wireframe' ,
+                    overlayClassName: 'success',
+                    contentClassName: 'borderblueclass maxwidth',
+                    closeClassName: 'closebleclass'
+                });                
+            },
+            error: function(error,stat, err){
+                vex.closeAll();
+                vex.dialog.alert({ unsafeMessage:err,
+
+                    className: 'vex-theme-default'  ,
+                    overlayClassName: 'success',
+                    contentClassName: 'borderblueclass errormaxwidth',
+                    closeClassName: 'closebleclass'
+                })              
+            }
+        });
+
+            
+        }
+    }
+})
+
+
+    });
+
+    
+
+      
+
+         
+      </script>
+
+
+  {% endblock %}

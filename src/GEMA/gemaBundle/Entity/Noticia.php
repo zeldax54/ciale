@@ -70,6 +70,11 @@ class Noticia {
     private $publico;
 
     /**
+     * @ORM\Column(name="calostro", type="boolean", nullable=true)
+     */
+    private $calostro;
+
+    /**
      * @var text
      * @ORM\Column(name="youtube", type="text",nullable=true)
      */
@@ -275,5 +280,28 @@ class Noticia {
     public function getYoutube()
     {
         return $this->youtube;
+    }
+
+    /**
+     * Set calostro
+     *
+     * @param boolean $calostro
+     * @return Noticia
+     */
+    public function setCalostro($calostro)
+    {
+        $this->calostro = $calostro;
+
+        return $this;
+    }
+
+    /**
+     * Get calostro
+     *
+     * @return boolean 
+     */
+    public function getCalostro()
+    {
+        return $this->calostro;
     }
 }

@@ -35,6 +35,7 @@ class NoticiaRepository extends EntityRepository
         if ($request->request->get("searchPhrase") != null) {
             $search = $request->request->get("searchPhrase");
             $qb->where($qb->expr()->like("B.titulo", $qb->expr()->literal("%" . $search . "%")));
+            $qb->where($qb->expr()->like("C.nombre", $qb->expr()->literal("%" . $search . "%")));
             $qb->orderBy('B.fechanoticia','desc');
 
         }

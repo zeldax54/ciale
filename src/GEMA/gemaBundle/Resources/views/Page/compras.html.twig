@@ -187,8 +187,8 @@ margin-left:0%;
 
                     <div class="form-group"><label  class="required col-md-2 control-label">Vendedor</label>
                         <div class="col-md-10">
-                            <select name="vendedor" id="vendedor">                              
-
+                            <select name="vendedor" id="vendedor" required>                              
+                               <option></option>
                                 {% for v in vendedores %}
                                     <option value="{{ v.id }}">{{ v.nombre }}</option>
                                 {% endfor %}
@@ -264,7 +264,7 @@ margin-left:0%;
 
                     <div class="form-group"><label  class="required col-md-2 control-label">Metodo de Pago</label>
                         <div class="col-md-10">
-                            <select name="metodopagolabel" id="metodopagolabel">                              
+                            <select name="metodopagolabel" id="metodopagolabel" required>                              
                                  <option value=-1></option>
                                  <option value="CONTADO">CONTADO</option>
                                  <option value="CHEQUE">CHEQUE</option>
@@ -295,6 +295,7 @@ margin-left:0%;
                 <div class="col-md-offset-2 col-md-10">
                     <button title="Enviar pedido" class="btn btn-default sb" type="submit" id="bsubmit" name="bsubmit">Enviar</button>
                     <img id="mygif" src="{{ asset(gife) }}" style="display: none">
+                     <img id="ahelpgifimg" src="{{ asset(helpgif) }}" style="display: none">
                 </div>
 
             </form>
@@ -611,10 +612,30 @@ jQuery.fn.dataTable.Api.register( 'sum()', function ( ) {
 var pedidosbase= {{ baserializada|json_encode|raw }};
 
 
-$("select").chosen({
+$("#pedidobase").chosen({
    width: "100%",
-   display_selected_options:false
+   display_selected_options:false,
+    placeholder_text_single: "Escriba y/o seleccione el toro",
+      no_results_text: "No hay ningun toro con esa descripción"
  });
+
+$("#vendedor").chosen({
+   width: "100%",
+   display_selected_options:false,
+    placeholder_text_single: "Escriba y/o seleccione el vendedor",
+      no_results_text: "No hay ningun vendedor con esa descripción"
+ });
+
+ 
+$("#metodopagolabel").chosen({
+   width: "100%",
+   display_selected_options:false,
+    placeholder_text_single: "Escriba y/o seleccione el método de pago",
+      no_results_text: "No hay ningun método de pago con esa descripción"
+ });
+
+ 
+ 
   
  $("#pedidobase").change(function(e){    
       var idselected=this.value;  
@@ -699,7 +720,19 @@ $(document).ready(function(){
 
 });
 
- 
+$("#ahelp").click(function(){
+    var src=$('#ahelpgifimg').attr('src');
+    vex.dialog.alert({ unsafeMessage:'<div style="text-align: center">' +
+        '<h5 style="font-family: Fago-Bold">Ayduda</h5>'+
+'<img style="width:100%;height:100%" src="'+src+'"><div>'
+
+, className: 'vex-theme-default' ,
+overlayClassName: 'success',
+contentClassName: 'borderblueclass errormaxwidth',
+closeClassName: 'closebleclass'
+});
+
+});
 
       });
 </script>

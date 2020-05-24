@@ -14,7 +14,9 @@
         <table class="record_properties table table-hover table table-striped table-vmiddle" id="data-table-command" data-ajax="true" data-url="{{path('admin_noticias')}}" >
             <thead>          <tr>
             <th data-column-id="categoria" data-formatter="categoria">Categoría</th>
+               <th data-column-id="calostro" data-formatter="calostro">Calostro</th>
                                                                         <th data-column-id="titulo">Titulo</th>
+                                                                        
                                                                     <th data-column-id="fechanoticia" data-formatter="fechanoticia">Fechanoticia</th>
 
                         
@@ -75,6 +77,12 @@
                 },
                 "categoria": function(column, row) {
                     return "" + row.categoria.nombre;
+                },
+                 "calostro": function(column, row) {
+                    if(row.calostro==1)
+                      return "SI";
+                    return "";
+
                 },
                 "fechanoticia": function(column, row) {
                     return "" + row.fechanoticia.date.substring(0, 10);

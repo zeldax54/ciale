@@ -1,0 +1,28 @@
+calostrovideos:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:Calostrovideos:index" }
+
+calostrovideos_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:Calostrovideos:show" }
+
+calostrovideos_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:Calostrovideos:new" }
+
+calostrovideos_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:Calostrovideos:create" }
+    requirements: { _method: post }
+
+calostrovideos_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:Calostrovideos:edit" }
+
+calostrovideos_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:Calostrovideos:update" }
+
+calostrovideos_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:Calostrovideos:delete" }

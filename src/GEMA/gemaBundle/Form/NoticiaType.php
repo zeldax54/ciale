@@ -21,6 +21,7 @@ class NoticiaType extends AbstractType
                     'required'=>true
 
             ))
+            ->add('calostro')
             ->add('titulo')
             ->add('fechanoticia','date', array(
                 'widget' => 'single_text',

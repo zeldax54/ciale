@@ -1,3 +1,7 @@
+gema_calostrovideos:
+    resource: "@gemaBundle/Resources/config/routing/calostrovideos.yml"
+    prefix:   /admin/calostrovideos
+
 gema_compra:
     resource: "@gemaBundle/Resources/config/routing/compra.yml"
     prefix:   /admin/compra
@@ -440,6 +444,14 @@ gema_compras:
 gema_comprasdo:
     pattern:  /comprasdo
     defaults: { _controller: "gemaBundle:Compra:comprasDo" }
+
+gema_calostro:
+    pattern:  /calostro
+    defaults: { _controller: "gemaBundle:Calostro:index" }
+
+gema_calostromsg:
+    pattern:  /calostromsg
+    defaults: { _controller: "gemaBundle:Calostro:calostromsg" }
 
 prodprog_newwindows:
     pattern:  /{nombremenu}

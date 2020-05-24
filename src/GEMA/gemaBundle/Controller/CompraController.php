@@ -250,6 +250,8 @@ class CompraController extends Controller
        $helper=new MyHelper();
        $apikey= $this->getParameter('apikey');
        $gife=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'paperplane.gif');
+       $helpgif=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'helpgif.gif');
+
        $vendedores= $em->getRepository('gemaBundle:VendedorCompra')->findBy([
         'deshabilitado' => false,
         
@@ -279,7 +281,9 @@ class CompraController extends Controller
          'metodopago'=>$metodoPago,
          'ruletas' => $ruletas,
          'wheelaback'=>$wheelaback,
-         'servername'=>$servername
+         'servername'=>$servername,
+         'helpgif'=>$helpgif,
+
 
       ));
     }
