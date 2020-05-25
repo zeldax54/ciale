@@ -29,11 +29,11 @@
                         </div>
                     </div>
 
-                    <div class="form-group"><label  class="col-md-2 control-label">Direccion</label>
+                    {# <div class="form-group"><label  class="col-md-2 control-label">Direccion</label>
                         <div class="col-md-10">
                             <input class="form-control" id="direccion" name="direccion"   type="text">
                         </div>
-                    </div>
+                    </div> #}
 
                     <div class="form-group"><label  class=" col-md-2 control-label">Localidad</label>
                         <div class="col-md-10">
@@ -53,11 +53,11 @@
                         </div>
                     </div>
 
-                    <div class="form-group"><label  class=" col-md-2 control-label">CP</label>
+                    {# <div class="form-group"><label  class=" col-md-2 control-label">CP</label>
                         <div class="col-md-10">
                             <input placeholder="Código Postal" class="form-control" id="codigopostal" name="codigopostal"   type="text">
                         </div>
-                    </div>
+                    </div> #}
                     {#<div style="height: 10px"> </div>#}
 
 
@@ -73,11 +73,11 @@
                         </div>
                     </div>
 
-                    <div class="form-group"><label  class=" col-md-2 control-label">Empresa</label>
+                    {# <div class="form-group"><label  class=" col-md-2 control-label">Empresa</label>
                         <div class="col-md-10">
                             <input class="form-control" id="empresa" name="empresa"    type="text">
                         </div>
-                    </div>
+                    </div> #}
 
                     <div class="form-group"><label  class="required col-md-2 control-label">Elija las razas de su interés</label>
                         <div class="col-md-10">
@@ -85,10 +85,19 @@
                                 <option value="Todas las razas">Todas las razas</option>
                                 <option value="Todas las razas de carne">Todas las razas de Carne</option>
                                 <option value="Todas las razas de leche">Todas las razas de Leche</option>
+                                <option value="Aberdeen Angus">Aberdeen Angus</option>
+                                <option value="Polled Hereford">Polled Hereford</option>
+                                <option value="Brangus">Brangus</option>
+                                <option value="Braford">Braford</option>
+                                <option value="Otras razas">Otras razas</option>
+                                <option value="Holando">Holando</option>
+                                <option value="Jersey">Jersey</option>
+                                
 
-                                {% for r in razas %}
-                                    <option value="{{ r.nombre }}">{{ r.nombre }}</option>
-                                {% endfor %}
+
+                              
+
+
                             </select>
                         </div>
                     </div>

@@ -119,10 +119,10 @@ class MailController extends Controller
             $message->setContentType("text/html");
             $nombre=$request->request->get('nombre');
             $apellido=$request->request->get('apellido');
-            $direccion=$request->request->get('direccion');
+           // $direccion=$request->request->get('direccion');
             $localidad=$request->request->get('localidad');
             $provincia=$request->request->get('provincia');
-            $codigopstal=$request->request->get('codigopostal');
+          //  $codigopstal=$request->request->get('codigopostal');
             $email=$request->request->get('email');
             $telefono=$request->request->get('telefono');
             $empresa=$request->request->get('empresa');
@@ -135,11 +135,11 @@ class MailController extends Controller
             $body='';
             $body.='<strong>Nombre:</strong> '.$nombre."<br>";
             $body.='<strong>Apellido:</strong> '.$apellido."<br>";
-            $body.='<strong>Direccion:</strong> '.$direccion."<br>";
+   //         $body.='<strong>Direccion:</strong> '.$direccion."<br>";
             $body.='<strong>Localidad:</strong> '.$localidad."<br>";
             $body.='<strong>Provincia:</strong> '.$provincia."<br>";
             $body.='<strong>Pais:</strong> '.$pais."<br>";
-            $body.='<strong>Codigo Postal:</strong> '.$codigopstal."<br>";
+ //           $body.='<strong>Codigo Postal:</strong> '.$codigopstal."<br>";
             $body.='<strong>Email:</strong> '.$email."<br>";
             $body.='<strong>Teléfono:</strong> '.$telefono."<br>";
             $body.='<strong>Empresa:</strong> '.$empresa."<br>";
@@ -179,12 +179,12 @@ class MailController extends Controller
                     'Interest'=>'Elija las razas de su interés',
                     'Subscribe'=>'Contacto WEB',
                     'Telefono'=>$telefono,
-                    'Direccion'=>$direccion,
+                  //  'Direccion'=>$direccion,
                     'Localidad'=>$localidad,
                     'Provincia'=>$provincia,
                     'Pais'=>$pais,
                     'Compania'=>$empresa,
-                    'Cod-postal'=>$codigopstal,
+                 //   'Cod-postal'=>$codigopstal,
 
 
                     "merge_fields" => array(
@@ -219,11 +219,11 @@ class MailController extends Controller
             $correo=new Correo();
             $correo->setNombre($nombre);
             $correo->setApellido($apellido);
-            $correo->setDireccion($direccion);
+            $correo->setDireccion('');
             $correo->setLocalidad($localidad);
             $correo->setProvincia($provincia);
             $correo->setPais($pais);
-            $correo->setCodigopostal($codigopstal);
+            $correo->setCodigopostal('');
             $correo->setEmail($email);
             $correo->setTelefono($telefono);
             $correo->setEmpresa($empresa);

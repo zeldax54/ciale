@@ -446,7 +446,7 @@ gema_comprasdo:
     defaults: { _controller: "gemaBundle:Compra:comprasDo" }
 
 gema_calostro:
-    pattern:  /calostro
+    pattern:  /calostro/
     defaults: { _controller: "gemaBundle:Calostro:index" }
 
 gema_calostromsg:
