@@ -1,24 +1,21 @@
-<div class="row prob" style="text-align: center;border-top: 1px solid; margin-left: 5px;margin-right: 5px;">
+<div class="prob" style="text-align: center;border-top: 1px solid; margin-left: 5px;margin-right: 5px;">
 
     {#<div class="table-responsive" style="overflow: auto;" tabindex="0">#}
         {#<table class="record_properties table table-hover table table-striped table-vmiddle bootgrid-table">#}
             {#<tr>#}
                 {% for d in distrib %}
 
-                    <div class="col-md-2 org" style="display:inline-block;margin-left:20px;">
-                        <p class="redventastextbold" style="float: left;margin-right: 21px;">  {{ d.nombre }} </p>{{ d.bandera|raw }}
+                    <div class="" style="border-bottom: 1px solid;">
+                          <div class="row">
+                           <div class="col-md-2">
+                        <p class="redventastextbold" style="">  {{ d.nombre }} </p>{{ d.bandera|raw }}
+                         </div>
+                          <div class="col-md-10">
                         <div>{{ d.datos|raw }}</div>
+                         </div>
+                        <br> <br><br>
                         </div>
-
-                    {#<td style="vertical-align: middle;width: 220px;border: 0px !important;">#}
-
-                        {#<p class="redventastextbold" style="float: left;margin-right: 21px;">  {{ d.nombre }} </p>{{ d.bandera|raw }}#}
-                       {#</td>#}
-
-
-
-
-                        {#{{ d.datos|raw }}#}
+                        </div>
 
 
                 {% endfor %}

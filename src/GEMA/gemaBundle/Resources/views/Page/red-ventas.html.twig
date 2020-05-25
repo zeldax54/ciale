@@ -99,7 +99,7 @@
 	  </div>
 	  <div style="height: 20px !important;"></div>
 
-			<div class="row">
+	<div class="row">
 
       <div class="col-md-3"  >
        <div id="arg-map" style="height: 500px;width: 293px"></div>
@@ -110,11 +110,32 @@
                     {% if datosoficina is not null %}
 					<h1 class="redventasHeader" style="margin-left: 10px !important">Oficina Comercial y Administración</h1>
 					<div class="redventasheaderdivsep"> </div>
-					<div class="redventasheaderdiv redventasheaderdivsep">
-                     {{ datosoficina.datosoficina|raw }}<br>
-						<h4 class="redventasHeader">STAFF</h4>
+					<div class="redventasheaderdivsep">
+                     <div class="row">
+					 <div class="col-md-6">
+					 <br>
+					 <img src="{{ asset(foto) }}">
+					  <br><br>
+					 </div>
+					  <div class="col-md-6"></div>
+					 <br>
+					 <span id="captext">Capitán Sarmiento</span> <br>
+					 <span id="argentnatext">Argentina</span> <br><br>
+					  <span id="dirtext"> AV. L. N.Alem 901, Cap. Sarmiento</span> <br><br>
+					   <span id="teltext"> Tel./ Fax: 02478 -  481013 | 0810-222 CIALE (24253) info@ciale.com</span> <br>
+					   <div>
+					   <a href="https://wa.me/005492474476709" target="_blank"><img class="imgredes"  src="{{ asset(wasap) }}"><span id="wasaptext"> +549 2474 476709 </span></a> </div>
+					  <div>
+					  <a href="https://www.facebook.com/CIALE.Alta.Genetics/" target="_blank"><img class="imgredes"  src="{{ asset(facebook) }}"></a>
+					    <a href="https://www.instagram.com/ciale.alta.genetics/" target="_blank"><img class="imgredes"  src="{{ asset(instagram) }}"></a>
+					 <a href="http://www.youtube.com/c/CIALEAlta" target="_blank"> <img class="imgredes"  src="{{ asset(youtube) }}"></a>
+					 <a href="https://www.linkedin.com/company/ciale-alta/" target="_blank"> <img class="imgredes"  src="{{ asset(linkedin) }}"></a>
+					  </div>
+					
+					  <br><br>
+					 </div>
 
-					</div>
+					</div><br><br><br>
 					{% else %}
 
 					<div class="redventasheaderdivsep">
@@ -168,7 +189,7 @@
 		  <div class="col-md-3"></div>
 		  <div class="col-md-9" style="">
 
-			  <h4 class="redventasHeader" style="border-bottom: 1px solid;">DEPTO. TÉCNICO</h4>
+			  <h4 class="redventasHeader" style="border-bottom: 1px solid;">DEPARTAMENTO TÉCNICO</h4>
 			  <div>
 				  <div style="margin-top: 10px;text-align: center" >
 

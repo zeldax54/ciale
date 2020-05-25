@@ -81,6 +81,13 @@ class RedventasController extends Controller
 
         $gife=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'paperplane.gif');
         $razas = $em->getRepository('gemaBundle:Raza')->findAll();
+        $foto = $helper->directPic('logo'.DIRECTORY_SEPARATOR,'Foto.jpg');
+        $wasap = $helper->directPic('logo'.DIRECTORY_SEPARATOR,'Whatsapp.jpg');
+        $facebook = $helper->directPic('logo'.DIRECTORY_SEPARATOR,'Facebook.jpg');
+        $instagram = $helper->directPic('logo'.DIRECTORY_SEPARATOR,'Instagram.jpg');
+        $youtube = $helper->directPic('logo'.DIRECTORY_SEPARATOR,'Youtube.jpg');
+        $linkedin = $helper->directPic('logo'.DIRECTORY_SEPARATOR,'Linkedin.jpg');
+
         return $this->render('gemaBundle:Page:red-ventas.html.twig', array(
               'datosoficina'=> $datosof,
                 'staff'=>$staff,
@@ -91,11 +98,13 @@ class RedventasController extends Controller
                  'gife'=>$gife,
                 'deptotec'=>$deptotec,
                 'paramfolderdptotec'=>$paramfolderdptotec,
-                'isdeptotec'=>$isdeptotec
-
-
-
-
+                'isdeptotec'=>$isdeptotec,
+                'foto' => $foto,
+                'wasap'=>$wasap,
+                'facebook'=>$facebook,
+                'instagram'=>$instagram,
+                'youtube'=>$youtube,
+                'linkedin'=>$linkedin
             )
         );
 

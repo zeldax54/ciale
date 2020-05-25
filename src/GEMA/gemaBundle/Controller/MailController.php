@@ -27,13 +27,26 @@ class MailController extends Controller
         $coordenadas = $em->getRepository('gemaBundle:Configuracion')->find(1)->getCoordenadas();
         $coordenadaslab = $em->getRepository('gemaBundle:Configuracion')->find(1)->getCoordenadaslab();
         $apikey= $this->getParameter('apikey');
+        $foto = $helper->directPic('logo'.DIRECTORY_SEPARATOR,'Foto.jpg');
+        $wasap = $helper->directPic('logo'.DIRECTORY_SEPARATOR,'Whatsapp.jpg');
+        $facebook = $helper->directPic('logo'.DIRECTORY_SEPARATOR,'Facebook.jpg');
+        $instagram = $helper->directPic('logo'.DIRECTORY_SEPARATOR,'Instagram.jpg');
+        $youtube = $helper->directPic('logo'.DIRECTORY_SEPARATOR,'Youtube.jpg');
+        $linkedin = $helper->directPic('logo'.DIRECTORY_SEPARATOR,'Linkedin.jpg');
+   
         return $this->render('gemaBundle:Page:contacto.html.twig', array(
            'razas'=>$razas,
             'datosoficina'=>$datosof,
             'gife'=>$gife,
              'coordenadas'=>$coordenadas,
             'coordenadaslab'=>$coordenadaslab,
-            'apikey'=>$apikey
+            'apikey'=>$apikey,
+            'foto' => $foto,
+                'wasap'=>$wasap,
+                'facebook'=>$facebook,
+                'instagram'=>$instagram,
+                'youtube'=>$youtube,
+                'linkedin'=>$linkedin
         ));
     }
 

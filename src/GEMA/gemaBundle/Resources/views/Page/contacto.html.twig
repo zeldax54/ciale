@@ -3,6 +3,8 @@
   {% block customstylesheets %}
       <link href="{{ asset('bundles/gema/clientresources/css/contactcss.css')}}" rel="stylesheet">
       <link href="{{ asset('bundles/gema/clientresources/css/contactcssspecial.css')}}" rel="stylesheet">
+      <link href="{{ asset('bundles/gema/clientresources/css/contactcss.css')}}" rel="stylesheet">
+
 	  {% endblock %}
 
   {% block content %}
@@ -120,13 +122,35 @@
 
 
         <div class="col-md-6">
-            <div ><br>
-   <div id="do"> {{ datosoficina.datosoficina|raw }}</div><br>
+            <div >
+
+   <div class="row">
+					 
+					 
+					 <span id="captext">Capitán Sarmiento</span> <br>
+					 <span id="argentnatext">Argentina</span> <br><br>
+					  <span id="dirtext"> AV. L. N.Alem 901, Cap. Sarmiento</span> <br><br>
+					   <span id="teltext"> Tel./ Fax: 02478 -  481013 | 0810-222 CIALE (24253) info@ciale.com</span> <br>
+					   <div>
+					   <a href="https://wa.me/005492474476709" target="_blank"><img class="imgredes"  src="{{ asset(wasap) }}"><span id="wasaptext"> +549 2474 476709 </span></a> </div>
+					  <div>
+					  <a href="https://www.facebook.com/CIALE.Alta.Genetics/" target="_blank"><img class="imgredes"  src="{{ asset(facebook) }}"></a>
+					    <a href="https://www.instagram.com/ciale.alta.genetics/" target="_blank"><img class="imgredes"  src="{{ asset(instagram) }}"></a>
+					 <a href="http://www.youtube.com/c/CIALEAlta" target="_blank"> <img class="imgredes"  src="{{ asset(youtube) }}"></a>
+					 <a href="https://www.linkedin.com/company/ciale-alta/" target="_blank"> <img class="imgredes"  src="{{ asset(linkedin) }}"></a>
+					  </div>
+					
+					  <br><br>
+					 </div>
+
+					</div><br><br><br>
+   
+   <br>
 
 </div>
 
-            <div id="mapaid" style="text-align: center;">
-                <div style="text-align: center"> <span style="font-family: Fago-normal">Oficina</span></div>
+            <div id="mapaid" style="text-align: left;margin-top:-50px">
+               
                 <iframe style="height: 170px" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com.ar/maps?f=q&amp;source=s_q&amp;hl=es&amp;geocode=&amp;q={{ coordenadas }}&amp;sll={{ coordenadas }}&amp;sspn=2.030164,4.22699&amp;ie=UTF8&amp;t=m&amp;ll={{ coordenadas }}&amp;spn=0.041615,0.050468&amp;z=13&amp;output=embed" width="293" height="293" frameborder="0"></iframe>
                 <a class="btn btn-gris nw" href="https://maps.google.com.ar/maps?f=q&amp;source=embed&amp;hl=es&amp;geocode=&amp;q={{ coordenadas }}&amp;sll={{ coordenadas }}&amp;sspn=2.030164,4.22699&amp;ie=UTF8&amp;t=m&amp;ll={{ coordenadas }}&amp;spn=0.041615,0.050468&amp;z=13" target="_blank">Ver mapa</a>
                 <div style="text-align: center"> <span style="font-family: Fago-normal">Laboratorio</span></div>
