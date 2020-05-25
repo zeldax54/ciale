@@ -308,6 +308,8 @@ class MailController extends Controller
         $email= strtolower($request->request->get('email'));
         $telefono=$request->request->get('telefono');   
         $pais=$request->request->get('pais');
+        $consulta=$request->request->get('consulta');
+
         $em = $this->getDoctrine()->getManager();
          
         //Email
@@ -318,12 +320,14 @@ class MailController extends Controller
     $body='';
     $body.='<strong>Nombre:</strong> '.$nombre."<br>";
     $body.='<strong>Apellido:</strong> '.$apellido."<br>";
-    $body.='<strong>Direccion:</strong> '.$direccion."<br>";
+   // $body.='<strong>Direccion:</strong> '.$direccion."<br>";
     $body.='<strong>Localidad:</strong> '.$localidad."<br>";
     $body.='<strong>Provincia:</strong> '.$provincia."<br>";
     $body.='<strong>Pais:</strong> '.$pais."<br>";
     $body.='<strong>Email:</strong> '.$email."<br>";
     $body.='<strong>Teléfono:</strong> '.$telefono."<br>";   
+    $body.='<strong>Consulta:</strong> '.$consulta."<br>";   
+
     $to=array(
         0 =>$email,
     );
