@@ -87,7 +87,7 @@ class ToroRepository extends EntityRepository
         $qb
             ->select("T","R")
             ->from($this->getClassName(), "T")
-           // ->leftJoin('T.raza', "R")
+            ->leftJoin('T.raza', "R")
             ->where("T.nombre like '%".$dato."%'")
             ->orWhere("T.padre like '%".$dato."%'")
             ->orWhere("T.padremadre like '%".$dato."%'")
