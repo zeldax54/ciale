@@ -33,12 +33,14 @@ class StaffType extends AbstractType
 
 
             ))
-
+            ->add('orden')
             ->add('cargo')
             ->add('nombre')
             ->add('telefono')
             ->add('email')
             ->add('publico')
+           
+
 
             ->add('guid',null,array(
                 'label_attr'=>array(
