@@ -30,16 +30,29 @@
             src: url({{asset('calostro/FUENTES/Interstatemazdaregular.ttf')}}) format('truetype')
             }
 
+            #ventasbtn:hover{
+              cursor: pointer;
+
+            }
+
+            #imginstruc{
+              width: 50% !important;
+            }
+            h4 a{
+              color:#110e0e;
+            }
+            
            .acordiontitle,.panel-heading h4{
              font-family:'Interstatemazdaregular' !important;          
-              font-size : 170% !important;
+              font-size : 130% !important;
               color: #004390 !important;
 
            }
+          
            .acordiontext,.panel-body p{
               font-family:'Interstatemazdaregular'!important;            
-              font-size : 150% !important;  
-              color: #004390 !important;  
+              font-size : 130% !important;  
+              color: #505457 !important;  
            }
 
           .centerdivcalostro{
@@ -83,12 +96,16 @@
   }
   .habladata{
     position: absolute;
-    top: 23%;
+    top: 33%;
     transform: translateY(-50%);
     left: 25%;
     right: 0;
 
   }
+  .habladata span{
+    color:#151414;
+  }
+ 
   .hablaname{
      font-family:'Calibribold';          
     font-size: 50px;
@@ -148,7 +165,8 @@
   {% block content %}
   
 <div class="sticky">
-<a id="ventasbtn"  title="Ventas"> <i class="fa fa-envelope-o"></i></a>
+<a href="https://wa.me/543462557246">
+<img  src="{{ asset(imgwasapflot) }}" alt="whatsapp" class=""></a>
 </div>
 <div>
 <div class="row centerdivcalostro">
@@ -156,7 +174,7 @@
 </div>
 <br>
 <div class="row centerdivcalostro">
-<img style="width: 49%;" src="{{ asset(calostro100) }}" alt="Calostro 100%" class="">
+<img style="width: 49%;" src="{{ asset(calostro100) }}" alt="CALOSTRO 100®️%" class="">
 </div>
 <br>
 <div class="row centerdivcalostro">
@@ -164,20 +182,21 @@
 	<li>
 	<a id="queescalostro" href="#"><img src="{{ asset(queescalostro) }}" alt="Que es calostro" class="">
   	<div class="box_data">
-			<span class="calostrotitles">¿QUÉ ES EL CALOSTRO?</span>
+			<span class="calostrotitles">¿QUÉ ES EL CALOSTRO?&nbsp;&nbsp;</span>
 		</div></a>
 	</li>
 		<li>
 	<a id="comoprepararlo" href="#"><img src="{{ asset(comoprepararlo) }}" alt="Como prepararlo" class=""> 
   <div class="box_data">
-			<span class="calostrotitles">COMO PREPARARLO</span>
+			<span class="calostrotitles">COMO PREPARARLO&nbsp;&nbsp;</span>
 		</div>
  </a>
 	</li>
 		<li>
 	<a id="preguntasfec" href="#"><img src="{{ asset(preguntasfec) }}" alt="Preguntas frecuentes" class=""> 
+
   <div class="box_data">
-			<span class="calostrotitles">PREGUNTAS FRECUENTES</span>
+			<span class="calostrotitles">PREGUNTAS FRECUENTES&nbsp;&nbsp;</span>
 		</div>
 	 </a>
 		</li>
@@ -188,6 +207,7 @@
 </div>
 
 <div id="queescalostrodiv">
+<br><br><br>
  <span class="calostrotitles">¿QUÉ ES EL CALOSTRO?</span><br>
   <p class="calostrotexts">El calostro es el primer líquido secretado de las glándulas mamarias inmediatamente después del nacimiento.
     Es el único alimento que necesita el ternero para construir su sistema inmune, para lidiar con su ambiente y prosperar para alcanzar su 
@@ -199,7 +219,7 @@
 </div>
 <br>
 <div>
- <span class="calostrotitles">¿Cuáles son las ventajas de calostro 100®?</span>
+ <span class="calostrotitles">¿Cuáles son las ventajas de CALOSTRO 100®️?</span>
 </div><br>
 
 <div class="row centerdivcalostro columnas">
@@ -217,6 +237,7 @@
 </div>
 <br>
 <div id="comoprepararlodiv">
+<br><br><br>
  <span class="calostrotitles">¿CÓMO PREPARARLO?</span>
 </div><br>
 <div>
@@ -228,12 +249,12 @@
 </div>
 
 <div>
- <div class="centerdivcalostro"><a href="{{ asset(instructivo) }}"><img class="" src="{{ asset(btndescargarinstructivos) }}" alt="Descargar instructivos de preparación" class=""></a> </div><br><br><br>
- <span class="calostrotitles">DESCARGATE LA APP PARA CALCULAR FÁCILMENTE LA DOSIS NECESARIA DE CALOSTRO 100® COMO COMPLEMENTO</span><br>
+ <div class="centerdivcalostro"><a href="{{ asset(instructivo) }}"><img id="imginstruc" class="" src="{{ asset(btndescargarinstructivos) }}" alt="Descargar instructivos de preparación" class=""></a> </div><br><br><br>
+ <p style="text-align:center;" class="calostrotitles">DESCARGATE LA APP PARA CALCULAR FÁCILMENTE LA DOSIS NECESARIA DE CALOSTRO 100®️ COMO COMPLEMENTO</span><p>
  <div class="centerdivcalostro"><img style="width: 45%;!important" class=""  src="{{ asset(celulares) }}" alt="Celular" class=""> </div><br>
  <div class="row">
- <div class="col-md-6 centerdivcalostro"><img style="width: 45%;!important;float:right;" id="imgapple" style="float:right;" class="" src="{{ asset(apple) }}" alt="Apple" class=""> </div>
- <div class="col-md-6 centerdivcalostro"><img style="width: 45%;!important;float:left;" id="imgandroid" class="" style="float:left;"  src="{{ asset(android) }}" alt="Android" class=""> </div>
+ <div class="col-md-6 centerdivcalostro"><a target="blank" href="https://apps.apple.com/ar/app/alta-cria/id1478152695"><img style="width: 45%;!important;float:right;" id="imgapple" style="float:right;" class="" src="{{ asset(apple) }}" alt="Apple" class=""></a> </div>
+ <div class="col-md-6 centerdivcalostro"><a target="blank" href="https://play.google.com/store/apps/details?id=br.com.altagenetics.colostroempo&hl=es_AR"> <img style="width: 45%;!important;float:left;" id="imgandroid" class="" style="float:left;"  src="{{ asset(android) }}" alt="Android" class=""></a> </div>
  </div>
 </div><br><br>
 <div>
@@ -270,18 +291,19 @@
 </div>
 <br><br><br>
 <div id="preguntasfecdiv">
+  <br><br><br>
  <span class="calostrotitles">PREGUNTAS FRECUENTES</span>
 </div><br><br><br>
 
 <div aria-multiselectable="true" class="panel-group" id="accordion" role="tablist">
 <div class="panel panel-default">
 <div class="panel-heading" id="heading1" role="tab">
-<h4><a aria-controls="collapse1" aria-expanded="true" data-parent="#accordion" data-toggle="collapse" href="#collapse1">1-&iquest;Qu&eacute; es CALOSTRO 100? </a></h4>
+<h4><a aria-controls="collapse1" aria-expanded="true" data-parent="#accordion" data-toggle="collapse" href="#collapse1">1-&iquest;Qu&eacute; es CALOSTRO 100®️? </a></h4>
 </div>
 
 <div aria-labelledby="heading1" class="collapse in panel-collapse" id="collapse1" role="tabpanel">
 <div class="panel-body">
-<p>El calostro es la primera secreci&oacute;n l&aacute;ctea que todos los mam&iacute;feros producen inmediatamente despu&eacute;s del parto. Es un l&iacute;quido complejo que la naturaleza ha dise&ntilde;ado espec&iacute;ficamente para satisfacer las necesidades &uacute;nicas de los reci&eacute;n nacidos. No se puede formular artificialmente. CALOSTRO 100 es simplemente calostro bovino natural en polvo que contiene 100 gramos de IgG, embazado para administrar en cualquier momento y lugar.</p>
+<p>El calostro es la primera secreci&oacute;n l&aacute;ctea que todos los mam&iacute;feros producen inmediatamente despu&eacute;s del parto. Es un l&iacute;quido complejo que la naturaleza ha dise&ntilde;ado espec&iacute;ficamente para satisfacer las necesidades &uacute;nicas de los reci&eacute;n nacidos. No se puede formular artificialmente. CALOSTRO 100®️ es simplemente calostro bovino natural en polvo que contiene 100 gramos de IgG, embazado para administrar en cualquier momento y lugar.</p>
 </div>
 </div>
 </div>
@@ -293,7 +315,7 @@
 
 <div aria-labelledby="heading2" class="collapse panel-collapse" id="collapse2" role="tabpanel">
 <div class="panel-body">
-<p>El calostro puede ser descripto como la super leche de la naturaleza. Proporciona al reci&eacute;n nacido ingredientes que son cr&iacute;ticos para la supervivencia durante el momento m&aacute;s vulnerable de su vida. El calostro es rico en factores inmunes, grasa, factores de crecimiento, vitaminas, minerales y prote&iacute;nas. Sus beneficios se pueden aplicar a cualquier especie en cualquier etapa de la vida. CALOSTRO 100 asegura cantidades m&iacute;nimas de 100gr de IgG, 65,8gr de Prote&iacute;nas, 3,75 &ndash; 5,17gr de grasa y 37,6gr de materia mineral.</p>
+<p>El calostro puede ser descripto como la super leche de la naturaleza. Proporciona al reci&eacute;n nacido ingredientes que son cr&iacute;ticos para la supervivencia durante el momento m&aacute;s vulnerable de su vida. El calostro es rico en factores inmunes, grasa, factores de crecimiento, vitaminas, minerales y prote&iacute;nas. Sus beneficios se pueden aplicar a cualquier especie en cualquier etapa de la vida. CALOSTRO 100®️ asegura cantidades m&iacute;nimas de 100gr de IgG, 65,8gr de Prote&iacute;nas, 3,75 &ndash; 5,17gr de grasa y 37,6gr de materia mineral.</p>
 </div>
 </div>
 </div>
@@ -305,14 +327,14 @@
 
 <div aria-labelledby="heading3" class="collapse panel-collapse" id="collapse3" role="tabpanel">
 <div class="panel-body">
-<p>CALOSTRO 100 es colectado en m&aacute;s de 2.000 tambos en Canad&aacute;. La vaca produce aproximadamente 20 litros de calostro, mientras que el ternero s&oacute;lo puede ingerir aproximadamente 2-4 litros. Lo que sobra de calostro a menudo se descarta; nosotros usamos ese exceso de calostro para producir CALOSTRO 100.</p>
+<p>CALOSTRO 100®️ es colectado en m&aacute;s de 2.000 tambos en Canad&aacute;. La vaca produce aproximadamente 20 litros de calostro, mientras que el ternero s&oacute;lo puede ingerir aproximadamente 2-4 litros. Lo que sobra de calostro a menudo se descarta; nosotros usamos ese exceso de calostro para producir CALOSTRO 100®️.</p>
 </div>
 </div>
 </div>
 
 <div class="panel panel-default">
 <div class="panel-heading" id="heading4" role="tab">
-<h4><a aria-controls="collapse4" aria-expanded="false" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse4">5-&iquest;D&oacute;nde se procesa CALOSTRO 100? </a></h4>
+<h4><a aria-controls="collapse4" aria-expanded="false" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse4">5-&iquest;D&oacute;nde se procesa CALOSTRO 100®️? </a></h4>
 </div>
 
 <div aria-labelledby="heading4" class="collapse panel-collapse" id="collapse4" role="tabpanel">
@@ -329,7 +351,7 @@
 
 <div aria-labelledby="heading5" class="collapse panel-collapse" id="collapse5" role="tabpanel">
 <div class="panel-body">
-<p>Naturalmente la calidad del calostro de las vacas es muy variable dependiendo de muchos factores c&oacute;mo su edad, n&uacute;mero de lactancias, condiciones ambientales, raza, tiempo de secado, enfermedades, vacunas, dieta, etc. De esta manera, cuando administramos calostro fresco, refrigerado o congelado, nunca sabemos qu&eacute; tipo de calostro estamos entregando a nuestros terneros. Con CALOSTRO 100 tenemos la tranquilidad de entregar un calostro de calidad estandarizada en todo momento.</p>
+<p>Naturalmente la calidad del calostro de las vacas es muy variable dependiendo de muchos factores c&oacute;mo su edad, n&uacute;mero de lactancias, condiciones ambientales, raza, tiempo de secado, enfermedades, vacunas, dieta, etc. De esta manera, cuando administramos calostro fresco, refrigerado o congelado, nunca sabemos qu&eacute; tipo de calostro estamos entregando a nuestros terneros. Con CALOSTRO 100®️ tenemos la tranquilidad de entregar un calostro de calidad estandarizada en todo momento.</p>
 </div>
 </div>
 </div>
@@ -341,14 +363,14 @@
 
 <div aria-labelledby="heading6" class="collapse panel-collapse" id="collapse6" role="tabpanel">
 <div class="panel-body">
-<p>A diferencia de los humanos, la &uacute;nica fuente de inmunidad en los terneros al nacer es el calostro. El ternero nace totalmente desprotegido frente a microorganismos causantes de enfermedades (Diarrea y Neumon&iacute;a) y frente a las condiciones ambientales c&oacute;mo fr&iacute;o y calor extremos. CALOSTRO 100 asegura la inmunidad (nivel de anticuerpos) y aporta la energ&iacute;a (grasa) necesaria para que el ternero pueda regular su temperatura corporal en los primeros d&iacute;as de vida.</p>
+<p>A diferencia de los humanos, la &uacute;nica fuente de inmunidad en los terneros al nacer es el calostro. El ternero nace totalmente desprotegido frente a microorganismos causantes de enfermedades (Diarrea y Neumon&iacute;a) y frente a las condiciones ambientales c&oacute;mo fr&iacute;o y calor extremos. CALOSTRO 100®️ asegura la inmunidad (nivel de anticuerpos) y aporta la energ&iacute;a (grasa) necesaria para que el ternero pueda regular su temperatura corporal en los primeros d&iacute;as de vida.</p>
 </div>
 </div>
 </div>
 
 <div class="panel panel-default">
 <div class="panel-heading" id="heading7" role="tab">
-<h4><a aria-controls="collapse7" aria-expanded="false" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse7">8-&iquest;Cu&aacute;nto CALOSTRO 100 debo administrar? </a></h4>
+<h4><a aria-controls="collapse7" aria-expanded="false" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse7">8-&iquest;Cu&aacute;nto CALOSTRO 100®️ debo administrar? </a></h4>
 </div>
 
 <div aria-labelledby="heading7" class="collapse panel-collapse" id="collapse7" role="tabpanel">
@@ -360,7 +382,7 @@
 
 <div class="panel panel-default">
 <div class="panel-heading" id="heading8" role="tab">
-<h4><a aria-controls="collapse8" aria-expanded="false" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse8">9-&iquest;C&oacute;mo preparo CALOSTRO 100? </a></h4>
+<h4><a aria-controls="collapse8" aria-expanded="false" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse8">9-&iquest;C&oacute;mo preparo CALOSTRO 100®️? </a></h4>
 </div>
 
 <div aria-labelledby="heading8" class="collapse panel-collapse" id="collapse8" role="tabpanel">
@@ -372,7 +394,7 @@
 
 <div class="panel panel-default">
 <div class="panel-heading" id="heading9" role="tab">
-<h4><a aria-controls="collapse9" aria-expanded="false" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse9">10-&iquest;C&oacute;mo administro CALOSTRO 100?</a></h4>
+<h4><a aria-controls="collapse9" aria-expanded="false" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse9">10-&iquest;C&oacute;mo administro CALOSTRO 100®️?</a></h4>
 </div>
 
 <div aria-labelledby="heading9" class="collapse panel-collapse" id="collapse9" role="tabpanel">
@@ -384,7 +406,7 @@
 
 <div class="panel panel-default">
 <div class="panel-heading" id="heading10" role="tab">
-<h4><a aria-controls="collapse10" aria-expanded="false" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse10">11-&iquest;Cu&aacute;ndo es el mejor momento para administrar CALOSTRO 100? </a></h4>
+<h4><a aria-controls="collapse10" aria-expanded="false" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse10">11-&iquest;Cu&aacute;ndo es el mejor momento para administrar CALOSTRO 100®️? </a></h4>
 </div>
 
 <div aria-labelledby="heading10" class="collapse panel-collapse" id="collapse10" role="tabpanel">
@@ -396,19 +418,19 @@
 
 <div class="panel panel-default">
 <div class="panel-heading" id="heading11" role="tab">
-<h4><a aria-controls="collapse11" aria-expanded="false" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse11">12-&iquest;Qu&eacute; grado de inmunidad me aporta CALOSTRO 100?</a></h4>
+<h4><a aria-controls="collapse11" aria-expanded="false" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse11">12-&iquest;Qu&eacute; grado de inmunidad me aporta CALOSTRO 100®️?</a></h4>
 </div>
 
 <div aria-labelledby="heading11" class="collapse panel-collapse" id="collapse11" role="tabpanel">
 <div class="panel-body">
-<p>El nivel de anticuerpos en los terneros luego del calostrado depende de m&uacute;ltiples factores que disminuyen su absorci&oacute;n c&oacute;mo el tipo de parto (normal vs dist&oacute;cico), la temperatura ambiente, la posici&oacute;n durante la toma (acostado y sentado vs parado) y otros. Cuando se administra en condiciones normales, una toma de CALOSTRO 100 permite lograr 10mg/ml de IgG en sangre generando en los terneros una adecuada inmunidad.</p>
+<p>El nivel de anticuerpos en los terneros luego del calostrado depende de m&uacute;ltiples factores que disminuyen su absorci&oacute;n c&oacute;mo el tipo de parto (normal vs dist&oacute;cico), la temperatura ambiente, la posici&oacute;n durante la toma (acostado y sentado vs parado) y otros. Cuando se administra en condiciones normales, una toma de CALOSTRO 100®️ permite lograr 10mg/ml de IgG en sangre generando en los terneros una adecuada inmunidad.</p>
 </div>
 </div>
 </div>
 
 <div class="panel panel-default">
 <div class="panel-heading" id="heading12" role="tab">
-<h4><a aria-controls="collapse12" aria-expanded="false" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse12">13-&iquest;D&oacute;nde puedo comprar CALOSTRO 100?</a></h4>
+<h4><a aria-controls="collapse12" aria-expanded="false" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse12">13-&iquest;D&oacute;nde puedo comprar CALOSTRO 100®️?</a></h4>
 </div>
 
 <div aria-labelledby="heading12" class="collapse panel-collapse" id="collapse12" role="tabpanel">
@@ -420,7 +442,7 @@
 
 <div class="panel panel-default">
 <div class="panel-heading" id="heading13" role="tab">
-<h4><a aria-controls="collapse13" aria-expanded="false" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse13">14-&iquest;CALOSTRO 100 es seguro?</a></h4>
+<h4><a aria-controls="collapse13" aria-expanded="false" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse13">14-&iquest;CALOSTRO 100®️ es seguro?</a></h4>
 </div>
 
 <div aria-labelledby="heading13" class="collapse panel-collapse" id="collapse13" role="tabpanel">
@@ -443,16 +465,19 @@
 </div>
 <br><br><br>
 <div>
- <span class="calostrotitles">NOTICIAS</span>
+
+</div>
+<div class="container center" >   
 </div><br><br>
-<div class="container center">   
-    <div class="row">
+    <div class="row" style="background:#ededed">
+     <span style="margin-left:20px !important" class="calostrotitles">NOTICIAS</span>
+    <br><br>
         <div class="col-md-12">
             <div id="news-slider3" class="owl-carousel">
 
                {% for noticia in noticias %}
                 <div class="post-slide3">
-                    <div class="post-img">
+                    <div class="post-img"><br>
                         <img src="{{ asset(noticia.portada) }}" alt="">
                         <span class="post-icon">
                             <i class="fa fa-book"></i>
@@ -492,15 +517,14 @@
   <div class="col-md-12 imaghabla"><img class="imagecolumsOne" src="{{ asset(imaghabla) }}" alt="Habla con nuestros expertos" class=""> 
     <div class="habladata">
 		 <div>	<span class="hablaname">LEONARDO MIAN</span></div>
-      <div> <span class="hablasubname">Gerente Producto CALOSTRO 100® Argentina</span><div>
-      <div class="divi"> <a href="https://wa.me/3462557246"><i class="fa fa-whatsapp" style="font-size: 29px;color: white;" aria-hidden="true">&nbsp; 346 255 - 7246</i></a></div>
-     <div class="divi"> <i class="fa fa-envelope-o" style="font-size: 29px;color: white;">&nbsp;Leonardo.Mian@sccl.com </i>	</div>
+      <div> <span class="hablasubname">Gerente Producto CALOSTRO 100®️ Argentina</span><div>
+      <div class="divi"> <a href="https://wa.me/543462557246"><i class="fa fa-whatsapp" style="font-size: 29px;color: #151414;" aria-hidden="true">&nbsp; 346 255 - 7246</i></a></div>
+     <div class="divi"><a id="ventasbtn"> <i class="fa fa-envelope-o" style="font-size: 29px;color: #151414;">&nbsp;Leonardo.Mian@sccl.com </i></a>	</div>
 		</div>
     
   </div>
 </div><br><br><br>
 
-<div class=""><a href="https://wa.me/3462557246"><img style="width:37%" class="" src="{{ asset(chatonline) }}" alt="Chat Online" class=""></a> </div>
 
 
 

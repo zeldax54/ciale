@@ -71,6 +71,8 @@ class CalostroController extends Controller
          $instructivo = 'calostro\INSTRUCTIVO\instructivo.pdf';
          $gife=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'paperplane.gif');
          $helpgif=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'helpgif.gif');
+         $imgwasapflot=$helper->directPic('calostro'.DIRECTORY_SEPARATOR.'BOTONES'.DIRECTORY_SEPARATOR,
+         'whatsapp.png',false);
         return $this->render('gemaBundle:Page:calostro.html.twig', array(
            'logo' => $logo,
            'calostro100' => $calostro100,
@@ -96,7 +98,8 @@ class CalostroController extends Controller
            'chatonline'=>$chatonline,
            'instructivo'=>$instructivo,
            'gife'=>$gife,
-           'helpgif'=>$helpgif
+           'helpgif'=>$helpgif,
+           'imgwasapflot'=>$imgwasapflot,
          ));
     
     }
