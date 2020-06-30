@@ -42,7 +42,7 @@ class Colaborador {
 
     /**
      * @var string
-     * @ORM\Column(name="ubicacion", type="string", length=10)
+     * @ORM\Column(name="ubicacion", type="string", length=255)
      */
     private $ubicacion;
 
@@ -130,5 +130,28 @@ class Colaborador {
     public function getGuid()
     {
         return $this->guid;
+    }
+
+    /**
+     * Set ubicacion
+     *
+     * @param string $ubicacion
+     * @return Colaborador
+     */
+    public function setUbicacion($ubicacion)
+    {
+        $this->ubicacion = $ubicacion;
+
+        return $this;
+    }
+
+    /**
+     * Get ubicacion
+     *
+     * @return string 
+     */
+    public function getUbicacion()
+    {
+        return $this->ubicacion;
     }
 }

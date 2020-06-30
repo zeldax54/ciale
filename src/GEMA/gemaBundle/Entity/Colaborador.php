@@ -42,7 +42,7 @@ class Colaborador {
 
     /**
      * @var string
-     * @ORM\Column(name="ubicacion", type="string", length=10)
+     * @ORM\Column(name="ubicacion", type="string", length=255)
      */
     private $ubicacion;
 

@@ -5,7 +5,7 @@
       <link href="{{ asset('bundles/gema/clientresources/cpnew/cpnew.css')}}" rel="stylesheet">
       <style>
           @import "//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css";
-          @import "http://fonts.googleapis.com/css?family=Roboto:400,500";
+          @import "https://fonts.googleapis.com/css?family=Roboto:400,500";
 
           .cptitle{
 
@@ -347,7 +347,7 @@
     <div class="row">
 
         {% for colaborador in colaboradores %}
-        <div class="col-sm-6 col-md-4 col-lg-3 mt-4 {{ colaborador.ubicacion }} cards">
+        <div class="col-sm-6 col-md-4 col-lg-3 mt-4 cards" data-lugar="{{ colaborador.ubicacion }}">
             <div class="card">
                 <img class="card-img-top" src="{{ asset(colaborador.image) }}">
                 <div class="card-block">
@@ -409,7 +409,8 @@
              else{
 
                  $('.cards').hide();
-                 $('.cards.'+data).show();
+                 console.log('.cards[data-lugar="'+data+'"]');
+                 $('.cards[data-lugar="'+data+'"]').show();
              }
 
           });
