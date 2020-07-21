@@ -139,6 +139,15 @@
 
             </li>
 
+            <li class="dropdown {% block gema_navbar_catalogo %}{% endblock %}">
+                <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="fa fa-pencil-square-o icon-navbar fa-lg hidden-md"></i>Generador de Catalogos<b class="caret"></b></a>
+                <ul role="menu" class="dropdown-menu">
+                    <li><a href="{{path("catalogo")}}"><i class="zmdi zmdi-menu icon-navbar fa-lg hidden-md"></i>Catalogos</a></li>
+                    <li><a href="{{path("catalogohojas")}}"><i class="zmdi zmdi-menu icon-navbar fa-lg hidden-md"></i>Hojas</a></li>
+                </ul>
+
+            </li>
+
             <li class="dropdown {% block gema_navbar_seguridad %}{% endblock %}">
 
                 <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="zmdi zmdi-shield-security icon-navbar fa-lg hidden-md"></i>Seguridad<b class="caret"></b></a>

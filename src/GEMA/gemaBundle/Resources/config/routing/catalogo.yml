@@ -1,0 +1,28 @@
+catalogo:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:Catalogo:index" }
+
+catalogo_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:Catalogo:show" }
+
+catalogo_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:Catalogo:new" }
+
+catalogo_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:Catalogo:create" }
+    requirements: { _method: post }
+
+catalogo_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:Catalogo:edit" }
+
+catalogo_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:Catalogo:update" }
+
+catalogo_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:Catalogo:delete" }

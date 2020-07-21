@@ -379,6 +379,13 @@ class Toro
      */
     private $pedidosbase;
 
+     /**
+     * Many Users have Many Users.
+     * @JMS\Exclude();
+     * @ManyToMany(targetEntity="GEMA\gemaBundle\Entity\Catalogohojas", mappedBy="toros",cascade={"persist"})
+     */
+    private $hojas;
+
 
     /**
      * Get id
@@ -1710,5 +1717,38 @@ class Toro
     public function getPedidosbase()
     {
         return $this->pedidosbase;
+    }
+
+    /**
+     * Add hojas
+     *
+     * @param \GEMA\gemaBundle\Entity\Catalogohojas $hojas
+     * @return Toro
+     */
+    public function addHoja(\GEMA\gemaBundle\Entity\Catalogohojas $hojas)
+    {
+        $this->hojas[] = $hojas;
+
+        return $this;
+    }
+
+    /**
+     * Remove hojas
+     *
+     * @param \GEMA\gemaBundle\Entity\Catalogohojas $hojas
+     */
+    public function removeHoja(\GEMA\gemaBundle\Entity\Catalogohojas $hojas)
+    {
+        $this->hojas->removeElement($hojas);
+    }
+
+    /**
+     * Get hojas
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getHojas()
+    {
+        return $this->hojas;
     }
 }

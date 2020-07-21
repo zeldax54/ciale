@@ -462,6 +462,205 @@ class CompraController extends Controller
      ));
      }
    }
+
+
+   public function pedidosindexAction(){      
+    $em = $this->getDoctrine()->getManager();
+    $hav = $em->getRepository('gemaBundle:Configuracion')->find(1)->getActivarCompras();
+    if($hav==false){
+      print('NO habilitado');die();
+     }
+     $helper=new MyHelper();
+     $apikey= $this->getParameter('apikey');
+     $gife=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'paperplane.gif');
+     $helpgif=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'helpgif.gif');
+
+     $vendedores= $em->getRepository('gemaBundle:VendedorCompra')->findBy([
+      'deshabilitado' => false]);     
+     $pedisosbase = $em->getRepository('gemaBundle:Pedidobase')->findAll();
+     $serializer = $this->container->get('jms_serializer');       
+   
+     $baserializada = $serializer->serialize($pedisosbase, 'json');
+     $baserializada=json_decode($baserializada,true);
+   
+     $metodoPago = $em->getRepository('gemaBundle:Metodopago')->findAll();
+     $metodoPago = $serializer->serialize($metodoPago, 'json');
+     $metodoPago=json_decode($metodoPago,true);
+   
+     $ruletas = $em->getRepository('gemaBundle:Ruleta')->findAll();
+     $ruletas = $serializer->serialize($ruletas, 'json');
+     $ruletas=json_decode($ruletas,true);       
+    
+     $wheelaback = $helper->randomPic('mediainpage'.DIRECTORY_SEPARATOR.'wheel'.DIRECTORY_SEPARATOR);    
+     $servername= $_SERVER['SERVER_NAME'];
+     return $this->render('gemaBundle:Page:pedidos.html.twig', array(
+      'apikey'=>$apikey,
+      'gife'=>$gife,
+       'vendedores'=>$vendedores,
+       'pedisosbase'=>$pedisosbase,
+       'baserializada'=>$baserializada,
+       'metodopago'=>$metodoPago,
+       'ruletas' => $ruletas,
+       'wheelaback'=>$wheelaback,
+       'servername'=>$servername,
+       'helpgif'=>$helpgif,
+
+
+    ));
+  }
+
+
+  public function pedidosDoAction(Request $request){
+    try
+    {
+      
+    //Captcha
+    $recaptcha = $request->request->get('g-recaptcha-response');
+    $url = 'https://www.google.com/recaptcha/api/siteverify';
+    $data = array(
+        'secret' => $this->getParameter('apisecret'),
+        'response' => $recaptcha
+    );
+    $query=http_build_query($data);
+    $options = array(
+        'http' => array (
+            'header' => "Content-Type: application/x-www-form-urlencoded\r\n".
+                "Content-Length: ".strlen($query)."\r\n".
+                "User-Agent:MyAgent/1.0\r\n",
+            'method' => 'POST',
+            'content' => $query
+        )
+    );
+    $context  = stream_context_create($options);
+    $verify = file_get_contents($url, false, $context);
+    $captcha_success=json_decode($verify,true);
+    if ($captcha_success['success']==false) {
+        return new JsonResponse(array(
+            0=>'No Enviado',
+            1=>'Compra no enviado usted es un robot...',
+
+        ));
+    }
+    ////////
+    $em = $this->getDoctrine()->getManager();
+    $nombre=$request->request->get('nombre');
+    $apellido=$request->request->get('apellido');   
+    $empresa=$request->request->get('empresa');   
+    $localidad=$request->request->get('localidad');
+    $provincia=$request->request->get('provincia');       
+    $email= strtolower($request->request->get('email'));
+    $telefono=$request->request->get('telefono');   
+    $pais=$request->request->get('pais');
+    $vendedor = $request->request->get('vendedor');
+    $metodopagoid = $request->request->get('metodopagoid');
+    $pedidocompra = json_decode($request->request->get('pedidocompra'),true);
+    $ruletaid = $request->request->get('ruletaid');
+    $premiotext = $request->request->get('premiotext'); 
+   //Create Objects
+   $compra=new Compra();
+   $compra->setNombre($nombre);
+   $compra->setApellido($apellido);
+   $compra->setEmpresa($empresa);
+   $compra->setLocalidad($empresa);
+   $compra->setProvincia($provincia);
+   $compra->setTelefono($telefono);
+   $compra->setEmail($email);
+   $compra->setVendedor($em->getRepository('gemaBundle:VendedorCompra')->find($vendedor));
+   $compra->setFecha(new \DateTime());  
+   if($ruletaid!=-1){
+       $premiobd = $em->getRepository('gemaBundle:Premio')->findOneBy([
+        'ruleta' => $ruletaid,
+        'nombre' => $premiotext,
+    ]);     
+    $compra->setPremio($premiobd);
+   }
+
+   foreach($pedidocompra as $pedido){
+       if (isset($pedido) && $pedido!=null){              
+           $pC=new Pedidocompra();
+           $pC->setCantidad($pedido['cantidad']);
+           $pedidobase=$em->getRepository('gemaBundle:Pedidobase')->find($pedido['pedidobaseid']);
+           $pC->setPedidobase($pedidobase);
+           $pC->setPrecio(1);
+           $pC->setSubtotal($pedido['cantidad']);
+           $pC->setCompra($compra);
+           $compra->addPedido($pC);               
+       }
+    }
+
+   $compra->setDescuento(0);
+   $em->persist($compra);
+   $em->flush();
+   $idcompra = $compra->getId();
+  
+   $compraReloades = $em->getRepository('gemaBundle:Compra')->find($idcompra);
+   //Mail
+   $message = \Swift_Message::newInstance()
+    ->setSubject('Resumen de su Pedido');
+$message->setFrom('info@ciale.com');
+$message->setContentType("text/html");   
+$body='';
+$body.='<strong>Nombre:</strong> '.$nombre."<br>";
+$body.='<strong>Apellido:</strong> '.$apellido."<br>";
+$body.='<strong>Email:</strong> '.$email."<br>";
+$body.='<strong>Empresa:</strong> '.$empresa."<br>";
+$body.='<strong>Localidad:</strong> '.$localidad."<br>";
+$body.='<strong>Provincia:</strong> '.$provincia."<br>";
+$body.='<strong>Pais:</strong> '.$pais."<br>";   
+$body.='<strong>Teléfono:</strong> '.$telefono."<br>";
+$body.='<strong>Pedido:</strong><br>';
+$body.='--------------------------------------------------------';
+$body.="<br>";
+foreach($compraReloades->getPedidos() as $p){        
+    $body.='<strong>Toro:</strong> '.$p->getPedidobase()->getToro()->getApodo()."<br>";
+    $body.='<strong>Cantidad:</strong> '.$p->getCantidad()."<br>";
+    $body.='--------------------------------------------------------';
+    $body.="<br>";
+}
+if($compraReloades->getPremio()!=null)
+$body.='<strong>Premio:</strong> '.$compraReloades->getPremio()->getNombre()."<br>";
+$to=array(
+    0 =>$email,
+    1 =>$compraReloades->getVendedor()->getEmail(),
+    2 =>'pgodoy@centromultimedia.com.ar',
+    3=>'cialealta@gmail.com'
+);
+$message ->setTo($to);
+$message->setBody(
+    $body
+);
+
+$this->get('mailer')->send($message);
+return new JsonResponse(array(
+    0=>'Enviado',
+    1=>'Se ha enviado un resumen de su compra al correo proporcionado.',
+    2=>'None'
+
+));
+
+}
+catch(\Swift_TransportException  $e){
+ return new JsonResponse(array(
+     0=>'No Enviado',
+     1=>$e->getMessage(),
+
+ ));
+}
+catch (\Swift_RfcComplianceException $e){
+ return new JsonResponse(array(
+     0=>'No Enviado',
+     1=>$e->getMessage(),
+
+ ));
+}
+catch(Exception  $e){
+ return new JsonResponse(array(
+     0=>'No Enviado',
+     1=>$e->getMessage(),
+
+ ));
+ }
+}
     
     
     

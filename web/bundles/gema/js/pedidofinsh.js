@@ -14,9 +14,6 @@ $("#sendform").on('submit', (function(e) {
 
                 $('#bsubmit').hide();
 
-
-
-
                 vex.dialog.confirm({
                     message: 'Confirmar la compra y tirar la ruleta. ¡Suerte 🤞🏻!',
                     className: 'vex-theme-default',
@@ -65,18 +62,13 @@ $("#sendform").on('submit', (function(e) {
 
                                     });
                                     theWheel.animation.spins = 8;
-
-
                                     // Called when the animation has finished.
                                     function alertPrize(indicatedSegment) {
                                         premiotext = indicatedSegment.text;
                                         //delay here
                                         // wait(2000);
-
-                                        sendCompra(new FormData(that), premiotext, ruletagen, totlaahorro);
+                                        sendCompra(new FormData(that), premiotext, ruletagen);
                                         return;
-
-
                                     }
                                 }
 
@@ -86,7 +78,7 @@ $("#sendform").on('submit', (function(e) {
                                 $('#canvasModal').modal('show');
                                 theWheel.startAnimation();
                             } else {
-                                sendCompra(new FormData(that), premiotext, ruletagen, totlaahorro);
+                                sendCompra(new FormData(that), premiotext, ruletagen);
                                 return;
 
                             }
@@ -115,7 +107,7 @@ function wait(ms) {
     }
 }
 
-function sendCompra(formdata, premiotext, ruletagen, totlaahorro) {
+function sendCompra(formdata, premiotext, ruletagen) {
 
     console.log(premiotext);
     console.log(ruletagen);
@@ -124,10 +116,9 @@ function sendCompra(formdata, premiotext, ruletagen, totlaahorro) {
     var pedidocompra = new Array(rows.length);
     $.each(rows, function(index, r) {
         let obj = {
-            pedidobaseid: r[7],
+            pedidobaseid: r[3],
             cantidad: r[2],
-            idtoro: r[0],
-            total: r[5]
+            idtoro: r[0]
         };
         pedidocompra.push(
             obj
@@ -155,13 +146,9 @@ function sendCompra(formdata, premiotext, ruletagen, totlaahorro) {
     else
         formdata.append('ruletaid', -1);
     formdata.append('premiotext', premiotext);
-    formdata.append('totlaahorro', totlaahorro);
-    formdata.append('descuento', descuento);
-
-
 
     $.ajax({
-        url: Routing.generate('gema_comprasdo'),
+        url: Routing.generate('gema_pedidosdo'),
         type: "POST",
         data: formdata,
         contentType: false,
@@ -173,9 +160,9 @@ function sendCompra(formdata, premiotext, ruletagen, totlaahorro) {
             //     $("#canvasModal").modal('hide');
             var msj;
             if (ruletagen == null)
-                msj = '<span> Te enviamos un resumen de tu compra a tu correo electrónico. Gracias 😊</span>';
+                msj = '<span> Te enviamos un resumen de tu pedido a tu correo electrónico. Gracias 😊</span>';
             else
-                msj = '<span>Ganaste ' + premiotext + '!</span><br><span> Te enviamos un resumen de tu compra y el premio obtenido a tu correo electrónico. Gracias 😊</span>';
+                msj = '<span>Ganaste ' + premiotext + '!</span><br><span> Te enviamos un resumen de tu pedido y el premio obtenido a tu correo electrónico. Gracias 😊</span>';
             vex.dialog.alert({
                 unsafeMessage: msj
 

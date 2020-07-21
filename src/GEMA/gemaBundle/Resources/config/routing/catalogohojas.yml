@@ -1,0 +1,28 @@
+catalogohojas:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:Catalogohojas:index" }
+
+catalogohojas_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:Catalogohojas:show" }
+
+catalogohojas_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:Catalogohojas:new" }
+
+catalogohojas_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:Catalogohojas:create" }
+    requirements: { _method: post }
+
+catalogohojas_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:Catalogohojas:edit" }
+
+catalogohojas_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:Catalogohojas:update" }
+
+catalogohojas_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:Catalogohojas:delete" }

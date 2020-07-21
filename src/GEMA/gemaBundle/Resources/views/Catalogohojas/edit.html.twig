@@ -1,0 +1,48 @@
+    {% extends 'gemaBundle::layout.html.twig' %}
+    {% form_theme edit_form 'gemaBundle:Form:theme.html.twig' %}
+
+    {% block gema_page -%}
+    <h1>Editar Hoja </h1>
+
+
+
+        {{ form_start(edit_form) }}
+               <div id="imgid" style="background: aliceblue;"><input style="" type="button" class="btn btn-file" value="Editar imagen" id="editarArchivos">  </div>
+     {{form_row(edit_form.catalogo)}}
+     {{form_row(edit_form.numero)}}
+     {{form_row(edit_form.tipo)}}
+    
+
+  
+     {{form_row(edit_form.toros)}}
+     {{form_row(edit_form.guid)}}
+      {{ form_rest(edit_form) }}
+     {{ form_end(edit_form) }}
+
+
+    <ul class="pager">
+        <li class="next"><a href="{{path('catalogohojas')}}"><i class="fa fa-ban"></i>
+                Cancelar
+            </a></li>
+        <li class="next"><a href="{{path('catalogohojas')}}"><i class="fa fa-list"></i>
+                Listado de Catalogohojas
+            </a></li>
+
+    </ul>
+    {% endblock %}
+
+
+    {% block custom_javascripts %}
+    <script src="{{ asset('bundles/gema/js/TableToJson/jquery.tabletojson.js') }}"></script>
+
+    <script>
+        $(document).ready(function(){
+            $('#editarArchivos').click(function(){
+           var param=$('#gema_gemabundle_catalogohojas_guid').val();
+            GetData('catalogohojas',param);
+        });
+
+        })
+    </script>
+
+{% endblock %}

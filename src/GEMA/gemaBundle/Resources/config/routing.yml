@@ -1,3 +1,11 @@
+gema_catalogohojas:
+    resource: "@gemaBundle/Resources/config/routing/catalogohojas.yml"
+    prefix:   /admin/catalogohojas
+
+gema_catalogo:
+    resource: "@gemaBundle/Resources/config/routing/catalogo.yml"
+    prefix:   /admin/catalogo
+
 gema_calostrovideos:
     resource: "@gemaBundle/Resources/config/routing/calostrovideos.yml"
     prefix:   /admin/calostrovideos
@@ -452,6 +460,14 @@ gema_calostro:
 gema_calostromsg:
     pattern:  /calostromsg
     defaults: { _controller: "gemaBundle:Calostro:calostromsg" }
+
+gema_pedidos:
+    pattern:  /ruleta
+    defaults: { _controller: "gemaBundle:Compra:pedidosindex" }
+
+gema_pedidosdo:
+    pattern:  /ruletado
+    defaults: { _controller: "gemaBundle:Compra:pedidosDo" }
 
 prodprog_newwindows:
     pattern:  /{nombremenu}

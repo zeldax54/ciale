@@ -1,0 +1,49 @@
+{% extends 'gemaBundle::layout.html.twig' %}
+{% form_theme form 'gemaBundle:Form:theme.html.twig' %}
+
+
+{% block gema_page -%}
+    <h1>Crear Hoja</h1>
+
+     {{ form_start(form) }}
+               <div id="imgid" style="background: aliceblue;"><input style="" type="button" class="btn btn-file" value="Editar imagen" id="editarArchivos">  </div>
+     {{form_row(form.catalogo)}}
+     {{form_row(form.numero)}}
+     {{form_row(form.tipo)}}
+    
+
+  
+     {{form_row(form.toros)}}
+     {{form_row(form.guid)}}
+      {{ form_rest(form) }}
+     {{ form_end(form) }}
+
+
+
+
+
+
+    <ul class="pager">
+        <li class="next"><a href="{{path('catalogohojas')}}"><i class="fa fa-list"></i>
+                Listar Catalogohojas
+            </a></li>
+    </ul>
+{% endblock %}
+
+{% block custom_javascripts %}
+    <script src="{{ asset('bundles/gema/js/TableToJson/jquery.tabletojson.js') }}"></script>
+
+    <script>
+        $(document).ready(function(){
+           var guid='{{ guid }}';
+            $('#gema_gemabundle_catalogohojas_guid').attr('value',guid);
+            StartDropZone('myUploadDropZoneToro','catalogohojas',guid);
+
+            $('#editarArchivos').click(function(){
+                GetData('catalogohojas',guid);
+            });
+        })
+    </script>
+
+{% endblock %}
+
