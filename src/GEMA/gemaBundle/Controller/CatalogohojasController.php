@@ -21,10 +21,36 @@ class CatalogohojasController extends Controller
      * Lists all Catalogohojas entities.
      *
      */
+
+
+    public function hojasbyparentAction($id){
+
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('gemaBundle:Catalogohojas');
+        $entities = $em->getRepository('gemaBundle:Catalogohojas')->OrderedbyParent($id);
+        $helper=new MyHelper();
+        foreach($entities as $e){
+            if(trim($e->getTipo())=='Imagen'){
+                $img=$helper->randomPic('catalogohojas'.DIRECTORY_SEPARATOR.$e->getGuid().DIRECTORY_SEPARATOR,true);            
+                $e->foto=$img;
+            }
+            else{
+                $toros = $e->getToros();
+                $apodos=[];
+                foreach($toros as $t)
+                  $apodos[] = $t->getApodo();
+                $e->foto= implode(",", $apodos);
+            }            
+        }
+        return $this->render('gemaBundle:Catalogohojas:index.html.twig', array(
+            'entities' => $entities,
+         ));
+    }
+
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
+        $helper=new MyHelper();
         $entities = array();
         if ($request->isXmlHttpRequest()) {
             $repo = $em->getRepository('gemaBundle:Catalogohojas');
@@ -32,12 +58,24 @@ class CatalogohojasController extends Controller
             $result = $this->get("gema.utiles")->paginar($request->get("current"), $request->get("rowCount"), $qb->getQuery());
             return new JsonResponse($result);
         } else {
-            $entities = $em->getRepository('gemaBundle:Catalogohojas')->findAll();
+            $entities = $em->getRepository('gemaBundle:Catalogohojas')->Ordered();
         }
         $accion = 'Listar Expedientes de Catalogohojas';
         $this->get("gema.utiles")->traza($accion);
-        
-        
+        foreach($entities as $e){
+            if(trim($e->getTipo())=='Imagen'){
+                $img=$helper->randomPic('catalogohojas'.DIRECTORY_SEPARATOR.$e->getGuid().DIRECTORY_SEPARATOR,true);            
+                $e->foto=$img;
+            }
+            else{
+                $toros = $e->getToros();
+                $apodos=[];
+                foreach($toros as $t)
+                  $apodos[] = $t->getApodo();
+                $e->foto= implode(",", $apodos);
+            }
+            
+        }        
 
         return $this->render('gemaBundle:Catalogohojas:index.html.twig', array(
                     'entities' => $entities,
@@ -248,5 +286,21 @@ class CatalogohojasController extends Controller
             ->add('submit', 'submit', array('label' => 'Eliminar'))
             ->getForm()
         ;
+    }
+
+
+    public function reorderhojasAction(){
+
+        $neworder=$_POST['ordered'];
+        $em = $this->getDoctrine()->getManager();
+        $repo= $em->getRepository('gemaBundle:Catalogohojas');
+        foreach($neworder as $o){
+            $hoja = $repo->find($o[1]);
+            $hoja->setNumero($o[0]);  
+        }
+        $em->flush();
+        return new JsonResponse(array(
+            0=>'yes'
+        ));
     }
 }

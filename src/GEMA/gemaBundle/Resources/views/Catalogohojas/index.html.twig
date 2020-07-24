@@ -1,6 +1,18 @@
     {% extends 'gemaBundle::layout.html.twig' %}
 
     {% block gema_page -%}
+     <style>
+
+
+
+            table.sorting-table {cursor: move;}
+            table tr.sorting-row td {background-color: #8b8;}
+           .sorter {background-color: #c4ffe9; width: 10px; cursor: move;}
+
+           .HideColHead,.HideCol{
+               display:none;
+           }
+        </style>
     <h2>Listado de Catalogohojas</h2>
     {% if entities is empty %}
     <div class="bs-callout bs-callout-info">
@@ -11,19 +23,34 @@
     {% else %}
 
     <div class="table-responsive">
-        <table class="record_properties table table-hover table table-striped table-vmiddle" id="data-table-command" data-ajax="true" data-url="{{path('catalogohojas')}}" >
+        <table class="record_properties table table-hover table table-striped table-vmiddle" id="data-table-command">
             <thead>
                 <tr>  
 
-                 <th colspan="3" data-formatter="roworder">Row Order</th>           
+                  <th data-formatter="sorteador" data-column-id="sorter"></th>       
+                    <th data-column-id="id" data-type="numeric" data-identifier="true"  data-formatter="id" data-header-css-class="HideColHead" data-css-class="HideCol">Id</th>
                                                                    <th data-column-id="numero">Numero de hoja</th>
-                                                                   <th data-column-id="catalogo" data-formatter="catalogo">catalogo</th>
-                                                                    <th data-column-id="tipo">Tipo</th>                                                           
-                        
-                    <th colspan="3" data-formatter="commands">Acciones</th>
+                                                                   <th data-column-id="catalogo" >Catalogo</th>
+                                                                   <th data-column-id="tipo" >Tipo</th>
+                                                                    <th data-column-id="foto" data-formatter="foto">Info</th>                     
+                                                                     <th colspan="3" data-formatter="commands">Acciones</th>
                 </tr>
             </thead>
             <tbody>
+            {% for e in entities %}
+                <tr>
+                    <td class="sorter"></td>
+                    <td>{{ e.id }} </td>                  
+                    <td>{{ e.numero }} </td>
+                    <td>{{ e.catalogo.titulo }} </td>
+                    <td>{{ e.tipo }} </td>    
+                        {% if e.tipo=="Imagen" %}            
+                     <td>{{ asset(e.foto) }}</td>         
+                     {% else %}
+                       <td>{{ e.foto }}</td>    
+                     {% endif %}   
+                </tr>
+            {% endfor %}
             </tbody>
         </table>
     </div>
@@ -59,6 +86,8 @@
 
     {% block javascripts -%}
     {{ parent() }}
+    <script src="{{ asset('bundles/gema/js/rowsorter.js') }}"></script>
+        <script src="{{ asset('bundles/gema/js/TableToJson/jquery.tabletojson.js') }}"></script>
     <script>
          $("#data-table-command").bootgrid({
              rowSelect:true,
@@ -70,14 +99,20 @@
                 iconUp: 'md-expand-less'
             },
             formatters: {
-                "roworder" :function(column, row) {
 
-                    return "<a title='Up' data-id=\'" + row.id + "\' class=\"btn btn-icon command-edit uprow\" ><span  class=\"md md-file-upload\"></span></a>"+
-                    
-                     "<a title='Down' data-id=\'" + row.id + "\' class=\"btn btn-icon command-edit  downrow\" ><span  class=\"md md-file-download\"></span></a>";
-                },
+                "id":function(column, row) {
+                    return row.id;
+                },         
 
-               
+                "sorteador":function(column, row) {
+                    return '<span class="sorterhh"></span>';
+                },         
+
+                 "foto": function(column, row) {                    
+                     if(row.tipo.trim().localeCompare("Imagen")===0)
+                       return '<img width="70px" height="70px" src="'+row.foto+'">';
+                    return row.foto;
+                },      
 
                 "commands": function(column, row) {
                     return "<a href='" + Routing.generate('catalogohojas_edit', {id: row.id}) + "'  class=\"btn btn-icon command-edit\" ><span class=\"md md-edit\"></span></a> " +
@@ -100,17 +135,47 @@
 
             $(".eliminarRegistro").on("click", function (evt) {
                 window.location = url;
-            });
-
-            
-            $(".uprow").on("click", function (evt) {
-               alert('up')
-            });
-
-             $(".downrow").on("click", function (evt) {
-               alert('down')
-            });
+            });   
+             $('.sorterhh').each(function(){
+                $(this).closest('td').addClass('sorter');
+            })        
         });
     </script>
+
+
+     <script>
+            $(document).ready(function(){
+                new RowSorter('#data-table-command',{
+
+                            onDrop: function(tbody, row, new_index, old_index) {   
+
+                                 var table = tbody.tagName === "TBODY" ? tbody.parentNode : tbody;
+                                 var arr = $('#data-table-command').tableToJSON({ignoreHiddenRows: false});                           
+                                var arrfin=[];
+                               for(var i=0;i<arr.length;i++)
+                                   arrfin.push([i+1,arr[i].Id]);                               
+                               console.log(arrfin);
+                                $.ajax({
+                                    url: Routing.generate('gema_reorderhojas'),
+                                    type: 'POST',
+                                    data: { ordered:arrfin },
+                                    success: function(result) {
+                                         for(var i=0;i<arr.length;i++){
+                                             $('#data-table-command').find('tr').eq(i+1).find('td').eq(2).html(i+1);
+
+                                         }                                        
+                                        console.log(result);
+                                    },
+                                    error:function(){
+                                        $.rowSorter.undo('#'+table.id);
+                                    }
+                                });                             
+
+                            }
+
+                        }
+                );
+            });
+        </script>
     {% endblock %}
 

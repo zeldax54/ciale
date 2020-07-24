@@ -43,4 +43,17 @@ class PedidobaseRepository extends EntityRepository
         }
         return $qb;
     }
+
+
+    public function findVisible(){
+        
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+        $qb->addSelect('U')
+            ->from($this->getClassName(), 'U')
+            ->leftJoin("U.toro", "F")
+            ->where('U.ocultar=false')
+            ->orwhere('U.ocultar is null');
+        return $qb->getquery()->getResult();
+    }
 }

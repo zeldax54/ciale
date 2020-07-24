@@ -26,3 +26,11 @@ catalogohojas_update:
 catalogohojas_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "gemaBundle:Catalogohojas:delete" }
+
+catalogohojas_byparent:
+    pattern:  /{id}/hojasbyparent
+    defaults: { _controller: "gemaBundle:Catalogohojas:hojasbyparent" }
+
+gema_reorderhojas:
+    pattern:  /reorderhojas
+    defaults: { _controller: "gemaBundle:Catalogohojas:reorderhojas" }

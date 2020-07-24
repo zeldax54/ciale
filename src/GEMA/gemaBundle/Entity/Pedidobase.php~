@@ -2,6 +2,8 @@
 
 namespace GEMA\gemaBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as JMS;
+use JMS\Serializer\Annotation\Exclude;
 
 /**
  * Pedidobase
@@ -41,9 +43,15 @@ class Pedidobase {
 
     
      /**
+      * @Exclude
      * @ORM\OneToMany(targetEntity="GEMA\gemaBundle\Entity\Pedidocompra" , mappedBy="pedidobase", cascade={"persist"})
      */
     private $pedidoscompra;
+
+    /**
+     * @ORM\Column(name="ocultar", type="boolean", nullable=true)
+     */
+     private $ocultar;
    
 
 
@@ -164,5 +172,28 @@ class Pedidobase {
     public function getPedidoscompra()
     {
         return $this->pedidoscompra;
+    }
+
+    /**
+     * Set visible
+     *
+     * @param boolean $visible
+     * @return Pedidobase
+     */
+    public function setVisible($visible)
+    {
+        $this->visible = $visible;
+
+        return $this;
+    }
+
+    /**
+     * Get visible
+     *
+     * @return boolean 
+     */
+    public function getVisible()
+    {
+        return $this->visible;
     }
 }

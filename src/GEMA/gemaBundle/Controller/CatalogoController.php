@@ -240,4 +240,10 @@ class CatalogoController extends Controller
             ->getForm()
         ;
     }
+
+
+    public function pdfgenerateAction($id){
+
+        print($id);die();
+    }
 }

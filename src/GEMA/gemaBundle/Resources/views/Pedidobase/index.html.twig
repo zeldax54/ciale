@@ -16,7 +16,9 @@
                 <tr>                                                     
                            <th data-column-id="toro" data-formatter="toro">Toro</th>
                                <th data-column-id="preciolista">Precio lista</th>
-                               <th data-column-id="preciopromo">Precio Promo</th>                  
+                               <th data-column-id="preciopromo">Precio Promo</th>   
+                                         
+
                     <th colspan="3" data-formatter="commands">Acciones</th>
                 </tr>
             </thead>
@@ -66,9 +68,18 @@
                 iconUp: 'md-expand-less'
             },
             formatters: {
+                 
                 "commands": function(column, row) {
+                    var last="";
+                    if(row.ocultar!=false){
+                       last= "<a   datapublic='1'  title='Publicar' style='background: #C9E2B1' data-id=\'" + row.id + "\' class=\"btn btn-icon command-edit publishbuttom\" ><span  class=\"md md-remove-red-eye\"></span></a>";
+                    }
+                    else{
+                        last= "<a datapublic='0'  title='Publicar' style='background: indianred' data-id=\'" + row.id + "\' class=\"btn btn-icon command-edit publishbuttom\" ><span  class=\"md md-remove-red-eye\"></span></a>";
+                    }
                     return "<a href='" + Routing.generate('pedidobase_edit', {id: row.id}) + "'  class=\"btn btn-icon command-edit\" ><span class=\"md md-edit\"></span></a> " +
-                        "<a href='" + Routing.generate('pedidobase_delete', {id: row.id}) + "' data-id=\'" + row.id + "\' class=\"btn btn-icon command-delete\" ><span class=\"md md-delete\"></span></a>";
+                        "<a href='" + Routing.generate('pedidobase_delete', {id: row.id}) + "' data-id=\'" + row.id + "\' class=\"btn btn-icon command-delete\" ><span class=\"md md-delete\"></span></a>"
+                        +last;
                 }
                 ,
                 "toro": function(column, row) {

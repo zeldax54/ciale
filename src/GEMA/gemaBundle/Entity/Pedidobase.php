@@ -47,6 +47,11 @@ class Pedidobase {
      * @ORM\OneToMany(targetEntity="GEMA\gemaBundle\Entity\Pedidocompra" , mappedBy="pedidobase", cascade={"persist"})
      */
     private $pedidoscompra;
+
+    /**
+     * @ORM\Column(name="ocultar", type="boolean", nullable=true)
+     */
+     private $ocultar;
    
 
 
@@ -167,5 +172,51 @@ class Pedidobase {
     public function getPedidoscompra()
     {
         return $this->pedidoscompra;
+    }
+
+    /**
+     * Set visible
+     *
+     * @param boolean $visible
+     * @return Pedidobase
+     */
+    public function setVisible($visible)
+    {
+        $this->visible = $visible;
+
+        return $this;
+    }
+
+    /**
+     * Get visible
+     *
+     * @return boolean 
+     */
+    public function getVisible()
+    {
+        return $this->visible;
+    }
+
+    /**
+     * Set ocultar
+     *
+     * @param boolean $ocultar
+     * @return Pedidobase
+     */
+    public function setOcultar($ocultar)
+    {
+        $this->ocultar = $ocultar;
+
+        return $this;
+    }
+
+    /**
+     * Get ocultar
+     *
+     * @return boolean 
+     */
+    public function getOcultar()
+    {
+        return $this->ocultar;
     }
 }

@@ -52,4 +52,31 @@ class CatalogohojasRepository extends EntityRepository
         return $qb;
     }
 
+    public function Ordered(){
+
+        $qb = new QueryBuilder($this->getEntityManager());
+        $qb
+            ->select("B","F")
+            ->from($this->getClassName(), "B")
+            ->leftJoin("B.catalogo", "F")
+            ->orderBy("B.numero", 'ASC')
+            ;
+            return $qb->getQuery()->getResult();
+
+
+
+    }
+
+    public function OrderedbyParent($id){
+
+        $qb = new QueryBuilder($this->getEntityManager());
+        $qb
+            ->select("B","F")
+            ->from($this->getClassName(), "B")
+            ->leftJoin("B.catalogo", "F")
+            ->where("F.id=".$id)
+            ->orderBy("B.numero", 'ASC');
+            return $qb->getQuery()->getResult();
+    }
+
 }

@@ -241,7 +241,7 @@ class CompraController extends Controller
         ;
     }
 
-    public function comprasindexAction(){      
+    public function comprasindexAction(Request $request){             
       $em = $this->getDoctrine()->getManager();
       $hav = $em->getRepository('gemaBundle:Configuracion')->find(1)->getActivarCompras();
       if($hav==false){
@@ -256,7 +256,7 @@ class CompraController extends Controller
         'deshabilitado' => false,
         
     ]);     
-       $pedisosbase = $em->getRepository('gemaBundle:Pedidobase')->findAll();
+       $pedisosbase = $em->getRepository('gemaBundle:Pedidobase')->findVisible();
        $serializer = $this->container->get('jms_serializer');       
      
        $baserializada = $serializer->serialize($pedisosbase, 'json');
@@ -464,11 +464,11 @@ class CompraController extends Controller
    }
 
 
-   public function pedidosindexAction(){      
+   public function pedidosindexAction(Request $request){      
     $em = $this->getDoctrine()->getManager();
     $hav = $em->getRepository('gemaBundle:Configuracion')->find(1)->getActivarCompras();
-    if($hav==false){
-      print('NO habilitado');die();
+     if($hav==false){
+     print('NO habilitado');die();
      }
      $helper=new MyHelper();
      $apikey= $this->getParameter('apikey');
@@ -477,8 +477,10 @@ class CompraController extends Controller
 
      $vendedores= $em->getRepository('gemaBundle:VendedorCompra')->findBy([
       'deshabilitado' => false]);     
-     $pedisosbase = $em->getRepository('gemaBundle:Pedidobase')->findAll();
-     $serializer = $this->container->get('jms_serializer');       
+     
+      $pedisosbase = $em->getRepository('gemaBundle:Pedidobase')->findVisible();
+      
+        $serializer = $this->container->get('jms_serializer');       
    
      $baserializada = $serializer->serialize($pedisosbase, 'json');
      $baserializada=json_decode($baserializada,true);

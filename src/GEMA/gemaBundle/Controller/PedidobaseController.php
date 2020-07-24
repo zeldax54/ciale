@@ -197,7 +197,7 @@ class PedidobaseController extends Controller
  
 
     
-    return $this->redirect($this->generateUrl('pedidobase_edit', array('id' => $id)));
+    return $this->redirect($this->generateUrl('pedidobase'));
   
 }
     /**

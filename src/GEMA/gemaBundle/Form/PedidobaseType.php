@@ -18,6 +18,8 @@ class PedidobaseType extends AbstractType
             ->add('preciolista')
             ->add('preciopromo')
             ->add('toro')
+            ->add('ocultar')
+
         ;
     }
     
