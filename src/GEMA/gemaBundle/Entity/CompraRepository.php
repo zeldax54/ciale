@@ -40,7 +40,7 @@ class CompraRepository extends EntityRepository
         if ($request->request->get("sort") != null) {
             $orden = $request->request->get("sort");
             foreach ($orden as $key => $value) {
-                $qb->orderBy("B.nombre" . $key, $value);
+                $qb->orderBy("B." . $key, $value);
             }
         }
         return $qb;

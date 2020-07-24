@@ -17,6 +17,7 @@
                                                                     <th data-column-id="apellido">Apellido</th>
                                                                     <th data-column-id="empresa">Empresa</th>
                                                                     <th data-column-id="localidad">Localidad</th>
+                                                                    <th data-column-id="fecha" data-formatter="fecha">Fecha</th>
                                                                     <th data-column-id="provincia">Provincia</th>
                                                                     <th data-column-id="telefono">Telefono</th>
                                                                     <th data-column-id="email">Email</th>
@@ -55,6 +56,9 @@
                 "commands": function(column, row) {
                     return "<a href='" + Routing.generate('compra_edit', {id: row.id}) + "'  class=\"btn btn-icon command-edit\" ><span class=\"md md-edit\"></span></a> " +
                             "<a href='" + Routing.generate('compra_delete', {id: row.id}) + "'  class=\"btn btn-icon command-delete\" ><span class=\"md md-delete\"></span></a>";
+                },
+                  "fecha": function(column, row) {
+                    return "" + row.fecha.date.substring(0, 10);
                 }
                /* ,
                 "area": function(column, row) {
