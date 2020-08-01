@@ -673,10 +673,7 @@ class RazalistController extends Controller
                 $img=$helper->randomPic('toro'.DIRECTORY_SEPARATOR.$toro->getGuid().'P'.DIRECTORY_SEPARATOR,true);
                 if($img==null)
                     $img=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'toro.png',true);
-
                 $toro->imgprincipal=$img;
-
-
                 if($toro->getNuevo()==true)
                     $toro->nuevoflag='<span style="padding: 3px;background: red;color: white;"><strong>Nuevo</strong></span>';
                 else

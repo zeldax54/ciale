@@ -638,4 +638,20 @@ class MyHelper
         return false;
     }
 
+    public function Nacionalidad($nacionalidad)
+    {
+
+       if($nacionalidad==null)
+            return null;
+        $nacionalidad=str_replace(' ', '', $nacionalidad);
+
+        return $this->directPic('genericfiles'.DIRECTORY_SEPARATOR,$nacionalidad.'.jpg');
+    }
+
+    public function imgFacilidadParto($facilidad){
+      if($facilidad==null)
+          return null;
+        return $this->directPic('genericfiles'.DIRECTORY_SEPARATOR,'fp_'.$facilidad.'.png');
+    }
+
 }

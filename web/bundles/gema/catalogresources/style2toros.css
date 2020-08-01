@@ -1,0 +1,551 @@
+    @font-face {
+        font-family: fagoNormal;
+        src: url(fonts/FAGOOFFC.TTF);
+    }
+    
+    @font-face {
+        font-family: fagoIta;
+        src: url(fonts/FAGOOFFC-ITA.TTF);
+    }
+    
+    @font-face {
+        font-family: fagoBold;
+        src: url(fonts/FAGOOFFC-BOLD.TTF);
+    }
+    
+    @font-face {
+        font-family: fagoBoldItalic;
+        src: url(fonts/FAGOOFFC-BOLDITA.TTF);
+    }
+    
+    @font-face {
+        font-family: fagoXBold;
+        src: url(fonts/FAGOOFFC-XBOLD.TTF);
+    }
+    
+    @font-face {
+        font-family: fagoXBoldItalic;
+        src: url(fonts/FAGOOFFC-XBOLDITA.TTF);
+    }
+    
+    @font-face {
+        font-family: fagoMedium;
+        src: url(fonts/FAGOOFFC-MEDIUM.TTF);
+    }
+    
+    @font-face {
+        font-family: fagoMediumItalic;
+        src: url(fonts/FAGOOFFC-MEDIUMITA.TTF);
+    }
+    
+    body {
+        background-color: #000000;
+        margin: 0;
+        font-size: 12px;
+        font-family: fagoNormal;
+        width: 724px;
+        margin: auto;
+    }
+    
+    h1,
+    h2,
+    h3,
+    h4,
+    p,
+    ul,
+    li {
+        padding: 0;
+        margin: 0;
+    }
+    
+    .total-container {
+        position: relative;
+        background-color: #f4f4f4;
+        width: 724px;
+        height: 1024px;
+        max-width: 724px;
+        margin: auto;
+        padding-top: 17px;
+    }
+    
+    .inner-container {
+        background-color: white;
+        width: 100%;
+        height: calc( 100% - 17px);
+        max-width: 690px;
+        margin: auto;
+        position: relative;
+    }
+    
+    .header-container {
+        z-index: 9;
+        position: absolute;
+        height: 67px;
+        background: url(img/header.png) no-repeat;
+        width: 404px;
+        background-size: 404px auto;
+        top: 3px;
+    }
+    
+    .flag {
+        float: left;
+        width: 19%;
+        color: #fff;
+        text-align: center;
+        padding-top: 15px;
+        padding-left: 37px;
+        box-sizing: border-box;
+        line-height: 8px;
+    }
+    
+    .flag h3 {
+        font-size: 7px;
+        font-family: fagoBoldItalic;
+        padding-left: 2px;
+    }
+    
+    .nuevo {
+        float: right;
+        color: #fff;
+        background: #B21A16;
+        padding: 0px 7px;
+        text-align: center;
+        font-family: fagoXBold;
+        height: 35px;
+        width: 128px;
+        height: 24px;
+        font-size: 20px;
+        line-height: 27px;
+        margin: 15px 3px 18px 0;
+    }
+    
+    .toro-name {
+        padding-top: 18px;
+        float: left;
+    }
+    
+    .toro-name h1 {
+        font-size: 16px;
+        font-family: fagoXBoldItalic;
+        color: white;
+        line-height: 16px;
+        padding-left: 18px;
+    }
+    
+    .toro-name h4 {
+        padding-left: 18px;
+        font-size: 8px;
+        font-style: italic;
+        font-weight: normal;
+        color: white;
+        line-height: 8px;
+    }
+    
+    .toro-name h2 {
+        font-size: 8px;
+        color: white;
+        font-family: fagoMediumItalic;
+        line-height: 24px;
+        padding-top: 2px;
+    }
+    
+    .toro-container {
+        position: relative;
+        width: 390px;
+    }
+    
+    .toro-container .sello {
+        position: absolute;
+        bottom: 25px;
+        right: 50px;
+        width: 42px;
+        height: auto;
+    }
+    
+    .toro-container .sperm {
+        position: absolute;
+        bottom: 25px;
+        right: 5px;
+        width: 42px;
+        height: auto;
+    }
+    
+    .toro-container .toro {
+        width: 100%;
+        height: auto;
+        display: block;
+        padding-top: 59px;
+        ;
+    }
+    
+    .bottom-img-info {
+        border-top: solid 3px #9B5643;
+        background-image: url(img/blue-line.png);
+        background-size: cover;
+        padding: 3px 4px;
+        font-size: 7px;
+        font-family: fagoIta;
+    }
+    
+    .bottom-img-info li {
+        list-style-type: none;
+        color: #ffffff;
+        display: inline-block;
+        padding-right: 10px;
+    }
+    
+    .bottom-img-info li .bold {
+        font-weight: bold;
+    }
+    
+    .table-container {
+        margin-top: 2px;
+        padding-left: 11px;
+        padding-right: 30px;
+    }
+    
+    .table-titulo {
+        background: #9C5643;
+        color: #fff;
+        line-height: 16px;
+        border-bottom: #fff 1px solid;
+        text-align: center;
+        width: calc(100% - 56px);
+        float: right;
+        font-size: 8px;
+        font-family: fagoBoldItalic;
+        border-right: 1px solid white;
+    }
+    
+    .table-col-container {
+        width: calc(100% - 55px);
+        float: right;
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .table-col {
+        width: 100%;
+        display: block;
+    }
+    
+    .column-title {
+        color: white;
+        background: #ABABB0;
+        font-size: 7px;
+    }
+    
+    .table-label {
+        width: 55px;
+        float: left;
+        clear: both;
+        letter-spacing: -0.5px;
+        font-size: 9px;
+    }
+    
+    .table-col div,
+    .table-label div {
+        line-height: 16px;
+        height: 16px;
+        text-align: center;
+        border-bottom: #fff 1px solid;
+        border-right: #fff 1px solid;
+    }
+    
+    .table-col div:nth-child(2),
+    .table-col div:nth-child(4) {
+        background: #D1D2D6;
+        color: #211915;
+        font-size: 9px;
+    }
+    
+    .table-col div:nth-child(3),
+    .table-col div:nth-child(5) {
+        background: #EAEBED;
+        color: #211915;
+        font-size: 9px;
+    }
+    
+    .table-label div {
+        background: #ABABB0;
+        color: white;
+    }
+    
+    .table-label div:first-child {
+        background: #fff;
+    }
+    
+    .table-col div.destacado {
+        background: #d2ac76;
+    }
+    
+    .clear {
+        width: 1px;
+        height: 1px;
+        display: block;
+        clear: both;
+    }
+    
+    .texto-bottom {
+        margin: 0;
+        font-size: 8px;
+        clear: both;
+        padding-right: 3px;
+        padding-bottom: 5px;
+    }
+    
+    .texto-bottom p {
+        width: calc(100% - 16px);
+        display: inline-block;
+    }
+    
+    .tec-info-container {
+        width: 225px;
+        display: inline-block;
+        vertical-align: top;
+    }
+    
+    .tec-info {
+        padding-top: 5px;
+        padding-bottom: 10px;
+        padding-left: 17px;
+        padding-right: 17px;
+    }
+    
+    .center-info {
+        color: #9A5643;
+        background: url(img/llave2.png) repeat-y left;
+    }
+    
+    .top-info {
+        background: url(img/llave1.png) no-repeat center left;
+    }
+    
+    .top-info p,
+    .bottom-info p,
+    .center-info p {
+        padding-left: 11px;
+        font-size: 8px;
+        line-height: 13px;
+    }
+    
+    .bottom-info {
+        background: url(img/llave3.png) no-repeat left bottom;
+        background-position: 0px -4px;
+    }
+    
+    .bottom-info span {
+        transform: rotate(180);
+    }
+    
+    .triangle {
+        width: 0;
+        height: 0;
+        border-width: 3px 0 3px 6px;
+        border-color: transparent transparent transparent #9A5643;
+        border-style: solid;
+        float: left;
+        margin-top: 2px;
+        padding-right: 4px;
+    }
+    
+    .toro-size {
+        width: 101px;
+        display: inline-block;
+        color: #fff;
+        padding-left: 17px;
+    }
+    
+    .toro-size table {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        border: #9A5643 1px solid;
+        color: #fff;
+        border-spacing: 0;
+    }
+    
+    .size-data-title {
+        font-family: fagoBold;
+        font-size: 7px;
+    }
+    
+    .size-values {
+        font-size: 7px;
+        line-height: 19px;
+    }
+    
+    .toro-size table tr:first-child td {
+        font-size: 7px;
+    }
+    
+    .toro-size-pic {
+        width: 100%;
+        height: 43px;
+        background: url(img/toro-size.jpg) no-repeat;
+        position: relative;
+        background-size: 99px 43px;
+    }
+    
+    .toro-size-pic div {
+        position: absolute;
+        font-size: 6px;
+        color: #000;
+    }
+    
+    #size1 {
+        left: 4px;
+        top: 20px;
+    }
+    
+    #size2 {
+        left: 20px;
+        top: 5px;
+    }
+    
+    #size3 {
+        left: 20px;
+        top: 30px;
+    }
+    
+    #size4 {
+        left: 48px;
+        top: 1px;
+    }
+    
+    #size5 {
+        left: 75px;
+        top: 15px;
+    }
+    
+    .toro-size table tr:first-child td,
+    .toro-size table tr:nth-child(3) td {
+        background-color: #9A5643;
+        padding: 0px;
+        text-align: center;
+    }
+    
+    .toro-size table tr:nth-child(3) td {
+        padding-bottom: 0;
+        padding-top: 2px;
+    }
+    
+    .toro-size table .kg td {
+        background-color: #9A5643;
+        text-align: center;
+        font-weight: lighter;
+        font-size: 6px;
+        line-height: 6px;
+        padding-bottom: 2px;
+    }
+    
+    .toro-size table tr:last-child td {
+        background-color: #E7D8D1;
+        color: #211915;
+        text-align: center;
+        padding-top: 2px;
+        line-height: 8px;
+        padding-bottom: 0;
+    }
+    
+    .toro-size table td:nth-child(1),
+    .toro-size table td:nth-child(3) {
+        width: 20%;
+    }
+    
+    .toro-size table td:nth-child(3),
+    .toro-size table td:nth-child(4) {
+        width: 30%;
+    }
+    
+    .toro-size img {
+        width: 100%;
+        height: auto;
+    }
+    
+    .toro-video {
+        width: 85px;
+        display: inline-block;
+        vertical-align: top;
+        padding-left: 35px;
+        padding-top: 50px;
+    }
+    
+    .toro-video img {
+        margin: auto;
+        display: block;
+        width: 85px;
+    }
+    
+    .toro-video a {
+        display: block;
+    }
+    
+    .footer {
+        position: absolute;
+        bottom: 0;
+        height: 53px;
+        width: 100%;
+    }
+    
+    .footer div {
+        display: inline-block;
+        vertical-align: middle;
+    }
+    
+    .footer div img {
+        vertical-align: middle;
+        height: 49px;
+    }
+    
+    .triangulo-azul {
+        box-sizing: border-box;
+        color: white;
+        width: 89px;
+        height: 100%;
+        background: url(img/triangulo.png) no-repeat bottom center;
+        background-size: 89px 43px;
+        margin-right: 5px;
+        text-align: center;
+        line-height: normal;
+        font-family: fagoBold;
+        font-size: 10px;
+        padding-top: 30px;
+    }
+    
+    .footer a {
+        display: block;
+    }
+    
+    .flag img {
+        width: 14px;
+        height: auto;
+        padding-left: 15px;
+        padding-bottom: 2px;
+    }
+    /* DOS TOROS */
+    
+    .top-container {
+        width: 690px;
+        position: relative;
+    }
+    
+    .top-left-container {
+        display: inline-block;
+        width: 380px;
+        height: 337px;
+        vertical-align: top;
+        padding-left: 10px;
+    }
+    
+    .top-right-container {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 285px;
+        height: 337px;
+    }
+    
+    .segundo-toro {
+        margin-top: 25px;
+    }

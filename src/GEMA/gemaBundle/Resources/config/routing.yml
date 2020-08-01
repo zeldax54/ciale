@@ -469,6 +469,18 @@ gema_pedidosdo:
     pattern:  /ruletado
     defaults: { _controller: "gemaBundle:Compra:pedidosDo" }
 
+gema_untorotest:
+    pattern:  /untorotest
+    defaults: { _controller: "gemaBundle:Catalogo:untorotest" }
+
+gema_imgtestcat:
+    pattern:  /imgtestcat
+    defaults: { _controller: "gemaBundle:Catalogo:imgtestcat" }
+
+gema_dostorostest:
+    pattern:  /dostorostest
+    defaults: { _controller: "gemaBundle:Catalogo:dostorostest" }
+
 prodprog_newwindows:
     pattern:  /{nombremenu}
     defaults: { _controller: "gemaBundle:ProdProgclient:newwind" }

@@ -1427,7 +1427,7 @@ public function exceladminAction($razaid){
             $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
             $helper=new MyHelper();
             $guid=$helper->GUID();
-            $filename= $helper->remove_accents($toro->getApodo());
+            $filename = $helper->remove_accents($toro->getApodo());
             $filename=str_replace(' ','',$filename);
 
             $html=$this->detallehtml($toroId,$em,1);

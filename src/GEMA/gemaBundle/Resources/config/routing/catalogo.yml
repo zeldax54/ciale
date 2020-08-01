@@ -28,5 +28,5 @@ catalogo_delete:
     defaults: { _controller: "gemaBundle:Catalogo:delete" }
 
 catalogo_pdfgenerate:
-    pattern:  /{id}/pdfgenerate
+    pattern:  /pdfgenerate
     defaults: { _controller: "gemaBundle:Catalogo:pdfgenerate" }

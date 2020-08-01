@@ -1,0 +1,54 @@
+
+
+
+{% extends 'gemaBundle::pdflayout.html.twig' %}
+
+
+  {% block customstylesheets %}	 
+	 
+
+	  <style>
+		  th{
+			  background-color: #98999D !important;
+			  text-align: center !important;
+			  color: #FFFFFF !important;
+		  }
+
+		  .container.wrapped-container {
+			  margin-top: 0px !important;
+
+		  }
+		  .container {
+			  padding: 0 !important;
+		  }
+
+          
+		  .pagebreak{page-break-inside: avoid!important;}
+
+
+		  #imgc{
+
+	width: 1200px !important;
+    height: 1715px !important;
+    margin-left: -29px !important;
+    margin-top: 12px !important;
+		  }		 
+
+	  </style>
+  {% endblock %}
+
+
+
+
+  {% block content %}
+
+
+<div id="cont">
+	  <img src="{{ absolute_url(asset(imghoja)) }}" id="imgc">
+	  </div>
+	  
+
+      <div class="pagebreak">
+      </div>
+
+  {% endblock %}

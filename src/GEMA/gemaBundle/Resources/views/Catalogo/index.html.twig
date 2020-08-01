@@ -1,4 +1,19 @@
     {% extends 'gemaBundle::layout.html.twig' %}
+       {% block mycustomstylesheets %}
+
+         <link href="{{ asset('bundles/gema/clientresources/vex/css/vex.css')}}" rel="stylesheet">
+         <link href="{{ asset('bundles/gema/clientresources/vex/css/vex-theme-bottom-right-corner.css')}}" rel="stylesheet">
+         <link href="{{ asset('bundles/gema/clientresources/vex/css/vex-theme-default.css')}}" rel="stylesheet">
+         <link href="{{ asset('bundles/gema/clientresources/vex/css/vex-theme-os.css')}}" rel="stylesheet">
+         <link href="{{ asset('bundles/gema/clientresources/vex/css/vex-theme-wireframe.css')}}" rel="stylesheet">
+         <link href="{{ asset('bundles/gema/clientresources/vex/css/vex-theme-top.css')}}" rel="stylesheet">
+         <style>
+
+             .actualizartodos,.especifico{
+                 background: #3288E6;
+             }
+         </style>
+      {% endblock %}
 
     {% block gema_page -%}
     <h2>Listado de Catalogo</h2>
@@ -55,6 +70,9 @@
 
     {% block javascripts -%}
     {{ parent() }}
+           <script src="{{ asset('bundles/gema/clientresources/vex/js/vex.combined.js') }}"></script>
+        <script> vex.defaultOptions.className = 'vex-theme-default'</script>
+        <script src="{{ asset('bundles/gema/js/pdfgenerator.js')}}"></script>
       <script>
         $("#data-table-command").bootgrid({
             css: {
@@ -66,7 +84,7 @@
             },
             formatters: {
                 "commands": function(column, row) {
-                    return "<a href='" + Routing.generate('catalogo_pdfgenerate', {id: row.id}) + "' title=\"Generar catalogo\"  class=\"btn btn-icon command-edit\" ><span class=\"md md-print\"></span></a> "
+                    return "<a href='#' title=\"Generar catalogo\" data-id='" + row.id + "'  class=\"btn btn-icon command-edit pdfgenerate\" ><span class=\"md md-print\"></span></a> "
                     + "<a href='" + Routing.generate('catalogohojas_byparent', {id: row.id}) + "' title=\"Hojas del catalogo\"  class=\"btn btn-icon command-edit\" ><span class=\"md md-tab\"></span></a> "
                     +"<a href='" + Routing.generate('catalogo_edit', {id: row.id}) + "'  class=\"btn btn-icon command-edit\" ><span class=\"md md-edit\"></span></a> " +"<a href='" + Routing.generate('catalogo_delete', {id: row.id}) + "' data-id=\'" + row.id + "\' class=\"btn btn-icon command-delete\" ><span class=\"md md-delete\"></span></a>";
                 },
@@ -88,6 +106,80 @@
             $(".eliminarRegistro").on("click", function (evt) {
                 window.location = url;
             });
+
+             $(".pdfgenerate").on("click", function (evt) {       
+                 
+               var id =$(this).data('id');
+               var url = Routing.generate('catalogo_pdfgenerate');
+
+        var vexwaiting=  vex.dialog.alert({ unsafeMessage:'Generando PDF espere...'
+        , className: 'vex-theme-wireframe' ,
+        overlayClassName: 'success',
+        contentClassName: 'bordernaranjaclass',
+        closeClassName: 'closebleclass'
+          });
+
+    $.ajax({
+        type: 'POST',
+        data: {id: id},
+        url: url,
+        success: function (data) {
+            console.log(data);
+           vex.close(vexwaiting)
+            if (data[0] == 1) {
+                try{
+                   if(screen.width<=1200){
+                       vex.dialog.alert({
+                           //  unsafeMessage: '<div style="text-align: center"><b>URL directa</b><br><a target="_blank" href="'+data[1]+'">'+data[2]+'</a><br><b>Whatsapp</b><br><a target="_blank" href="https://api.whatsapp.com/send?text='+data[1]+'">'+data[2]+'</a></div>',
+                           unsafeMessage: '<div style="text-align: center"><b>Seleccione el link de abajo para que se abra la imagen detalle del toro, luego mantenga presionada la imagen con el dedo hasta que salga la opción de "Guardar imagen"</b><br><a target="_blank" href="'+data[1]+'">'+data[2]+'</a></div>',
+                           className: 'vex-theme-wireframe',
+                           overlayClassName: 'success',
+                           contentClassName: 'bordernaranjaclass',
+                           closeClassName: 'closebleclass'
+                       });
+                   }
+                   else
+                    SaveToDisk(data[1],data[2]);
+                }
+                catch (e) {
+                    vex.dialog.alert({
+                      //  unsafeMessage: '<div style="text-align: center"><b>URL directa</b><br><a target="_blank" href="'+data[1]+'">'+data[2]+'</a><br><b>Whatsapp</b><br><a target="_blank" href="https://api.whatsapp.com/send?text='+data[1]+'">'+data[2]+'</a></div>',
+                        unsafeMessage: '<div style="text-align: center"><b>Seleccione el link de abajo para que se abra la imagen detalle del toro, luego mantenga presionada la imagen con el dedo hasta que salga la opción de "Guardar imagen"</b><br><a target="_blank" href="'+data[1]+'">'+data[2]+'</a></div>',
+                        className: 'vex-theme-wireframe',
+                        overlayClassName: 'success',
+                        contentClassName: 'bordernaranjaclass',
+                        closeClassName: 'closebleclass'
+                    });
+
+                }
+
+
+
+            } else {
+                vex.dialog.alert({
+                    unsafeMessage: '<b>Error generando PDF</b>',
+                    className: 'vex-theme-wireframe',
+                    overlayClassName: 'success',
+                    contentClassName: 'bordernaranjaclass',
+                    closeClassName: 'closebleclass'
+                });
+                console.log(data[1]);
+            }
+
+
+        },
+        error: function (req, stat, err) {
+            vex.close(vexwaiting)
+            console.log(err);
+        }
+    });
+              
+            });
+
+
+
+
+
         });
     </script>
     {% endblock %}
