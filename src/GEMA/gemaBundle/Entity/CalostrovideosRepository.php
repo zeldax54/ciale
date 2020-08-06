@@ -43,4 +43,14 @@ class CalostrovideosRepository extends EntityRepository
         }
         return $qb;
     }
+
+    public function OrderedbyDesc(){
+
+        $qb = new QueryBuilder($this->getEntityManager());
+        $qb
+            ->select("F")
+            ->from($this->getClassName(), "F")       
+            ->orderBy("F.id", 'DESC');
+            return $qb->getQuery()->getResult();
+    }
 }

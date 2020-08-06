@@ -33,9 +33,9 @@
        width: 737px;     
        max-width: 737px;
         margin: auto;
-        padding-top: 17px;
+        padding-top: 0px;
         zoom:1.7 !important;
-        height: 1040px;    
+        height: 1000px;    
     }
     
     .inner-container2 {
@@ -121,12 +121,11 @@
     
     .toro-container2 {
         position: relative;
-        width: 390px;
-    }
-    
+        width: 95%;
+    }    
     .toro-container2 .sello {
         position: absolute;
-        bottom: 88px;
+        bottom: 62px;
         right: 50px;
         width: 42px;
         height: auto;
@@ -134,26 +133,23 @@
     
     .toro-container2 .sperm {
         position: absolute;
-        bottom: 88px;
+        bottom: 62px;
         right: 5px;
         width: 42px;
         height: auto;
-    }
-    
+    }    
     .toro-container2 .toro2 {
-        width: 100%;
-        height: auto;
+        width: 100%;		
+       height: 308px !important;
         display: block;
-        padding-top: 59px;
-        ;
-    }
-    
+        padding-top: 59px;        
+    }    
     .bottom-img-info2 {
         border-top: solid 3px #9B5643;
-        background-image: url(img/blue-line.png);
+        background-image: url({{absolute_url(asset('bundles/gema/catalogresources/img/blue-line.png'))}});		
         background-size: cover;
         padding: 3px 4px;
-        font-size: 7px;
+        font-size: 6px;
         font-family: fagoIta;
     }
     
@@ -168,10 +164,11 @@
         font-weight: bold;
     }
     
-    .table-container {
-        margin-top: 2px;
+    .table-container2 {
+        margin-top: -22px !important;
         padding-left: 11px;
         padding-right: 30px;
+		zoom:0.4 !important;
     }
     
     .table-titulo {
@@ -274,6 +271,7 @@
         width: 225px;
         display: inline-block;
         vertical-align: top;
+		margin-left:-20px !important;
     }
     
     .tec-info {
@@ -296,7 +294,7 @@
     .bottom-info p,
     .center-info p {
         padding-left: 11px;
-        font-size: 8px;
+        font-size: 10px;
         line-height: 13px;
     }
     
@@ -365,18 +363,18 @@
     }
     
     #ssize1 {
-        left: 4px;
+        left: 0px;
         top: 20px;
     }
     
     #ssize2 {
-        left: 20px;
+        left: 8px;
         top: 5px;
     }
     
     #ssize3 {
-        left: 20px;
-        top: 30px;
+        left: 10px;
+        top: 36px;
     }
     
     #ssize4 {
@@ -417,6 +415,7 @@
         padding-top: 2px;
         line-height: 8px;
         padding-bottom: 0;
+		font-size: 9px;
     }
     
     .toro-size2 table td:nth-child(1),
@@ -452,19 +451,19 @@
         display: block;
     }
     
-    .footer {
+    .footer2 {
         position: absolute;
-        bottom: 0 !important;
+        bottom: 0% !important;
         height: 53px;
         width: 100%;
     }
     
-    .footer div {
+    .footer2 div {
         display: inline-block;
         vertical-align: middle;
     }
     
-    .footer div img {
+    .footer2 div img {
         vertical-align: middle;
         height: 49px;
     }
@@ -512,14 +511,14 @@
     .top-right-container
      {
    position: absolute;
-    right: -30px;
+    right: -20px;
     top: 58px;
-    width: 310px;
+    width: 340px;
     height: 337px;
     }
     
     .segundo-toro {
-        margin-top: 25px;
+        margin-top: -2px;
     }
 
 
@@ -625,11 +624,11 @@ td{
                 <img class="toro2" src="{{absolute_url(asset(toro1.foto))}}" alt="">
                         <div class="bottom-img-info2">
                             <ul>
-                         <li><span class="bold">RP:</span>{{ toro1.rp }}</li>
-                        <li><span class="bold">HBA:</span>{{ toro1.hba }}</li>
-                        <li><span class="bold">Nació:</span>{{ toro1.fechanacimiento|date('d-m-Y')  }}</li>
-                        <li><span class="bold">Reg:</span>Definitivo</li>
-                        <li><span class="bold">Criador:</span>{{ toro1.criador }}</li>
+                         <li><span class="bold">RP:&nbsp;</span>{{ toro1.rp }}</li>
+                        <li><span class="bold">HBA:&nbsp;</span>{{ toro1.hba }}</li>
+                        <li><span class="bold">Nació:&nbsp;</span>{{ toro1.fechanacimiento|date('d-m-Y')  }}</li>
+                        <li><span class="bold">Reg:&nbsp;</span>Definitivo</li>
+                        <li><span class="bold">Criador:&nbsp;</span>{{ toro1.criador }}</li>
                             </ul>
                         </div>
                     </div>
@@ -638,13 +637,10 @@ td{
                        {% if toro1.nuevo %}
                        <div class="nuevo">NUEVO</div>
                        {% endif %}
-                    <div class="texto-bottom2">
-                        <div class="triangle2"></div>
-                        <p> <strong>{{toro1.apodo}}: </strong> {{toro1.descripcion }}</p>
+                    <div class="texto-bottom2">                       
+                        <p> <span class="triangle2"></span> <strong>{{toro1.apodo}}: </strong> {{toro1.descripcion }}</p>
                      
                     </div>
-
-
                   <div class="row">
                    <div class="col-md-6">
                    <div class="tec-info-container2">
@@ -722,7 +718,7 @@ td{
                 </div>
             </div>
           
-               <div class="table-container" style="zoom:0.6 !important">
+               <div class="table-container2" style="">
                 	  {% if tabla1!=null  %}
 		<div id="ultima-col" class="row">
 	
@@ -825,10 +821,8 @@ td{
                        {% if toro1.nuevo %}
                        <div class="nuevo">NUEVO</div>
                        {% endif %}
-                    <div class="texto-bottom2">
-                        <div class="triangle2"></div>
-                        <p> <strong>{{toro2.apodo}}: </strong> {{toro2.descripcion}}</p>
-                     
+                    <div class="texto-bottom2">                       
+                        <p> <span class="triangle2"></span> <strong>{{toro2.apodo}}: </strong> {{toro2.descripcion}}</p>                     
                     </div>
                     <div class="row">
                     <div class="col-md-6">
@@ -910,7 +904,7 @@ td{
             </div>
 
 
-             <div class="table-container" style="zoom:0.6 !important">
+             <div class="table-container2" style="">
                 	  {% if tabla2!=null  %}
 		<div id="ultima-col" class="row">
 	
@@ -979,7 +973,7 @@ td{
 
         </div>
 
-        <div class="footer">
+        <div class="footer2">
                  <div class="triangulo-azul">
                     {{nropagina}}
                 </div>
@@ -1010,5 +1004,3 @@ td{
 </body>
 
 </html>
-<div class="pagebreak">
-      </div>

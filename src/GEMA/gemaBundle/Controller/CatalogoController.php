@@ -243,12 +243,12 @@ class CatalogoController extends Controller
 
     public function pdfgenerateAction(){
 
-        try{
-           
+        try{         
+            
             ignore_user_abort(true);
             set_time_limit(0);
             $request = $this->getRequest();
-            $id = $source=$_POST["id"];
+            $id = $source=$_POST["id"];            
             $html='';
             $em = $this->getDoctrine()->getManager();
             $conf=$em->getRepository('gemaBundle:Configuracion')->find(1);
@@ -270,9 +270,7 @@ class CatalogoController extends Controller
                 $cont++;
 
             }
-   
-                  
-    
+			//print($html);die();   
             $helper=new MyHelper();
             $guid=$helper->GUID();
             $filename = $helper->remove_accents($catalogo->getTitulo());
@@ -287,9 +285,9 @@ class CatalogoController extends Controller
             $pdfGenerator->setTimeout(10000);
     
             $options = array(
-               'margin-top'    => 2,
+               'margin-top'    => 0,
                'margin-right'  => 1,
-               'margin-bottom' => 1,
+               'margin-bottom' => 0,
                'margin-left'   => 1,     
                  //'dpi'=>2,
               // 'zoom'=>$zoompdf         
@@ -418,8 +416,7 @@ class CatalogoController extends Controller
             $hoja = $em->getRepository('gemaBundle:Catalogohojas')->find(1);  
             
             $toro1 = $hoja->getToros()[0];
-            $toro2 = $hoja->getToros()[1];
-    
+            $toro2 = $hoja->getToros()[1];    
         
          $toro1->foto = $helper->randomPic('toro'.DIRECTORY_SEPARATOR.$toro1->getGuid().'P'.DIRECTORY_SEPARATOR);
          $toro2->foto = $helper->randomPic('toro'.DIRECTORY_SEPARATOR.$toro2->getGuid().'P'.DIRECTORY_SEPARATOR);
@@ -438,7 +435,6 @@ class CatalogoController extends Controller
            $toro2->video=$toro2->getYoutubes()[0]->getUrl();
          else
            $toro2->video='#';  
-
            $tablaflag1=$this->tablaSet($toro1,$em)['tablaflag'];
            $tabla1 =$this->tablaSet($toro1,$em)['tabla'];
           

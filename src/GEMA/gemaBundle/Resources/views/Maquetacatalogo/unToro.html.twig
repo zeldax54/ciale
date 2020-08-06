@@ -5,51 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Un Toro</title>   
-      <style type="text/css">
+	<link href="{{ absolute_url(asset('bundles/gema/catalogresources/base64fonts.css'))}}" rel="stylesheet">
+      <style type="text/css">             
 
-    @font-face {
-        font-family: fagoNormal;
-        src: url({{absolute_url(asset('bundles/gema/catalogresources/fonts/FAGOOFFC.TTF'))}}) format('truetype');
-    }
-    
-    @font-face {
-        font-family: fagoIta;   
-        src: url({{absolute_url(asset('bundles/gema/catalogresources/fonts/FAGOOFFC-ITA.TTF'))}}) format('truetype');
-    }
-    
-    @font-face {
-        font-family: fagoBold;        
-        src: url({{absolute_url(asset('bundles/gema/catalogresources/fonts/FAGOOFFC-BOLD.TTF'))}}) format('truetype');
-    }
-    
-    @font-face {
-        font-family: fagoBoldItalic;
-        src: url({{absolute_url(asset('bundles/gema/catalogresources/fonts/FAGOOFFC-BOLDITA.TTF'))}}) format('truetype');
-    }
-    
-    @font-face {
-        font-family: fagoXBold;    
-        src: url({{absolute_url(asset('bundles/gema/catalogresources/fonts/FAGOOFFC-XBOLD.TTF'))}}) format('truetype');
-    }
-    
-    @font-face {
-        font-family: fagoXBoldItalic;
-        src: url({{absolute_url(asset('bundles/gema/catalogresources/fonts/FAGOOFFC-XBOLDITA.TTF'))}}) format('truetype');
-    }
-    
-    @font-face {
-        font-family: fagoMedium;    
-        src: url({{absolute_url(asset('bundles/gema/catalogresources/fonts/FAGOOFFC-MEDIUM.TTF'))}}) format('truetype');
-    }
-    
-    @font-face {
-        font-family: fagoMediumItalic;       
-        src: url({{absolute_url(asset('bundles/gema/catalogresources/fonts/FAGOOFFC-MEDIUMITA.TTF'))}}) format('truetype');
-    }
-
-              
-
-           body{
+               body{
                     background: #f4f4f4 !important;
                 }
 
@@ -80,7 +39,7 @@
        width: 724px;     
        max-width: 724px;
         margin: auto;
-        padding-top: 17px;
+        padding-top: 15px;
         zoom:1.7 !important;
         height: 1060px;    
             
@@ -140,6 +99,7 @@
     .toro-name {
         padding-top: 35px;
         float: left;
+        width:500px;
     }
     
     .toro-name h1 {
@@ -249,6 +209,7 @@ td{
 	border:none;
 	overflow:auto;
 	margin-bottom:20px;
+    font-size:20px !important;		
 }
 #tabla-infeior .table tr td{
 	background-color:#D0D4D5 !important;
@@ -276,6 +237,7 @@ td{
     margin-top: 10px;
     float: right;
     margin-right: 0%;
+	font-size:15px !important;
   
 }
     
@@ -286,13 +248,15 @@ td{
         clear: both;
     }
     
-    .texto-bottom {
+    .texto-bottom {       
         margin: 17px;
+         margin-top: -5px !important;
     }
     
     .texto-bottom p {
         width: calc(100% - 16px);
         display: inline-block;
+        font-size: 9px;
     }
     
     .tec-info-container {
@@ -321,7 +285,7 @@ td{
     .bottom-info p,
     .center-info p {
         padding-left: 11px;
-        font-size: 11px;
+        font-size: 15px;
         line-height: 20px;
     }
     
@@ -389,23 +353,23 @@ td{
     }
     
     #size1 {
-        left: 7px;
-        top: 32px;
+        left: 0px;
+        top: 35px;
     }
     
     #size2 {
-        left: 36px;
+        left: 17px;
         top: 7px;
     }
     
     #size3 {
-        left: 36px;
-        top: 55px;
+        left: 19px;
+        top: 60px;
     }
     
     #size4 {
-        left: 85px;
-        top: 4px;
+        left: 76px;
+        top: 3px;
     }
     
     #size5 {
@@ -475,17 +439,11 @@ td{
     }
     
     .footer {
-   
-
-   
-
     height: 53px;
     width: 100%;
     left: 0 !important;   
-       position: absolute;
-        bottom:0;
-
-
+    position: absolute;
+    bottom: 2% !important;
     }
     
     .footer div {
@@ -570,9 +528,12 @@ td{
     .table-bordered{
         width:100% !important;
     }
-
-
-    
+	 .toro-size-pic div{	 
+	 font-size:10px !important;
+	 }
+	 .table-container{
+	  zoom:0.4 !important;
+	 }  
 
 
             </style>
@@ -609,18 +570,17 @@ td{
                 <img class="toro" src="{{absolute_url(asset(toro.foto))}}" alt="">
                 <div class="bottom-img-info">
                     <ul>
-                        <li><span class="bold">RP:</span>{{ toro.rp }}</li>
-                        <li><span class="bold">HBA:</span>{{ toro.hba }}</li>
-                        <li><span class="bold">Nació:</span>{{ toro.fechanacimiento|date('d-m-Y')  }}</li>
-                        <li><span class="bold">Reg:</span>Definitivo</li>
-                        <li><span class="bold">Criador:</span>{{ toro.criador }}</li>
+                        <li><span class="bold">RP:&nbsp;</span>{{ toro.rp }}</li>
+                        <li><span class="bold">HBA:&nbsp;</span>{{ toro.hba }}</li>
+                        <li><span class="bold">Nació:&nbsp;</span>{{ toro.fechanacimiento|date('d-m-Y')  }}</li>
+                        <li><span class="bold">Reg:&nbsp;</span>Definitivo</li>
+                        <li><span class="bold">Criador:&nbsp;</span>{{ toro.criador }}</li>
                     </ul>
                 </div>
             </div>
-            <div class="table-container" style="zoom:0.6 !important">
+            <div class="table-container" style="">
                 	  {% if tabla!=null  %}
 		<div id="ultima-col" class="row">
-	
 			
 
 			<div class="encabezado-tabla">{{ toro.evaluaciongenetica }}</div>

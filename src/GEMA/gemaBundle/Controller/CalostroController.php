@@ -57,7 +57,7 @@ class CalostroController extends Controller
         'apple.jpg',false);
         $android = $helper->directPic('calostro'.DIRECTORY_SEPARATOR.'APP'.DIRECTORY_SEPARATOR,
         'android.jpg',false);
-        $videos = $em->getRepository('gemaBundle:Calostrovideos')->findAll();
+        $videos = $em->getRepository('gemaBundle:Calostrovideos')->OrderedbyDesc();
         $noticias =  $em->getRepository('gemaBundle:Noticia')->findBy([
             'calostro' => 1,            
         ]);      
