@@ -52,8 +52,8 @@
         position: absolute;
         height: 67px;
         background: url({{absolute_url(asset('bundles/gema/catalogresources/img/header.png'))}}) no-repeat;
-        width: 404px;
-        background-size: 404px auto;
+        width: 369px;
+        background-size: 369px auto;
         top: 3px;
     }
     
@@ -72,9 +72,11 @@
         font-size: 8px;
         font-family: fagoBoldItalic;
         padding-left: 0px;
+		    margin-left: -1px;
+			    text-align: left;
     }
     
-    .nuevo {
+    .nuevo2 {
         float: right;
         color: #fff;
         background: #B21A16;
@@ -86,7 +88,7 @@
         height: 24px;
         font-size: 20px;
         line-height: 27px;
-        margin: 15px 3px 18px 0;
+        margin: -45px 3px 18px 0;
     }
     
     .toro-name2 {
@@ -116,7 +118,7 @@
         color: white;
         font-family: fagoMediumItalic;
         line-height: 24px;
-        padding-top: 2px;
+        padding-top: 0px;
     }
     
     .toro-container2 {
@@ -323,6 +325,8 @@
         display: inline-block;
         color: #fff;
         padding-left: 17px;
+		float: right !important;
+		 margin-right: -12px;
     }
     
     .toro-size2 table {
@@ -444,7 +448,7 @@
     .toro-video2 img {
         margin: auto;
         display: block;
-        width: 85px;
+        width: 115px;
     }
     
     .toro-video2 a {
@@ -588,6 +592,7 @@ td{
     margin-top: 10px;
     float: right;
     margin-right: 0%;
+	font-size: 25px !important;
   
 }
   .table-bordered{
@@ -635,7 +640,7 @@ td{
                 </div>
                 <div class="top-right-container">
                        {% if toro1.nuevo %}
-                       <div class="nuevo">NUEVO</div>
+                       <div class="nuevo2">NUEVO</div>
                        {% endif %}
                     <div class="texto-bottom2">                       
                         <p> <span class="triangle2"></span> <strong>{{toro1.apodo}}: </strong> {{toro1.descripcion }}</p>
@@ -818,8 +823,8 @@ td{
                     </div>
                 </div>
                 <div class="top-right-container">
-                       {% if toro1.nuevo %}
-                       <div class="nuevo">NUEVO</div>
+                       {% if toro2.nuevo %}
+                       <div class="nuevo2">NUEVO</div>
                        {% endif %}
                     <div class="texto-bottom2">                       
                         <p> <span class="triangle2"></span> <strong>{{toro2.apodo}}: </strong> {{toro2.descripcion}}</p>                     
