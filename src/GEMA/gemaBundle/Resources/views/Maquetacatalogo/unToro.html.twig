@@ -5,12 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Un Toro</title>   
+	  <link href="{{ absolute_url(asset('bundles/gema/clientresources/css/bootstrap.min.css'))}}" rel="stylesheet">
+        <link href="{{absolute_url(asset('bundles/gema/clientresources/css/font-awesome.min.css'))}}" rel="stylesheet">
+        <link href="{{ absolute_url(asset('bundles/gema/clientresources/css/style.css'))}}" rel="stylesheet">
+        <link href="{{absolute_url(asset('bundles/gema/clientresources/css/myfonts.css'))}}" rel="stylesheet">
 	<link href="{{ absolute_url(asset('bundles/gema/catalogresources/base64fonts.css'))}}" rel="stylesheet">
-      <style type="text/css">             
-
-               body{
+      <style type="text/css">  
+	  body{
                     background: #f4f4f4 !important;
-                }
+        }
 
 
      body {
@@ -20,8 +23,7 @@
         font-family: fagoNormal;
       /*  width: 724px;*/
         margin: auto;
-    }
-    
+    }    
     h1,
     h2,
     h3,
@@ -39,9 +41,9 @@
        width: 724px;     
        max-width: 724px;
         margin: auto;
-        padding-top: 15px;
+        padding-top: 0px;
         zoom:1.7 !important;
-        height: 1060px;    
+        height: 950px;    
             
     }
     
@@ -63,18 +65,19 @@
         width: 100%;
         height: 112px;
         background: url({{absolute_url(asset('bundles/gema/catalogresources/img/header.png'))}}) no-repeat;
-        background-size: 690px 112px;
-        top:9px;
+        background-size: 697px 112px;
+        top:5px;
     }
     
     .flag {
         float: left;
-        width: 19%;
-        color: #fff;
-        text-align: center;
-        padding-top: 23px;
-        padding-left: 73px;
-        box-sizing: border-box;
+    width: 19%;
+    color: #fff;
+    text-align: center;
+    padding-top: 23px;
+    padding-left: 83px;
+    box-sizing: border-box;
+    margin-left: -8px;
     }
     
     .flag h3 {
@@ -100,6 +103,7 @@
         padding-top: 35px;
         float: left;
         width:500px;
+		margin-left: 15px;
     }
     
     .toro-name h1 {
@@ -151,8 +155,7 @@
         ;
     }
     
-    .bottom-img-info {
-        border-top: solid 3px #9B5643;
+    .bottom-img-info {        
         background-image: url({{absolute_url(asset('bundles/gema/catalogresources/img/blue-line.png'))}});
         background-size: cover;
         padding: 10px 8px;
@@ -210,6 +213,7 @@ td{
 	overflow:auto;
 	margin-bottom:20px;
     font-size:20px !important;		
+	    margin-top: 20px !important;
 }
 #tabla-infeior .table tr td{
 	background-color:#D0D4D5 !important;
@@ -231,14 +235,19 @@ td{
     padding: 5px 0 5px 0;
     text-align: center;
     font-weight: bold;
-    color: #FFFFFF;
-    width: 86%;
+    color: #FFFFFF;  
     margin: 0 auto;
     margin-top: 10px;
     float: right;
     margin-right: 0%;
 	font-size:15px !important;
+	width: 100%;
   
+}
+.ocultable{
+  background: #9C5643;
+  font-size:25px !important;
+  height:30px !important;
 }
     
     .clear {
@@ -249,7 +258,7 @@ td{
     }
     
     .texto-bottom {       
-        margin: 17px;
+        margin: 3px;
          margin-top: -5px !important;
     }
     
@@ -285,8 +294,8 @@ td{
     .bottom-info p,
     .center-info p {
         padding-left: 11px;
-        font-size: 15px;
-        line-height: 20px;
+        font-size: 10px;
+        line-height: 15px;
     }
     
     .bottom-info {
@@ -438,42 +447,7 @@ td{
         display: block;
     }
     
-    .footer {
-    height: 53px;
-    width: 100%;
-    left: 0 !important;   
-    position: absolute;
-    bottom: 2% !important;
-    }
-    
-    .footer div {
-        display: inline-block;
-        vertical-align: middle;
-    }
-    
-    .footer div img {
-        vertical-align: middle;
-        height: 49px;
-    }
-    
-    .triangulo-azul {
-        box-sizing: border-box;
-        color: white;
-        width: 89px;
-        height: 100%;
-        background: url({{absolute_url(asset('bundles/gema/catalogresources/img/triangulo.png'))}}) no-repeat bottom center;
-        background-size: 89px 43px;
-        margin-right: 5px;
-        text-align: center;
-        line-height: normal;
-        font-family: fagoBold;
-        font-size: 10px;
-        padding-top: 30px;
-    }
-    
-    .footer a {
-        display: block;
-    }
+  
     
     .flag img {
  
@@ -517,14 +491,7 @@ td{
         vertical-align: top;
     }
     
-    .top-right-container {
-        position: absolute;
-        right: 0;
-        top: 0;
-        width: 296px;
-        height: 337px;
-    }
-
+  
     .table-bordered{
         width:100% !important;
     }
@@ -538,9 +505,12 @@ td{
 
             </style>
 
+       
+
 </head>
 
 <body>
+
 
     <div class="total-container" >
 
@@ -580,22 +550,34 @@ td{
             </div>
             <div class="table-container" style="">
                 	  {% if tabla!=null  %}
-		<div id="ultima-col" class="row">
+		<div id="ultima-col" class="row">			
+
 			
-
-			<div class="encabezado-tabla">{{ toro.evaluaciongenetica }}</div>
 	
-			<div id="tabla-infeior" style="width: 100% !important;">		
+			<div id="tabla-infeior" class="tablainferior{{toro.id}}" style="width: 100% !important;">		
 				<div class="table-responsive">
-					<table class="table table-bordered">
+					<table id="torotable" class="table table-bordered">
 						 <thead>
+			<tr>
+	  <th style="visibility:hidden;" class=""></th>
 
+	  {% for t in tabla.tabladatos %}
+	  
+	   {% if loop.index==3 %}
+	   <th class="ocultable" colspan="500">{{ toro.evaluaciongenetica }}</th>	  
+			{% endif %}										
+		  {% endfor %}
+
+							</tr>
 
 							<tr>
 	  <th style="visibility:hidden;" class=""></th>
 
 	  {% for t in tabla.tabladatos %}
+	  
 								<th>{{ t.nombre }}</th>
+							
+								
 		  {% endfor %}
 
 							</tr>
@@ -603,7 +585,11 @@ td{
 						<tbody>
 						{% for dato in tablagenetica %}
 							<tr class="{{ cycle(["alterna", ""], loop.index) }}">
-								<th scope="row">{{ dato['rowhead'] }}</th>
+								{% if loop.index == 1 %}		
+                         <th scope="row" id="primetahead{{toro.id}}">{{ dato['rowhead'] }}</th>		
+								{% else %}
+									<th scope="row">{{ dato['rowhead'] }}</th>
+								{% endif %}								
 								{% for td in tabla.tabladatos %}
 								           {% if  isNumber(dato[td.nombre])=='1' %}
 
@@ -707,35 +693,27 @@ td{
             <div class="toro-video">
                 <a href="{{toro.video}}"><img src="{{absolute_url(asset('bundles/gema/catalogresources/img/btn-video.png'))}}" alt="Mira el Video"></a>
             </div>
+			
   </div>
-           <div class="footer" >
-                <div class="triangulo-azul">
-                    {{nropagina}}
-                </div>
-                <div class="btn-fb">
-                    <a href="https://www.facebook.com/CIALE.Alta.Genetics/"><img src="{{absolute_url(asset('bundles/gema/catalogresources/img/btn-fb.png'))}}" alt="Facebook"></a>
-                </div>
-                <div class="btn-ig">
-                    <a href="https://www.instagram.com/ciale.alta.genetics/"><img src="{{absolute_url(asset('bundles/gema/catalogresources/img/btn-ig.png'))}}" alt="Instagram"></a>
-                </div>
-                <div class="btn-yt">
-                    <a href="https://www.youtube.com/cialealta/"><img src="{{absolute_url(asset('bundles/gema/catalogresources/img/btn-yt.png'))}}" alt="Youtube"></a>
-                </div>
-                <div class="btn-in">
-                    <a href="https://www.linkedin.com/company/ciale-alta"><img src="{{absolute_url(asset('bundles/gema/catalogresources/img/btn-linkedin.png'))}}" alt="Linkedin"></a>
-                </div>
-                <div class="btn-ws">
-                    <a href="https://api.whatsapp.com/send?phone=5492474494600"><img src="{{absolute_url(asset('bundles/gema/catalogresources/img/btn-ws.png'))}}" alt="Chatea con nosotros"></a>
-                </div>
-                <div class="btn-search">
-                    <a href="http://www.ciale.com"><img src="{{absolute_url(asset('bundles/gema/catalogresources/img/btn-search.png'))}}" alt="www.ciale.com"></a>
-                </div>
-            </div>
+           
   
      </div>
-             
+             <script>
+			 var toroid = {{toro.id}};	
+ window.onload = new function() {
+  var newwidth = (document.getElementById('dynamictextwith'+toroid.toString()).clientWidth / 1.333333)
+ - (document.getElementById('primetahead'+toroid.toString()).clientWidth / 1.333333)+208 ;
+  var nattr="width:"+newwidth.toString()+"pt !important";
+			document.getElementById('dynamictextwith'+toroid.toString()).setAttribute("style",nattr);          
+	        document.getElementById('dynamictextwith'+toroid.toString()).innerHTML = nattr;
+}		 						   
+			 </script>
   
 </body>
+
+
+
+
 
 </html>
 

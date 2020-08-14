@@ -33,9 +33,10 @@
        width: 737px;     
        max-width: 737px;
         margin: auto;
-        padding-top: 0px;
+        padding-top: 3px;
         zoom:1.7 !important;
-        height: 1000px;    
+        height: 980px;    
+		
     }
     
     .inner-container2 {
@@ -52,20 +53,21 @@
         position: absolute;
         height: 67px;
         background: url({{absolute_url(asset('bundles/gema/catalogresources/img/header.png'))}}) no-repeat;
-        width: 369px;
+        width: 366px;
         background-size: 369px auto;
-        top: 3px;
-    }
+        top: 3px;    
+		}
     
     .flag2 {
-        float: left;
-        width: 19%;
-        color: #fff;
-        text-align: center;
-        padding-top: 15px;
-        padding-left: 37px;
-        box-sizing: border-box;
-        line-height: 8px;
+         float: left;
+    width: 19%;
+    color: #fff;
+    text-align: center;
+    padding-top: 15px;
+    padding-left: 37px;
+    box-sizing: border-box;
+    line-height: 8px;
+    margin-left: -0px;
     }
     
     .flag2 h3 {
@@ -142,12 +144,12 @@
     }    
     .toro-container2 .toro2 {
         width: 100%;		
-       height: 308px !important;
+       height: 287px !important;
         display: block;
         padding-top: 59px;        
     }    
     .bottom-img-info2 {
-        border-top: solid 3px #9B5643;
+        
         background-image: url({{absolute_url(asset('bundles/gema/catalogresources/img/blue-line.png'))}});		
         background-size: cover;
         padding: 3px 4px;
@@ -167,7 +169,7 @@
     }
     
     .table-container2 {
-        margin-top: -22px !important;
+        margin-top: -94px !important;
         padding-left: 11px;
         padding-right: 30px;
 		zoom:0.4 !important;
@@ -492,13 +494,12 @@
     }
     
     .flag2 img {
-        width: 78%;
+       width: 78%;
         height: auto;
         padding-left: 13px;
         padding-bottom: 2px;
     }
-    /* DOS TOROS */
-    
+    /* DOS TOROS */    
     .top-container2 {
         width: 690px;
         position: relative;
@@ -512,14 +513,14 @@
         padding-left: 10px;
     }
     
-    .top-right-container
-     {
-   position: absolute;
-    right: -20px;
-    top: 58px;
-    width: 340px;
-    height: 337px;
+     .top-right-container {
+        position: absolute;
+        right: 7px;
+        top: 14px;
+        width: 296px;
+        height: 337px;
     }
+
     
     .segundo-toro {
         margin-top: -2px;
@@ -587,7 +588,7 @@ td{
     text-align: center;
     font-weight: bold;
     color: #FFFFFF;
-    width: 86%;
+    width: 100%;
     margin: 0 auto;
     margin-top: 10px;
     float: right;
@@ -729,12 +730,23 @@ td{
 	
 			
 
-			<div class="encabezado-tabla">{{ toro1.evaluaciongenetica }}</div>
+			
 	
-			<div id="tabla-infeior" style="width: 100% !important;">		
+			<div id="tabla-infeior" class="1tablainferior1{{toro1.id}}" style="width: 100% !important;">		
 				<div class="table-responsive">
 					<table class="table table-bordered">
 						 <thead>
+						 <tr>
+	  <th style="visibility:hidden;" class=""></th>
+
+	  {% for t in tabla1.tabladatos %}
+	  
+	   {% if loop.index==3 %}
+	   <th class="ocultable" colspan="500">{{ toro1.evaluaciongenetica }}</th>	  
+			{% endif %}										
+		  {% endfor %}
+
+							</tr>
 
 
 							<tr>
@@ -749,7 +761,13 @@ td{
 						<tbody>
 						{% for dato in tablaflag1 %}
 							<tr class="{{ cycle(["alterna", ""], loop.index) }}">
+							
+							{% if loop.index == 1 %}
+							  <th scope="row" id="1primetahead{{toro1.id}}">{{ dato['rowhead'] }}</th>		
+							{% else %}
 								<th scope="row">{{ dato['rowhead'] }}</th>
+								{% endif %}		
+								
 								{% for td in tabla1.tabladatos %}
 								           {% if  isNumber(dato[td.nombre])=='1' %}
 
@@ -915,12 +933,24 @@ td{
 	
 			
 
-			<div class="encabezado-tabla">{{ toro2.evaluaciongenetica }}</div>
+			
 	
-			<div id="tabla-infeior" style="width: 100% !important;">		
+			<div id="tabla-infeior" class="2tablainferior2{{toro2.id}}" style="width: 100% !important;">		
 				<div class="table-responsive">
 					<table class="table table-bordered">
 						 <thead>
+						 
+						 <tr>
+	  <th style="visibility:hidden;" class=""></th>
+
+	  {% for t in tabla2.tabladatos %}
+	  
+	   {% if loop.index==3 %}
+	   <th class="ocultable" colspan="500">{{ toro2.evaluaciongenetica }}</th>	  
+			{% endif %}										
+		  {% endfor %}
+
+							</tr>
 
 
 							<tr>
@@ -935,7 +965,16 @@ td{
 						<tbody>
 						{% for dato in tablaflag2 %}
 							<tr class="{{ cycle(["alterna", ""], loop.index) }}">
-								<th scope="row">{{ dato['rowhead'] }}</th>
+							
+							
+								{% if loop.index == 1 %}		
+                         <th scope="row" id="2primetahead{{toro2.id}}">{{ dato['rowhead'] }}</th>		
+								{% else %}
+									<th scope="row">{{ dato['rowhead'] }}</th>
+								{% endif %}	
+								
+								
+								
 								{% for td in tabla1.tabladatos %}
 								           {% if  isNumber(dato[td.nombre])=='1' %}
 
@@ -978,34 +1017,28 @@ td{
 
         </div>
 
-        <div class="footer2">
-                 <div class="triangulo-azul">
-                    {{nropagina}}
-                </div>
-                <div class="btn-fb">
-                    <a href="https://www.facebook.com/CIALE.Alta.Genetics/"><img src="{{absolute_url(asset('bundles/gema/catalogresources/img/btn-fb.png'))}}" alt="Facebook"></a>
-                </div>
-                <div class="btn-ig">
-                    <a href="https://www.instagram.com/ciale.alta.genetics/"><img src="{{absolute_url(asset('bundles/gema/catalogresources/img/btn-ig.png'))}}" alt="Instagram"></a>
-                </div>
-                <div class="btn-yt">
-                    <a href="https://www.youtube.com/cialealta/"><img src="{{absolute_url(asset('bundles/gema/catalogresources/img/btn-yt.png'))}}" alt="Youtube"></a>
-                </div>
-                <div class="btn-in">
-                    <a href="https://www.linkedin.com/company/ciale-alta"><img src="{{absolute_url(asset('bundles/gema/catalogresources/img/btn-linkedin.png'))}}" alt="Linkedin"></a>
-                </div>
-                <div class="btn-ws">
-                    <a href="https://api.whatsapp.com/send?phone=5492474494600"><img src="{{absolute_url(asset('bundles/gema/catalogresources/img/btn-ws.png'))}}" alt="Chatea con nosotros"></a>
-                </div>
-                <div class="btn-search">
-                    <a href="http://www.ciale.com"><img src="{{absolute_url(asset('bundles/gema/catalogresources/img/btn-search.png'))}}" alt="www.ciale.com"></a>
-                </div>
-
-
-            </div>
+      
 
 
     </div>
+	<div class="pagebreak" style="height:10px !important">
+      </div>
+	   <script>
+			 var toro1id = {{toro1.id}};
+			 var toro2id = {{toro2.id}};	                   
+		 window.onload = new function() {
+ var newwidth1 = document.getElementsByClassName('1tablainferior1'+toro1id.toString())[0].clientWidth - document.getElementById('1primetahead'+toro1id.toString()).clientWidth;
+			document.getElementById('1dynamictextwith'+toro1id.toString()).setAttribute("style","display:block;width:"+newwidth1.toString()+"px !important");
+            document.getElementById('1dynamictextwith'+toro1id.toString()).style.width=newwidth1.toString()+'px !important';	
+            
+			var newwidth2 = document.getElementsByClassName('2tablainferior2'+toro2id.toString())[0].clientWidth - document.getElementById('2primetahead'+toro2id.toString()).clientWidth;
+			document.getElementById('2dynamictextwith'+toro2id.toString()).setAttribute("style","display:block;width:"+newwidth2.toString()+"px !important");
+            document.getElementById('2dynamictextwith'+toro2id.toString()).style.width=newwidth2.toString()+'px !important';	
+
+};	
+			 
+			
+			 </script>
 </body>
 
 </html>

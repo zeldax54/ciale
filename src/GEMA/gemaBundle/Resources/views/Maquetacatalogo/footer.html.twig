@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="{{ absolute_url(asset('bundles/gema/catalogresources/base64fonts.css'))}}" rel="stylesheet">
+<style>
+
+  .footer {
+        height: 53px;
+    width: 100%;
+    left: 0 !important;    
+    }
+    
+    .footer div {
+        display: inline-block;
+        vertical-align: middle;
+    }
+    
+    .footer div img {
+        vertical-align: middle;
+        height: 49px;
+    }
+    
+    .triangulo-azul {
+        box-sizing: border-box;
+        color: white;
+        width: 89px;
+        height: 100%;
+        background: url({{absolute_url(asset('bundles/gema/catalogresources/img/triangulo.png'))}}) no-repeat bottom center;
+        background-size: 89px 43px;
+        margin-right: 5px;
+        text-align: center;
+        line-height: normal;
+        font-family: fagoBold;
+        font-size: 10px;
+        padding-top: 30px;
+    }
+    
+    .footer a {
+        display: block;
+    }
+
+</style>
+     <script type="text/javascript"> 
+    
+  function subst() {    
+    
+    if(document.getElementById("nofooter")){
+        document.getElementById("footerdio").innerHTML='';
+    }
+            var vars={};
+            var x=window.location.search.substring(1).split('&');
+            for (var i in x) {var z=x[i].split('=',2);vars[z[0]] = unescape(z[1]);}
+             document.getElementById("tri").innerHTML = vars['page'];
+
+
+          /*  if (vars['page'] == 1) {
+                document.getElementById("footerdio").parentElement.removeChild(document.getElementById("footerdio"));
+            }*/
+        }
+</script>
+</head>
+
+<body onload="subst()">  
+
+<div class="footer" id="footerdio">
+                <div id="tri" class="triangulo-azul">
+                    {{nropagina}}
+                </div>
+                <div class="btn-fb">
+                    <a href="https://www.facebook.com/CIALE.Alta.Genetics/"><img src="{{absolute_url(asset('bundles/gema/catalogresources/img/btn-fb.png'))}}" alt="Facebook"></a>
+                </div>
+                <div class="btn-ig">
+                    <a href="https://www.instagram.com/ciale.alta.genetics/"><img src="{{absolute_url(asset('bundles/gema/catalogresources/img/btn-ig.png'))}}" alt="Instagram"></a>
+                </div>
+                <div class="btn-yt">
+                    <a href="https://www.youtube.com/cialealta/"><img src="{{absolute_url(asset('bundles/gema/catalogresources/img/btn-yt.png'))}}" alt="Youtube"></a>
+                </div>
+                <div class="btn-in">
+                    <a href="https://www.linkedin.com/company/ciale-alta"><img src="{{absolute_url(asset('bundles/gema/catalogresources/img/btn-linkedin.png'))}}" alt="Linkedin"></a>
+                </div>
+                <div class="btn-ws">
+                    <a href="https://api.whatsapp.com/send?phone=5492474494600"><img src="{{absolute_url(asset('bundles/gema/catalogresources/img/btn-ws.png'))}}" alt="Chatea con nosotros"></a>
+                </div>
+                <div class="btn-search">
+                    <a href="http://www.ciale.com"><img src="{{absolute_url(asset('bundles/gema/catalogresources/img/btn-search.png'))}}" alt="www.ciale.com"></a>
+                </div>
+            </div>
+
+       
+              
+</body>
+
+</html>

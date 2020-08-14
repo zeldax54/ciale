@@ -42,7 +42,11 @@
                     <td class="sorter"></td>
                     <td>{{ e.id }} </td>                  
                     <td>{{ e.numero }} </td>
+					{% if e.catalogo !=null %}
                     <td>{{ e.catalogo.titulo }} </td>
+					{% else %}
+					<td></td>
+					{% endif %}
                     <td>{{ e.tipo }} </td>    
                         {% if e.tipo=="Imagen" %}            
                      <td>{{ asset(e.foto) }}</td>         

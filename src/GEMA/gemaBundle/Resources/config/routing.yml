@@ -481,6 +481,10 @@ gema_dostorostest:
     pattern:  /dostorostest
     defaults: { _controller: "gemaBundle:Catalogo:dostorostest" }
 
+gema_footertest:
+    pattern:  /footertest
+    defaults: { _controller: "gemaBundle:Catalogo:footerCAt" }
+
 prodprog_newwindows:
     pattern:  /{nombremenu}
     defaults: { _controller: "gemaBundle:ProdProgclient:newwind" }

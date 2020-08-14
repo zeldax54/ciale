@@ -190,9 +190,7 @@ class CatalogoController extends Controller
     $editForm->handleRequest($request);
     $accion = ' ';
     $this->get("gema.utiles")->traza($accion);
-    $em->flush();
-
-    
+    $em->flush();  
  
 
     
@@ -210,6 +208,9 @@ class CatalogoController extends Controller
 
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('gemaBundle:Catalogo')->find($id);
+            $hojas = $entity->getHojas();
+            foreach($hojas as $hoja)
+              $em->remove($hoja);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Catalogo entity.');
@@ -279,35 +280,46 @@ class CatalogoController extends Controller
             if (!file_exists($webPath)) {
                 mkdir($webPath, 0777, true);
             }
-            $webPath=$webPath.$filename.'.pdf';
-    
+            $webPath=$webPath.$filename.'.pdf';    
             $pdfGenerator = $this->get('knp_snappy.pdf');
             $pdfGenerator->setTimeout(10000);
     
             $options = array(
-               'margin-top'    => 0,
+               'margin-top'    => 2,
                'margin-right'  => 1,
-               'margin-bottom' => 0,
+               'margin-bottom' => 16,
                'margin-left'   => 1,     
-                 //'dpi'=>2,
+                //'dpi'=>2, 
               // 'zoom'=>$zoompdf         
            )  ;                   
-              
-       
+           if($urlvirtual==true)
+           $path=DIRECTORY_SEPARATOR.'/pdfs/catalogs/'.$guid .'/'.$filename.'.pdf';
+       else{
+           $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+           $path=$baseurl.DIRECTORY_SEPARATOR.'/pdfs/catalogs/'.$guid .'/'.$filename.'.pdf';
+           }
+       //$htmlfooter = $this->footerCAtAction(2);
             foreach ($options as $margin => $value) 
-                $pdfGenerator->setOption($margin, $value);        
-            $pdfGenerator->generateFromHtml(
+                $pdfGenerator->setOption($margin, $value);                 
+                $urlfooter = $this->generateUrl(
+                    'gema_footertest'              
+                );
+          // print($request->getScheme() . '://' . $request->getHttpHost() .$urlfooter);die();
+           //  $pdfGenerator->setOption('header-html', 'https://www.google.com/'); 
+             $pdfGenerator->setOption('footer-html', $request->getScheme() . '://' . $request->getHttpHost() .$urlfooter);    
+                     
+          
+                $pdfGenerator->generateFromHtml(
                 $html,
                 $webPath
             );
+
+          /*  $pdfGenerator->setOption('header-html', 'http://www.yahoo.com')
+            ->setOption('footer-html', 'http://www.msn.com')
+            ->generate('http://www.google.fr', $path);*/     
     
     
-       if($urlvirtual==true)
-            $path=DIRECTORY_SEPARATOR.'/pdfs/catalogs/'.$guid .'/'.$filename.'.pdf';
-        else{
-            $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
-            $path=$baseurl.DIRECTORY_SEPARATOR.'/pdfs/catalogs/'.$guid .'/'.$filename.'.pdf';
-            }            
+                 
 
         return new JsonResponse(array(
             0=>'1',
@@ -537,5 +549,21 @@ class CatalogoController extends Controller
             'tabla'=>$tabla,
 
         );
+    }
+
+    public function footerCAtAction($numero = null)
+    {      
+        $test=false;
+        if($numero==null){
+            $numero=2;
+            $test=true;
+        }
+        $view='gemaBundle:Maquetacatalogo:footer.html.twig';    
+        if($test==false)
+        return $this->renderView($view, array(   
+            'nropagina'=>$numero));
+       else 
+       return $this->render($view, array(   
+        'nropagina'=>$numero));
     }
 }
