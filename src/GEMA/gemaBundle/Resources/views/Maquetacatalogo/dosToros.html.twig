@@ -454,7 +454,7 @@
     }
     
     .toro-video2 a {
-        display: block;
+        display: inline-block;
     }
     
     .footer2 {
@@ -633,7 +633,9 @@ td{
                          <li><span class="bold">RP:&nbsp;</span>{{ toro1.rp }}</li>
                         <li><span class="bold">HBA:&nbsp;</span>{{ toro1.hba }}</li>
                         <li><span class="bold">Nació:&nbsp;</span>{{ toro1.fechanacimiento|date('d-m-Y')  }}</li>
-                        <li><span class="bold">Reg:&nbsp;</span>Definitivo</li>
+                       {% if toro1.raza.id in razasdata %}
+					   <li><span class="bold">Reg:&nbsp;</span>Definitivo</li>
+					   {% endif %}
                         <li><span class="bold">Criador:&nbsp;</span>{{ toro1.criador }}</li>
                             </ul>
                         </div>
@@ -718,8 +720,9 @@ td{
                    
                    
                     <div class="toro-video2">
+					{% if toro1.video !="#" %}
                         <a href="{{toro1.video}}"><img src="{{absolute_url(asset('bundles/gema/catalogresources/img/btn-video.png'))}}" alt="Mira el Video"></a>
-
+                       {%endif %}
                     </div>
                 </div>
             </div>
@@ -834,7 +837,9 @@ td{
                          <li><span class="bold">RP:</span>{{ toro2.rp }}</li>
                         <li><span class="bold">HBA:</span>{{ toro2.hba }}</li>
                         <li><span class="bold">Nació:</span>{{ toro2.fechanacimiento|date('d-m-Y')  }}</li>
+						  {% if toro2.raza.id in razasdata %}
                         <li><span class="bold">Reg:</span>Definitivo</li>
+						{% endif %}
                         <li><span class="bold">Criador:</span>{{ toro2.criador }}</li>
                             </ul>
                         </div>
@@ -920,8 +925,9 @@ td{
                    
 
                     <div class="toro-video2">
+					{% if toro2.video !="#" %}
                         <a href="{{toro2.video}}"><img src="{{absolute_url(asset('bundles/gema/catalogresources/img/btn-video.png'))}}" alt="Mira el Video"></a>
-
+                   {% endif %}
                     </div>
                 </div>
             </div>

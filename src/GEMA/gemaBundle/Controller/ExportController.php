@@ -1535,31 +1535,33 @@ public function exceladminAction($razaid){
         }
 
     }
-    public static function deleteDir($dirPath) {
-        if (! is_dir($dirPath)) {
-            throw new InvalidArgumentException("$dirPath must be a directory");
-        }
-        if (substr($dirPath, strlen($dirPath) - 1, 1) != '/') {
-            $dirPath .= '/';
-        }
-        $files = glob($dirPath . '*', GLOB_MARK);
-        foreach ($files as $file) {
-            if (is_dir($file)) {
-                self::deleteDir($file);
-            } else {
-                unlink($file);
-            }
-        }
-        rmdir($dirPath);
+   
+	
+	function deleteDir($path) {
+    // The preg_replace is necessary in order to traverse certain types of folder paths (such as /dir/[[dir2]]/dir3.abc#/)
+    // The {,.}* with GLOB_BRACE is necessary to pull all hidden files (have to remove or get "Directory not empty" errors)
+    $files = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $path).'/{,.}*', GLOB_BRACE);
+    foreach ($files as $file) {
+        if ($file == $path.'/.' || $file == $path.'/..') { continue; } // skip special dir entries
+        is_dir($file) ? $this->deleteDir($file) : unlink($file);
     }
+    rmdir($path);
+    return;
+}
     public function limpiarcatalogosAction(){
 
-        $webPath = $this->get('kernel')->getRootDir().'/../web/pdfs';
+        $webPath = $this->get('kernel')->getRootDir().'/../web/pdfs/';
+        $webPathnewcatag = $this->get('kernel')->getRootDir().'/../web/pdfs/catalogs/';
 
         $dir = new DirectoryIterator($webPath);
+        $dircatalgs = new DirectoryIterator($webPathnewcatag);
+        foreach ($dircatalgs as $fileinfo) {
+            if ($fileinfo->isDir() && !$fileinfo->isDot()) {
+                $this->deleteDir($webPathnewcatag.DIRECTORY_SEPARATOR.$fileinfo);
+            }
+        }
         foreach ($dir as $fileinfo) {
             if ($fileinfo->isDir() && !$fileinfo->isDot()) {
-
                 $this->deleteDir($webPath.DIRECTORY_SEPARATOR.$fileinfo);
             }
         }

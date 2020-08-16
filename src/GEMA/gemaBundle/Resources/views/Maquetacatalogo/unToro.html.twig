@@ -543,17 +543,16 @@ td{
                         <li><span class="bold">RP:&nbsp;</span>{{ toro.rp }}</li>
                         <li><span class="bold">HBA:&nbsp;</span>{{ toro.hba }}</li>
                         <li><span class="bold">Nació:&nbsp;</span>{{ toro.fechanacimiento|date('d-m-Y')  }}</li>
+						{% if toro.raza.id in razasdata %}
                         <li><span class="bold">Reg:&nbsp;</span>Definitivo</li>
+						{% endif %}
                         <li><span class="bold">Criador:&nbsp;</span>{{ toro.criador }}</li>
                     </ul>
                 </div>
             </div>
             <div class="table-container" style="">
                 	  {% if tabla!=null  %}
-		<div id="ultima-col" class="row">			
-
-			
-	
+		<div id="ultima-col" class="row">		
 			<div id="tabla-infeior" class="tablainferior{{toro.id}}" style="width: 100% !important;">		
 				<div class="table-responsive">
 					<table id="torotable" class="table table-bordered">
@@ -691,8 +690,10 @@ td{
                 </table>
             </div>
             <div class="toro-video">
+			{% if toro.video !="#" %}
                 <a href="{{toro.video}}"><img src="{{absolute_url(asset('bundles/gema/catalogresources/img/btn-video.png'))}}" alt="Mira el Video"></a>
-            </div>
+            {%endif %}
+			</div>
 			
   </div>
            

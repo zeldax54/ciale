@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
  */
 class CatalogoController extends Controller
 {
+	public static $razasdata = array(15,21,22,23,24);
 
     /**
      * Lists all Catalogo entities.
@@ -401,13 +402,15 @@ class CatalogoController extends Controller
             }
         }
         //
+		
         $view='gemaBundle:Maquetacatalogo:unToro.html.twig';
         if($islocal==1)
         return $this->renderView($view, array(  
             'toro'=>$toro,
             'tabla'=>$tabla,
             'tablagenetica'=>$tablasflag,
-            'nropagina'=>$nropagina
+            'nropagina'=>$nropagina,
+			'razasdata'=>self::$razasdata
          )
        );
         else
@@ -415,11 +418,11 @@ class CatalogoController extends Controller
              'toro'=>$toro,
              'tabla'=>$tabla,
              'tablagenetica'=>$tablasflag,
-             'nropagina'=>$nropagina
+             'nropagina'=>$nropagina,
+			 'razasdata'=>self::$razasdata
           )
         );
       }
-
 
       public function dostorostestAction($hoja=null,$nropagina=2,$islocal=0){
         $em = $this->getDoctrine()->getManager(); 
@@ -465,7 +468,9 @@ class CatalogoController extends Controller
             'tabla1'=>$tabla1,
             'tablaflag2'=>$tablaflag2,
             'tabla2'=>$tabla2,
-            'nropagina'=>$nropagina
+            'nropagina'=>$nropagina,
+			'razasdata'=>self::$razasdata
+			
 
         );
         if($islocal==1)
