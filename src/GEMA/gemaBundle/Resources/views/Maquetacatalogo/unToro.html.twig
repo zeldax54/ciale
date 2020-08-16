@@ -458,6 +458,10 @@ td{
         
 
     }
+    .pelaje {
+        font-family: fagoBold;     
+        color: #187ac8;   
+    }
     /* DOS TOROS */
     
     .dos-toros .header-container {
@@ -630,6 +634,13 @@ td{
                 <div class="triangle"></div>
                 <p><strong>{{toro.apodo}}: </strong> {{toro.descripcion}}</p>
             </div>
+            
+            {% if toro.pruebapelaje is not null and toro.pruebapelaje is not empty %} 
+            <div>
+			  <strong class="pelaje">TEST DE PELAJE:</strong>&nbsp;{{ toro.pruebapelaje }}
+               </div><br>
+			{% endif %}
+           
             <div class="tec-info-container">
                 <div class="tec-info">
                     <div class="top-info">

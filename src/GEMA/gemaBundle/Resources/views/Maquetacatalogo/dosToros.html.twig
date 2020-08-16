@@ -599,6 +599,10 @@ td{
   .table-bordered{
         width:100% !important;
     }
+    .pelajedos {
+        font-family: fagoBold;     
+        color: #187ac8;   
+    }
 
     
   </style>
@@ -646,9 +650,14 @@ td{
                        <div class="nuevo2">NUEVO</div>
                        {% endif %}
                     <div class="texto-bottom2">                       
-                        <p> <span class="triangle2"></span> <strong>{{toro1.apodo}}: </strong> {{toro1.descripcion }}</p>
-                     
+                        <p> <span class="triangle2"></span> <strong>{{toro1.apodo}}: </strong> {{toro1.descripcion }}</p>                     
                     </div>
+                    {% if toro1.pruebapelaje is not null and toro1.pruebapelaje is not empty %} 
+                     <div>
+			          <strong class="pelajedos">TEST DE PELAJE:</strong>&nbsp;{{ toro1.pruebapelaje }}
+                      </div>
+			         {% endif %}
+
                   <div class="row">
                    <div class="col-md-6">
                    <div class="tec-info-container2">
@@ -722,7 +731,7 @@ td{
                     <div class="toro-video2">
 					{% if toro1.video !="#" %}
                         <a href="{{toro1.video}}"><img src="{{absolute_url(asset('bundles/gema/catalogresources/img/btn-video.png'))}}" alt="Mira el Video"></a>
-                       {%endif %}
+                       {% endif %}
                     </div>
                 </div>
             </div>
@@ -852,6 +861,11 @@ td{
                     <div class="texto-bottom2">                       
                         <p> <span class="triangle2"></span> <strong>{{toro2.apodo}}: </strong> {{toro2.descripcion}}</p>                     
                     </div>
+                    {% if toro2.pruebapelaje is not null and toro2.pruebapelaje is not empty %} 
+                      <div>
+			          <strong class="pelajedos">TEST DE PELAJE:</strong>&nbsp;{{ toro2.pruebapelaje }}
+                      </div><br>
+			         {% endif %}
                     <div class="row">
                     <div class="col-md-6">
                     

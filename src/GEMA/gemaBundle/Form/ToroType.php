@@ -191,7 +191,7 @@ class ToroType extends AbstractType
                 'attr'=>array(
                     'style'=>'display:none'
                 )
-            ))
+            ))            
 
             ->add('youtubes', 'collection', array('type' => new YoutubeType()
             ,'allow_add' => true,'by_reference' => false,'allow_delete' => true,)
@@ -202,7 +202,32 @@ class ToroType extends AbstractType
                 'label'=>'Mocho'
             ));
 
+            if (in_array($this->idraza, array(11,16,23,24))) {
+                $builder->add('pruebapelaje', ChoiceType::class, array(
+                    'required' => false,
+                    'choices'  => array(
+                        'Negro Homocigota' => 'Negro Homocigota',
+                        'Heterocigota | Portador de gen colorado'=>'Heterocigota | Portador de gen colorado',
+                        'Heterocigota | Portador de gen Ancestral' => 'Heterocigota | Portador de gen Ancestral'                        
+            
+                    ),'label'=>'Prueba de pelaje'
+                ));
+              }else{
+                $builder->add('pruebapelaje', ChoiceType::class, array(
+                    'required' => false,
+                    'choices'  => array(
+                        'Astado' => 'Astado',
+                        'Mocho Heterocigota'=>'Mocho Heterocigota',
+                        'Mocho Homocigota' => 'Mocho Homocigota'                        
+            
+                    ),'label'=>'Prueba de pelaje'
+                    
+                ));
+
+              }
+            
        $builder ->add('torosSugeridos');
+      
 
 
 //        $builder ->add('torosSugeridos',array(

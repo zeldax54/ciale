@@ -21,6 +21,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use GEMA\gemaBundle\Helpers\MyHelper;
 use PHPExcel;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Symfony\Component\Filesystem\Filesystem;
 
 
 class ExportController extends Controller
@@ -1552,22 +1553,64 @@ public function exceladminAction($razaid){
 
         $webPath = $this->get('kernel')->getRootDir().'/../web/pdfs/';
         $webPathnewcatag = $this->get('kernel')->getRootDir().'/../web/pdfs/catalogs/';
-
-        $dir = new DirectoryIterator($webPath);
-        $dircatalgs = new DirectoryIterator($webPathnewcatag);
-        foreach ($dircatalgs as $fileinfo) {
-            if ($fileinfo->isDir() && !$fileinfo->isDot()) {
-                $this->deleteDir($webPathnewcatag.DIRECTORY_SEPARATOR.$fileinfo);
+        if (is_dir( $webPathnewcatag ) ) {
+            
+            $dircatalgs = new DirectoryIterator($webPathnewcatag);
+            foreach ($dircatalgs as $fileinfo) {
+                if ($fileinfo->isDir() && !$fileinfo->isDot()) {
+                    $this->deleteDir($webPathnewcatag.DIRECTORY_SEPARATOR.$fileinfo);
+                }
+            }    
+        } 
+        if (is_dir( $webPath ) ) {
+            $dir = new DirectoryIterator($webPath);
+            foreach ($dir as $fileinfo) {
+                if ($fileinfo->isDir() && !$fileinfo->isDot()) {
+                    $this->deleteDir($webPath.DIRECTORY_SEPARATOR.$fileinfo);
+                }
             }
         }
-        foreach ($dir as $fileinfo) {
-            if ($fileinfo->isDir() && !$fileinfo->isDot()) {
-                $this->deleteDir($webPath.DIRECTORY_SEPARATOR.$fileinfo);
-            }
-        }
+       
+        
         return $this->render('gemaBundle:Default:index.html.twig', array(
             )
         );
+    }
+
+    public function limpiarcacheAction(){
+    try{
+        $request = $this->getRequest();
+        $webPath = $this->get('kernel')->getRootDir().'/../app/cache/';
+        $ruta =$request->getScheme() . '://' . $request->getHttpHost(). $this->generateUrl(
+            'gemaBundle_adminhome'              
+        );        
+        $dir = new DirectoryIterator($webPath);
+            foreach ($dir as $fileinfo) {
+                if ($fileinfo->isDir() && !$fileinfo->isDot()) {
+                    if(strpos($fileinfo,'jms_serializer')===false)             
+                      $this->deleteDir($webPath.DIRECTORY_SEPARATOR.$fileinfo);
+                }
+            }
+            
+          
+            
+            print('<html>
+            <head>           
+            </head>
+             <a href="'.$ruta.'" id="mylink"> Cache eliminada click para volver al admin</a>
+            </html>');
+           die();    
+       
+    }
+    catch(\Exception $e ){
+        print($e->getMessage());die();
+
+        return $this->render('gemaBundle:Default:index.html.twig', array(
+            )
+        );
+    }
+
+       
     }
 
 

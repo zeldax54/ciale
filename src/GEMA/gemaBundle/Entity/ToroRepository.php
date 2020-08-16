@@ -43,7 +43,7 @@ class ToroRepository extends EntityRepository
             $search = $request->request->get("searchPhrase");
             $qb->where($qb->expr()->like("T.nombre", $qb->expr()->literal("%" . $search . "%")))
             ->orWhere($qb->expr()->like("T.apodo", $qb->expr()->literal("%" . $search . "%")))
-            ->orWhere($qb->expr()->like("R.nombre", $qb->expr()->literal("%" . $search . "%")))
+            ->orWhere($qb->expr()->like("R.nombre", $qb->expr()->literal("%" . $search . "%")))            
             ->orWhere($qb->expr()->like("TR.tipo", $qb->expr()->literal("%" . $search . "%")))
             ;
 

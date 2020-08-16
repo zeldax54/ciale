@@ -216,9 +216,9 @@ class UploaderController extends Controller
             $toro->setP365d($row[$this->getMapaPos('p365d', $mapa,$rowhead)]);
             $toro->setP550d($row[$this->getMapaPos('p550d', $mapa,$rowhead)]);
             $toro->setP550d($row[$this->getMapaPos('p550d', $mapa,$rowhead)]);
-
-
             $toro->setPrecio($row[$this->getMapaPos('precio', $mapa,$rowhead)]);
+            $toro->setPruebapelaje($row[$this->getMapaPos('pruebapelaje', $mapa,$rowhead)]);
+
 
            if($isnnew==true)           {
                $helper=new MyHelper();

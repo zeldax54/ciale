@@ -343,7 +343,7 @@ class CatalogoController extends Controller
     public function untorotestAction($hoja=null,$nropagina=2,$islocal=0){
         $em = $this->getDoctrine()->getManager();     
         if($hoja==null){           
-            $hoja = $em->getRepository('gemaBundle:Catalogohojas')->find(3);            
+            $hoja = $em->getRepository('gemaBundle:Catalogohojas')->find(6);            
         }       
         ////////////////////////////////////////////////
         $view='gemaBundle:Maquetacatalogo:unToro.html.twig';
@@ -428,7 +428,7 @@ class CatalogoController extends Controller
         $em = $this->getDoctrine()->getManager(); 
         $helper = new MyHelper();    
         if($hoja==null)        
-            $hoja = $em->getRepository('gemaBundle:Catalogohojas')->find(1);  
+            $hoja = $em->getRepository('gemaBundle:Catalogohojas')->find(5);  
             
             $toro1 = $hoja->getToros()[0];
             $toro2 = $hoja->getToros()[1];    

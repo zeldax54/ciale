@@ -335,6 +335,10 @@ admin_limpiarcatalogos:
     pattern:  admin/limpiarcatalogos
     defaults: { _controller: "gemaBundle:Export:limpiarcatalogos" }
 
+admin_limpiarcache:
+    pattern:  admin/limpiarcache
+    defaults: { _controller: "gemaBundle:Export:limpiarcache" }
+
 pdf_generate_catalogo:
     pattern:  /catalogo
     defaults: { _controller: "gemaBundle:Export:generatecatalogo" }

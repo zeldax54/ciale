@@ -386,6 +386,12 @@ class Toro
      */
     private $hojas;
 
+     /**
+     * @var string
+     * @ORM\Column(name="pruebapelaje", type="string", length=350,nullable=true)
+     */
+    private $pruebapelaje;
+
 
     /**
      * Get id
@@ -1750,5 +1756,28 @@ class Toro
     public function getHojas()
     {
         return $this->hojas;
+    }
+
+    /**
+     * Set pruebapelaje
+     *
+     * @param string $pruebapelaje
+     * @return Toro
+     */
+    public function setPruebapelaje($pruebapelaje)
+    {
+        $this->pruebapelaje = $pruebapelaje;
+
+        return $this;
+    }
+
+    /**
+     * Get pruebapelaje
+     *
+     * @return string 
+     */
+    public function getPruebapelaje()
+    {
+        return $this->pruebapelaje;
     }
 }

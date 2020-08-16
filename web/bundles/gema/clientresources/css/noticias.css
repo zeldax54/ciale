@@ -1,32 +1,38 @@
-h4{
-	font-family:'Fago-Bold' !important;
-}
-.noticiastitle{
-	color:#0257A4;
-}
-p,span{
-	font-family:'Fago-normal' !important;
-}
-.vc_active{
-	background:#0172BC !important;
-	
-}
-.vc_active span{
-	color:white !important;
-}
-a:hover{
-	text-decoration:none;
-	
-}
-.linavo:hover{
-	background:#0172BC !important;	
-}
-.linavo:hover .spanchilde{
-	color:white !important;
-}
-.resumenot{
-	font-family:'Fago-normal';
-	font-size:16px;
-	text-align:left;
+h4 {
+    font-family: 'Fago-Bold' !important;
 }
 
+.noticiastitle {
+    color: #0257A4;
+}
+
+p,
+span {
+    font-family: 'Fago-normal' !important;
+}
+
+.vc_active {
+    background: #0172BC !important;
+}
+
+.vc_active span {
+    color: white !important;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.linavo:hover {
+    background: #0172BC !important;
+}
+
+.linavo:hover .spanchilde {
+    color: white !important;
+}
+
+.resumenot {
+    font-family: 'Fago-normal';
+    font-size: 16px;
+    text-align: left;
+}
