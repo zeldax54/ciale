@@ -3,33 +3,3 @@
         font-size: 10px !important;
     }
 }
-
-@media (min-width:320px) {
-    a img:not(.patrocinadores):not(.logocentromult) {
-        width: 100% !important;
-        height: auto !important;
-    }
-    p {
-        margin: 11px !important;
-    }
-}
-
-@media (min-width:481px) {
-    a img:not(.patrocinadores):not(.logocentromult) {
-        width: 100% !important;
-        height: auto !important;
-    }
-    p {
-        margin: 11px !important;
-    }
-}
-
-@media (min-width:641px) {
-    a img:not(.patrocinadores):not(.logocentromult) {
-        width: 100% !important;
-        height: auto !important;
-    }
-    p {
-        margin: 11px !important;
-    }
-}
