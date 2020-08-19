@@ -654,4 +654,11 @@ class MyHelper
         return $this->directPic('genericfiles'.DIRECTORY_SEPARATOR,'fp_'.$facilidad.'.png');
     }
 
+    public function isPelaje($razaId)
+    {
+        if (in_array($razaId, array(11,16,23,24))) 
+         return true;        
+     return false;
+    }
+
 }

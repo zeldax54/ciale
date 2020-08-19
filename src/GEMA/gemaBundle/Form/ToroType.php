@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use GEMA\gemaBundle\Entity\RazaRepository;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use GEMA\gemaBundle\Helpers\MyHelper;
 
 class ToroType extends AbstractType
 {
@@ -17,15 +18,18 @@ class ToroType extends AbstractType
 
     protected $idraza;
     protected $ismocho;
+    protected $helper;
 
     public function __construct ($Idraza,$Ismocho)
     {
         $this->idraza = $Idraza;
         $this->ismocho=$Ismocho;
+        
 
     }
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $helper = new  MyHelper();
         $builder
             ->add('raza','entity',array(
         'class'=>'gemaBundle:Raza',
@@ -202,7 +206,7 @@ class ToroType extends AbstractType
                 'label'=>'Mocho'
             ));
 
-            if (in_array($this->idraza, array(11,16,23,24))) {
+            if ($helper->isPelaje($this->idraza)==true) {
                 $builder->add('pruebapelaje', ChoiceType::class, array(
                     'required' => false,
                     'choices'  => array(
@@ -210,9 +214,11 @@ class ToroType extends AbstractType
                         'Heterocigota | Portador de gen colorado'=>'Heterocigota | Portador de gen colorado',
                         'Heterocigota | Portador de gen Ancestral' => 'Heterocigota | Portador de gen Ancestral'                        
             
-                    ),'label'=>'Prueba de pelaje'
+                    ),'label'=>'Test de Pelaje'
                 ));
-              }else{
+              }
+              else
+              {
                 $builder->add('pruebapelaje', ChoiceType::class, array(
                     'required' => false,
                     'choices'  => array(
@@ -220,7 +226,7 @@ class ToroType extends AbstractType
                         'Mocho Heterocigota'=>'Mocho Heterocigota',
                         'Mocho Homocigota' => 'Mocho Homocigota'                        
             
-                    ),'label'=>'Prueba de pelaje'
+                    ),'label'=>'Test de MOCHO/ASTADO'
                     
                 ));
 

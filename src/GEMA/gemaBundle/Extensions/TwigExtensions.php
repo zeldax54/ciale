@@ -4,6 +4,7 @@
 namespace GEMA\gemaBundle\Extensions;
 
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use GEMA\gemaBundle\Helpers\MyHelper;
 
 class TwigExtensions extends \Twig_Extension
 {
@@ -17,6 +18,8 @@ class TwigExtensions extends \Twig_Extension
             new \Twig_SimpleFunction('recortar', array($this, 'recortar')),
             new \Twig_SimpleFunction('productos', array($this, 'productos')),
             new \Twig_SimpleFunction('programas', array($this, 'programas')),
+            new \Twig_SimpleFunction('tipoTest', array($this, 'tipoTest')),
+
         );
     }
 
@@ -108,6 +111,13 @@ class TwigExtensions extends \Twig_Extension
         $em=$this->doctrine->getManager();
         return $em->getRepository('gemaBundle:Productosprogramas')->findBytipo('Programa');
 
+    }
+
+    public function tipoTest($razaid,$prueba){     
+       $helper=new MyHelper();     
+        if ($helper->isPelaje($razaid)==true) 
+           return '<strong class="pelajedos pelaje" style="color: #187ac8;">TEST DE PELAJE:</strong>&nbsp;'.$prueba; 
+        return    '<strong class="pelajedos pelaje" style="color: #187ac8;">Test de MOCHO/ASTADO:</strong>&nbsp;'.$prueba;   
     }
 
 

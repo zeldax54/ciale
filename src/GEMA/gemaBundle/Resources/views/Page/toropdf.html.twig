@@ -193,8 +193,8 @@
 					<strong>Nacimiento:</strong>&nbsp;{{ toro.fechanacimiento|date('d-m-Y')  }}<br>
 					<strong>Criador:</strong>&nbsp;{{ toro.criador }}<br>
 					<strong>Propietario:</strong>&nbsp;{{ toro.propietario }}<br>
-					{% if toro.pruebapelaje is not null %} 
-					<strong style="color: #187ac8;">TEST DE PELAJE:</strong>&nbsp;{{ toro.pruebapelaje }}
+					{% if toro.pruebapelaje is not null  and toro.pruebapelaje is not empty %} 
+					 {{tipoTest(toro.raza.id,toro.pruebapelaje)|raw}}
 					{% endif %}
 				</address>
 	

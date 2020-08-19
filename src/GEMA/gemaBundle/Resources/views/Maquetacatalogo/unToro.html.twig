@@ -637,7 +637,7 @@ td{
             
             {% if toro.pruebapelaje is not null and toro.pruebapelaje is not empty %} 
             <div>
-			  <strong class="pelaje">TEST DE PELAJE:</strong>&nbsp;{{ toro.pruebapelaje }}
+			   {{tipoTest(toro.raza.id,toro.pruebapelaje)|raw}}
                </div><br>
 			{% endif %}
            
