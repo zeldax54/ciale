@@ -656,7 +656,19 @@ class MyHelper
 
     public function isPelaje($razaId)
     {
-        if (in_array($razaId, array(11,16,23,24))) 
+        if (in_array($razaId, array(11,16,21,22,23,24))) 
+         return true;        
+     return false;
+    }
+    public function isAstado($razaId)
+    {
+        if (in_array($razaId, array(15,25))) 
+         return true;        
+     return false;
+    }
+    public function isAmbosTests($razaId)
+    {
+        if (in_array($razaId, array(26))) 
          return true;        
      return false;
     }

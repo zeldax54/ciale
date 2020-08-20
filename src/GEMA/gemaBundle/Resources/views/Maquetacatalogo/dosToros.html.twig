@@ -654,7 +654,7 @@ td{
                     </div>
                     {% if toro1.pruebapelaje is not null and toro1.pruebapelaje is not empty %} 
                      <div>
-			           {{tipoTest(toro1.raza.id,toro1.pruebapelaje)|raw}}
+			            {{tipoTest(toro1)|raw}}
                       </div>
 			         {% endif %}
 
@@ -863,7 +863,7 @@ td{
                     </div>
                     {% if toro2.pruebapelaje is not null and toro2.pruebapelaje is not empty %} 
                       <div>
-			           {{tipoTest(toro2.raza.id,toro2.pruebapelaje)|raw}}
+			            {{tipoTest(toro2)|raw}}
                       </div><br>
 			         {% endif %}
                     <div class="row">

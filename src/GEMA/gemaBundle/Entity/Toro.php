@@ -392,6 +392,12 @@ class Toro
      */
     private $pruebapelaje;
 
+     /**
+     * @var string
+     * @ORM\Column(name="pruebaastadoOtrasRzas", type="string", length=350,nullable=true)
+     */
+    private $pruebaastadoOtrasRzas;
+
 
     /**
      * Get id
@@ -1779,5 +1785,28 @@ class Toro
     public function getPruebapelaje()
     {
         return $this->pruebapelaje;
+    }
+
+    /**
+     * Set pruebaastadoOtrasRzas
+     *
+     * @param string $pruebaastadoOtrasRzas
+     * @return Toro
+     */
+    public function setPruebaastadoOtrasRzas($pruebaastadoOtrasRzas)
+    {
+        $this->pruebaastadoOtrasRzas = $pruebaastadoOtrasRzas;
+
+        return $this;
+    }
+
+    /**
+     * Get pruebaastadoOtrasRzas
+     *
+     * @return string 
+     */
+    public function getPruebaastadoOtrasRzas()
+    {
+        return $this->pruebaastadoOtrasRzas;
     }
 }

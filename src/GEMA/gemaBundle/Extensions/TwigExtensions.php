@@ -112,12 +112,33 @@ class TwigExtensions extends \Twig_Extension
         return $em->getRepository('gemaBundle:Productosprogramas')->findBytipo('Programa');
 
     }
+    function IsNullOrEmptyString($str){
+        return (!isset($str) || trim($str) === '');
+    }
 
-    public function tipoTest($razaid,$prueba){     
-       $helper=new MyHelper();     
-        if ($helper->isPelaje($razaid)==true) 
-           return '<strong class="pelajedos pelaje" style="color: #187ac8;">TEST DE PELAJE:</strong>&nbsp;'.$prueba; 
-        return    '<strong class="pelajedos pelaje" style="color: #187ac8;">Test de MOCHO/ASTADO:</strong>&nbsp;'.$prueba;   
+    public function tipoTest($toro){     
+       $helper=new MyHelper();  
+       $razaid = $toro->getRaza()->getId(); 
+
+        if ($helper->isPelaje($razaid)==true){
+            if(!$this->IsNullOrEmptyString($toro->getPruebapelaje()))
+              return '<strong class="pelajedos pelaje" style="color: #187ac8;">TEST DE PELAJE:</strong>&nbsp;'.$toro->getPruebapelaje(); 
+        }
+  
+        else  if ($helper->isAstado($razaid)==true) {
+            if(!$this->IsNullOrEmptyString($toro->getPruebapelaje()))
+             return    '<strong class="pelajedos pelaje" style="color: #187ac8;">Test de MOCHO/ASTADO:</strong>&nbsp;'.$toro->getPruebapelaje(); 
+        }
+      
+        else  if ($helper->isAmbosTests($razaid)==true) {
+            $var ='';
+            if(!$this->IsNullOrEmptyString($toro->getPruebapelaje()))
+               $var.='<strong class="pelajedos pelaje" style="color: #187ac8;">Test de PELAJE:</strong>&nbsp;'.$toro->getPruebapelaje().'<br>';
+               if(!$this->IsNullOrEmptyString($toro->getPruebaastadoOtrasRzas()))
+                 $var.='<strong class="pelajedos pelaje" style="color: #187ac8;">Test de MOCHO/ASTADO:</strong>&nbsp;'.$toro->getPruebaastadoOtrasRzas();    
+            return $var;
+        }       
+        
     }
 
 

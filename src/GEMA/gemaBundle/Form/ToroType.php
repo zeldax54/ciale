@@ -206,10 +206,12 @@ class ToroType extends AbstractType
                 'label'=>'Mocho'
             ));
 
-            if ($helper->isPelaje($this->idraza)==true) {
+            if ($helper->isPelaje($this->idraza)==true) 
+            {
                 $builder->add('pruebapelaje', ChoiceType::class, array(
                     'required' => false,
                     'choices'  => array(
+                        '' => 'Sin test',
                         'Negro Homocigota' => 'Negro Homocigota',
                         'Heterocigota | Portador de gen colorado'=>'Heterocigota | Portador de gen colorado',
                         'Heterocigota | Portador de gen Ancestral' => 'Heterocigota | Portador de gen Ancestral'                        
@@ -217,11 +219,12 @@ class ToroType extends AbstractType
                     ),'label'=>'Test de Pelaje'
                 ));
               }
-              else
+              else if ($helper->isAstado($this->idraza)==true)
               {
                 $builder->add('pruebapelaje', ChoiceType::class, array(
                     'required' => false,
                     'choices'  => array(
+                        '' => 'Sin test',
                         'Astado' => 'Astado',
                         'Mocho Heterocigota'=>'Mocho Heterocigota',
                         'Mocho Homocigota' => 'Mocho Homocigota'                        
@@ -229,8 +232,32 @@ class ToroType extends AbstractType
                     ),'label'=>'Test de MOCHO/ASTADO'
                     
                 ));
-
               }
+               else if ($helper->isAmbosTests($this->idraza)==true)
+                {
+                    $builder->add('pruebapelaje', ChoiceType::class, array(
+                        'required' => false,
+                        'choices'  => array(
+                            '' => 'Sin test',
+                            'Negro Homocigota' => 'Negro Homocigota',
+                            'Heterocigota | Portador de gen colorado'=>'Heterocigota | Portador de gen colorado',
+                            'Heterocigota | Portador de gen Ancestral' => 'Heterocigota | Portador de gen Ancestral'                        
+                
+                        ),'label'=>'Test de Pelaje'
+                    ));
+                  $builder->add('pruebaastadoOtrasRzas', ChoiceType::class, array(
+                      'required' => false,
+                      'choices'  => array(
+                        '' => 'Sin test',
+                          'Astado' => 'Astado',
+                          'Mocho Heterocigota'=>'Mocho Heterocigota',
+                          'Mocho Homocigota' => 'Mocho Homocigota'                        
+              
+                      ),'label'=>'Test de MOCHO/ASTADO'
+                      
+                  ));
+  
+                }
             
        $builder ->add('torosSugeridos');
       

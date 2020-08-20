@@ -135,9 +135,7 @@
 					<strong>Nacimiento:</strong>&nbsp;{{ toro.fechanacimiento|date('d-m-Y')  }}<br>
 					<strong>Criador:</strong>&nbsp;{{ toro.criador }}<br>
 					<strong>Propietario:</strong>&nbsp;{{ toro.propietario }}<br>
-					{% if toro.pruebapelaje is not null and toro.pruebapelaje is not empty %} 
-					 {{tipoTest(toro.raza.id,toro.pruebapelaje)|raw}}
-					{% endif %}
+					 {{tipoTest(toro)|raw}}
 				</address>
 	
 				<div style="display: none"><strong>Precio de lista:</strong>&nbsp;$ {{ toro.precio }}<br></div>
