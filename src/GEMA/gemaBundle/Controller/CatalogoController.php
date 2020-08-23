@@ -8,6 +8,10 @@ use GEMA\gemaBundle\Form\CatalogoType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use GEMA\gemaBundle\Helpers\MyHelper;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use GEMA\gemaBundle\Entity\Tabla;
+use GEMA\gemaBundle\Entity\TablaDatos;
+use \stdClass;
+
 /**
  * Catalogo controller.
  *
@@ -62,9 +66,6 @@ class CatalogoController extends Controller
 
             return $this->redirect($this->generateUrl('catalogo_show', array('id' => $entity->getId())));
         }
-
-
-
     
        return $this->render('gemaBundle:Catalogo:new.html.twig', array(
                     'entity' => $entity,
@@ -243,6 +244,159 @@ class CatalogoController extends Controller
     }
 
 
+    public function unificadoscatalogAction(){
+
+        ignore_user_abort(true);
+        set_time_limit(0);
+        $request = $this->getRequest();
+         $id = $source=$_POST["id"];       
+
+            $em = $this->getDoctrine()->getManager();
+            $conf=$em->getRepository('gemaBundle:Configuracion')->find(1);
+            $zoompdf=$conf->getZoompdf();
+            $urlvirtual=$conf->getVirtualurl();
+            $catalogo = $em->getRepository('gemaBundle:Catalogo')->find($id);
+            $hojas=$em->getRepository('gemaBundle:Catalogohojas')->OrderedbyParent($id);
+
+         $html = $this->unificadostestAction(true,$id);
+        //print($html);die();   
+        $helper=new MyHelper();
+        $guid=$helper->GUID();
+        $filename = $helper->remove_accents($catalogo->getTitulo());
+        $filename=str_replace(' ','',$filename);
+        $webPath=$this->get('kernel')->getRootDir().'/../web/pdfs/catalogs/'.$guid .'/';
+        if (!file_exists($webPath)) {
+            mkdir($webPath, 0777, true);
+        }
+        $webPath=$webPath.$filename.'.pdf';    
+        $pdfGenerator = $this->get('knp_snappy.pdf');
+        $pdfGenerator->setTimeout(10000);
+
+        $options = array(
+           'margin-top'    => 2,
+           'margin-right'  => 1,
+           'margin-bottom' => 16,
+           'margin-left'   => 1,               
+            //'dpi'=>2, 
+          // 'zoom'=>$zoompdf         
+       )  ;                   
+       if($urlvirtual==true)
+       $path=DIRECTORY_SEPARATOR.'/pdfs/catalogs/'.$guid .'/'.$filename.'.pdf';
+   else{
+       $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+       $path=$baseurl.DIRECTORY_SEPARATOR.'/pdfs/catalogs/'.$guid .'/'.$filename.'.pdf';
+       }
+   //$htmlfooter = $this->footerCAtAction(2);
+        foreach ($options as $margin => $value) 
+            $pdfGenerator->setOption($margin, $value);                 
+            $urlfooter = $this->generateUrl(
+                'gema_footertest'              
+            );
+      // print($request->getScheme() . '://' . $request->getHttpHost() .$urlfooter);die();
+       //  $pdfGenerator->setOption('header-html', 'https://www.google.com/'); 
+         $pdfGenerator->setOption('footer-html', $request->getScheme() . '://' . $request->getHttpHost() .$urlfooter);    
+                 
+      
+            $pdfGenerator->generateFromHtml(
+            $html,
+            $webPath
+        );
+
+      /*  $pdfGenerator->setOption('header-html', 'http://www.yahoo.com')
+        ->setOption('footer-html', 'http://www.msn.com')
+        ->generate('http://www.google.fr', $path);*/     
+
+
+             
+
+    return new JsonResponse(array(
+        0=>'1',
+        1=>$path,
+        2=>$filename.'.pdf'
+    ));
+
+
+    }
+
+
+    public function unificadostestAction($forprinter=false,$idparam=null){
+        try{ 
+		
+            ignore_user_abort(true);
+            set_time_limit(0);
+            $request = $this->getRequest();
+            if($idparam==null)
+              $id = 4;
+            else
+              $id =$idparam;        
+            $html='';
+            $em = $this->getDoctrine()->getManager();
+            $conf=$em->getRepository('gemaBundle:Configuracion')->find(1);
+            $zoompdf=$conf->getZoompdf();
+            $urlvirtual=$conf->getVirtualurl();
+            $catalogo = $em->getRepository('gemaBundle:Catalogo')->find($id);
+            $hojas=$em->getRepository('gemaBundle:Catalogohojas')->OrderedbyParent($id);
+            $html='';      
+            $cont=1;
+            $unificados = array();
+            foreach($hojas as $hoja){
+
+                try{
+                    if($hoja->getTipo()=="Untoro"){
+                        $u = new stdClass();
+                        $u->tipo=1;
+                        $u->data= $this->untoroPure($hoja,$cont,1);          
+                        $unificados[] = $u;            
+                    }
+                    
+                 if($hoja->getTipo()=="Dostoros"){
+                    $u = new stdClass();
+                    $u->tipo=2;
+                    $u->data = $this->dostorospure($hoja,$cont,1);           
+                    $unificados[] = $u;             
+
+                 }
+              
+                           
+                 if($hoja->getTipo()!="Imagen")
+                 $cont++;
+
+                }
+                catch(\Exception $inner){
+
+                    return new JsonResponse(array(
+                        0=>'0',
+                        1=>'Hoja:'.$hoja->getNumero().' id:'.$hoja->getId().' tipo:'.$hoja->getTipo() .'. error:'.$inner->getMessage()
+                    ));
+                }              
+                
+
+            }
+
+            if($forprinter==true)
+            return $this->renderView('gemaBundle:Maquetacatalogo:unificado.html.twig', array(  
+                'unificados'=>$unificados,
+                
+             )
+           );
+
+            return $this->render('gemaBundle:Maquetacatalogo:unificado.html.twig', array(  
+                'unificados'=>$unificados,
+                
+             )
+           );
+        }
+            catch(\Exception $e){
+
+                return new JsonResponse(array(
+                    0=>'0',
+                    1=>$e->getMessage()
+                ));
+            }
+
+    }
+
+
     public function pdfgenerateAction(){
 
         try{         
@@ -261,15 +415,26 @@ class CatalogoController extends Controller
             $html='';      
             $cont=1;
             foreach($hojas as $hoja){
-               
-                if($hoja->getTipo()=="Untoro")
-                   $html.=$this->untorotestAction($hoja,$cont,1); 
-                if($hoja->getTipo()=="Dostoros")
-                   $html.=$this->dostorostestAction($hoja,$cont,1); 
-                if($hoja->getTipo()=="Imagen")
-                   $html.=$this->imgtestcatAction($hoja);               
-                if($hoja->getTipo()!="Imagen")
-                $cont++;
+
+                try{
+                    if($hoja->getTipo()=="Untoro")
+                    $html.=$this->untorotestAction($hoja,$cont,1); 
+                 if($hoja->getTipo()=="Dostoros")
+                    $html.=$this->dostorostestAction($hoja,$cont,1); 
+                 if($hoja->getTipo()=="Imagen")
+                    $html.=$this->imgtestcatAction($hoja);               
+                 if($hoja->getTipo()!="Imagen")
+                 $cont++;
+
+                }
+                catch(\Exception $inner){
+
+                    return new JsonResponse(array(
+                        0=>'0',
+                        1=>'Hoja:'.$hoja->getNumero().' id:'.$hoja->getId().' tipo:'.$hoja->getTipo() .'. error:'.$inner->getMessage()
+                    ));
+                }              
+                
 
             }
 			//print($html);die();   
@@ -339,8 +504,157 @@ class CatalogoController extends Controller
        
     }
 
+
+    private function untoroPure($hoja=null,$nropagina=2,$islocal=0){
+        $em = $this->getDoctrine()->getManager();     
+        if($hoja==null){           
+            $hoja = $em->getRepository('gemaBundle:Catalogohojas')->find(6);            
+        }       
+        ////////////////////////////////////////////////
+        $view='gemaBundle:Maquetacatalogo:unToro.html.twig';
+        $helper=new MyHelper();     
+        $toro = $hoja->getToros()[0];
+        $toro->foto = $helper->randomPic('toro'.DIRECTORY_SEPARATOR.$toro->getGuid().'P'.DIRECTORY_SEPARATOR);
+        $toro->silueta = $this->silueta($toro);         
+    
+        $toro->nacionalidadflag=$helper->Nacionalidad($toro->getNacionalidad());
+        $toro->facilidadglag=$helper->imgFacilidadParto($toro->getFacilidadparto());
+        if(count($toro->getYoutubes())>0)
+        $toro->video=$toro->getYoutubes()[0]->getUrl();
+        else
+        $toro->video='#';
+        //Raza
+        $this->razaName($toro);       
+        //////
+        //table
+        if($toro->getRaza()->getTablasmanual()!=true)
+        {
+            $tablasflag=json_decode($toro->getTablagenetica(),true);
+            $tablarname=$em->getRepository('gemaBundle:Tabla')->find($toro->getTipotablaselected());
+            if(isset($tablasflag[$tablarname->getNombre()])){
+                $tablasflag=$tablasflag[$tablarname->getNombre()];
+                $tabla=$tablarname;
+            }
+           else{
+               $nkey='';
+             if($tablasflag!=null)
+               foreach($tablasflag as $key=>$tabla){
+                   $tablasflag=$tablasflag[$key];$nkey=$key;break;
+               }
+               $tabla=$em->getRepository('gemaBundle:Tabla')->findOneBy(array(
+                  'nombre'=>$nkey
+               ));
+           }
+
+            $tablagennombre=$tablarname->getNombre();
+        }
+        else{
+            $tablasflag=null;
+            $tablagennombre=null;
+            $tabla=null;
+
+            if($toro->getTablagenetica()!=null){
+                $datos=json_decode($toro->getTablagenetica(),true);
+                $tablaname=array_keys($datos);
+                $tablarname=$tablaname[0];
+                $columnas= array_keys($datos[$tablarname][0]);
+                $tablasflag=$datos[$tablarname];
+
+
+                $tabla=new Tabla();
+                foreach($columnas as $col){
+                    if($col!='rowhead'){
+                        $td=new TablaDatos();
+                        $td->setNombre($col);
+                        $tabla->addTabladato($td);
+                    }
+                }
+            }
+        }        
+        
+        $t = new stdClass();
+        $t->toro=$toro;
+        $t->tabla=$tabla;
+        $t->tablagenetica=$tablasflag;
+        $t->nropagina=$nropagina;
+        $t->razasdata=self::$razasdata;
+        return $t;
+    }
+
+    public function dostorospure($hoja=null,$nropagina=2,$islocal=0){
+        $em = $this->getDoctrine()->getManager(); 
+        $helper = new MyHelper();    
+        if($hoja==null)        
+            $hoja = $em->getRepository('gemaBundle:Catalogohojas')->find(5);  
+            
+            $toro1 = $hoja->getToros()[0];
+            $toro2 = $hoja->getToros()[1];    
+        
+         $toro1->foto = $helper->randomPic('toro'.DIRECTORY_SEPARATOR.$toro1->getGuid().'P'.DIRECTORY_SEPARATOR);
+         $toro2->foto = $helper->randomPic('toro'.DIRECTORY_SEPARATOR.$toro2->getGuid().'P'.DIRECTORY_SEPARATOR);
+
+         $toro1->nacionalidadflag=$helper->Nacionalidad($toro1->getNacionalidad());
+         $toro2->nacionalidadflag=$helper->Nacionalidad($toro2->getNacionalidad());
+
+         $toro1->facilidadglag=$helper->imgFacilidadParto($toro1->getFacilidadparto());
+         $toro2->facilidadglag=$helper->imgFacilidadParto($toro2->getFacilidadparto());  
+         
+         $toro1->silueta = $this->silueta($toro1);  
+         $toro2->silueta = $this->silueta($toro2);  
+
+         //raza        
+          $this->razaName($toro1);
+          $this->razaName($toro2);
+
+         if(count($toro1->getYoutubes())>0)
+           $toro1->video=$toro1->getYoutubes()[0]->getUrl();
+         else
+           $toro1->video='#';          
+        if(count($toro2->getYoutubes())>0)
+           $toro2->video=$toro2->getYoutubes()[0]->getUrl();
+         else
+           $toro2->video='#';  
+        
+           $tab1 = $this->tablaSet($toro1,$em);
+           $tablaflag1=$tab1['tablaflag'];
+           $tabla1 =$tab1['tabla'];
+          
+           $tab2 = $this->tablaSet($toro2,$em);
+           $tablaflag2 = $tab2['tablaflag'];
+           $tabla2 = $tab2['tabla'];
+
+        ////////////////////////////////////////////////
+        $t = new stdClass();
+        $t->toro1=$toro1;
+        $t->toro2=$toro2;
+        $t->tablaflag1=$tablaflag1;
+        $t->tabla1=$tabla1;
+        $t->tablaflag2=$tablaflag2;
+        $t->tabla2=$tabla2;
+        $t->nropagina=$nropagina;
+        $t->razasdata=self::$razasdata;
+        return $t;
+      }
+
+      private function silueta($toro){
+        $helper = new MyHelper(); 
+        if (in_array($toro->getRaza()->getId(), array(15,21,22,23,24)))
+            return  $helper->directPic('genericfiles/','silueta_2.jpg');
+       return  $helper->directPic('bundles/gema/catalogresources/img/','toro-size.jpg');
+
+      }
+
+      private function razaName(&$toro)
+      {
+        if($toro->getRaza()->getID()==26)
+          $toro->nameraza= $toro->getNombreraza();
+        else if($toro->getRaza()->getFather()==null)
+          $toro->nameraza= $toro->getRaza()->getNombre();
+       else 
+          $toro->nameraza= $toro->getRaza()->getFather()->getNombre();
+      }
    
-    public function untorotestAction($hoja=null,$nropagina=2,$islocal=0){
+     public function untorotestAction($hoja=null,$nropagina=2,$islocal=0){
         $em = $this->getDoctrine()->getManager();     
         if($hoja==null){           
             $hoja = $em->getRepository('gemaBundle:Catalogohojas')->find(6);            
@@ -424,6 +738,9 @@ class CatalogoController extends Controller
         );
       }
 
+
+     
+
       public function dostorostestAction($hoja=null,$nropagina=2,$islocal=0){
         $em = $this->getDoctrine()->getManager(); 
         $helper = new MyHelper();    
@@ -450,11 +767,14 @@ class CatalogoController extends Controller
            $toro2->video=$toro2->getYoutubes()[0]->getUrl();
          else
            $toro2->video='#';  
-           $tablaflag1=$this->tablaSet($toro1,$em)['tablaflag'];
-           $tabla1 =$this->tablaSet($toro1,$em)['tabla'];
+        
+           $tab1 = $this->tablaSet($toro1,$em);
+           $tablaflag1=$tab1['tablaflag'];
+           $tabla1 =$tab1['tabla'];
           
-           $tablaflag2=$this->tablaSet($toro2,$em)['tablaflag'];
-           $tabla2=$this->tablaSet($toro2,$em)['tabla'];
+           $tab2 = $this->tablaSet($toro2,$em);
+           $tablaflag2 = $tab2['tablaflag'];
+           $tabla2 = $tab2['tabla'];
 
 
 
@@ -502,7 +822,6 @@ class CatalogoController extends Controller
         )
        ); 
     }
-
 
     private function tablaSet($toro,$em){
         if($toro->getRaza()->getTablasmanual()!=true)
@@ -552,7 +871,6 @@ class CatalogoController extends Controller
         return array(
             'tablaflag'=>$tablasflag,
             'tabla'=>$tabla,
-
         );
     }
 

@@ -107,17 +107,21 @@
                 window.location = url;
             });
 
-             $(".pdfgenerate").on("click", function (evt) {       
-                 
-               var id =$(this).data('id');
-               var url = Routing.generate('catalogo_pdfgenerate');
+             $(".pdfgenerate").on("click", function (evt) { 
 
-        var vexwaiting=  vex.dialog.alert({ unsafeMessage:'Generando PDF espere...'
-        , className: 'vex-theme-wireframe' ,
+vex.defaultOptions.closeAllOnPopState=false;
+ vex.dialog.alert({ unsafeMessage:'<div><span>Generando PDF espere</span></div>',
+         className: 'vex-theme-wireframe' ,
         overlayClassName: 'success',
         contentClassName: 'bordernaranjaclass',
-        closeClassName: 'closebleclass'
-          });
+        closeClassName: ''     
+          });     
+            
+
+        
+                 
+               var id =$(this).data('id');
+               var url = Routing.generate('gema_unificadoscatalog');        
 
     $.ajax({
         type: 'POST',
@@ -125,7 +129,7 @@
         url: url,
         success: function (data) {
             console.log(data);
-           vex.close(vexwaiting)
+            vex.closeAll();
             if (data[0] == 1) {
                 try{
                    if(screen.width<=1200){
@@ -169,7 +173,7 @@
 
         },
         error: function (req, stat, err) {
-            vex.close(vexwaiting)
+            vex.closeAll();
             console.log(err);
         }
     });

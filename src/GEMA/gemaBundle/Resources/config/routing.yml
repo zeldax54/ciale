@@ -489,6 +489,14 @@ gema_footertest:
     pattern:  /footertest
     defaults: { _controller: "gemaBundle:Catalogo:footerCAt" }
 
+gema_unificadostest:
+    pattern:  /unificadostest
+    defaults: { _controller: "gemaBundle:Catalogo:unificadostest" }
+
+gema_unificadoscatalog:
+    pattern:  /unificadoscatalog
+    defaults: { _controller: "gemaBundle:Catalogo:unificadoscatalog" }
+   
 prodprog_newwindows:
     pattern:  /{nombremenu}
     defaults: { _controller: "gemaBundle:ProdProgclient:newwind" }

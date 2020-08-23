@@ -4,18 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dos Toros</title>
-  <style type="text/css">
-    
-    body {
-           /* background-color: #000000; */
-    margin: 0;
-    font-size: 12px;
-    font-family: fagoNormal;
-    width: 1244px;
-    margin: auto;
-    }
-    
+    <title>Un Toro</title>   
+	  <link href="{{ absolute_url(asset('bundles/gema/clientresources/css/bootstrap.min.css'))}}" rel="stylesheet">
+        <link href="{{absolute_url(asset('bundles/gema/clientresources/css/font-awesome.min.css'))}}" rel="stylesheet">
+        <link href="{{ absolute_url(asset('bundles/gema/clientresources/css/style.css'))}}" rel="stylesheet">
+        <link href="{{absolute_url(asset('bundles/gema/clientresources/css/myfonts.css'))}}" rel="stylesheet">
+	<link href="{{ absolute_url(asset('bundles/gema/catalogresources/base64fonts.css'))}}" rel="stylesheet">
+      <style type="text/css">  
+	  body{
+                    background: #f4f4f4 !important;
+        }
+
+
+     body {
+        background-color: white !important;
+        margin: 0;
+        font-size: 12px;
+        font-family: fagoNormal;
+      /*  width: 724px;*/
+        margin: auto;
+    }    
     h1,
     h2,
     h3,
@@ -27,7 +35,475 @@
         margin: 0;
     }
     
-    .total-container2 {
+    .total-container {
+        position: relative;
+        background-color: white !important;
+       width: 724px;     
+       max-width: 724px;
+        margin: auto;
+        padding-top: 0px;
+        zoom:1.7 !important;          
+        height: 920px;             
+    }    
+    .inner-container {
+        background-color: white;
+        width: 100%;
+      
+        max-width: 690px;
+        margin: auto;
+        position: absolute;
+            top: 5;
+    right: 0;
+    left: 0;
+    }
+    
+    .header-container {
+        z-index: 9;
+        position: absolute;
+        width: 100%;
+        height: 112px;
+        background: url({{absolute_url(asset('bundles/gema/catalogresources/img/header.png'))}}) no-repeat;
+        background-size: 697px 112px;
+        top:5px;
+    }
+    
+    .flag {
+        float: left;
+    width: 19%;
+    color: #fff;
+    text-align: center;
+    padding-top: 23px;
+    padding-left: 83px;
+    box-sizing: border-box;
+    margin-left: -8px;
+    }
+    
+    .flag h3 {
+       font-size: 10px;
+    font-family: fagoBoldItalic;
+    font-size: 10px;
+    padding-left: 4px;
+    vertical-align: middle;
+    }    
+    .nuevo {
+        float: right;
+        color: #fff;
+        background: #B21A16;
+        font-size: 27px;
+        line-height: 39px;
+        padding: 0px 7px;
+        width: 20%;
+        text-align: center;
+        font-family: fagoXBold;
+        height: 35px;
+    }
+    
+    .toro-name {
+        padding-top: 35px;
+        float: left;
+        width:500px;
+		margin-left: 15px;
+    }    
+    .toro-name h1 {
+        font-size: 30px;
+        font-family: fagoXBoldItalic;
+        color: white;
+        line-height: 22px;
+        padding-left: 30px;
+    }
+    
+    .toro-name h4 {
+        padding-left: 30px;
+        font-size: 11px;
+        font-style: italic;
+        font-weight: normal;
+        color: white;
+        line-height: 18px;
+    }
+    
+    .toro-name h2 {
+        font-size: 12px;
+        color: white;
+        font-family: fagoMediumItalic;
+        line-height: 24px;
+        padding-top: 10px;
+		
+    }
+    
+    .toro-container {
+        position: relative;
+    }
+    
+    .toro-container .sello {
+        position: absolute;
+        bottom: 88px;
+        right: 90px;
+    }
+    
+    .toro-container .sperm {
+        position: absolute;
+        bottom: 88px;
+        right: 10px;
+    }
+    
+    .toro-container .toro {
+        width: 100%;
+        height: auto;
+        display: block;
+        padding-top: 96px;
+        ;
+    }
+    
+    .bottom-img-info {        
+        background-image: url({{absolute_url(asset('bundles/gema/catalogresources/img/blue-line.png'))}});
+        background-size: cover;
+        padding: 10px 8px;
+        font-size: 12px;
+        font-family: fagoIta;
+    }
+    
+    .bottom-img-info li {
+        list-style-type: none;
+        color: #ffffff;
+        display: inline-block;
+        padding-right: 15px;
+    }
+    
+    .bottom-img-info li .bold {
+        font-weight: bold;
+    }
+    
+th{
+	background-color:#B24E2A;
+	text-align:center;
+	color:#FFFFFF;
+}
+.table-bordered{
+	margin-bottom:0 !important;
+}
+.table-bordered > thead > tr > th, 
+.table-bordered > tbody > tr > th, 
+.table-bordered > tfoot > tr > th, 
+.table-bordered > thead > tr > td, 
+.table-bordered > tbody > tr > td, 
+.table-bordered > tfoot > tr > td{
+	border:1px solid #ddd;
+}
+td{
+	background-color:#D0D4D5;
+	text-align:center;
+	padding:0;
+}
+.tabla-esp{
+	margin:10px 0 0 25px;
+	/*overflow:scroll;*/	
+}
+#encabezado-linea{
+	padding:5px 0 5px 45px;
+	background-color:#DEDEDE;
+	color:#9B4F19;	
+	margin-left:15px;
+	margin-right:15px;
+}
+#tabla-infeior{
+	width:90%;
+	margin:0 auto;
+	border:none;
+	overflow:auto;
+	margin-bottom:20px;
+    font-size:20px !important;		
+	    margin-top: 20px !important;
+}
+#tabla-infeior .table tr td{
+	background-color:#D0D4D5 !important;
+}
+#tabla-infeior .table tr.alterna td{
+	background-color:#E7E8EA !important;
+}
+#tabla-infeior .table tr td.downprom{
+	background-color:#E69659 !important;
+}
+.celdaBlanco{
+	background-color:#FFF;
+}
+.downprom{
+	background-color:#E69659;
+}
+.encabezado-tabla{
+	background: #9C5643;
+    padding: 5px 0 5px 0;
+    text-align: center;
+    font-weight: bold;
+    color: #FFFFFF;  
+    margin: 0 auto;
+    margin-top: 10px;
+    float: right;
+    margin-right: 0%;
+	font-size:15px !important;
+	width: 100%;
+  
+}
+.ocultable{
+  background: #9C5643;
+  font-size:25px !important;
+  height:30px !important;
+}
+    
+    .clear {
+        width: 1px;
+        height: 1px;
+        display: block;
+        clear: both;
+    }
+    
+    .texto-bottom {       
+        margin: 3px;
+         margin-top: 2px !important;
+    }    
+    .texto-bottom p {
+        width: calc(100% - 16px);
+        display: inline-block;
+        font-size: 9px;
+    }    
+    .tec-info-container {
+        width: 225px;
+        display: inline-block;
+        vertical-align: top;
+    }
+    
+    .tec-info {
+        padding-top: 5px;
+        padding-bottom: 12px;
+        padding-left: 17px;
+        padding-right: 17px;
+    }
+    
+    .center-info {
+        color: #9A5643;
+        background: url({{absolute_url(asset('bundles/gema/catalogresources/img/llave2.png'))}}) repeat-y left;
+    }
+    
+    .top-info {
+        background: url({{absolute_url(asset('bundles/gema/catalogresources/img/llave1.png'))}}) no-repeat center left;
+    }
+    
+    .top-info p,
+    .bottom-info p,
+    .center-info p {
+        padding-left: 11px;
+        font-size: 10px;
+        line-height: 15px;
+    }
+    
+    .bottom-info {
+        background: url({{absolute_url(asset('bundles/gema/catalogresources/img/llave3.png'))}}) no-repeat left bottom;
+    }
+    
+    .bottom-info span {
+        transform: rotate(180);
+    }
+    
+    .triangle {
+       width: 0;
+    height: 0;
+    border-width: 4px 0 4px 7px;
+    border-color: transparent transparent transparent #9A5643;
+    border-style: solid;
+    /* float: left; */
+    margin-top: 2px;
+    padding-right: 5px;
+    margin-left: -13px;
+    position: absolute;
+    }
+    
+    .toro-size {
+        width: 187px;
+        display: inline-block;
+        color: #fff
+    }
+    
+    .toro-size table {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        border: #9A5643 1px solid;
+        color: #fff;
+        border-spacing: 0;
+    }
+    
+    .size-data-title {
+        font-family: fagoBold;
+        font-size: 10px;
+    }
+    
+    .size-values {
+        font-size: 11px;
+        line-height: 19px;
+    }
+    
+    .toro-size table tr:first-child td {
+        font-size: 11px;
+    }
+    
+    .toro-size-pic {
+     
+    }
+    
+    .toro-size-pic div {
+        position: absolute;
+        font-size: 8px;
+        color: #000;
+    }
+    
+    #size1 {
+        left: 0px;
+        top: 35px;
+    }
+    
+    #size2 {
+        left: 17px;
+        top: 7px;
+    }
+    
+    #size3 {
+        left: 19px;
+        top: 60px;
+    }
+    
+    #size4 {
+        left: 76px;
+        top: 3px;
+    }
+    
+    #size5 {
+        left: 143px;
+        top: 29px;
+    }
+    
+    .toro-size table tr:first-child td,
+    .toro-size table tr:nth-child(3) td {
+        background-color: #9A5643;
+        padding: 0px;
+        text-align: center;
+    }
+    
+    .toro-size table tr:nth-child(3) td {
+        padding-bottom: 0;
+        padding-top: 2px;
+    }
+    
+    .toro-size table .kg td {
+        background-color: #9A5643;
+        text-align: center;
+        font-weight: lighter;
+        font-size: 9px;
+        line-height: 8px;
+        padding-bottom: 2px;
+    }
+    
+    .toro-size table tr:last-child td {
+        background-color: #E7D8D1;
+        color: #211915;
+        text-align: center;
+        padding-top: 2px;
+        line-height: 17px;
+        padding-bottom: 0;
+    }
+    
+    .toro-size table td:nth-child(1),
+    .toro-size table td:nth-child(3) {
+        width: 20%;
+    }
+    
+    .toro-size table td:nth-child(3),
+    .toro-size table td:nth-child(4) {
+        width: 30%;
+    }
+    
+    .toro-size img {
+        width: 100%;
+        height: auto;
+    }
+    
+    .toro-video {
+        width: 39%;
+        display: inline-block;
+        vertical-align: top;
+        padding-top: 55px;
+    }
+    
+    .toro-video img {
+        margin: auto;
+        display: block;
+    }
+    
+    .toro-video a {
+        display: block;
+    }
+    
+  
+    
+    .flag img {
+ 
+       height: auto !important;
+    padding-left: 23px !important;
+    padding-bottom: 4px !important;
+    width: 88% !important;
+    vertical-align: middle;
+    margin-left: -6px;
+        
+
+    }
+    .pelaje {
+        font-family: fagoBold;     
+        color: #187ac8;   
+    }
+    /* DOS TOROS */
+    
+    .dos-toros .header-container {
+        width: 404px;
+        background-size: 404px auto;
+    }
+    
+    .dos-toros .nuevo {
+        float: right;
+        width: 128px;
+        height: 24px;
+        font-size: 20px;
+        line-height: 27px;
+        margin-right: 3px;
+        margin-bottom: 18px;
+    }
+    
+    .dos-toros .texto-bottom {
+        font-size: 8px;
+    }
+    
+    .top-container {
+        width: 690px;
+        position: relative;
+    }
+    
+    .top-left-container {
+        display: inline-block;
+        width: 390px;
+        height: 337px;
+        vertical-align: top;
+    }
+    
+  
+    .table-bordered{
+        width:100% !important;
+    }
+	 .toro-size-pic div{	 
+	 font-size:10px !important;
+	 }
+	 .table-container{
+	  zoom:0.4 !important;
+	 } 
+
+
+     .total-container2 {
         position: relative;
         background-color: white !important;
        width: 737px;     
@@ -35,10 +511,8 @@
         margin: auto;
         padding-top: 3px;
         zoom:1.7 !important;
-        height: 980px;    
-		
-    }
-    
+        height: 916px;    		
+    }    
     .inner-container2 {
         background-color: white;
         width: 100%;
@@ -71,11 +545,11 @@
     }
     
     .flag2 h3 {
-        font-size: 8px;
-        font-family: fagoBoldItalic;
-        padding-left: 0px;
-		    margin-left: -1px;
-			    text-align: left;
+     font-size: 6px;
+    font-family: fagoBoldItalic;
+    padding-left: 0px;
+    margin-left: -5px;
+    text-align: center;
     }
     
     .nuevo2 {
@@ -96,14 +570,15 @@
     .toro-name2 {
         padding-top: 18px;
         float: left;
-    }
-    
+		 width: 80%;
+    }    
     .toro-name2 h1 {
         font-size: 16px;
         font-family: fagoXBoldItalic;
         color: white;
         line-height: 16px;
         padding-left: 18px;
+		margin-top: -2px !important;
     }
     
     .toro-name2 h4 {
@@ -113,14 +588,15 @@
         font-weight: normal;
         color: white;
         line-height: 8px;
-    }
-    
+		margin-top: -1px !important;
+    }    
     .toro-name2 h2 {
         font-size: 8px;
         color: white;
         font-family: fagoMediumItalic;
         line-height: 24px;
         padding-top: 0px;
+		margin-top: 2px !important;
     }
     
     .toro-container2 {
@@ -134,6 +610,7 @@
         width: 42px;
         height: auto;
     }
+	
     
     .toro-container2 .sperm {
         position: absolute;
@@ -169,12 +646,11 @@
     }
     
     .table-container2 {
-        margin-top: -94px !important;
+        margin-top: auto !important; 
         padding-left: 11px;
         padding-right: 30px;
 		zoom:0.4 !important;
-    }
-    
+    }    
     .table-titulo {
         background: #9C5643;
         color: #fff;
@@ -355,11 +831,7 @@
     }
     
     .toro-size-pic2 {
-        width: 100%;
-        height: 43px;
-       background: url({{absolute_url(asset('bundles/gema/catalogresources/img/toro-size.jpg'))}}) no-repeat;
-        position: relative;
-        background-size: 99px 43px;
+       
     }
     
     .toro-size-pic2 div {
@@ -491,42 +963,44 @@
     
     .footer a {
         display: block;
-    }
+    }	
     
     .flag2 img {
        width: 78%;
-        height: auto;
-        padding-left: 13px;
-        padding-bottom: 2px;
-    }
+    height: auto;
+    padding-left: 13px;
+    padding-bottom: 2px;
+    margin-left: -8px;
+   }
+    
     /* DOS TOROS */    
     .top-container2 {
         width: 690px;
         position: relative;
     }
     
+	.segundo-toro {
+        margin-top: 52px;
+    }
     .top-left-container2 {
         display: inline-block;
         width: 380px;
-        height: 337px;
+        height: 320px;
         vertical-align: top;
         padding-left: 10px;
     }
     
-     .top-right-container {
-        position: absolute;
-        right: 7px;
-        top: 14px;
-        width: 296px;
-        height: 337px;
-    }
-
+     .top-right-container 
+	 {
+    position: absolute;
+    right: -20px;
+    top: 60px;
+    width: 325px;
+    height: 287px;
+    }    
+	
     
-    .segundo-toro {
-        margin-top: -2px;
-    }
-
-
+	
 
     th{
 	background-color:#B24E2A;
@@ -602,26 +1076,256 @@ td{
     .pelajedos {
         font-family: fagoBold;     
         color: #187ac8;   
+    } 
+
+    .spanpelaje{
+
+            font-size: 9px !important;
+   
     }
 
-    
-  </style>
+
+            </style>
+
+       
+
 </head>
 
-<body class="dos-toros2">
-    <div class="total-container2">
+<body>
+
+ {% for unificado in unificados %}
+   {% if unificado.tipo==1 %}    
+   {% set toro = unificado.data.toro %}
+   {% set tabla = unificado.data.tabla %}
+   {% set tablagenetica = unificado.data.tablagenetica %}   
+ {% set razasdata = unificado.data.razasdata %}
+   
+
+    <div class="total-container" >
+        <div class="inner-container">    
+            <div class="header-container">
+                <div class="flag">                
+                    <img src="{{absolute_url(asset(toro.nacionalidadflag))}}" alt="">                 
+                     <h3>{{toro.nameraza}}</h3>              
+                </div>
+                <div class="toro-name">               
+                    <h1>{{toro.apodo}}</h1>
+                    <H4>{{toro.nombre}}</H4>
+                    <h2>{{toro.lineagenetica}}</h2>
+                </div>
+                {% if toro.nuevo %}
+                <div class="nuevo">NUEVO</div>
+                 {% endif %}
+            </div>
+            <div class="toro-container">
+			{% if toro.facilidadparto is not null and toro.facilidadparto !=0 %}
+                        <img class="sello" src="{{absolute_url(asset(toro.facilidadglag))}}" alt="">
+						{% endif %}
+                
+                 {% if toro.cp %}
+                 <img class="sperm" src="{{absolute_url(asset('bundles/gema/catalogresources/img/sperm.png'))}}" alt=""> 
+                 {% endif %}           
+                <img class="toro" src="{{absolute_url(asset(toro.foto))}}" alt="">
+                <div class="bottom-img-info">
+                    <ul>
+                        <li><span class="bold">RP:&nbsp;</span>{{ toro.rp }}</li>
+                        <li><span class="bold">HBA:&nbsp;</span>{{ toro.hba }}</li>
+                        <li><span class="bold">Nació:&nbsp;</span>{{ toro.fechanacimiento|date('d-m-Y')  }}</li>
+						{% if toro.raza.id in razasdata %}
+                        <li><span class="bold">Reg:&nbsp;</span>Definitivo</li>
+						{% endif %}
+                        <li><span class="bold">Criador:&nbsp;</span>{{ toro.criador }}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="table-container" style="">
+                	  {% if tabla!=null  %}
+		<div id="ultima-col" class="row">		
+			<div id="tabla-infeior" class="tablainferior{{toro.id}}" style="width: 100% !important;">		
+				<div class="table-responsive">
+					<table id="torotable" class="table table-bordered">
+						 <thead>
+			<tr>
+	  <th style="visibility:hidden;" class=""></th>
+
+	  {% for t in tabla.tabladatos %}
+	  
+	   {% if loop.index==3 %}
+	   <th class="ocultable" colspan="500">{{ toro.evaluaciongenetica }}</th>	  
+			{% endif %}										
+		  {% endfor %}
+
+							</tr>
+
+							<tr>
+	  <th style="visibility:hidden;" class=""></th>
+
+	  {% for t in tabla.tabladatos %}
+	  
+								<th>{{ t.nombre }}</th>
+							
+								
+		  {% endfor %}
+
+							</tr>
+						</thead>
+						<tbody>
+						{% for dato in tablagenetica %}
+							<tr class="{{ cycle(["alterna", ""], loop.index) }}">
+								{% if loop.index == 1 %}		
+                         <th scope="row" id="primetahead{{toro.id}}">{{ dato['rowhead'] }}</th>		
+								{% else %}
+									<th scope="row">{{ dato['rowhead'] }}</th>
+								{% endif %}								
+								{% for td in tabla.tabladatos %}
+								           {% if  isNumber(dato[td.nombre])=='1' %}
+
+									{%   if dato['rowhead']|lower =='ranking' and dato[td.nombre] | replace('%','')<=35 and td.nombre|lower !='gd' and td.nombre|lower !='gc' and td.nombre|lower !='egd' and td.nombre|lower !='egc' and td.nombre|lower !='altura' and td.nombre|lower !='alt.' and td.nombre|lower !='alt' and td.nombre|lower !='alt.hijas'  and td.nombre|lower !='alt.año'  and dato[td.nombre]!='-' %}
+									<td class="downprom">{{ dato[td.nombre]|replace({' ':''})|round(2)~'%' }}</td>
+                           {% else %}
+
+                           {% if dato['rowhead']|lower =='ranking'%}
+						       <td>{{ dato[td.nombre]|replace({' ':''})|round(2)~'%' }}</td>
+									{% else %}
+									        {% if dato['rowhead']|lower =='prec' and toro.raza.id==25%}
+									           <td>{{ dato[td.nombre]|replace({' ':''})|round(2) }}%</td>
+									        {% else %}
+									    <td>{{ dato[td.nombre]|replace({' ':''})|round(2) }}</td>
+									    {% endif %}
+									{% endif %}
+
+									{% endif %}
+                                 {% else %}
+	                           <td class="">{{ dato[td.nombre]|replace({' ':''}) }}</td>
+                            {% endif %}
+								{% endfor %}
+							</tr>
+							{% endfor %}
+
+						</tbody>
+					</table>
+
+				</div>
+
+			</div>
+		<div id="comentarioresposive" style="display: none">
+					<span style="color: #DA5F00;font-style: italic;font-family: Fago-normal">Desplace el dedo sobre la tabla para navegarla </span>
+                       </div>
+		</div>
+	  {% endif %}
+            </div>
+            <div class="texto-bottom">
+                <div class="triangle"></div>
+                <p>{{toro.descripcion}}</p>
+            </div>
+            
+            {% if toro.pruebapelaje is not null and toro.pruebapelaje is not empty %} 
+            <div>
+			    {{tipoTest(toro)|raw}}
+               </div>
+			{% endif %}
+           
+            <div class="tec-info-container">
+                <div class="tec-info">
+                    <div class="top-info">
+                        <p>{{ toro.padrepadrepadre }}</p>
+                    </div>
+                    <div class="center-info">
+                        <p>{{ toro.padre }}</p>
+                    </div>
+                    <div class="bottom-info">
+                        <p>{{ toro.madrepadre }}</p>
+                    </div>
+                </div>
+                <div class="tec-info">
+                    <div class="top-info">
+                        <p>{{ toro.padremadre }}</p>
+                    </div>
+                    <div class="center-info">
+                        <p>{{ toro.madre }}</p>
+                    </div>
+                    <div class="bottom-info">
+                        <p>{{ toro.madremadre }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="toro-size">
+                <table>
+                    <tr>
+                        <td colspan="4" class="toro-size-title">Medidas Corporales</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="toro-size-pic" style="						
+						   width: 100%;
+        height: 75px;
+        background: url({{absolute_url(asset(toro.silueta))}}) no-repeat;
+        position: relative;						
+						">
+                            <div id="size1">{{ toro.altogrupa }}</div>
+                            <div id="size2">{{ toro.anchogrupa }}</div>
+                            <div id="size3">{{ toro.circunferenciaescrotal }}</div>
+                            <div id="size4">{{ toro.largogrupa }}</div>
+                            <div id="size5">{{ toro.largocorporal }}</div>
+
+                        </td>
+                    </tr>
+                    <tr class="size-data-title">
+                        <td>PN</td>
+                        <td>PD</td>
+                        <td>P18M</td>
+                        <td>P Colecta</td>
+                    </tr>
+                    <tr class="kg">
+                        <td>(kg)</td>
+                        <td>(kg)</td>
+                        <td>(kg)</td>
+                        <td>(kg)</td>
+                    </tr>
+                    <tr class="size-values">
+                        <td>{{ toro.pn1 }}</td>
+                        <td>{{ toro.p205d }}</td>
+                        <td>{{ toro.p550d }}</td>
+                        <td>{{ toro.peso }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="toro-video">
+			{% if toro.video !="#" %}
+                <a href="{{toro.video}}"><img src="{{absolute_url(asset('bundles/gema/catalogresources/img/btn-video.png'))}}" alt="Mira el Video"></a>
+            {%endif %}
+			</div>
+			
+  </div>
+           
+  
+     </div>
+
+{% else %}
+
+   <!-- DOS TOROSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS  -->
+
+
+  {% set razasdata = unificado.data.razasdata %}
+  {% set toro1 = unificado.data.toro1 %}
+  {% set tabla1 = unificado.data.tabla1 %}
+  {% set tablaflag1 = unificado.data.tablaflag1 %}
+
+   {% set toro2 = unificado.data.toro2 %}
+  {% set tabla2 = unificado.data.tabla2 %}
+  {% set tablaflag2 = unificado.data.tablaflag2 %}
+
+
+
+<div class="total-container2">
         <div class="inner-container2">
             <div class="top-container2">
 
                 <div class="top-left-container2">
                     <div class="header-container2">
                         <div class="flag2">
-                            <img src="{{absolute_url(asset(toro1.nacionalidadflag))}}" alt="">
-                            {% if toro1.raza.father is null %}
-                     <h3>{{toro1.raza.nombre}}</h3>
-                    {% else %}
-                    <h3>{{toro1.raza.father.nombre}}</h3>
-                     {% endif %}
+                            <img src="{{absolute_url(asset(toro1.nacionalidadflag))}}" alt="">                       
+                  
+                           <h3>{{toro1.nameraza}}</h3>                 
                         </div>
                         <div class="toro-name2">
                              <h1>{{toro1.apodo}}</h1>
@@ -631,7 +1335,9 @@ td{
 
                     </div>
                     <div class="toro-container2">
+					{% if toro1.facilidadparto is not null and toro1.facilidadparto !=0 %}
                         <img class="sello" src="{{absolute_url(asset(toro1.facilidadglag))}}" alt="">
+						{% endif %}
                  {% if toro1.cp %}
                  <img class="sperm" src="{{absolute_url(asset('bundles/gema/catalogresources/img/sperm.png'))}}" alt=""> 
                  {% endif %}           
@@ -654,7 +1360,7 @@ td{
                        <div class="nuevo2">NUEVO</div>
                        {% endif %}
                     <div class="texto-bottom2">                       
-                        <p> <span class="triangle2"></span> <strong>{{toro1.apodo}}: </strong> {{toro1.descripcion }}</p>                     
+                        <p> <span class="triangle2"></span> {{toro1.descripcion }}</p>                     
                     </div>
                     {% if toro1.pruebapelaje is not null and toro1.pruebapelaje is not empty %} 
                      <div>
@@ -698,7 +1404,14 @@ td{
                                 <td colspan="4" class="toro-size-title2">Medidas Corporales</td>
                             </tr>
                             <tr>
-                                <td colspan="4" class="toro-size-pic2">
+                                <td colspan="4" class="toro-size-pic2"
+								style="  
+     background: url({{absolute_url(asset(toro1.silueta))}}) no-repeat;
+    width: 100%;
+    height: 43px;
+    position: relative;
+    background-size: 99px 43px;
+">
                             <div id="ssize1">{{ toro1.altogrupa }}</div>
                             <div id="ssize2">{{ toro1.anchogrupa }}</div>
                             <div id="ssize3">{{ toro1.circunferenciaescrotal }}</div>
@@ -829,11 +1542,7 @@ td{
                     <div class="header-container2">
                         <div class="flag2">
                             <img src="{{absolute_url(asset(toro2.nacionalidadflag))}}" alt="">
-                                  {% if toro2.raza.father is null %}
-                                   <h3>{{toro2.raza.nombre}}</h3>
-                                  {% else %}
-                                   <h3>{{toro2.raza.father.nombre}}</h3>
-                                  {% endif %}
+                                  <h3>{{toro2.nameraza}}</h3>
                         </div>
                         <div class="toro-name2">
                              <h1>{{toro2.apodo}}</h1>
@@ -843,7 +1552,10 @@ td{
 
                     </div>
                    <div class="toro-container2">
+				   {% if toro2.facilidadparto is not null and toro2.facilidadparto !=0 %}
                         <img class="sello" src="{{absolute_url(asset(toro2.facilidadglag))}}" alt="">
+						{% endif %}
+                        
                  {% if toro2.cp %}
                  <img class="sperm" src="{{absolute_url(asset('bundles/gema/catalogresources/img/sperm.png'))}}" alt=""> 
                  {% endif %}           
@@ -866,7 +1578,7 @@ td{
                        <div class="nuevo2">NUEVO</div>
                        {% endif %}
                     <div class="texto-bottom2">                       
-                        <p> <span class="triangle2"></span> <strong>{{toro2.apodo}}: </strong> {{toro2.descripcion}}</p>                     
+                        <p> <span class="triangle2"></span> {{toro2.descripcion}}</p>                     
                     </div>
                     {% if toro2.pruebapelaje is not null and toro2.pruebapelaje is not empty %} 
                       <div>
@@ -909,7 +1621,15 @@ td{
                                 <td colspan="4" class="toro-size-title2">Medidas Corporales</td>
                             </tr>
                             <tr>
-                                <td colspan="4" class="toro-size-pic2">
+                                <td colspan="4" class="toro-size-pic2" 
+														style="  
+     background: url({{absolute_url(asset(toro2.silueta))}}) no-repeat;
+    width: 100%;
+    height: 43px;
+    position: relative;
+    background-size: 99px 43px;
+"
+								>
                             <div id="ssize1">{{ toro2.altogrupa }}</div>
                             <div id="ssize2">{{ toro2.anchogrupa }}</div>
                             <div id="ssize3">{{ toro2.circunferenciaescrotal }}</div>
@@ -950,17 +1670,11 @@ td{
                    {% endif %}
                     </div>
                 </div>
-            </div>
+            </div><br><br>
 
-
-             <div class="table-container2" style="">
+             <div class="table-container2" style="margin-top: -77px !important;">
                 	  {% if tabla2!=null  %}
-		<div id="ultima-col" class="row">
-	
-			
-
-			
-	
+		<div id="ultima-col" class="row">	
 			<div id="tabla-infeior" class="2tablainferior2{{toro2.id}}" style="width: 100% !important;">		
 				<div class="table-responsive">
 					<table class="table table-bordered">
@@ -1047,9 +1761,25 @@ td{
 
 
     </div>
-	<div class="pagebreak" style="height:10px !important">
+
+
+
+
+
+
+
+
+
+
+
+ {% endif %}
+ <div style="page-break-before:always;">
       </div>
-	  
+
+ {% endfor %}     
+  
 </body>
 
 </html>
+
+   

@@ -122,20 +122,20 @@ class TwigExtensions extends \Twig_Extension
 
         if ($helper->isPelaje($razaid)==true){
             if(!$this->IsNullOrEmptyString($toro->getPruebapelaje()))
-              return '<strong class="pelajedos pelaje" style="color: #187ac8;">TEST DE PELAJE:</strong>&nbsp;'.$toro->getPruebapelaje(); 
+              return '<span class="spanpelaje"><strong class="pelajedos pelaje" style="color: #187ac8;">TEST DE PELAJE:</strong>&nbsp;'.$toro->getPruebapelaje().'</span>'; 
         }
   
         else  if ($helper->isAstado($razaid)==true) {
             if(!$this->IsNullOrEmptyString($toro->getPruebapelaje()))
-             return    '<strong class="pelajedos pelaje" style="color: #187ac8;">Test de MOCHO/ASTADO:</strong>&nbsp;'.$toro->getPruebapelaje(); 
+             return    '<span class="spanpelaje"><strong class="pelajedos pelaje" style="color: #187ac8;">Test de MOCHO/ASTADO:</strong>&nbsp;'.$toro->getPruebapelaje().'</span>';  
         }
       
         else  if ($helper->isAmbosTests($razaid)==true) {
             $var ='';
             if(!$this->IsNullOrEmptyString($toro->getPruebapelaje()))
-               $var.='<strong class="pelajedos pelaje" style="color: #187ac8;">Test de PELAJE:</strong>&nbsp;'.$toro->getPruebapelaje().'<br>';
+               $var.='<span class="spanpelaje"><strong class="pelajedos pelaje" style="color: #187ac8;">Test de PELAJE:</strong>&nbsp;'.$toro->getPruebapelaje().'</span><br>';
                if(!$this->IsNullOrEmptyString($toro->getPruebaastadoOtrasRzas()))
-                 $var.='<strong class="pelajedos pelaje" style="color: #187ac8;">Test de MOCHO/ASTADO:</strong>&nbsp;'.$toro->getPruebaastadoOtrasRzas();    
+                 $var.='<span class="spanpelaje"><strong class="pelajedos pelaje" style="color: #187ac8;">Test de MOCHO/ASTADO:</strong>&nbsp;'.$toro->getPruebaastadoOtrasRzas().'</span>';    
             return $var;
         }       
         
