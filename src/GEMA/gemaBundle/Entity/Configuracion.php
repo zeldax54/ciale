@@ -171,6 +171,17 @@ class Configuracion
      */
     private $activarCompras;
 
+      /**
+     * @ORM\Column(name="habilitarinteres", type="boolean", nullable=true)
+     */
+    private $habilitarinteres;
+
+      /**
+     * @var string
+     * @ORM\Column(name="eventomarker", type="string", length=10)
+     */
+    private $eventomarker;
+
 
     /**
      * Get id
@@ -755,5 +766,51 @@ class Configuracion
     public function getActivarCompras()
     {
         return $this->activarCompras;
+    }
+
+    /**
+     * Set habilitarinteres
+     *
+     * @param boolean $habilitarinteres
+     * @return Configuracion
+     */
+    public function setHabilitarinteres($habilitarinteres)
+    {
+        $this->habilitarinteres = $habilitarinteres;
+
+        return $this;
+    }
+
+    /**
+     * Get habilitarinteres
+     *
+     * @return boolean 
+     */
+    public function getHabilitarinteres()
+    {
+        return $this->habilitarinteres;
+    }
+
+    /**
+     * Set eventomarker
+     *
+     * @param string $eventomarker
+     * @return Configuracion
+     */
+    public function setEventomarker($eventomarker)
+    {
+        $this->eventomarker = $eventomarker;
+
+        return $this;
+    }
+
+    /**
+     * Get eventomarker
+     *
+     * @return string 
+     */
+    public function getEventomarker()
+    {
+        return $this->eventomarker;
     }
 }

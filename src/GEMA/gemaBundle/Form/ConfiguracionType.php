@@ -134,6 +134,14 @@ class ConfiguracionType extends AbstractType
                 'label'=>'Activar Compras'              
 
             ))
+            ->add('habilitarinteres',null,array(
+                'label'=>'Activar Inscripciones'              
+
+            ))
+            ->add('eventomarker',null,array(
+                'label'=>'Evento Marker'              
+
+            ))
         ;
     }
     

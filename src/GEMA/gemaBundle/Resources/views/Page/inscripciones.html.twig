@@ -1,0 +1,320 @@
+{% extends 'gemaBundle::clientlayout.html.twig' %}
+
+  {% block customstylesheets %}
+      <link href="{{ asset('bundles/gema/clientresources/css/contactcss.css')}}" rel="stylesheet">
+      <link href="{{ asset('bundles/gema/clientresources/css/contactcssspecial.css')}}" rel="stylesheet">
+     <link rel="stylesheet" href="{{ asset('bundles/gema/chosen/chosen.min.css')}}">
+ 
+
+
+ 
+
+      <style>
+     .navbar-nav{
+          display:none;
+      }
+      .parentdiv{
+                
+                margin-left:8%;
+          
+      }
+      #logotipo{
+          margin-left: 141% !important;
+      }
+      .top-navegacion{
+display:none !important;
+
+      }
+      .footer-superior, .footer-medio, .footer-inferior{
+
+          display:none;
+      }
+.chosen-single {
+    height: 25px !important;
+    font-size: 15px !important;
+   font-family: 'Fago-normal'!important;
+}
+
+#tablapedidos_wrapper{
+margin-left:17%;
+
+}
+td,th {font-size:15px}
+
+tr{border:1px solid !important;border-color:#e6ba56 !important}
+
+table.dataTable tbody tr.selected {
+    color: white !important;
+    background-color: #eeeeee !important;
+}
+
+td:hover,#ahelp{
+    cursor: pointer
+}
+th{
+    background-color:#254389 !important;
+}
+.modal-footer{
+    text-align:center !important;
+}
+
+#totalresponsivecontainer{
+   display:none;
+
+}
+
+@media (max-width: 700px) {
+ #tablapedidos_wrapper{
+margin-left:0%;
+
+}
+.modal-content{
+    
+  
+}
+#canvas{
+      margin-left: 0% !important;
+    width: 165% !important;
+}
+
+.wrapped-container{
+    width: 100% !important;
+}
+
+#logotipo{
+    display:none !important;
+}
+
+#mypin{
+    width: 6% !important;
+    background-color: white !important;
+    text-align: center !important;
+    margin-left: -55% !important;
+}
+
+#totalresponsivecontainer{
+   display:block;
+
+}
+
+
+
+
+}
+
+
+ .container .row:first-child{
+    display:none !important;
+}
+
+
+      </style>
+	  {% endblock %}
+
+  {% block content %}
+
+<div style="margin-bottom: 50px !important;" id="formcontainer">
+
+    <div> <img src="{{ asset(encabezadoimg) }}" style="width:100%"> </div>
+    <h4 style="font-family: 'Fago-Bold'; !important;text-align: center">Completá por favor este formulario para Inscribirte a nuestro evento. Recibirás una confirmación por mail y luego te enviaremos otro mail recordatorio con el acceso.</h4>
+<br><br>
+<input type="text" id="clicked" hidden>
+    <div class="row">
+        <div class="col-md-8 parentdiv">
+<div style="width: 100%">
+            <form name="form" method="post" id="sendform" action="{{ path('gema_comprasdo') }}">
+                <div id="form">
+                
+                    <div class="form-group"><label  class="required col-md-2 control-label">Email</label>
+                        <div class="col-md-10">
+                            <input class="form-control" id="email" name="email" required   type="email">
+                        </div>
+                    </div>
+
+                    <div class="form-group"><label  class="required col-md-2 control-label" >Nombre</label>
+                        <div class="col-md-10">
+                            <input class="form-control" id="nombre" name="nombre" required="required" maxlength="255" type="text">
+                        </div>
+                    </div>
+
+                    <div class="form-group"><label  class="required col-md-2 control-label">Apellido</label>
+                        <div class="col-md-10">
+                            <input class="form-control" id="apellido" required="required" name="apellido"  maxlength="255" type="text">
+                        </div>
+                    </div>
+
+                
+                    <div class="form-group"><label  class="required col-md-2 control-label">Localidad</label>
+                        <div class="col-md-10">
+                            <input class="form-control" id="localidad" required="required" name="localidad"   type="text">
+                        </div>
+                    </div>  
+     
+   
+ <br>
+
+                    <div class="form-group"><label  class="required col-md-2 control-label">Interés</label>
+                        <div class="col-md-10">
+                            <select name="interes" id="metodopagolabel" required>                                  
+                                 <option value="AMBOS">AMBOS</option>
+                                 <option value="CRIA">CRIA</option>
+                                 <option value="TAMBO">TAMBO</option>                               
+                            </select>
+                        </div>
+                        
+                    </div>    
+
+                     
+                     
+             
+ 
+  <br>
+                <div class="form-group"><label  class=" col-md-2 control-label">Validar</label>
+                    <div class="col-md-10">
+                        <div class="g-recaptcha" data-callback="muestraBoton" data-expired-callback="ocultaboton" data-error-callback="errorboton" data-sitekey="{{ apikey }}"></div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-offset-2 col-md-10">
+                    <button title="Enviar Correo" class="btn btn-default sb" type="submit" id="bsubmit" name="bsubmit">Enviar</button>
+                    <img id="mygif" src="{{ asset(gife) }}" style="display: none">
+                </div>
+
+            </form>
+</div>
+         </div>
+
+
+
+
+      
+
+
+
+  </div>
+
+
+
+</div>
+
+<!-- The Modal -->
+<div class="modal" id="canvasModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="" style="width:750px">
+        <img id="mypin" src="{{ asset('mediainpage/wheel/pin.png')}}" style="width: 6%;
+          background-color: white;text-align: center;margin-left: 32%;">
+        </div>
+        <canvas id='canvas' width='750' height='450' style="margin-left:9%">
+            Canvas not supported, use another browser.
+        </canvas>
+      
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock %}
+
+    {% block custom_javascripts %}
+
+ 
+
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+       <script src="{{ asset('bundles/gema/chosen/chosen.jquery.js')}}"></script>
+
+
+   <script>
+     $(document).ready(function(){
+                $('#bsubmit').hide();
+            });
+
+            var muestraBoton = function() {
+                $('#bsubmit').show();
+            };
+            var ocultaboton = function() {
+                $('#bsubmit').hide();
+            };
+            var errorboton = function() {
+                $('#bsubmit').hide();
+            };
+
+
+
+    $("#sendform").on('submit',(function(e){
+        e.preventDefault();
+        $('#bsubmit').hide();
+            var src=$('#mygif').attr('src');
+            vex.dialog.alert({ unsafeMessage:'<div style="text-align: center">' +
+                    '<h5 style="font-family: Fago-Bold">Enviando solicitud</h5>'+
+            '<img width="200px" height="200px" src="'+src+'"><div>'
+
+            , className: 'vex-theme-wireframe' ,
+            overlayClassName: 'success',
+            contentClassName: 'borderblueclass errormaxwidth',
+            closeClassName: 'closebleclass'
+        });
+        $.ajax({
+            url: Routing.generate('gema_inscripcionessend'),
+            type: "POST",
+            data:  new FormData(this),
+            contentType: false,
+            cache: false,
+            processData:false,
+            success: function(data){
+                console.log(data);
+                vex.closeAll();
+                vex.dialog.alert({ unsafeMessage:'<span>'+data[1]+'</span>'
+
+                    , className: 'vex-theme-wireframe' ,
+                    overlayClassName: 'success',
+                    contentClassName: 'borderblueclass maxwidth',
+                    closeClassName: 'closebleclass'
+                });
+                console.log(data[2]);
+                $('#bsubmit').show();
+            },
+            error: function(error,stat, err){
+                vex.closeAll();
+                vex.dialog.alert({ unsafeMessage:err
+
+                    , className: 'vex-theme-wireframe' ,
+                    overlayClassName: 'success',
+                    contentClassName: 'borderblueclass errormaxwidth',
+                    closeClassName: 'closebleclass'
+                })
+                $('#bsubmit').show();
+            }
+        });
+    }));
+
+  $('option').mousedown(function(e) {
+        e.preventDefault();
+        $(this).prop('selected', !$(this).prop('selected'));
+        return false;
+    });
+
+   </script>
+
+
+       
+
+	{% endblock %}

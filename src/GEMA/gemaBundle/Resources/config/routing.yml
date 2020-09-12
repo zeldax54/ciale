@@ -496,6 +496,14 @@ gema_unificadostest:
 gema_unificadoscatalog:
     pattern:  /unificadoscatalog
     defaults: { _controller: "gemaBundle:Catalogo:unificadoscatalog" }
+
+gema_inscripciones:
+    pattern:  /inscripciones
+    defaults: { _controller: "gemaBundle:Inscripciones:inscripcionesindex" }
+
+gema_inscripcionessend:
+    pattern:  /inscripcionessend
+    defaults: { _controller: "gemaBundle:Inscripciones:inscripcionessend" }
    
 prodprog_newwindows:
     pattern:  /{nombremenu}
