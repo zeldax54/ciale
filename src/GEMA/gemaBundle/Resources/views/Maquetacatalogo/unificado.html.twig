@@ -1131,15 +1131,15 @@ td{
                         <li><span class="bold">RP:&nbsp;</span>{{ toro.rp }}</li>
                         <li><span class="bold">HBA:&nbsp;</span>{{ toro.hba }}</li>
                         <li><span class="bold">Nació:&nbsp;</span>{{ toro.fechanacimiento|date('d-m-Y')  }}</li>
-						{% if toro.raza.id in razasdata %}
+						<!--{% if toro.raza.id in razasdata %}
                         <li><span class="bold">Reg:&nbsp;</span>Definitivo</li>
-						{% endif %}
+						{% endif %}-->
                         <li><span class="bold">Criador:&nbsp;</span>{{ toro.criador }}</li>
                     </ul>
                 </div>
             </div>
             <div class="table-container" style="">
-                	  {% if tabla!=null  %}
+                	  {% if tabla is not null and tablagenetica is not null  %}					
 		<div id="ultima-col" class="row">		
 			<div id="tabla-infeior" class="tablainferior{{toro.id}}" style="width: 100% !important;">		
 				<div class="table-responsive">
@@ -1218,17 +1218,16 @@ td{
                 <div class="triangle"></div>
                 <p>{{toro.descripcion}}</p>
             </div>
-            
-            {% if toro.pruebapelaje is not null and toro.pruebapelaje is not empty %} 
+           
             <div>
 			    {{tipoTest(toro)|raw}}
                </div>
-			{% endif %}
+			
            
             <div class="tec-info-container">
                 <div class="tec-info">
                     <div class="top-info">
-                        <p>{{ toro.padrepadrepadre }}</p>
+                        <p>{{ toro.padrepadre }}</p>
                     </div>
                     <div class="center-info">
                         <p>{{ toro.padre }}</p>
@@ -1306,6 +1305,7 @@ td{
 
 
   {% set razasdata = unificado.data.razasdata %}
+  
   {% set toro1 = unificado.data.toro1 %}
   {% set tabla1 = unificado.data.tabla1 %}
   {% set tablaflag1 = unificado.data.tablaflag1 %}
@@ -1347,9 +1347,9 @@ td{
                          <li><span class="bold">RP:&nbsp;</span>{{ toro1.rp }}</li>
                         <li><span class="bold">HBA:&nbsp;</span>{{ toro1.hba }}</li>
                         <li><span class="bold">Nació:&nbsp;</span>{{ toro1.fechanacimiento|date('d-m-Y')  }}</li>
-                       {% if toro1.raza.id in razasdata %}
+                       <!--{% if toro1.raza.id in razasdata %}
 					   <li><span class="bold">Reg:&nbsp;</span>Definitivo</li>
-					   {% endif %}
+					   {% endif %}-->
                         <li><span class="bold">Criador:&nbsp;</span>{{ toro1.criador }}</li>
                             </ul>
                         </div>
@@ -1362,18 +1362,18 @@ td{
                     <div class="texto-bottom2">                       
                         <p> <span class="triangle2"></span> {{toro1.descripcion }}</p>                     
                     </div>
-                    {% if toro1.pruebapelaje is not null and toro1.pruebapelaje is not empty %} 
+                   
                      <div>
 			            {{tipoTest(toro1)|raw}}
                       </div>
-			         {% endif %}
+			       
 
                   <div class="row">
                    <div class="col-md-6">
                    <div class="tec-info-container2">
                         <div class="tec-info">
                             <div class="top-info">
-                        <p>{{ toro1.padrepadrepadre }}</p>
+                        <p>{{ toro1.padrepadre }}</p>
                     </div>
                     <div class="center-info">
                         <p>{{ toro1.padre }}</p>
@@ -1454,7 +1454,7 @@ td{
             </div>
           
                <div class="table-container2" style="">
-                	  {% if tabla1!=null  %}
+                	  {% if tabla1 is not null and tablaflag1 is not null   %}
 		<div id="ultima-col" class="row">
 	
 			
@@ -1491,7 +1491,7 @@ td{
 						{% for dato in tablaflag1 %}
 							<tr class="{{ cycle(["alterna", ""], loop.index) }}">
 							
-							{% if loop.index == 1 %}
+							{% if loop.index == 1 %}						
 							  <th scope="row" id="1primetahead{{toro1.id}}">{{ dato['rowhead'] }}</th>		
 							{% else %}
 								<th scope="row">{{ dato['rowhead'] }}</th>
@@ -1564,10 +1564,10 @@ td{
                             <ul>
                          <li><span class="bold">RP:</span>{{ toro2.rp }}</li>
                         <li><span class="bold">HBA:</span>{{ toro2.hba }}</li>
-                        <li><span class="bold">Nació:</span>{{ toro2.fechanacimiento|date('d-m-Y')  }}</li>
+                        <!--<li><span class="bold">Nació:</span>{{ toro2.fechanacimiento|date('d-m-Y')  }}</li>
 						  {% if toro2.raza.id in razasdata %}
-                        <li><span class="bold">Reg:</span>Definitivo</li>
-						{% endif %}
+                        <li><span class="bold"></span>Definitivo</li>
+						{% endif %}-->
                         <li><span class="bold">Criador:</span>{{ toro2.criador }}</li>
                             </ul>
                         </div>
@@ -1580,17 +1580,17 @@ td{
                     <div class="texto-bottom2">                       
                         <p> <span class="triangle2"></span> {{toro2.descripcion}}</p>                     
                     </div>
-                    {% if toro2.pruebapelaje is not null and toro2.pruebapelaje is not empty %} 
+                  
                       <div>
 			            {{tipoTest(toro2)|raw}}
                       </div><br>
-			         {% endif %}
+			  
                     <div class="row">
                     <div class="col-md-6">                    
                    <div class="tec-info-container2">
                         <div class="tec-info">
                             <div class="top-info">
-                        <p>{{ toro2.padrepadrepadre }}</p>
+                        <p>{{ toro2.padrepadre }}</p>
                     </div>
                     <div class="center-info">
                         <p>{{ toro2.padre }}</p>
@@ -1610,8 +1610,7 @@ td{
                         <p>{{ toro2.madremadre }}</p>
                     </div>
                         </div>
-                    </div>
-                    
+                    </div>                    
                      </div>
                       <div class="col-md-6">
 
@@ -1673,7 +1672,7 @@ td{
             </div><br><br>
 
              <div class="table-container2" style="margin-top: -77px !important;">
-                	  {% if tabla2!=null  %}
+                	  {% if tabla2 is not null and tablaflag2 is not null   %}
 		<div id="ultima-col" class="row">	
 			<div id="tabla-infeior" class="2tablainferior2{{toro2.id}}" style="width: 100% !important;">		
 				<div class="table-responsive">

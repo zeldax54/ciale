@@ -320,13 +320,12 @@ class CatalogoController extends Controller
 
 
     public function unificadostestAction($forprinter=false,$idparam=null){
-        try{ 
-		
+      	
             ignore_user_abort(true);
             set_time_limit(0);
             $request = $this->getRequest();
             if($idparam==null)
-              $id = 4;
+              $id = 9;
             else
               $id =$idparam;        
             $html='';
@@ -338,40 +337,46 @@ class CatalogoController extends Controller
             $hojas=$em->getRepository('gemaBundle:Catalogohojas')->OrderedbyParent($id);
             $html='';      
             $cont=1;
-            $unificados = array();
+            $unificados = array();			
             foreach($hojas as $hoja){
-
-                try{
-                    if($hoja->getTipo()=="Untoro"){
+				
+			try
+				{
+				
+						
+				if($hoja->getTipo()=="Untoro")
+				{
                         $u = new stdClass();
                         $u->tipo=1;
                         $u->data= $this->untoroPure($hoja,$cont,1);          
                         $unificados[] = $u;            
-                    }
+                }
                     
-                 if($hoja->getTipo()=="Dostoros"){
+                 if($hoja->getTipo()=="Dostoros")
+				 {
                     $u = new stdClass();
                     $u->tipo=2;
                     $u->data = $this->dostorospure($hoja,$cont,1);           
-                    $unificados[] = $u;             
-
+                    $unificados[] = $u;   
                  }
               
                            
                  if($hoja->getTipo()!="Imagen")
                  $cont++;
+					
+		
+                
 
                 }
-                catch(\Exception $inner){
+                catch(\Exception $inner)
+				{
 
                     return new JsonResponse(array(
                         0=>'0',
                         1=>'Hoja:'.$hoja->getNumero().' id:'.$hoja->getId().' tipo:'.$hoja->getTipo() .'. error:'.$inner->getMessage()
                     ));
-                }              
-                
-
-            }
+                }
+			}
 
             if($forprinter==true)
             return $this->renderView('gemaBundle:Maquetacatalogo:unificado.html.twig', array(  
@@ -385,15 +390,7 @@ class CatalogoController extends Controller
                 
              )
            );
-        }
-            catch(\Exception $e){
-
-                return new JsonResponse(array(
-                    0=>'0',
-                    1=>$e->getMessage()
-                ));
-            }
-
+        
     }
 
 
@@ -527,51 +524,11 @@ class CatalogoController extends Controller
         $this->razaName($toro);       
         //////
         //table
-        if($toro->getRaza()->getTablasmanual()!=true)
-        {
-            $tablasflag=json_decode($toro->getTablagenetica(),true);
-            $tablarname=$em->getRepository('gemaBundle:Tabla')->find($toro->getTipotablaselected());
-            if(isset($tablasflag[$tablarname->getNombre()])){
-                $tablasflag=$tablasflag[$tablarname->getNombre()];
-                $tabla=$tablarname;
-            }
-           else{
-               $nkey='';
-             if($tablasflag!=null)
-               foreach($tablasflag as $key=>$tabla){
-                   $tablasflag=$tablasflag[$key];$nkey=$key;break;
-               }
-               $tabla=$em->getRepository('gemaBundle:Tabla')->findOneBy(array(
-                  'nombre'=>$nkey
-               ));
-           }
-
-            $tablagennombre=$tablarname->getNombre();
-        }
-        else{
-            $tablasflag=null;
-            $tablagennombre=null;
-            $tabla=null;
-
-            if($toro->getTablagenetica()!=null){
-                $datos=json_decode($toro->getTablagenetica(),true);
-                $tablaname=array_keys($datos);
-                $tablarname=$tablaname[0];
-                $columnas= array_keys($datos[$tablarname][0]);
-                $tablasflag=$datos[$tablarname];
-
-
-                $tabla=new Tabla();
-                foreach($columnas as $col){
-                    if($col!='rowhead'){
-                        $td=new TablaDatos();
-                        $td->setNombre($col);
-                        $tabla->addTabladato($td);
-                    }
-                }
-            }
-        }        
-        
+				
+           $tab = $this->tablaSet($toro,$em);
+           $tablasflag=$tab['tablaflag'];
+           $tabla =$tab['tabla'];   
+		   
         $t = new stdClass();
         $t->toro=$toro;
         $t->tabla=$tabla;
@@ -613,15 +570,14 @@ class CatalogoController extends Controller
         if(count($toro2->getYoutubes())>0)
            $toro2->video=$toro2->getYoutubes()[0]->getUrl();
          else
-           $toro2->video='#';  
-        
+           $toro2->video='#';          
            $tab1 = $this->tablaSet($toro1,$em);
            $tablaflag1=$tab1['tablaflag'];
-           $tabla1 =$tab1['tabla'];
-          
+           $tabla1 =$tab1['tabla'];		
+		      
            $tab2 = $this->tablaSet($toro2,$em);
            $tablaflag2 = $tab2['tablaflag'];
-           $tabla2 = $tab2['tabla'];
+           $tabla2 = $tab2['tabla'];		   
 
         ////////////////////////////////////////////////
         $t = new stdClass();
@@ -639,7 +595,7 @@ class CatalogoController extends Controller
       private function silueta($toro){
         $helper = new MyHelper(); 
         if (in_array($toro->getRaza()->getId(), array(15,21,22,23,24)))
-            return  $helper->directPic('genericfiles/','silueta_2.jpg');
+            return  $helper->directPic('bundles/gema/catalogresources/img/','silueta_2.jpg');
        return  $helper->directPic('bundles/gema/catalogresources/img/','toro-size.jpg');
 
       }
@@ -657,7 +613,7 @@ class CatalogoController extends Controller
      public function untorotestAction($hoja=null,$nropagina=2,$islocal=0){
         $em = $this->getDoctrine()->getManager();     
         if($hoja==null){           
-            $hoja = $em->getRepository('gemaBundle:Catalogohojas')->find(6);            
+            $hoja = $em->getRepository('gemaBundle:Catalogohojas')->find(308);            
         }       
         ////////////////////////////////////////////////
         $view='gemaBundle:Maquetacatalogo:unToro.html.twig';
@@ -823,8 +779,9 @@ class CatalogoController extends Controller
        ); 
     }
 
-    private function tablaSet($toro,$em){
-        if($toro->getRaza()->getTablasmanual()!=true)
+    private function tablaSet($toro,$em){		
+	try{
+			if($toro->getRaza()->getTablasmanual()!=true)
         {
             $tablasflag=json_decode($toro->getTablagenetica(),true);
             $tablarname=$em->getRepository('gemaBundle:Tabla')->find($toro->getTipotablaselected());
@@ -868,10 +825,18 @@ class CatalogoController extends Controller
                 }
             }
         }
-        return array(
+		  return array(
             'tablaflag'=>$tablasflag,
             'tabla'=>$tabla,
         );
+      
+		}
+		catch(\Exception $inner){			
+			return array(
+            'tablaflag'=>null,
+            'tabla'=>null,
+        );
+      }        
     }
 
     public function footerCAtAction($numero = null)
