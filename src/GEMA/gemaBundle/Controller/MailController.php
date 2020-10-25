@@ -113,7 +113,7 @@ class MailController extends Controller
             $direcciones=explode(';',$datosof->getEmail());
 
             $message = \Swift_Message::newInstance()
-                ->setSubject('Contanto de Alta Ciale');
+                ->setSubject('Contacto de Alta Ciale');
             $message->setFrom('info@ciale.com');
 
             $message->setContentType("text/html");
@@ -432,7 +432,7 @@ class MailController extends Controller
 
 
             $message = \Swift_Message::newInstance()
-                ->setSubject('Contanto de Alta Ciale');
+                ->setSubject('Contacto de Alta Ciale');
             $message->setFrom('info@ciale.com');
 
             $em = $this->getDoctrine()->getManager();

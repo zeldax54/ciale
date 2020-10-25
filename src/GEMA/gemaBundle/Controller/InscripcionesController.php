@@ -64,7 +64,7 @@ class InscripcionesController extends Controller
     if ($captcha_success['success']==false) {
         return new JsonResponse(array(
             0=>'No Enviado',
-            1=>'Compra no enviado usted es un robot...',
+            1=>'Inscripcion no enviado usted es un robot...',
 
         ));
     }
@@ -72,7 +72,10 @@ class InscripcionesController extends Controller
     $em = $this->getDoctrine()->getManager();
     $nombre=$request->request->get('nombre');
     $apellido=$request->request->get('apellido');   
-    $localidad=$request->request->get('localidad');  
+    $localidad=$request->request->get('localidad'); 
+    $provincia=$request->request->get('provincia'); 
+    $pais=$request->request->get('pais');  
+
     $email= strtolower($request->request->get('email'));
     $interes=$request->request->get('interes');
 
@@ -90,7 +93,9 @@ class InscripcionesController extends Controller
                 'Subscribe'=>'Contacto WEB',
                 'MMERGE13'=>$interes,
                 'MMERGE7'=>$localidad,            
-                'MMERGE16'=>$eventomarker
+                'MMERGE16'=>$eventomarker,
+                'MMERGE6'=>$provincia,
+                'MMERGE8'=>$pais,
              ]
             );
       
@@ -116,11 +121,10 @@ $message->setFrom('info@ciale.com');
 $message->setContentType("text/html");   
 
 $body='<img style="witdh:100%" src="https://www.ciale.com/genericfiles/encabezado.jpg"><br><br>';
-$body.='<span>Hola:</span><strong> '.$nombre.' '.$apellido."</strong><br>";
-$body.='<p>Agradecemos tu inscripción al Día de Buenos Negocios 2020. Te enviaremos un recordatorio con el link de acceso al desfile del día jueves 17 y viernes 18 de septiembre.</p><br> ';
-
-$body.='<span>Muchas gracias!</span><br>';
-$body.='<span>CIALE Alta</span><br>';
+$body.='<span>Hola </span><strong> '.$nombre."!</strong><br>";
+$body.='<div><p>Agradecemos tu inscripción nuestro próximo evento. Te enviaremos un recordatorio con el link de acceso.Te esperamos,</p></div>';
+$body.='<div><span>Muchas gracias!</span></div>';
+$body.='<div><span>CIALE Alta</span></div><br>';
 $body.="<br>";
 $message ->setTo($email);
 $message->setBody(
