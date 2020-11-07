@@ -14,7 +14,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="GEMA\gemaBundle\Entity\AreaRepository")
- * @ORM\Table(name="AREA")
+ * @ORM\Table(name="area")
  */
 class Area {
 
