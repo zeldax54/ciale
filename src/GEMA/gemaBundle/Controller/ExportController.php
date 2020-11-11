@@ -19,9 +19,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use GEMA\gemaBundle\Helpers\MyHelper;
+use GEMA\gemaBundle\Helpers\PdfHelper;
 use PHPExcel;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Filesystem\Filesystem;
+use \stdClass;
 
 
 class ExportController extends Controller
@@ -368,6 +370,9 @@ public function exceladminAction($razaid){
 
    }
 
+
+   
+
     function todopdfAction($toroId){
 
         $em = $this->getDoctrine()->getManager();
@@ -422,6 +427,94 @@ public function exceladminAction($razaid){
 
     }
 
+
+   //Catalogo
+
+   public function catalogbaseinfoAction(){
+
+    $helper=new MyHelper();
+    $em = $this->getDoctrine()->getManager();
+    $myRepo = $em->getRepository('gemaBundle:Configuracion');
+    $request = $this->getRequest();
+    $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+
+    $miniaturacrarpdf=$helper->randomPic('pdfresources/miniaturacrearpdf/',true);
+    $miniaturaimprimirtoros=$helper->randomPic('pdfresources/miniaturaimprimirtoros/',true);
+    $capas=$helper->filesInFolder('pdfresources/tapas/',true);
+    $imgIntrod=$helper->randomPic('pdfresources/backgroundtitulo/',true);
+    $imgIntrodName=$imgIntrod;
+
+    $imglistaprec=$helper->randomPic('pdfresources/backgroundlistaprecios/',true);
+    $imgMsjintrod=$helper->randomPic('pdfresources/backgroundintroductorio/',true);
+    $imgpreload=$helper->randomPic('pdfresources/preload/',false);
+
+
+
+
+
+    $urlvirtual=$myRepo->find(1)->getVirtualurl();
+    $toreplace = array('pdfresources/tapas/','.','_','\\','small','(',')');
+    $torosInfo=array();
+
+    $ids=$_POST['torosid'];
+
+    foreach($ids as $id){
+
+        $torosInfo[]=array(
+            0=>$id,
+            1=>$em->getRepository('gemaBundle:Toro')->find($id)->getApodo()
+        );
+
+     }
+
+    if($urlvirtual==true){
+        $miniaturacrarpdf= DIRECTORY_SEPARATOR.$miniaturacrarpdf;
+        $miniaturaimprimirtoros= DIRECTORY_SEPARATOR.$miniaturaimprimirtoros;
+        $imgIntrod=DIRECTORY_SEPARATOR.$imgIntrod;
+        $imglistaprec=DIRECTORY_SEPARATOR.$imglistaprec;
+        $imgMsjintrod=DIRECTORY_SEPARATOR.$imgMsjintrod;
+        $imgpreload=DIRECTORY_SEPARATOR.$imgpreload;
+
+        foreach($capas as $c){
+            $capasfin[]= array(0=>DIRECTORY_SEPARATOR.$c,1=>DIRECTORY_SEPARATOR.$c,2=> str_replace($toreplace,'',$c));
+
+        }
+    }
+    else{
+        $miniaturacrarpdf=$baseurl.DIRECTORY_SEPARATOR.$miniaturacrarpdf;
+        $miniaturaimprimirtoros=$baseurl.DIRECTORY_SEPARATOR.$miniaturaimprimirtoros;
+        $imgIntrod=$baseurl.DIRECTORY_SEPARATOR.$imgIntrod;
+        $imglistaprec=$baseurl.DIRECTORY_SEPARATOR.$imglistaprec;
+        $imgMsjintrod=$baseurl.DIRECTORY_SEPARATOR.$imgMsjintrod;
+        $imgpreload=$baseurl.DIRECTORY_SEPARATOR.$imgpreload;
+
+        foreach($capas as $c){
+            $capasfin[]= array(0=>$baseurl.DIRECTORY_SEPARATOR.$c,1=>DIRECTORY_SEPARATOR.$c,2=>str_replace($toreplace,'',$c));
+
+        }
+
+    }
+
+
+    $datos[]=array(
+        'miniaturacrarpdf'=>$miniaturacrarpdf,
+        'miniaturaimprimirtoros'=>$miniaturaimprimirtoros,
+        'capas'=>$capasfin,
+        'imgIntrod'=>$imgIntrod,
+        'imgIntrodName'=>$imgIntrodName,
+        'torosInfo'=>$torosInfo,
+        'imglistaprec'=>$imglistaprec,
+        'imgmsjintrod'=>$imgMsjintrod,
+        'imgpreload'=>$imgpreload
+
+    );
+    return new JsonResponse(
+        $datos
+    );
+
+}
+
+
      public function pdfgenerateformovileAction()
      {
        try{
@@ -430,7 +523,8 @@ public function exceladminAction($razaid){
            $torosIds=$_POST["ids"];
            $filename=$_POST["filename"];
            $emails=explode(',',$_POST["emails"]);
-           $data=$this->pdfSimple($torosIds,$filename);
+           $impresion=$_POST["impresion"];           
+           $data=$this->pdfSimple($torosIds,$filename,$impresion);
            $message = \Swift_Message::newInstance()
                ->setSubject('Su pdf esta listo!!!');
            $message->setContentType("text/html");
@@ -469,12 +563,10 @@ public function exceladminAction($razaid){
          {
 
              set_time_limit(0);
-
              $torosIds=$_POST["ids"];
              $filename=$_POST["filename"];
-             $data=$this->pdfSimple($torosIds,$filename);
-
-
+             $impresion=$_POST["impresion"];
+             $data=$this->pdfSimple($torosIds,$filename,$impresion);
              return new JsonResponse(array(
                  0=>'1',
                  1=>$data[1],
@@ -491,12 +583,73 @@ public function exceladminAction($razaid){
      }
 
 
+
+     /* #region   pdfSimple*/
+       private function pdfSimple($torosIds, $filename,$impresion)
+       {      
+        	
+        $pdfhelper = new PdfHelper();
+        $helper = new MyHelper();
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();       
+        $unificados=$pdfhelper->UnificadosDataFormed($torosIds,$impresion,$em);
+        //Create object and options
+        $pdfGenerator = $this->get('knp_snappy.pdf');
+        $pdfGenerator->setTimeout(10000);
+        $options = array(
+            'margin-top'    => 2,
+            'margin-right'  => 1,
+            'margin-bottom' => 16,
+            'margin-left'   => 1,                  
+        );  
+        foreach ($options as $margin => $value) {
+            $pdfGenerator->setOption($margin, $value);
+        }
+        $urlfooter = $this->generateUrl(
+            'gema_footertest'              
+        );
+        $pdfGenerator->setOption('footer-html', $request->getScheme() . '://' . $request->getHttpHost() .$urlfooter); 
+         /////////////////////////////////////
+        
+         //File Dir and creation
+         $guid=$helper->GUID();
+         $webPath=$this->get('kernel')->getRootDir().'/../web/pdfs/'.$guid .'/';
+         if (!file_exists($webPath)) 
+             mkdir($webPath, 0777, true);         
+         $webPath=$webPath.$filename.'.pdf';
+         /////////////////
+        $html = $this->renderView('gemaBundle:Maquetacatalogo:unificado.html.twig', array( 'unificados'=>$unificados,));
+        $pdfGenerator->generateFromHtml(
+            $html,
+            $webPath
+        );
+        ///////////////////////
+       
+        //Web Dir and returning       
+        $myRepo = $em->getRepository('gemaBundle:Configuracion');       
+        $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+        $urlvirtual=$myRepo->find(1)->getVirtualurl();
+        if($urlvirtual==true)
+            $path=DIRECTORY_SEPARATOR.'/pdfs/'.$guid .'/'.$filename.'.pdf';        
+        else
+            $path=$baseurl.DIRECTORY_SEPARATOR.'/pdfs/'.$guid .'/'.$filename.'.pdf';
+        return array(
+            0=>$filename,
+            1=>$path
+        );       
+        
+     }
+     /* #endregion */
+
+
+  /* #region   pdfSimpleOld*/
     /**
      * @param $torosIds
      * @param $filename
      * @return array
      */
-    private function pdfSimple($torosIds, $filename){
+    private function pdfSimpleOld($torosIds, $filename,$impresion)
+    {
 
          $html='';
          $em = $this->getDoctrine()->getManager();
@@ -604,11 +757,7 @@ public function exceladminAction($razaid){
                  )
              );
 
-
          }
-
-
-
          $helper=new MyHelper();
          $guid=$helper->GUID();
          $webPath=$this->get('kernel')->getRootDir().'/../web/pdfs/'.$guid .'/';
@@ -655,12 +804,14 @@ public function exceladminAction($razaid){
              1=>$path
          );
      }
+  /* #endregion */
 
-    public function  toropdfAction($toroid){
+   /* #region   toropdfAction*/
+    public function  toropdfAction($toroid)
+    {
 
         $em = $this->getDoctrine()->getManager();
         $toro=$em->getRepository('gemaBundle:Toro')->find($toroid);
-
         $helper=new MyHelper();
         $img=$helper->randomPic('toro'.DIRECTORY_SEPARATOR.$toro->getGuid().'P'.DIRECTORY_SEPARATOR);
 
@@ -755,132 +906,14 @@ public function exceladminAction($razaid){
             )
         );
     }
+   /* #endregion */
 
 
-    function getDesc($data){
-        $em = $this->getDoctrine()->getManager();
-        $descripcionprinc=$em->getRepository('gemaBundle:MediaDescription')-> findOneBy(
-            array(
-                'nombre'=>str_replace('_small','',$data[2]),
-                'folder'=>$data[0],
-                'subforlder'=>$data[1]
-            )
-        );
-        if($descripcionprinc==null)
-            return '';
-        return $pricimgdesc=$descripcionprinc->getDescripcion();
-    }
-
-    function ConceptPlus($helper,$cp){
-        if($cp==false)
-            return null;
-        return $helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'conceptPlus.png');
-    }
-
-    function Nacionalidad($helper,$nacionalidad)
-    {
-
-        if($nacionalidad==null)
-            return null;
-        $nacionalidad=str_replace(' ', '', $nacionalidad);
-
-        return $helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,$nacionalidad.'.jpg');
-    }
-
-    function imgFacilidadParto($helper,$facilidad){
-        if($facilidad==null)
-            return null;
-        return $helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'fp_'.$facilidad.'.png');
-    }
-
-    //Catalogo
-
-    public function catalogbaseinfoAction(){
-
-        $helper=new MyHelper();
-        $em = $this->getDoctrine()->getManager();
-        $myRepo = $em->getRepository('gemaBundle:Configuracion');
-        $request = $this->getRequest();
-        $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
-
-        $miniaturacrarpdf=$helper->randomPic('pdfresources/miniaturacrearpdf/',true);
-        $miniaturaimprimirtoros=$helper->randomPic('pdfresources/miniaturaimprimirtoros/',true);
-        $capas=$helper->filesInFolder('pdfresources/tapas/',true);
-        $imgIntrod=$helper->randomPic('pdfresources/backgroundtitulo/',true);
-        $imgIntrodName=$imgIntrod;
-
-        $imglistaprec=$helper->randomPic('pdfresources/backgroundlistaprecios/',true);
-        $imgMsjintrod=$helper->randomPic('pdfresources/backgroundintroductorio/',true);
-        $imgpreload=$helper->randomPic('pdfresources/preload/',false);
+  
 
 
 
-
-
-        $urlvirtual=$myRepo->find(1)->getVirtualurl();
-        $toreplace = array('pdfresources/tapas/','.','_','\\','small','(',')');
-        $torosInfo=array();
-
-        $ids=$_POST['torosid'];
-
-        foreach($ids as $id){
-
-            $torosInfo[]=array(
-                0=>$id,
-                1=>$em->getRepository('gemaBundle:Toro')->find($id)->getApodo()
-            );
-
-         }
-
-        if($urlvirtual==true){
-            $miniaturacrarpdf= DIRECTORY_SEPARATOR.$miniaturacrarpdf;
-            $miniaturaimprimirtoros= DIRECTORY_SEPARATOR.$miniaturaimprimirtoros;
-            $imgIntrod=DIRECTORY_SEPARATOR.$imgIntrod;
-            $imglistaprec=DIRECTORY_SEPARATOR.$imglistaprec;
-            $imgMsjintrod=DIRECTORY_SEPARATOR.$imgMsjintrod;
-            $imgpreload=DIRECTORY_SEPARATOR.$imgpreload;
-
-            foreach($capas as $c){
-                $capasfin[]= array(0=>DIRECTORY_SEPARATOR.$c,1=>DIRECTORY_SEPARATOR.$c,2=> str_replace($toreplace,'',$c));
-
-            }
-        }
-        else{
-            $miniaturacrarpdf=$baseurl.DIRECTORY_SEPARATOR.$miniaturacrarpdf;
-            $miniaturaimprimirtoros=$baseurl.DIRECTORY_SEPARATOR.$miniaturaimprimirtoros;
-            $imgIntrod=$baseurl.DIRECTORY_SEPARATOR.$imgIntrod;
-            $imglistaprec=$baseurl.DIRECTORY_SEPARATOR.$imglistaprec;
-            $imgMsjintrod=$baseurl.DIRECTORY_SEPARATOR.$imgMsjintrod;
-            $imgpreload=$baseurl.DIRECTORY_SEPARATOR.$imgpreload;
-
-            foreach($capas as $c){
-                $capasfin[]= array(0=>$baseurl.DIRECTORY_SEPARATOR.$c,1=>DIRECTORY_SEPARATOR.$c,2=>str_replace($toreplace,'',$c));
-
-            }
-
-        }
-
-
-        $datos[]=array(
-            'miniaturacrarpdf'=>$miniaturacrarpdf,
-            'miniaturaimprimirtoros'=>$miniaturaimprimirtoros,
-            'capas'=>$capasfin,
-            'imgIntrod'=>$imgIntrod,
-            'imgIntrodName'=>$imgIntrodName,
-            'torosInfo'=>$torosInfo,
-            'imglistaprec'=>$imglistaprec,
-            'imgmsjintrod'=>$imgMsjintrod,
-            'imgpreload'=>$imgpreload
-
-        );
-        return new JsonResponse(
-            $datos
-        );
-
-    }
-
-
-
+   /* #region  generatecatalogformovilAction */
     public function generatecatalogformovilAction(){
 
           try  {
@@ -889,8 +922,8 @@ public function exceladminAction($razaid){
               $source=$_POST["source"];
               $data=$this->gencatalogo($source);
               $path=$data[1];
-              $filename=$data[0];
-//Correo
+              $filename=$data[0];            
+              //Correo
               $message = \Swift_Message::newInstance()
                   ->setSubject('Su catálogo está listo!!!');
               $message->setContentType("text/html");
@@ -928,7 +961,11 @@ public function exceladminAction($razaid){
           }
 
     }
-    public function generatecatalogoAction(){
+   /* #endregion */
+   
+   /* #region   generatecatalogoAction*/
+    public function generatecatalogoAction()
+    {
 
         try{
             set_time_limit(0);
@@ -936,7 +973,7 @@ public function exceladminAction($razaid){
 
             $data=$this->gencatalogo($source);
             $path=$data[1];
-            $filename=$data[0];
+            $filename=$data[0];            
             return new JsonResponse(array(
                 0=>'1',
                 1=>$path,
@@ -951,7 +988,9 @@ public function exceladminAction($razaid){
             ));
         }
     }
+    /* #endregion */
 
+    
     private function gencatalogo($source){
 
         $html='';
@@ -990,6 +1029,175 @@ public function exceladminAction($razaid){
         $telefono=$source['telefono'];
         $email=$source['email'];
         $titulopdf=$source['titulopdf'];
+        $impresion = $source['impresion'];
+
+        $band=true;
+        if($titulo==''&&$subtitulo==''&& $contacto==''&&$nombre==''&&$direccion==''&&$telefono==''&&$email==''&&$titulopdf=='')
+        {
+            $band=false;
+        }
+
+        if($band){
+
+            $html.=$this->renderView('gemaBundle:Page:pdfPortada.html.twig', array(
+                    'imgIntrodName'=>  $imgIntrodName,
+                    'titulo'=>$titulo,
+                    'subtitulo'=>$subtitulo,
+                    'contacto'=>$contacto,
+                    'nombre'=>$nombre,
+                    'direccion'=>$direccion,
+                    'telefono'=>$telefono,
+                    'email'=>$email,
+                    'titulopdf'=>$titulopdf
+                )
+            );
+
+        }
+
+
+
+
+        if(isset($source['tablacontenidos']) && $source['tablacontenidos']=='on'){
+
+            $html.=$this->tablacontenidos($source);
+
+        }
+
+        if( isset($source['mensajeintroducTitulo']) && $source['mensajeintroducTitulo']!='' && $source['mensajeintroducTitulo']!='undefined' && $source['mensajeintroducTitulo']!=null){
+
+            $helper=new MyHelper();
+            $img=str_replace('_small','', $helper->randomPic('pdfresources/backgroundintroductorio/'));
+
+            $html.=$this->renderView('gemaBundle:Page:pdfMensajebienvenida.html.twig', array(
+                    'image'=>  $img,
+                    'titulo'=>$source['mensajeintroducTitulo'],
+                    'cuerpo'=>$source['mensajeintrudCuerpo'],
+
+                )
+            );
+
+        }    
+        $pdfHelper = new PdfHelper();   
+        $urlfooter = $this->generateUrl('gema_footertest');
+        $pdfGenerator = $this->get('knp_snappy.pdf');
+        $guid = $helper->GUID();
+        $webPath=$this->get('kernel')->getRootDir().'/../web/pdfs/'.$guid .'/';
+        $outputfilename=$webPath.$filename;
+        $request = $this->getRequest();
+        $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+        $myRepo = $em->getRepository('gemaBundle:Configuracion');      
+        $urlvirtual=$myRepo->find(1)->getVirtualurl();
+        
+        $options = array(
+            'margin-top'    => 4,
+            'margin-right'  => 1,
+            'margin-bottom' => 1,
+            'margin-left'   => 1,
+             //'dpi'=>1.33,
+            'zoom'=>$zoompdf
+        );
+        $firstpdf = $pdfHelper->GeneratePdf($html,$pdfGenerator,$options,'firstpart', $webPath);
+
+        if(isset($source['listaprecios']) && $source['listaprecios']!='' && $source['listaprecios']!='undefined' && $source['listaprecios']!=null) {
+
+            $texto='';
+
+            foreach($source['listtoroprocesada'] as $t){
+                $texto.='<div class="row">
+                 <div class="col-md-6" style="text-align: left"><span class="menuitem primd">'.$t[1].'</span></div>
+              <div class="col-md-6"><span class="menuitem">$'.$t[2].'</span></div>
+              </div>';
+
+
+            }
+
+            $html= $this->renderView('gemaBundle:Page:pdfListaprecios.html.twig', array(
+                'texto'=>$texto
+
+            ));
+        }         
+
+        $secondpdf = $pdfHelper->GeneratePdf($html,$pdfGenerator,$options,'secondpart', $webPath);
+
+        //pdf detalles
+        $options = array(
+            'margin-top'    => 2,
+            'margin-right'  => 1,
+            'margin-bottom' => 16,
+            'margin-left'   => 1,                  
+        );  
+        $torosIds=array();
+        foreach($source['torosInfo'] as $t)
+            $torosIds[]=$t[0];        
+        $basedet = $urlvirtual == true ? DIRECTORY_SEPARATOR.'/toro/': $baseurl.DIRECTORY_SEPARATOR.'/toro/';
+        $unificados=$pdfHelper->UnificadosDataFormed($torosIds,$impresion,$em,$basedet);
+        $html = $this->renderView('gemaBundle:Maquetacatalogo:unificado.html.twig', array( 'unificados'=>$unificados,));        
+       // print($html);die();
+        $detallepart = $pdfHelper->GeneratePdf($html,$pdfGenerator,$options,'detallepart', $webPath,true,$urlfooter,$request);
+
+        //Merge
+        $pdfmerge =  new \PDFMerger;
+        $pdfmerge->addPDF($firstpdf, 'all');
+        $pdfmerge->addPDF($detallepart, 'all');
+        $pdfmerge->addPDF($secondpdf, 'all');
+        $pdfmerge->merge('file',$outputfilename.'.pdf');   
+       
+        $helper->DeleteFile($firstpdf);   
+        $helper->DeleteFile($detallepart);  
+        $helper->DeleteFile($secondpdf);   
+
+        $path = $urlvirtual ==true ? DIRECTORY_SEPARATOR.'/pdfs/'.$guid .'/'.$filename.'.pdf': $baseurl.DIRECTORY_SEPARATOR.'/pdfs/'.$guid .'/'.$filename.'.pdf';         
+        return  array(
+            0=>$filename,
+            1=>$path,
+        );
+    }
+
+
+
+
+    
+    /* #region  gencatalogoOld */
+    private function gencatalogoOld($source)
+    {
+
+        $html='';
+        if(!isset($source['titulopdf']) || $source['titulopdf']==null || $source['titulopdf']=='undefined')
+            $filename='catalogo';
+        else
+            $filename=$source['titulopdf'];
+
+        $em = $this->getDoctrine()->getManager();
+        $zoompdf=$em->getRepository('gemaBundle:Configuracion')->find(1)->getZoompdf();
+        if(isset($source['capas']) && $source['capas']=='on'){
+
+            $capaimg=$source['capaName'];
+            $capaimg=explode('/',$capaimg);
+            // print_r($capaimg);die();
+
+            $capaimg=$capaimg[count($capaimg)-1];
+            $capaimg='pdfresources/tapas/'.$capaimg;
+
+
+            $html.=$this->renderView('gemaBundle:Page:pdfCapa.html.twig', array(
+                    'capaimg'=>$capaimg
+
+                )
+            );
+        }
+
+
+
+        $imgIntrodName=str_replace('_small','',$source['imgIntrodName']) ;
+        $titulo=$source['titulo'];
+        $subtitulo=$source['subtitulo'];
+        $contacto=$source['contacto'];
+        $nombre=$source['nombre'];
+        $direccion=$source['direccion'];
+        $telefono=$source['telefono'];
+        $email=$source['email'];
+        $titulopdf=$source['titulopdf'];
+        $impresion = $source['impresion'];
 
         $band=true;
         if($titulo==''&&$subtitulo==''&& $contacto==''&&$nombre==''&&$direccion==''&&$telefono==''&&$email==''&&$titulopdf=='')
@@ -1119,6 +1327,7 @@ public function exceladminAction($razaid){
         );
     }
 
+    /* #endregion */
 
     public function capatestAction($capaname){
 
@@ -1171,7 +1380,7 @@ public function exceladminAction($razaid){
 
         if($mensajebienv!='' && $mensajebienv!='undefined' && $mensajebienv!=null){
 
-            $empieza=3;
+            $empieza=1;
             $texto.=
                 '<div class="row">
                  <div class="col-md-6" style="text-align: left;"><span class="menuitem primd">'.$mensajebienv.'</span></div>
@@ -1207,8 +1416,9 @@ public function exceladminAction($razaid){
 
 
 
-    private function detallehtml($id,$em,$margins=0){
-
+    /* #region   detallehtml*/
+    private function detallehtml($id,$em,$margins=0)
+    {
 
     $toro=$em->getRepository('gemaBundle:Toro')->find($id);
 
@@ -1310,8 +1520,11 @@ public function exceladminAction($razaid){
     );
 }
 
+    /* #endregion */
 
-    public function detallehtmltestAction($id){
+    /* #region  detallehtmltestAction */
+    public function detallehtmltestAction($id)
+    {
 
         $em = $this->getDoctrine()->getManager();
         $toro=$em->getRepository('gemaBundle:Toro')->find($id);
@@ -1408,6 +1621,7 @@ public function exceladminAction($razaid){
             )
         );
     }
+    /* #endregion */
 
     /**
      * Genera una imagen jpg del html de detalle del toro
@@ -1416,7 +1630,6 @@ public function exceladminAction($razaid){
     public function toroimgAction(){
 
         try{
-
 
             $toroId=$_POST["id"];
             $em = $this->getDoctrine()->getManager();
@@ -1479,8 +1692,6 @@ public function exceladminAction($razaid){
     public function singletoroPdfAction(){
 
         try{
-
-
             $toroId=$_POST["id"];
             $em = $this->getDoctrine()->getManager();
             $repoconf=$em->getRepository('gemaBundle:Configuracion');
@@ -1504,8 +1715,6 @@ public function exceladminAction($razaid){
             foreach ($options as $margin => $value) {
                 $pdfGenerator->setOption($margin, $value);
             }
-
-
 
             $webPath=$this->get('kernel')->getRootDir().'/../web/pdfs/'.$guid .'/';
             if (!file_exists($webPath)) {
@@ -1612,6 +1821,46 @@ public function exceladminAction($razaid){
 
        
     }
+
+      /* #region  Axuliares */
+      function getDesc($data){
+        $em = $this->getDoctrine()->getManager();
+        $descripcionprinc=$em->getRepository('gemaBundle:MediaDescription')-> findOneBy(
+            array(
+                'nombre'=>str_replace('_small','',$data[2]),
+                'folder'=>$data[0],
+                'subforlder'=>$data[1]
+            )
+        );
+        if($descripcionprinc==null)
+            return '';
+        return $pricimgdesc=$descripcionprinc->getDescripcion();
+    }
+
+    function ConceptPlus($helper,$cp){
+        if($cp==false)
+            return null;
+        return $helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'conceptPlus.png');
+    }
+
+    function Nacionalidad($helper,$nacionalidad)
+    {
+
+        if($nacionalidad==null)
+            return null;
+        $nacionalidad=str_replace(' ', '', $nacionalidad);
+
+        return $helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,$nacionalidad.'.jpg');
+    }
+
+    function imgFacilidadParto($helper,$facilidad){
+        if($facilidad==null)
+            return null;
+        return $helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'fp_'.$facilidad.'.png');
+    }
+
+ 
+    /* #endregion */
 
 
 

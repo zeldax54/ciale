@@ -11,6 +11,9 @@ use MongoDB\Driver\Exception\ExecutionTimeoutException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpKernel\Kernel;
+use GEMA\gemaBundle\Entity\Tabla;
+use GEMA\gemaBundle\Entity\TablaDatos;
+use \stdClass;
 
 class MyHelper
 {
@@ -672,5 +675,86 @@ class MyHelper
          return true;        
      return false;
     }
+
+
+    public function tablaSet($toro,$em){		
+        try{
+                if($toro->getRaza()->getTablasmanual()!=true)
+            {
+                $tablasflag=json_decode($toro->getTablagenetica(),true);
+                $tablarname=$em->getRepository('gemaBundle:Tabla')->find($toro->getTipotablaselected());
+                if(isset($tablasflag[$tablarname->getNombre()])){
+                    $tablasflag=$tablasflag[$tablarname->getNombre()];
+                    $tabla=$tablarname;
+                }
+               else{
+                   $nkey='';
+                 if($tablasflag!=null)
+                   foreach($tablasflag as $key=>$tabla){
+                       $tablasflag=$tablasflag[$key];$nkey=$key;break;
+                   }
+                   $tabla=$em->getRepository('gemaBundle:Tabla')->findOneBy(array(
+                      'nombre'=>$nkey
+                   ));
+               }
+    
+                $tablagennombre=$tablarname->getNombre();
+            }
+            else{
+                $tablasflag=null;
+                $tablagennombre=null;
+                $tabla=null;
+    
+                if($toro->getTablagenetica()!=null){
+                    $datos=json_decode($toro->getTablagenetica(),true);
+                    $tablaname=array_keys($datos);
+                    $tablarname=$tablaname[0];
+                    $columnas= array_keys($datos[$tablarname][0]);
+                    $tablasflag=$datos[$tablarname];
+    
+    
+                    $tabla=new Tabla();
+                    foreach($columnas as $col){
+                        if($col!='rowhead'){
+                            $td=new TablaDatos();
+                            $td->setNombre($col);
+                            $tabla->addTabladato($td);
+                        }
+                    }
+                }
+            }
+              return array(
+                'tablaflag'=>$tablasflag,
+                'tabla'=>$tabla,
+            );
+          
+            }
+            catch(\Exception $inner){			
+                return array(
+                'tablaflag'=>null,
+                'tabla'=>null,
+            );
+          }        
+        }
+
+        public function silueta($toro){           
+            if (in_array($toro->getRaza()->getId(), array(15,21,22,23,24)))
+                return  $this->directPic('bundles/gema/catalogresources/img/','silueta_2.jpg');
+           return  $this->directPic('bundles/gema/catalogresources/img/','toro-size.jpg');
+    
+          }
+          public function razaName(&$toro)
+          {
+            if($toro->getRaza()->getID()==26)
+              $toro->nameraza= $toro->getNombreraza();
+            else if($toro->getRaza()->getFather()==null)
+              $toro->nameraza= $toro->getRaza()->getNombre();
+           else 
+              $toro->nameraza= $toro->getRaza()->getFather()->getNombre();
+          }
+
+          public function DeleteFile($file){
+            unlink( $file );
+          }
 
 }

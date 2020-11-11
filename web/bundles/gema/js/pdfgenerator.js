@@ -1,6 +1,6 @@
 function SaveToDisk(fileURL, fileName) {
 
-    try{
+    try {
 
         // for non-IE
         if (!window.ActiveXObject) {
@@ -26,8 +26,7 @@ function SaveToDisk(fileURL, fileName) {
             _window.document.execCommand('SaveAs', true, fileName || fileURL)
             _window.close();
         }
-    }
-    catch(e){
+    } catch (e) {
         console.log('error');
         console.log(e);
         window.open(fileURL, '_blank');
@@ -36,12 +35,12 @@ function SaveToDisk(fileURL, fileName) {
 }
 
 function noClick(e) {
-   
+
     e.preventDefault();
-   
+
 }
 
-$('.imprimircatalogo').click(function(){
+$('.imprimircatalogo').click(function() {
 
 
     var capasImg;
@@ -55,15 +54,15 @@ $('.imprimircatalogo').click(function(){
 
 
 
-    var familyId=$(this).attr('familyId');
-    var table=$('table.'+familyId).not('.DTFC_Cloned').DataTable();
+    var familyId = $(this).attr('familyId');
+    var table = $('table.' + familyId).not('.DTFC_Cloned').DataTable();
     var rows_selected = table.column(0).checkboxes.selected();
 
-    var arratid=[];
+    var arratid = [];
     // Iterate over all selected checkboxes
 
-    $.each(table.column(0).data(), function(index, value){
-        if($.inArray(value, rows_selected) !== -1){
+    $.each(table.column(0).data(), function(index, value) {
+        if ($.inArray(value, rows_selected) !== -1) {
             arratid.push(value);
         }
     });
@@ -71,74 +70,76 @@ $('.imprimircatalogo').click(function(){
     // $.each(rows_selected, function(index, rowId) {
     //
     // });
-    if(rows_selected.length===0){
+    if (rows_selected.length === 0) {
 
-        vex.dialog.alert({ unsafeMessage:'No ha seleccionado ningún toro'
+        vex.dialog.alert({
+            unsafeMessage: 'No ha seleccionado ningún toro'
 
-            , className: 'vex-theme-wireframe' ,
+            ,
+            className: 'vex-theme-wireframe',
             overlayClassName: 'success',
             contentClassName: 'bordernaranjaclass',
             closeClassName: 'closebleclass'
         })
-    }else {
+    } else {
         console.log(arratid);
         $.ajax({
             type: 'POST',
-            data:{torosid:arratid},
+            data: { torosid: arratid },
             url: Routing.generate('gema_catalogobaseinfo'),
-            success: function (data) {
+            success: function(data) {
 
-                capasImg=data[0].capas;
-                imgIntrodURL=data[0].imgIntrod;
-                imgIntrodName=data[0].imgIntrodName;
-                torosInfo=data[0].torosInfo;
-                imgListaPrec=data[0].imglistaprec;
-                imgMsjintrod=data[0].imgmsjintrod;
-                imgpreload=data[0].imgpreload;
+                capasImg = data[0].capas;
+                imgIntrodURL = data[0].imgIntrod;
+                imgIntrodName = data[0].imgIntrodName;
+                torosInfo = data[0].torosInfo;
+                imgListaPrec = data[0].imglistaprec;
+                imgMsjintrod = data[0].imgmsjintrod;
+                imgpreload = data[0].imgpreload;
 
                 var source = {};
 
 
                 function PrimerDialog(datos) {
 
-                    var capascheck='checked="checked"';
-                    var listaprecioscheck='checked="checked"';
-                    var msjintroduccioncheck='checked="checked"';
-                    var tablacontenidoscheck ='checked="checked"';
+                    var capascheck = 'checked="checked"';
+                    var listaprecioscheck = 'checked="checked"';
+                    var msjintroduccioncheck = 'checked="checked"';
+                    var tablacontenidoscheck = 'checked="checked"';
 
-                    if(datos!=undefined)
-                    {
-                        if(datos.capas===undefined)
-                            capascheck=null;
-                        if(datos.listaprecios===undefined)
-                            listaprecioscheck=null;
-                        if(datos.msjintroduccion===undefined)
-                            msjintroduccioncheck=null;
-                        if(datos.tablacontenidos===undefined)
-                            tablacontenidoscheck=null;
+                    if (datos != undefined) {
+                        if (datos.capas === undefined)
+                            capascheck = null;
+                        if (datos.listaprecios === undefined)
+                            listaprecioscheck = null;
+                        if (datos.msjintroduccion === undefined)
+                            msjintroduccioncheck = null;
+                        if (datos.tablacontenidos === undefined)
+                            tablacontenidoscheck = null;
 
                     }
-                    var classname=$(window).width() <= 900? 'vex-theme-wireframe':'vex-theme-bottom-right-corner';
-                    var isformovile=$(window).width() <= 900;
+                    var classname = $(window).width() <= 900 ? 'vex-theme-wireframe' : 'vex-theme-bottom-right-corner';
+                    var isformovile = $(window).width() <= 900;
 
 
                     vex.dialog.confirm({
                         contentClassName: 'bordernaranjaclass',
                         closeClassName: 'closebleclass',
-                        className:  classname ,
+                        className: classname,
 
                         message: '',
 
 
                         input: [
 
+                            '<div> <span><input style="vertical-align: top;" type="radio" checked required name="impresionradio" value="1"> Un toro por página</span> <span><input style="vertical-align: top;" type="radio"  required name="impresionradio" value="2"> Dos toros por páagina</span> </div>' +
                             '<div class="row"> ' +
                             '<div class="col-md-6 col-xs-6">' +
                             '<h4 class="headercatalog">Crear PDF</h4>' +
-                            '<div><label><input class="checkheader" type="checkbox" '+capascheck+' id="capas" name="capas" ><b class="catalotext">Tapas</b> </label></div>' +
-                            '<div><label><input class="checkheader" type="checkbox" '+listaprecioscheck+' id="listaprecios" name="listaprecios"><b class="catalotext">Lista de Precios</b> </label></div>' +
-                            '<div><label><input class="checkheader" type="checkbox" '+msjintroduccioncheck+' id="msjintroduccion" name="msjintroduccion"><b class="catalotext">Mensaje de Intruducción</b> </label></div>' +
-                            '<div><label><input class="checkheader" type="checkbox" '+tablacontenidoscheck+' id="tablacontenidos" name="tablacontenidos"><b class="catalotext">Tabla de contenidos</b> </label></div>' +
+                            '<div><label><input class="checkheader" type="checkbox" ' + capascheck + ' id="capas" name="capas" ><b class="catalotext">Tapas</b> </label></div>' +
+                            '<div><label><input class="checkheader" type="checkbox" ' + listaprecioscheck + ' id="listaprecios" name="listaprecios"><b class="catalotext">Lista de Precios</b> </label></div>' +
+                            '<div><label><input class="checkheader" type="checkbox" ' + msjintroduccioncheck + ' id="msjintroduccion" name="msjintroduccion"><b class="catalotext">Mensaje de Intruducción</b> </label></div>' +
+                            '<div><label><input class="checkheader" type="checkbox" ' + tablacontenidoscheck + ' id="tablacontenidos" name="tablacontenidos"><b class="catalotext">Tabla de contenidos</b> </label></div>' +
 
                             '</div>' +
                             '<div class="col-md-6 col-xs-6">' +
@@ -172,30 +173,30 @@ $('.imprimircatalogo').click(function(){
 
 
 
-                        callback: function (data) {
+                        callback: function(data) {
 
+                            var pimpresion = data.impresionradio;
 
 
                             if ($('#clicked').val().search(/imprimirtorosbutton/) != -1) {
-                                var arra = [];
-                                $.each(rows_selected, function (index, rowId) {
-                                    arra.push(rowId);
-                                });
-                                if(isformovile===false){
-                                    var vexwaiting = vex.dialog.alert({unsafeMessage: '<div style="text-align: center"><img src="'+imgpreload+'" width="400" height="300">'+'<br><b>Procesando.Espere...</b><div>',
+                                var arra = arratid;
+                                if (isformovile === false) {
+                                    var vexwaiting = vex.dialog.alert({
+                                        unsafeMessage: '<div style="text-align: center"><img src="' + imgpreload + '" width="400" height="300">' + '<br><b>Procesando.Espere...</b><div>',
                                         contentClassName: 'bordernaranjaclassMasAncho',
-                                        className:'vex-theme-os'})
+                                        className: 'vex-theme-os'
+                                    })
                                     var url = Routing.generate('pdf_generate');
 
                                     $.ajax({
                                         type: 'POST',
-                                        data: {ids: arra, filename: 'toros'},
+                                        data: { ids: arra, filename: 'toros', impresion: pimpresion },
                                         url: url,
-                                        success: function (data) {
+                                        success: function(data) {
                                             vex.close(vexwaiting)
                                             if (data[0] == 1) {
                                                 //window.open(data[1], '_blank');
-                                                SaveToDisk(data[1],data[2]);
+                                                SaveToDisk(data[1], data[2]);
                                             } else {
                                                 vex.dialog.alert({
                                                     unsafeMessage: '<b>Error generando PDF</b>',
@@ -207,14 +208,12 @@ $('.imprimircatalogo').click(function(){
                                             }
 
                                         },
-                                        error: function (req, stat, err) {
+                                        error: function(req, stat, err) {
                                             vex.close(vexwaiting)
                                             console.log(err);
                                         }
                                     });
-                                }
-
-                                else{
+                                } else {
                                     //Single for Movile
                                     var url = Routing.generate('pdf_generateformovile');
                                     vex.dialog.open({
@@ -229,13 +228,13 @@ $('.imprimircatalogo').click(function(){
                                             $.extend({}, vex.dialog.buttons.YES, { text: 'Generar' }),
                                             $.extend({}, vex.dialog.buttons.NO, { text: 'Cancelar' })
                                         ],
-                                        callback: function (data) {
+                                        callback: function(data) {
                                             if (!data) {
                                                 console.log('Cancelled')
                                             } else {
-                                                var emails=data.emails;
+                                                var emails = data.emails;
                                                 vex.dialog.alert({
-                                                    unsafeMessage: '<b>La url al pdf generado se enviará a '+source.email+' cuando esté lista</b>',
+                                                    unsafeMessage: '<b>La url al pdf generado se enviará a ' + source.email + ' cuando esté lista</b>',
                                                     className: 'vex-theme-wireframe',
                                                     overlayClassName: 'success',
                                                     contentClassName: 'bordernaranjaclass',
@@ -244,7 +243,7 @@ $('.imprimircatalogo').click(function(){
 
                                                 $.ajax({
                                                     type: 'POST',
-                                                    data: {ids: arra, filename: 'toros',emails:emails},
+                                                    data: { ids: arra, filename: 'toros', emails: emails, impresion: pimpresion },
                                                     url: url
                                                 });
 
@@ -266,7 +265,7 @@ $('.imprimircatalogo').click(function(){
 
 
 
-                                function SegundoDialogo(saveddatos){
+                                function SegundoDialogo(saveddatos) {
 
                                     source = {
                                         'capas': data.capas,
@@ -275,50 +274,51 @@ $('.imprimircatalogo').click(function(){
                                         'tablacontenidos': data.tablacontenidos,
                                         'capaName': ''
                                     };
-                                    source['imgIntrodURL']=imgIntrodURL;
-                                    source['imgIntrodName']=imgIntrodName;
-                                    source['torosInfo']=torosInfo;
-                                    source['imgListaPrecURL']=imgListaPrec;
-                                    source['imgMsjintrod']=imgMsjintrod;
+                                    source['imgIntrodURL'] = imgIntrodURL;
+                                    source['imgIntrodName'] = imgIntrodName;
+                                    source['torosInfo'] = torosInfo;
+                                    source['imgListaPrecURL'] = imgListaPrec;
+                                    source['imgMsjintrod'] = imgMsjintrod;
+                                    source['impresion'] = pimpresion;
 
-                                    var datatitulo='';
-                                    var datasubtitulo='';
-                                    var datacontacto='';
-                                    var datanombre='';
-                                    var datadireccion='';
-                                    var datatelefono='';
-                                    var dataemail='';
-                                    var datatitulopdf='';
-                                    var selectedcapa='';
+                                    var datatitulo = '';
+                                    var datasubtitulo = '';
+                                    var datacontacto = '';
+                                    var datanombre = '';
+                                    var datadireccion = '';
+                                    var datatelefono = '';
+                                    var dataemail = '';
+                                    var datatitulopdf = '';
+                                    var selectedcapa = '';
 
-                                    if(saveddatos!==undefined){
-                                        datatitulo=saveddatos.titulo==undefined?'':saveddatos.titulo;
+                                    if (saveddatos !== undefined) {
+                                        datatitulo = saveddatos.titulo == undefined ? '' : saveddatos.titulo;
 
-                                        datasubtitulo=saveddatos.subtitulo==undefined?'':saveddatos.subtitulo;
-                                        datacontacto=saveddatos.contacto==undefined?'':saveddatos.contacto;
-                                        datanombre=saveddatos.nombre==undefined?'':saveddatos.nombre;
-                                        datadireccion=saveddatos.direccion==undefined?'':saveddatos.direccion;
-                                        datatelefono=saveddatos.telefono==undefined?'':saveddatos.telefono;
-                                        dataemail=saveddatos.email==undefined?'':saveddatos.email;
-                                        datatitulopdf=saveddatos.titulopdf==undefined?'':saveddatos.titulopdf;
-                                        selectedcapa=saveddatos.capaName==undefined?'':saveddatos.capaName;
+                                        datasubtitulo = saveddatos.subtitulo == undefined ? '' : saveddatos.subtitulo;
+                                        datacontacto = saveddatos.contacto == undefined ? '' : saveddatos.contacto;
+                                        datanombre = saveddatos.nombre == undefined ? '' : saveddatos.nombre;
+                                        datadireccion = saveddatos.direccion == undefined ? '' : saveddatos.direccion;
+                                        datatelefono = saveddatos.telefono == undefined ? '' : saveddatos.telefono;
+                                        dataemail = saveddatos.email == undefined ? '' : saveddatos.email;
+                                        datatitulopdf = saveddatos.titulopdf == undefined ? '' : saveddatos.titulopdf;
+                                        selectedcapa = saveddatos.capaName == undefined ? '' : saveddatos.capaName;
                                     }
 
                                     var capasHtml = '';
                                     if (source.capas === 'on') {
                                         capasHtml = '<b>Seleccione su Tapa</b><br><br>' +
                                             '<div class="row" style="overflow-y: auto;height: 183px">';
-                                        capasImg.forEach(function (capa) {
-                                            var isselected='';
-                                            if(selectedcapa!=undefined && capa[1].replace('_small','')==selectedcapa)
-                                                isselected='checked';
+                                        capasImg.forEach(function(capa) {
+                                            var isselected = '';
+                                            if (selectedcapa != undefined && capa[1].replace('_small', '') == selectedcapa)
+                                                isselected = 'checked';
                                             capasHtml += '<div class="col-md-4 col-xs-3" style="text-align: center;">' +
-                                                '<img src="' + capa[0] + '" class="imagencapasminuaturas" onclick="noClick(event)" id="'+capa[2]+'" name="'+capa[1]+'"/><br>' +
-                                                '<input  type="radio" '+isselected+' required name="capasradio" value="' + capa[1] + '">' +
+                                                '<img src="' + capa[0] + '" class="imagencapasminuaturas" onclick="noClick(event)" id="' + capa[2] + '" name="' + capa[1] + '"/><br>' +
+                                                '<input  type="radio" ' + isselected + ' required name="capasradio" value="' + capa[1] + '">' +
                                                 '</div>'
 
                                         });
-                                        capasHtml += '</div>';                                       
+                                        capasHtml += '</div>';
 
                                     }
 
@@ -328,14 +328,14 @@ $('.imprimircatalogo').click(function(){
                                         message: '',
                                         input: [
                                             capasHtml + '<br>' +
-                                            '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Título</b></div><div  class="col-md-8"><input class="inputtext" type="text"  name="titulo" value="'+datatitulo+'"></div></div>'+
-                                            '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Subtítulo</b></div><div  class="col-md-8"><input class="inputtext" type="text"  name="subtitulo" value="'+datasubtitulo+'"></div></div>'+
-                                            '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Mi Contacto</b></div><div class="col-md-8"><input class="inputtext" type="text"  name="contacto" value="'+datacontacto+'"></div></div>'+
-                                            '<div class="divaligncenter row" style="display:none !important"><div class="col-md-4"><b class="bdatapdf">Nombre</b></div><div class="col-md-8"><input class="inputtext" type="text"   name="nombre" value="'+datanombre+'"></div></div>'+
-                                            '<div class="divaligncenter row" style="display:none !important"><div class="col-md-4"><b class="bdatapdf">Dirección</b></div><div class="col-md-8"><input class="inputtext" type="text"  name="direccion" value="'+datadireccion+'"></div></div>'+
-                                            '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Teléfono</b></div><div class="col-md-8"><input class="inputtext" type="text"  name="telefono" value="'+datatelefono+'"></div></div>'+
-                                            '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Email</b></div><div class="col-md-8"><input class="inputtext" type="text" placeholder="Ej mail1@mail.com,mail2@mail.com"  name="email" value="'+dataemail+'"></div></div>'+
-                                            '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Nombre del PDF</b></div><div class="col-md-8"><input class="inputtext"  type="text" name="titulopdf" value="'+datatitulopdf+'"></div></div>'
+                                            '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Título</b></div><div  class="col-md-8"><input class="inputtext" type="text"  name="titulo" value="' + datatitulo + '"></div></div>' +
+                                            '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Subtítulo</b></div><div  class="col-md-8"><input class="inputtext" type="text"  name="subtitulo" value="' + datasubtitulo + '"></div></div>' +
+                                            '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Mi Contacto</b></div><div class="col-md-8"><input class="inputtext" type="text"  name="contacto" value="' + datacontacto + '"></div></div>' +
+                                            '<div class="divaligncenter row" style="display:none !important"><div class="col-md-4"><b class="bdatapdf">Nombre</b></div><div class="col-md-8"><input class="inputtext" type="text"   name="nombre" value="' + datanombre + '"></div></div>' +
+                                            '<div class="divaligncenter row" style="display:none !important"><div class="col-md-4"><b class="bdatapdf">Dirección</b></div><div class="col-md-8"><input class="inputtext" type="text"  name="direccion" value="' + datadireccion + '"></div></div>' +
+                                            '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Teléfono</b></div><div class="col-md-8"><input class="inputtext" type="text"  name="telefono" value="' + datatelefono + '"></div></div>' +
+                                            '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Email</b></div><div class="col-md-8"><input class="inputtext" type="text" placeholder="Ej mail1@mail.com,mail2@mail.com"  name="email" value="' + dataemail + '"></div></div>' +
+                                            '<div class="divaligncenter row"><div class="col-md-4"><b class="bdatapdf">Nombre del PDF</b></div><div class="col-md-8"><input class="inputtext"  type="text" name="titulopdf" value="' + datatitulopdf + '"></div></div>'
                                         ].join(''),
                                         showCloseButton: true,
                                         buttons: [
@@ -353,22 +353,22 @@ $('.imprimircatalogo').click(function(){
 
                                         ],
 
-                                        callback: function (data) {
-                                            var clickwhere=$('#clicked');
-                                          
+                                        callback: function(data) {
+                                            var clickwhere = $('#clicked');
 
-                                            source['capaName'] = data.capasradio==undefined?undefined: data.capasradio.replace('_small', '');
 
-                                            if(source['capaName']!=undefined)
-                                                source['capaUrl']=$('#'+source['capaName'].replace('pdfresources/tapas/','').replace('.','').replace('_','').replace('\\','').replace('/','').replace('(','').replace(')','')).attr('src');
-                                            source['titulo']=data.titulo==undefined?'':data.titulo;
-                                            source['subtitulo']=data.subtitulo==undefined?'':data.subtitulo;
-                                            source['contacto']=data.contacto==undefined?'':data.contacto;
-                                            source['nombre']=data.nombre==undefined?'':data.nombre;
-                                            source['direccion']=data.direccion==undefined?'':data.direccion;
-                                            source['telefono']=data.telefono==undefined?'':data.telefono;
-                                            source['email']=data.email==undefined?'':data.email;
-                                            source['titulopdf']=data.titulopdf==undefined?'':data.titulopdf;
+                                            source['capaName'] = data.capasradio == undefined ? undefined : data.capasradio.replace('_small', '');
+
+                                            if (source['capaName'] != undefined)
+                                                source['capaUrl'] = $('#' + source['capaName'].replace('pdfresources/tapas/', '').replace('.', '').replace('_', '').replace('\\', '').replace('/', '').replace('(', '').replace(')', '')).attr('src');
+                                            source['titulo'] = data.titulo == undefined ? '' : data.titulo;
+                                            source['subtitulo'] = data.subtitulo == undefined ? '' : data.subtitulo;
+                                            source['contacto'] = data.contacto == undefined ? '' : data.contacto;
+                                            source['nombre'] = data.nombre == undefined ? '' : data.nombre;
+                                            source['direccion'] = data.direccion == undefined ? '' : data.direccion;
+                                            source['telefono'] = data.telefono == undefined ? '' : data.telefono;
+                                            source['email'] = data.email == undefined ? '' : data.email;
+                                            source['titulopdf'] = data.titulopdf == undefined ? '' : data.titulopdf;
 
 
                                             if (clickwhere.val().search(/segundoVolverbutton/) != -1) {
@@ -379,11 +379,12 @@ $('.imprimircatalogo').click(function(){
                                             }
                                             if (clickwhere.val().search(/segundocontinuarbutton/) != -1) {
                                                 console.log(source['capaUrl']);
-                                                function PreviaUno(){
-                                                    var previaCapa='';
-                                                    if(source.capas=='on'){
-                                                        previaCapa='<div class="col-md-6">' +
-                                                            '<img class="imagenheadercatalogprevia1" src="'+source.capaUrl+'" style="width: 101%;">'+
+
+                                                function PreviaUno() {
+                                                    var previaCapa = '';
+                                                    if (source.capas == 'on') {
+                                                        previaCapa = '<div class="col-md-6">' +
+                                                            '<img class="imagenheadercatalogprevia1" src="' + source.capaUrl + '" style="width: 101%;">' +
                                                             '</div>'
 
                                                     }
@@ -396,11 +397,11 @@ $('.imprimircatalogo').click(function(){
                                                     //var brTelefono=source.telefono==""?'':'<br>';
                                                     //var brEmail=source.email==""?'':'<br>';
 
-                                                    var brContacto='<br>';
-                                                    var brNombre='<br>';
-                                                    var brDireccion='<br>';
-                                                    var brTelefono='<br>';
-                                                    var brEmail='<br>';
+                                                    var brContacto = '<br>';
+                                                    var brNombre = '<br>';
+                                                    var brDireccion = '<br>';
+                                                    var brTelefono = '<br>';
+                                                    var brEmail = '<br>';
 
 
 
@@ -410,19 +411,19 @@ $('.imprimircatalogo').click(function(){
                                                         message: '',
 
                                                         input: [
-                                                            '<b class="previaheader">Vista Previa</b><br>'+
-                                                            '<div class="row">'+
-                                                            previaCapa+
-                                                            '<div class="col-md-6 imgprev1_2" style="height: 320px !important;background-image: url'+"("+''+source["imgIntrodURL"].replace('\\','/')+');background-size: cover !important;background-position: bottom !important; ">' +
-                                                            '<span class="previatitulo">'+source.titulo+'</span><br>'+
-                                                            '<span class="previasubtitulo">'+source.subtitulo+'</span><br>'+
-                                                            '<div style="height: 116px;"></div>'+
-                                                            '<span class="previasubtitulo previatexto">'+source.contacto+'</span>'+brContacto+
+                                                            '<b class="previaheader">Vista Previa</b><br>' +
+                                                            '<div class="row">' +
+                                                            previaCapa +
+                                                            '<div class="col-md-6 imgprev1_2" style="height: 320px !important;background-image: url' + "(" + '' + source["imgIntrodURL"].replace('\\', '/') + ');background-size: cover !important;background-position: bottom !important; ">' +
+                                                            '<span class="previatitulo">' + source.titulo + '</span><br>' +
+                                                            '<span class="previasubtitulo">' + source.subtitulo + '</span><br>' +
+                                                            '<div style="height: 116px;"></div>' +
+                                                            '<span class="previasubtitulo previatexto">' + source.contacto + '</span>' + brContacto +
                                                             //'<span class="previasubtitulo previatexto">'+source.nombre+'</span>'+brNombre+
                                                             //'<span class="previasubtitulo previatexto">'+source.direccion+'</span>'+brDireccion+
-                                                            '<span class="previasubtitulo previatexto">'+source.telefono+'</span>'+brTelefono+
-                                                            '<span class="previasubtitulo previatexto" style="position:absolute;;margin-top: 9px !important;">'+source.email+'</span>'+brEmail+
-                                                            '</div>'+
+                                                            '<span class="previasubtitulo previatexto">' + source.telefono + '</span>' + brTelefono +
+                                                            '<span class="previasubtitulo previatexto" style="position:absolute;;margin-top: 9px !important;">' + source.email + '</span>' + brEmail +
+                                                            '</div>' +
                                                             '</div>'
                                                         ].join(''),
                                                         showCloseButton: true,
@@ -445,8 +446,8 @@ $('.imprimircatalogo').click(function(){
 
                                                         ],
 
-                                                        callback: function (data) {
-                                                            var clickwhere=$('#clicked');
+                                                        callback: function(data) {
+                                                            var clickwhere = $('#clicked');
 
                                                             if (clickwhere.val().search(/terceroVolverbutton/) != -1) {
                                                                 SegundoDialogo(source);
@@ -457,38 +458,37 @@ $('.imprimircatalogo').click(function(){
 
 
 
-                                                                function ListaPrecioDialogo(){
+                                                                function ListaPrecioDialogo() {
 
-                                                                    var tablalistaprec='<div style="overflow: auto;height: 450px;text-align: center">' +
+                                                                    var tablalistaprec = '<div style="overflow: auto;height: 450px;text-align: center">' +
                                                                         '<table class="table-responsive" style="margin-left: 23% !important;margin-top: 2% !important;width: 64%;">' +
                                                                         '<tr><thead><th style="display: none">ToroID</th><th>Apodo</th><th>Precio</th></thead></tr>' +
                                                                         '<tbody>';
 
-                                                                    if(source.listtoroprocesada!=undefined && source.listtoroprocesada!=null){
+                                                                    if (source.listtoroprocesada != undefined && source.listtoroprocesada != null) {
 
-                                                                        for(var j=0;j<source.listtoroprocesada.length;j++){
+                                                                        for (var j = 0; j < source.listtoroprocesada.length; j++) {
 
-                                                                            tablalistaprec+='<tr>' +
-                                                                                '<td style="display: none"><input type="text" name="idtoros" value="'+source.listtoroprocesada[j][0]+'"/></td>' +
-                                                                                '<td><input type="text" value="'+source.listtoroprocesada[j][1]+'" name="apodos" hidden/>'+source.listtoroprocesada[j][1]+'</td>' +
-                                                                                '<td><input step="any" name="preciotoros" class="toroprecio" style="border-bottom: 1px solid #B24E2A;" value="'+source.listtoroprocesada[j][2]+'" type="number"></td>';
+                                                                            tablalistaprec += '<tr>' +
+                                                                                '<td style="display: none"><input type="text" name="idtoros" value="' + source.listtoroprocesada[j][0] + '"/></td>' +
+                                                                                '<td><input type="text" value="' + source.listtoroprocesada[j][1] + '" name="apodos" hidden/>' + source.listtoroprocesada[j][1] + '</td>' +
+                                                                                '<td><input step="any" name="preciotoros" class="toroprecio" style="border-bottom: 1px solid #B24E2A;" value="' + source.listtoroprocesada[j][2] + '" type="number"></td>';
 
                                                                         }
 
-                                                                    }
-                                                                    else{
-                                                                        source.torosInfo.forEach(function(toro){
-                                                                            var id=toro[0];
-                                                                            var apodo=toro[1];
+                                                                    } else {
+                                                                        source.torosInfo.forEach(function(toro) {
+                                                                            var id = toro[0];
+                                                                            var apodo = toro[1];
 
-                                                                            tablalistaprec+='<tr>' +
-                                                                                '<td style="display: none"><input type="text" name="idtoros" value="'+id+'"/></td>' +
-                                                                                '<td><input type="text" value="'+apodo+'" name="apodos" hidden/>'+apodo+'</td>' +
+                                                                            tablalistaprec += '<tr>' +
+                                                                                '<td style="display: none"><input type="text" name="idtoros" value="' + id + '"/></td>' +
+                                                                                '<td><input type="text" value="' + apodo + '" name="apodos" hidden/>' + apodo + '</td>' +
                                                                                 '<td><input step="any" name="preciotoros" required value="0" class="toroprecio" style="border-bottom: 1px solid #B24E2A;" type="number"></td>';
                                                                         });
                                                                     }
 
-                                                                    tablalistaprec+='</tbody></table></div>';
+                                                                    tablalistaprec += '</tbody></table></div>';
 
 
                                                                     vex.dialog.confirm({
@@ -496,7 +496,7 @@ $('.imprimircatalogo').click(function(){
                                                                         closeClassName: 'closebleclass',
                                                                         message: '',
                                                                         input: [
-                                                                            '<b class="previaheader">Lista de precios</b><br>'+
+                                                                            '<b class="previaheader">Lista de precios</b><br>' +
                                                                             tablalistaprec
 
                                                                         ].join(''),
@@ -520,7 +520,7 @@ $('.imprimircatalogo').click(function(){
 
                                                                         ],
 
-                                                                        callback: function (data) {
+                                                                        callback: function(data) {
 
                                                                             if (clickwhere.val().search(/listapreciosNuevamentebutton/) != -1) {
                                                                                 PrimerDialog(source);
@@ -533,25 +533,24 @@ $('.imprimircatalogo').click(function(){
                                                                             }
 
                                                                             if (clickwhere.val().search(/listaprecioscontinuarbutton/) != -1) {
-                                                                                var listtoroprocesada=[];
-                                                                                listaprecioprevia='<div style="overflow-y: auto;overflow-x: hidden;height: 319px !important;"><table class="table-responsive" style="width: 100% !important;"><tbody>';
+                                                                                var listtoroprocesada = [];
+                                                                                listaprecioprevia = '<div style="overflow-y: auto;overflow-x: hidden;height: 319px !important;"><table class="table-responsive" style="width: 100% !important;"><tbody>';
 
-                                                                                if(Array.isArray(data.idtoros)){
+                                                                                if (Array.isArray(data.idtoros)) {
 
-                                                                                    for(var i=0;i<data.idtoros.length;i++){
-                                                                                        var temp=[];
+                                                                                    for (var i = 0; i < data.idtoros.length; i++) {
+                                                                                        var temp = [];
                                                                                         temp.push(data.idtoros[i]);
                                                                                         temp.push(data.apodos[i]);
                                                                                         temp.push(data.preciotoros[i]);
                                                                                         listtoroprocesada.push(
                                                                                             temp
                                                                                         );
-                                                                                        listaprecioprevia+='<tr style="text-align: center"><td>'+data.apodos[i]+'</td><td style="float: right"><strong>$'+data.preciotoros[i]+'</strong></td></tr>'
+                                                                                        listaprecioprevia += '<tr style="text-align: center"><td>' + data.apodos[i] + '</td><td style="float: right"><strong>$' + data.preciotoros[i] + '</strong></td></tr>'
                                                                                     }
 
-                                                                                }
-                                                                                else{
-                                                                                    var temp=[];
+                                                                                } else {
+                                                                                    var temp = [];
                                                                                     temp.push(data.idtoros);
                                                                                     temp.push(data.apodos);
                                                                                     temp.push(data.preciotoros);
@@ -559,12 +558,12 @@ $('.imprimircatalogo').click(function(){
                                                                                         temp
                                                                                     );
 
-                                                                                    listaprecioprevia+='<tr style="text-align: center"><td>'+data.apodos+'</td><td style="float: right"><strong>$'+data.preciotoros+'</strong></td></tr>'
+                                                                                    listaprecioprevia += '<tr style="text-align: center"><td>' + data.apodos + '</td><td style="float: right"><strong>$' + data.preciotoros + '</strong></td></tr>'
 
                                                                                 }
 
-                                                                                listaprecioprevia+='</tbody></table></div>';
-                                                                                source['listtoroprocesada']=listtoroprocesada;
+                                                                                listaprecioprevia += '</tbody></table></div>';
+                                                                                source['listtoroprocesada'] = listtoroprocesada;
                                                                                 ListaprecioPrevia();
                                                                             }
                                                                         }
@@ -572,15 +571,15 @@ $('.imprimircatalogo').click(function(){
                                                                     });
                                                                 }
 
-                                                                function ListaprecioPrevia(){
+                                                                function ListaprecioPrevia() {
                                                                     vex.dialog.confirm({
                                                                         contentClassName: 'bordernaranjaclassMasAncholistatoroprevia',
                                                                         closeClassName: 'closebleclass',
                                                                         message: '',
                                                                         input: [
-                                                                            '<div style="text-align: center ;height:450px !important;width: 295px !important;margin-left: 21%;background-image: url'+"("+''+source["imgListaPrecURL"].replace('\\','/')+');background-size: cover !important;background-position: bottom !important; ">' +
-                                                                            '<b class="previaheader">Lista de Precios</b><br>'+
-                                                                            listaprecioprevia+
+                                                                            '<div style="text-align: center ;height:450px !important;width: 295px !important;margin-left: 21%;background-image: url' + "(" + '' + source["imgListaPrecURL"].replace('\\', '/') + ');background-size: cover !important;background-position: bottom !important; ">' +
+                                                                            '<b class="previaheader">Lista de Precios</b><br>' +
+                                                                            listaprecioprevia +
 
                                                                             '</div>'
 
@@ -605,7 +604,7 @@ $('.imprimircatalogo').click(function(){
 
                                                                         ],
 
-                                                                        callback: function (data) {
+                                                                        callback: function(data) {
 
                                                                             if (clickwhere.val().search(/previalistapreciosNuevamentebutton/) != -1) {
                                                                                 PrimerDialog(source);
@@ -620,9 +619,9 @@ $('.imprimircatalogo').click(function(){
                                                                             }
 
                                                                             if (clickwhere.val().search(/previalistaprecioscontinuarbutton/) != -1) {
-                                                                                if(source.msjintroduccion=="on")
+                                                                                if (source.msjintroduccion == "on")
                                                                                     MensajeIntrodDialogo();
-                                                                                else{
+                                                                                else {
                                                                                     FinDialogo();
                                                                                 }
 
@@ -637,11 +636,11 @@ $('.imprimircatalogo').click(function(){
 
 
 
-                                                                if(source.listaprecios=='on')
+                                                                if (source.listaprecios == 'on')
                                                                     ListaPrecioDialogo();
-                                                                else if(source.msjintroduccion=='on' && source.listaprecios==undefined)
+                                                                else if (source.msjintroduccion == 'on' && source.listaprecios == undefined)
                                                                     MensajeIntrodDialogo();
-                                                                else if(source.listaprecios==undefined && source.msjintroduccion==undefined)
+                                                                else if (source.listaprecios == undefined && source.msjintroduccion == undefined)
                                                                     FinDialogo();
 
 
@@ -649,21 +648,21 @@ $('.imprimircatalogo').click(function(){
 
 
 
-                                                                function MensajeIntrodDialogo(){
-                                                                    var titulo='';
-                                                                    var cuerpo='';
-                                                                    if(source['mensajeintroducTitulo']!=undefined)
-                                                                        titulo=source['mensajeintroducTitulo'];
-                                                                    if(source['mensajeintrudCuerpo']!=undefined)
-                                                                        cuerpo=source['mensajeintrudCuerpo'];
+                                                                function MensajeIntrodDialogo() {
+                                                                    var titulo = '';
+                                                                    var cuerpo = '';
+                                                                    if (source['mensajeintroducTitulo'] != undefined)
+                                                                        titulo = source['mensajeintroducTitulo'];
+                                                                    if (source['mensajeintrudCuerpo'] != undefined)
+                                                                        cuerpo = source['mensajeintrudCuerpo'];
                                                                     vex.dialog.confirm({
                                                                         contentClassName: 'bordernaranjaclassMasAncho',
                                                                         closeClassName: 'closebleclass',
                                                                         message: '',
                                                                         input: [
-                                                                            '<div style="text-align: center"><b class="previaheader">Cree su Mensaje</b><div/><br>'+
-                                                                            '<div><span>Título</span><input required type="text" style="border: 1px solid #B24E2A" value="'+titulo+'" name="mensajeintrodtitulo"></div>'+
-                                                                            '<div><textarea required style="border: 1px solid #B24E2A" name="cuerpomsjinrtrod"  rows="10">'+cuerpo+'</textarea></div>'
+                                                                            '<div style="text-align: center"><b class="previaheader">Cree su Mensaje</b><div/><br>' +
+                                                                            '<div><span>Título</span><input required type="text" style="border: 1px solid #B24E2A" value="' + titulo + '" name="mensajeintrodtitulo"></div>' +
+                                                                            '<div><textarea required style="border: 1px solid #B24E2A" name="cuerpomsjinrtrod"  rows="10">' + cuerpo + '</textarea></div>'
 
                                                                         ].join(''),
                                                                         showCloseButton: true,
@@ -686,7 +685,7 @@ $('.imprimircatalogo').click(function(){
 
                                                                         ],
 
-                                                                        callback: function (data) {
+                                                                        callback: function(data) {
 
                                                                             if (clickwhere.val().search(/msjintrodNuevamentebutton/) != -1) {
                                                                                 PrimerDialog(source);
@@ -695,7 +694,7 @@ $('.imprimircatalogo').click(function(){
 
                                                                             if (clickwhere.val().search(/msjintrodVolverbutton/) != -1) {
 
-                                                                                if(source.listaprecios=='on')
+                                                                                if (source.listaprecios == 'on')
                                                                                     ListaprecioPrevia();
                                                                                 else
                                                                                     PreviaUno();
@@ -703,8 +702,8 @@ $('.imprimircatalogo').click(function(){
                                                                             }
 
                                                                             if (clickwhere.val().search(/msjintrodcontinuarbutton/) != -1) {
-                                                                                source['mensajeintroducTitulo']=data.mensajeintrodtitulo;
-                                                                                source['mensajeintrudCuerpo']=data.cuerpomsjinrtrod;
+                                                                                source['mensajeintroducTitulo'] = data.mensajeintrodtitulo;
+                                                                                source['mensajeintrudCuerpo'] = data.cuerpomsjinrtrod;
                                                                                 PrevioMsjIntrodDialogo();
                                                                             }
 
@@ -713,26 +712,26 @@ $('.imprimircatalogo').click(function(){
                                                                     });
                                                                 }
 
-                                                                function PrevioMsjIntrodDialogo(){
+                                                                function PrevioMsjIntrodDialogo() {
 
                                                                     vex.dialog.confirm({
                                                                         contentClassName: 'bordernaranjaclassMasAncholistatoroprevia',
                                                                         closeClassName: 'closebleclass',
                                                                         message: '',
                                                                         input: [
-                                                                            '<b class="previaheader">Vista Previa</b><br>'+
-                                                                            '<div style="text-align: center ;margin-top: 5% !important;height:450px !important;width: 295px !important;margin-left: 21%;background-image: url'+"("+''+source["imgMsjintrod"].replace('\\','/')+');background-size: cover !important;background-position: bottom !important; ">' +
-                                                                            '<span class="previatitulo">'+source['mensajeintroducTitulo']+'</span>' +
-                                                                            '<div style="width: 123% !important;"> <p class="" style="/*! overflow: auto; */overflow-y: auto;height: 203px;"> '+source['mensajeintrudCuerpo']+' </p>' +
+                                                                            '<b class="previaheader">Vista Previa</b><br>' +
+                                                                            '<div style="text-align: center ;margin-top: 5% !important;height:450px !important;width: 295px !important;margin-left: 21%;background-image: url' + "(" + '' + source["imgMsjintrod"].replace('\\', '/') + ');background-size: cover !important;background-position: bottom !important; ">' +
+                                                                            '<span class="previatitulo">' + source['mensajeintroducTitulo'] + '</span>' +
+                                                                            '<div style="width: 123% !important;"> <p class="" style="/*! overflow: auto; */overflow-y: auto;height: 203px;"> ' + source['mensajeintrudCuerpo'] + ' </p>' +
 
-                                                                            ' </div>'+
-                                                                            '<div class="segdafoot">'+
-                                                                            '<span class="previasubtitulo previatexto">'+source.contacto+'</span>'+brContacto+
-                                                                            '<span class="previasubtitulo previatexto">'+source.nombre+'</span>'+brNombre+
-                                                                            '<span class="previasubtitulo previatexto">'+source.direccion+'</span>'+brDireccion+
-                                                                            '<span class="previasubtitulo previatexto">'+source.telefono+'</span>'+brTelefono+
-                                                                            '<span class="previasubtitulo previatexto">'+source.email+'</span>'+brEmail+
-                                                                            '</div>'+
+                                                                            ' </div>' +
+                                                                            '<div class="segdafoot">' +
+                                                                            '<span class="previasubtitulo previatexto">' + source.contacto + '</span>' + brContacto +
+                                                                            '<span class="previasubtitulo previatexto">' + source.nombre + '</span>' + brNombre +
+                                                                            '<span class="previasubtitulo previatexto">' + source.direccion + '</span>' + brDireccion +
+                                                                            '<span class="previasubtitulo previatexto">' + source.telefono + '</span>' + brTelefono +
+                                                                            '<span class="previasubtitulo previatexto">' + source.email + '</span>' + brEmail +
+                                                                            '</div>' +
                                                                             '</div>'
 
 
@@ -757,7 +756,7 @@ $('.imprimircatalogo').click(function(){
 
                                                                         ],
 
-                                                                        callback: function (data) {
+                                                                        callback: function(data) {
 
                                                                             if (clickwhere.val().search(/previamsjintrodNuevamentebutton/) != -1) {
                                                                                 PrimerDialog(source);
@@ -785,11 +784,11 @@ $('.imprimircatalogo').click(function(){
 
                                                                 }
 
-                                                                function FinDialogo(){
-                                                                    var tapa='';
-                                                                    if(source.capas=='on'){
-                                                                        tapa='<div class="col-md-6" style="margin-left: 25% !important;margin-bottom: 2% !important;">' +
-                                                                            '<img class="imagenheadercatalogprevia1" src="'+source.capaUrl+'">'+
+                                                                function FinDialogo() {
+                                                                    var tapa = '';
+                                                                    if (source.capas == 'on') {
+                                                                        tapa = '<div class="col-md-6" style="margin-left: 25% !important;margin-bottom: 2% !important;">' +
+                                                                            '<img class="imagenheadercatalogprevia1" src="' + source.capaUrl + '">' +
                                                                             '</div><div class="col-md-6"> </div>';
                                                                     }
                                                                     vex.dialog.confirm({
@@ -797,8 +796,8 @@ $('.imprimircatalogo').click(function(){
                                                                         closeClassName: 'closebleclass',
                                                                         message: '',
                                                                         input: [
-                                                                            '<br>'+
-                                                                            tapa +'<br>'
+                                                                            '<br>' +
+                                                                            tapa + '<br>'
 
 
                                                                         ].join(''),
@@ -822,7 +821,7 @@ $('.imprimircatalogo').click(function(){
 
                                                                         ],
 
-                                                                        callback: function (data) {
+                                                                        callback: function(data) {
 
                                                                             if (clickwhere.val().search(/finNuevamentebutton/) != -1) {
                                                                                 PrimerDialog(source);
@@ -830,11 +829,11 @@ $('.imprimircatalogo').click(function(){
                                                                             }
 
                                                                             if (clickwhere.val().search(/finVolverbutton/) != -1) {
-                                                                                if(source.msjintroduccion=='on')
+                                                                                if (source.msjintroduccion == 'on')
                                                                                     PrevioMsjIntrodDialogo();
-                                                                                else if(source.msjintroduccion==undefined && source.listaprecios=='on')
+                                                                                else if (source.msjintroduccion == undefined && source.listaprecios == 'on')
                                                                                     ListaprecioPrevia();
-                                                                                else if(source.msjintroduccion==undefined && source.listaprecios==undefined)
+                                                                                else if (source.msjintroduccion == undefined && source.listaprecios == undefined)
                                                                                     PreviaUno();
 
 
@@ -843,27 +842,28 @@ $('.imprimircatalogo').click(function(){
                                                                             if (clickwhere.val().search(/fincontinuarbutton/) != -1) {
                                                                                 console.log(source);
 
-                                                                                       if(isformovile==false){
-                                                                                           var vexwaiting2 = vex.dialog.alert({unsafeMessage: '<div style="text-align: center"><img src="'+imgpreload+'" width="400" height="300">'+ '<br><b>Procesando. Esto puede demorar en dependencia de la cantidad de toros seleccionados. Sea paciente.Espere...</b></div>',
-                                                                                               contentClassName: 'bordernaranjaclassMasAncho',
-                                                                                               className:'vex-theme-os'
-                                                                                           });
-                                                                                       }
+                                                                                if (isformovile == false) {
+                                                                                    var vexwaiting2 = vex.dialog.alert({
+                                                                                        unsafeMessage: '<div style="text-align: center"><img src="' + imgpreload + '" width="400" height="300">' + '<br><b>Procesando. Esto puede demorar en dependencia de la cantidad de toros seleccionados. Sea paciente.Espere...</b></div>',
+                                                                                        contentClassName: 'bordernaranjaclassMasAncho',
+                                                                                        className: 'vex-theme-os'
+                                                                                    });
+                                                                                }
                                                                                 var arra = [];
-                                                                                $.each(rows_selected, function (index, rowId) {
+                                                                                $.each(rows_selected, function(index, rowId) {
                                                                                     arra.push(rowId);
                                                                                 });
-                                                                                if(isformovile===false){
+                                                                                if (isformovile === false) {
                                                                                     var url = Routing.generate('pdf_generate_catalogo');
                                                                                     $.ajax({
                                                                                         type: 'POST',
-                                                                                        data: {source: source},
+                                                                                        data: { source: source },
                                                                                         url: url,
-                                                                                        success: function (data) {
+                                                                                        success: function(data) {
                                                                                             vex.close(vexwaiting2)
                                                                                             if (data[0] == 1) {
                                                                                                 //window.open(data[1], '_blank');
-                                                                                                SaveToDisk(data[1],data[2]);
+                                                                                                SaveToDisk(data[1], data[2]);
 
                                                                                             } else {
                                                                                                 vex.dialog.alert({
@@ -876,24 +876,22 @@ $('.imprimircatalogo').click(function(){
                                                                                             }
 
                                                                                         },
-                                                                                        error: function (req, stat, err) {
+                                                                                        error: function(req, stat, err) {
                                                                                             vex.close(vexwaiting2)
                                                                                             console.log(err);
                                                                                         }
                                                                                     });
-                                                                                }
-
-                                                                                else{
+                                                                                } else {
 
                                                                                     var url2 = Routing.generate('pdf_generate_catalogoformovil');
                                                                                     console.log(url2);
                                                                                     $.ajax({
                                                                                         type: 'POST',
-                                                                                        data: {source: source},
+                                                                                        data: { source: source },
                                                                                         url: url2
                                                                                     });
                                                                                     vex.dialog.alert({
-                                                                                        unsafeMessage: '<b>La url al catálogo generado se enviará a '+source.email+' cuando esté lista</b>',
+                                                                                        unsafeMessage: '<b>La url al catálogo generado se enviará a ' + source.email + ' cuando esté lista</b>',
                                                                                         className: 'vex-theme-wireframe',
                                                                                         overlayClassName: 'success',
                                                                                         contentClassName: 'bordernaranjaclass',
@@ -939,7 +937,7 @@ $('.imprimircatalogo').click(function(){
                 PrimerDialog();
 
             },
-            error: function (req, stat, err) {
+            error: function(req, stat, err) {
                 console.log(err);
             }
         });
@@ -947,11 +945,13 @@ $('.imprimircatalogo').click(function(){
 });
 
 
-$('.imagegenerator').click(function(){
-   var toroid=$(this).attr('data-id');
-  var vexwaiting=  vex.dialog.alert({ unsafeMessage:'Generando Imagen espere...'
+$('.imagegenerator').click(function() {
+    var toroid = $(this).attr('data-id');
+    var vexwaiting = vex.dialog.alert({
+        unsafeMessage: 'Generando Imagen espere...'
 
-        , className: 'vex-theme-wireframe' ,
+        ,
+        className: 'vex-theme-wireframe',
         overlayClassName: 'success',
         contentClassName: 'bordernaranjaclass',
         closeClassName: 'closebleclass'
@@ -959,29 +959,27 @@ $('.imagegenerator').click(function(){
     var url = Routing.generate('toro_img');
     $.ajax({
         type: 'POST',
-        data: {id: toroid},
+        data: { id: toroid },
         url: url,
-        success: function (data) {
+        success: function(data) {
             vex.close(vexwaiting)
             if (data[0] == 1) {
-                try{
-                   if(screen.width<=1200){
-                       vex.dialog.alert({
-                           //  unsafeMessage: '<div style="text-align: center"><b>URL directa</b><br><a target="_blank" href="'+data[1]+'">'+data[2]+'</a><br><b>Whatsapp</b><br><a target="_blank" href="https://api.whatsapp.com/send?text='+data[1]+'">'+data[2]+'</a></div>',
-                           unsafeMessage: '<div style="text-align: center"><b>Seleccione el link de abajo para que se abra la imagen detalle del toro, luego mantenga presionada la imagen con el dedo hasta que salga la opción de "Guardar imagen"</b><br><a target="_blank" href="'+data[1]+'">'+data[2]+'</a></div>',
-                           className: 'vex-theme-wireframe',
-                           overlayClassName: 'success',
-                           contentClassName: 'bordernaranjaclass',
-                           closeClassName: 'closebleclass'
-                       });
-                   }
-                   else
-                    SaveToDisk(data[1],data[2]);
-                }
-                catch (e) {
+                try {
+                    if (screen.width <= 1200) {
+                        vex.dialog.alert({
+                            //  unsafeMessage: '<div style="text-align: center"><b>URL directa</b><br><a target="_blank" href="'+data[1]+'">'+data[2]+'</a><br><b>Whatsapp</b><br><a target="_blank" href="https://api.whatsapp.com/send?text='+data[1]+'">'+data[2]+'</a></div>',
+                            unsafeMessage: '<div style="text-align: center"><b>Seleccione el link de abajo para que se abra la imagen detalle del toro, luego mantenga presionada la imagen con el dedo hasta que salga la opción de "Guardar imagen"</b><br><a target="_blank" href="' + data[1] + '">' + data[2] + '</a></div>',
+                            className: 'vex-theme-wireframe',
+                            overlayClassName: 'success',
+                            contentClassName: 'bordernaranjaclass',
+                            closeClassName: 'closebleclass'
+                        });
+                    } else
+                        SaveToDisk(data[1], data[2]);
+                } catch (e) {
                     vex.dialog.alert({
-                      //  unsafeMessage: '<div style="text-align: center"><b>URL directa</b><br><a target="_blank" href="'+data[1]+'">'+data[2]+'</a><br><b>Whatsapp</b><br><a target="_blank" href="https://api.whatsapp.com/send?text='+data[1]+'">'+data[2]+'</a></div>',
-                        unsafeMessage: '<div style="text-align: center"><b>Seleccione el link de abajo para que se abra la imagen detalle del toro, luego mantenga presionada la imagen con el dedo hasta que salga la opción de "Guardar imagen"</b><br><a target="_blank" href="'+data[1]+'">'+data[2]+'</a></div>',
+                        //  unsafeMessage: '<div style="text-align: center"><b>URL directa</b><br><a target="_blank" href="'+data[1]+'">'+data[2]+'</a><br><b>Whatsapp</b><br><a target="_blank" href="https://api.whatsapp.com/send?text='+data[1]+'">'+data[2]+'</a></div>',
+                        unsafeMessage: '<div style="text-align: center"><b>Seleccione el link de abajo para que se abra la imagen detalle del toro, luego mantenga presionada la imagen con el dedo hasta que salga la opción de "Guardar imagen"</b><br><a target="_blank" href="' + data[1] + '">' + data[2] + '</a></div>',
                         className: 'vex-theme-wireframe',
                         overlayClassName: 'success',
                         contentClassName: 'bordernaranjaclass',
@@ -1004,7 +1002,7 @@ $('.imagegenerator').click(function(){
             }
 
         },
-        error: function (req, stat, err) {
+        error: function(req, stat, err) {
             vex.close(vexwaiting)
             console.log(err);
         }
@@ -1013,12 +1011,14 @@ $('.imagegenerator').click(function(){
 
 });
 
-$('.pdfgenerator').click(function(){
+$('.pdfgenerator').click(function() {
 
-    var toroid=$(this).attr('data-id');
-    var vexwaiting=  vex.dialog.alert({ unsafeMessage:'Generando PDF espere...'
+    var toroid = $(this).attr('data-id');
+    var vexwaiting = vex.dialog.alert({
+        unsafeMessage: 'Generando PDF espere...'
 
-        , className: 'vex-theme-wireframe' ,
+        ,
+        className: 'vex-theme-wireframe',
         overlayClassName: 'success',
         contentClassName: 'bordernaranjaclass',
         closeClassName: 'closebleclass'
@@ -1026,12 +1026,12 @@ $('.pdfgenerator').click(function(){
     var url = Routing.generate('toro_singlepdf');
     $.ajax({
         type: 'POST',
-        data: {id: toroid},
+        data: { id: toroid },
         url: url,
-        success: function (data) {
+        success: function(data) {
             vex.close(vexwaiting)
             if (data[0] == 1) {
-                SaveToDisk(data[1],data[2]);
+                SaveToDisk(data[1], data[2]);
 
             } else {
                 vex.dialog.alert({
@@ -1045,7 +1045,7 @@ $('.pdfgenerator').click(function(){
             }
 
         },
-        error: function (req, stat, err) {
+        error: function(req, stat, err) {
             vex.close(vexwaiting)
             console.log(err);
         }

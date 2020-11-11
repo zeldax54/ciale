@@ -254,6 +254,10 @@ class ComposerStaticInit47fb74626f6a69eb747a11e4e844dd5e
             array (
                 0 => __DIR__ . '/..' . '/phpcollection/phpcollection/src',
             ),
+			'PDFMerger' => 
+            array (
+                0 => __DIR__ . '/..' . '/rguedes/pdfmerger/Classes',
+            ),
         ),
         'M' => 
         array (

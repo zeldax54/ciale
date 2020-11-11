@@ -427,14 +427,16 @@ td{
     
     .toro-video {
         width: 39%;
-        display: inline-block;
-        vertical-align: top;
-        padding-top: 55px;
+        display: inline-block !important;
+       /* vertical-align: top;*/
+        /*padding-top: 55px;*/
     }
     
     .toro-video img {
         margin: auto;
         display: block;
+        width:106px !important;
+        margin-left: 10px !important;
     }
     
     .toro-video a {
@@ -913,7 +915,7 @@ td{
     
     .toro-video2 {
         width: 85px;
-        display: inline-block;
+        display: inline;
         vertical-align: top;
         padding-left: 35px;
       /* padding-top: 50px;*/
@@ -922,7 +924,8 @@ td{
     .toro-video2 img {
         margin: auto;
         display: block;
-        width: 115px;
+        width: 106px;
+        margin-left:10px!important
     }
     
     .toro-video2 a {
@@ -1290,8 +1293,9 @@ td{
             </div>
             <div class="toro-video">
 			{% if toro.video !="#" %}
-                <a href="{{toro.video}}"><img src="{{absolute_url(asset('bundles/gema/catalogresources/img/btn-video.png'))}}" alt="Mira el Video"></a>
-            {%endif %}
+                <a style="float:left" href="{{toro.video}}"><img src="{{absolute_url(asset('bundles/gema/catalogresources/img/btn-video.png'))}}" alt="Mira el Video"></a>                
+            {% endif %}
+              <a style="float:right" href="{{toro.detalleurl}}"><img src="{{absolute_url(asset('bundles/gema/catalogresources/img/btn-detalle.png'))}}" alt="Detalle"></a>
 			</div>
 			
   </div>
@@ -1447,8 +1451,10 @@ td{
                    
                     <div class="toro-video2">
 					{% if toro1.video !="#" %}
-                        <a href="{{toro1.video}}"><img src="{{absolute_url(asset('bundles/gema/catalogresources/img/btn-video.png'))}}" alt="Mira el Video"></a>
+                        <a href="{{toro1.video}}"><img src="{{absolute_url(asset('bundles/gema/catalogresources/img/btn-video.png'))}}" alt="Mira el Video"></a>   
+
                        {% endif %}
+                       <a href="{{toro1.detalleurl}}"><img src="{{absolute_url(asset('bundles/gema/catalogresources/img/btn-detalle.png'))}}" alt="Detalle"></a>
                     </div>
                 </div>
             </div>
@@ -1665,8 +1671,9 @@ td{
 
                     <div class="toro-video2">
 					{% if toro2.video !="#" %}
-                        <a href="{{toro2.video}}"><img src="{{absolute_url(asset('bundles/gema/catalogresources/img/btn-video.png'))}}" alt="Mira el Video"></a>
+                        <a href="{{toro2.video}}"><img src="{{absolute_url(asset('bundles/gema/catalogresources/img/btn-video.png'))}}" alt="Mira el Video"></a>                                              
                    {% endif %}
+                        <a href="{{toro2.detalleurl}}"><img src="{{absolute_url(asset('bundles/gema/catalogresources/img/btn-detalle.png'))}}" alt="Detalle"></a> 
                     </div>
                 </div>
             </div><br><br>

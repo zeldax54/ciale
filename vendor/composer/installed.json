@@ -3329,5 +3329,52 @@
             "thumbnail",
             "wkhtmltopdf"
         ]
+    },
+	{
+        "name": "rguedes/pdfmerger",
+        "version": "1.0.4",
+        "version_normalized": "1.0.4.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/rguedes/PDFMerger.git",
+            "reference": "8e1caa1093160107bb1796ce07d9fc3d6769fc34"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/rguedes/PDFMerger/zipball/8e1caa1093160107bb1796ce07d9fc3d6769fc34",
+            "reference": "8e1caa1093160107bb1796ce07d9fc3d6769fc34",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.2.0"
+        },
+        "time": "2019-01-04 09:47:31",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "PDFMerger": "Classes/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "LGPL"
+        ],
+        "authors": [
+            {
+                "name": "Myo Kyaw Htun",
+                "homepage": "https://github.com/myokyawhtun"
+            },
+            {
+                "name": "Rolando Guedes",
+                "homepage": "https://github.com/rguedes"
+            }
+        ],
+        "description": "PDFMerger for PHP",
+        "homepage": "https://github.com/rguedes/PDFMerger",
+        "keywords": [
+            "pdf",
+            "php"
+        ]
     }
 ]

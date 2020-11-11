@@ -7,6 +7,7 @@ use GEMA\gemaBundle\Entity\Catalogo;
 use GEMA\gemaBundle\Form\CatalogoType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use GEMA\gemaBundle\Helpers\MyHelper;
+use GEMA\gemaBundle\Helpers\PdfHelper;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use GEMA\gemaBundle\Entity\Tabla;
 use GEMA\gemaBundle\Entity\TablaDatos;
@@ -257,8 +258,11 @@ class CatalogoController extends Controller
             $urlvirtual=$conf->getVirtualurl();
             $catalogo = $em->getRepository('gemaBundle:Catalogo')->find($id);
             $hojas=$em->getRepository('gemaBundle:Catalogohojas')->OrderedbyParent($id);
-
-         $html = $this->unificadostestAction(true,$id);
+            $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();           
+           
+            $basedet = $urlvirtual == true ? DIRECTORY_SEPARATOR.'/toro/': $baseurl.DIRECTORY_SEPARATOR.'/toro/';
+        
+         $html = $this->unificadostestAction(true,$id,$basedet );
         //print($html);die();   
         $helper=new MyHelper();
         $guid=$helper->GUID();
@@ -279,32 +283,21 @@ class CatalogoController extends Controller
            'margin-left'   => 1,               
             //'dpi'=>2, 
           // 'zoom'=>$zoompdf         
-       )  ;                   
-       if($urlvirtual==true)
-       $path=DIRECTORY_SEPARATOR.'/pdfs/catalogs/'.$guid .'/'.$filename.'.pdf';
-   else{
-       $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
-       $path=$baseurl.DIRECTORY_SEPARATOR.'/pdfs/catalogs/'.$guid .'/'.$filename.'.pdf';
-       }
-   //$htmlfooter = $this->footerCAtAction(2);
+       )  ;     
+     
+       $path = $urlvirtual ==true ? DIRECTORY_SEPARATOR.'/pdfs/catalogs/'.$guid .'/'.$filename.'.pdf': $baseurl.DIRECTORY_SEPARATOR.'/pdfs/catalogs/'.$guid .'/'.$filename.'.pdf';
+  
         foreach ($options as $margin => $value) 
             $pdfGenerator->setOption($margin, $value);                 
             $urlfooter = $this->generateUrl(
                 'gema_footertest'              
-            );
-      // print($request->getScheme() . '://' . $request->getHttpHost() .$urlfooter);die();
-       //  $pdfGenerator->setOption('header-html', 'https://www.google.com/'); 
-         $pdfGenerator->setOption('footer-html', $request->getScheme() . '://' . $request->getHttpHost() .$urlfooter);    
-                 
+            );     
+         $pdfGenerator->setOption('footer-html', $request->getScheme() . '://' . $request->getHttpHost() .$urlfooter);                    
       
             $pdfGenerator->generateFromHtml(
             $html,
             $webPath
         );
-
-      /*  $pdfGenerator->setOption('header-html', 'http://www.yahoo.com')
-        ->setOption('footer-html', 'http://www.msn.com')
-        ->generate('http://www.google.fr', $path);*/     
 
 
              
@@ -319,7 +312,7 @@ class CatalogoController extends Controller
     }
 
 
-    public function unificadostestAction($forprinter=false,$idparam=null){
+    public function unificadostestAction($forprinter=false,$idparam=null,$basedet = null){
       	
             ignore_user_abort(true);
             set_time_limit(0);
@@ -348,7 +341,7 @@ class CatalogoController extends Controller
 				{
                         $u = new stdClass();
                         $u->tipo=1;
-                        $u->data= $this->untoroPure($hoja,$cont,1);          
+                        $u->data= $this->untoroPure($hoja,$basedet );          
                         $unificados[] = $u;            
                 }
                     
@@ -356,7 +349,7 @@ class CatalogoController extends Controller
 				 {
                     $u = new stdClass();
                     $u->tipo=2;
-                    $u->data = $this->dostorospure($hoja,$cont,1);           
+                    $u->data = $this->dostorospure($hoja,$basedet );           
                     $unificados[] = $u;   
                  }
               
@@ -394,6 +387,7 @@ class CatalogoController extends Controller
     }
 
 
+    /* #region  pdfgenerateAction*/
     public function pdfgenerateAction(){
 
         try{         
@@ -501,95 +495,18 @@ class CatalogoController extends Controller
        
     }
 
+    /* #endregion */
 
-    private function untoroPure($hoja=null,$nropagina=2,$islocal=0){
-        $em = $this->getDoctrine()->getManager();     
-        if($hoja==null){           
-            $hoja = $em->getRepository('gemaBundle:Catalogohojas')->find(6);            
-        }       
-        ////////////////////////////////////////////////
-        $view='gemaBundle:Maquetacatalogo:unToro.html.twig';
-        $helper=new MyHelper();     
-        $toro = $hoja->getToros()[0];
-        $toro->foto = $helper->randomPic('toro'.DIRECTORY_SEPARATOR.$toro->getGuid().'P'.DIRECTORY_SEPARATOR);
-        $toro->silueta = $this->silueta($toro);         
-    
-        $toro->nacionalidadflag=$helper->Nacionalidad($toro->getNacionalidad());
-        $toro->facilidadglag=$helper->imgFacilidadParto($toro->getFacilidadparto());
-        if(count($toro->getYoutubes())>0)
-        $toro->video=$toro->getYoutubes()[0]->getUrl();
-        else
-        $toro->video='#';
-        //Raza
-        $this->razaName($toro);       
-        //////
-        //table
-				
-           $tab = $this->tablaSet($toro,$em);
-           $tablasflag=$tab['tablaflag'];
-           $tabla =$tab['tabla'];   
-		   
-        $t = new stdClass();
-        $t->toro=$toro;
-        $t->tabla=$tabla;
-        $t->tablagenetica=$tablasflag;
-        $t->nropagina=$nropagina;
-        $t->razasdata=self::$razasdata;
-        return $t;
+    private function untoroPure($hoja=null,$basedet=null){
+        $pdfHelper = new PdfHelper();
+        $em = $this->getDoctrine()->getManager();
+        return $pdfHelper->untoroPure($em,$hoja,$basedet);
     }
 
-    public function dostorospure($hoja=null,$nropagina=2,$islocal=0){
+      private function dostorospure($hoja=null,$basedet=null){
+        $pdfHelper = new PdfHelper();
         $em = $this->getDoctrine()->getManager(); 
-        $helper = new MyHelper();    
-        if($hoja==null)        
-            $hoja = $em->getRepository('gemaBundle:Catalogohojas')->find(5);  
-            
-            $toro1 = $hoja->getToros()[0];
-            $toro2 = $hoja->getToros()[1];    
-        
-         $toro1->foto = $helper->randomPic('toro'.DIRECTORY_SEPARATOR.$toro1->getGuid().'P'.DIRECTORY_SEPARATOR);
-         $toro2->foto = $helper->randomPic('toro'.DIRECTORY_SEPARATOR.$toro2->getGuid().'P'.DIRECTORY_SEPARATOR);
-
-         $toro1->nacionalidadflag=$helper->Nacionalidad($toro1->getNacionalidad());
-         $toro2->nacionalidadflag=$helper->Nacionalidad($toro2->getNacionalidad());
-
-         $toro1->facilidadglag=$helper->imgFacilidadParto($toro1->getFacilidadparto());
-         $toro2->facilidadglag=$helper->imgFacilidadParto($toro2->getFacilidadparto());  
-         
-         $toro1->silueta = $this->silueta($toro1);  
-         $toro2->silueta = $this->silueta($toro2);  
-
-         //raza        
-          $this->razaName($toro1);
-          $this->razaName($toro2);
-
-         if(count($toro1->getYoutubes())>0)
-           $toro1->video=$toro1->getYoutubes()[0]->getUrl();
-         else
-           $toro1->video='#';          
-        if(count($toro2->getYoutubes())>0)
-           $toro2->video=$toro2->getYoutubes()[0]->getUrl();
-         else
-           $toro2->video='#';          
-           $tab1 = $this->tablaSet($toro1,$em);
-           $tablaflag1=$tab1['tablaflag'];
-           $tabla1 =$tab1['tabla'];		
-		      
-           $tab2 = $this->tablaSet($toro2,$em);
-           $tablaflag2 = $tab2['tablaflag'];
-           $tabla2 = $tab2['tabla'];		   
-
-        ////////////////////////////////////////////////
-        $t = new stdClass();
-        $t->toro1=$toro1;
-        $t->toro2=$toro2;
-        $t->tablaflag1=$tablaflag1;
-        $t->tabla1=$tabla1;
-        $t->tablaflag2=$tablaflag2;
-        $t->tabla2=$tabla2;
-        $t->nropagina=$nropagina;
-        $t->razasdata=self::$razasdata;
-        return $t;
+        return $pdfHelper->dostorospure($em,$hoja,$basedet);
       }
 
       private function silueta($toro){
@@ -600,15 +517,7 @@ class CatalogoController extends Controller
 
       }
 
-      private function razaName(&$toro)
-      {
-        if($toro->getRaza()->getID()==26)
-          $toro->nameraza= $toro->getNombreraza();
-        else if($toro->getRaza()->getFather()==null)
-          $toro->nameraza= $toro->getRaza()->getNombre();
-       else 
-          $toro->nameraza= $toro->getRaza()->getFather()->getNombre();
-      }
+      
    
      public function untorotestAction($hoja=null,$nropagina=2,$islocal=0){
         $em = $this->getDoctrine()->getManager();     
@@ -779,65 +688,7 @@ class CatalogoController extends Controller
        ); 
     }
 
-    private function tablaSet($toro,$em){		
-	try{
-			if($toro->getRaza()->getTablasmanual()!=true)
-        {
-            $tablasflag=json_decode($toro->getTablagenetica(),true);
-            $tablarname=$em->getRepository('gemaBundle:Tabla')->find($toro->getTipotablaselected());
-            if(isset($tablasflag[$tablarname->getNombre()])){
-                $tablasflag=$tablasflag[$tablarname->getNombre()];
-                $tabla=$tablarname;
-            }
-           else{
-               $nkey='';
-             if($tablasflag!=null)
-               foreach($tablasflag as $key=>$tabla){
-                   $tablasflag=$tablasflag[$key];$nkey=$key;break;
-               }
-               $tabla=$em->getRepository('gemaBundle:Tabla')->findOneBy(array(
-                  'nombre'=>$nkey
-               ));
-           }
-
-            $tablagennombre=$tablarname->getNombre();
-        }
-        else{
-            $tablasflag=null;
-            $tablagennombre=null;
-            $tabla=null;
-
-            if($toro->getTablagenetica()!=null){
-                $datos=json_decode($toro->getTablagenetica(),true);
-                $tablaname=array_keys($datos);
-                $tablarname=$tablaname[0];
-                $columnas= array_keys($datos[$tablarname][0]);
-                $tablasflag=$datos[$tablarname];
-
-
-                $tabla=new Tabla();
-                foreach($columnas as $col){
-                    if($col!='rowhead'){
-                        $td=new TablaDatos();
-                        $td->setNombre($col);
-                        $tabla->addTabladato($td);
-                    }
-                }
-            }
-        }
-		  return array(
-            'tablaflag'=>$tablasflag,
-            'tabla'=>$tabla,
-        );
-      
-		}
-		catch(\Exception $inner){			
-			return array(
-            'tablaflag'=>null,
-            'tabla'=>null,
-        );
-      }        
-    }
+    
 
     public function footerCAtAction($numero = null)
     {      
@@ -853,5 +704,10 @@ class CatalogoController extends Controller
        else 
        return $this->render($view, array(   
         'nropagina'=>$numero));
+    }
+
+    private function tablaSet($toro,$em){
+        $helper = new MyHelper();
+        return $helper->tablaSet($toro,$em);
     }
 }
