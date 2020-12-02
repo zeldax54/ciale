@@ -591,8 +591,12 @@ public function exceladminAction($razaid){
         $pdfhelper = new PdfHelper();
         $helper = new MyHelper();
         $em = $this->getDoctrine()->getManager();
-        $request = $this->getRequest();       
-        $unificados=$pdfhelper->UnificadosDataFormed($torosIds,$impresion,$em);
+        $myRepo = $em->getRepository('gemaBundle:Configuracion');      
+        $request = $this->getRequest();  
+        $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+        $urlvirtual=$myRepo->find(1)->getVirtualurl();    
+        $basedet = $urlvirtual == true ? DIRECTORY_SEPARATOR.'/toro/': $baseurl.DIRECTORY_SEPARATOR.'/toro/'; 
+        $unificados=$pdfhelper->UnificadosDataFormed($torosIds,$impresion,$em,$basedet);
         //Create object and options
         $pdfGenerator = $this->get('knp_snappy.pdf');
         $pdfGenerator->setTimeout(10000);
@@ -625,18 +629,12 @@ public function exceladminAction($razaid){
         );
         ///////////////////////
        
-        //Web Dir and returning       
-        $myRepo = $em->getRepository('gemaBundle:Configuracion');       
-        $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
-        $urlvirtual=$myRepo->find(1)->getVirtualurl();
-        if($urlvirtual==true)
-            $path=DIRECTORY_SEPARATOR.'/pdfs/'.$guid .'/'.$filename.'.pdf';        
-        else
-            $path=$baseurl.DIRECTORY_SEPARATOR.'/pdfs/'.$guid .'/'.$filename.'.pdf';
-        return array(
+        //Web Dir and returning            
+        $path = $urlvirtual ==true ? DIRECTORY_SEPARATOR.'/pdfs/'.$guid .'/'.$filename.'.pdf': $baseurl.DIRECTORY_SEPARATOR.'/pdfs/'.$guid .'/'.$filename.'.pdf';         
+        return  array(
             0=>$filename,
-            1=>$path
-        );       
+            1=>$path,
+        );
         
      }
      /* #endregion */

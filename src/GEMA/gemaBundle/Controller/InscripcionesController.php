@@ -122,7 +122,7 @@ $message->setContentType("text/html");
 
 $body='<img style="witdh:100%" src="https://www.ciale.com/genericfiles/encabezado.jpg"><br><br>';
 $body.='<span>Hola </span><strong> '.$nombre."!</strong><br>";
-$body.='<div><p>Agradecemos tu inscripción nuestro próximo evento. Te enviaremos un recordatorio con el link de acceso.Te esperamos,</p></div>';
+$body.='<div><p>Agradecemos tu inscripción a nuestra próxima edición del CIALE TV el miércoles 9 de diciembre a las 19.30 hs. Podrás acceder a la transmisión desde el siguiente link <a href="https://youtu.be/03vfJi7VH-M"> https://youtu.be/03vfJi7VH-M</a>,</p></div>';
 $body.='<div><span>Muchas gracias!</span></div>';
 $body.='<div><span>CIALE Alta</span></div><br>';
 $body.="<br>";
