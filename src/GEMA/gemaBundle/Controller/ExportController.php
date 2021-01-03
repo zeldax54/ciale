@@ -595,7 +595,7 @@ public function exceladminAction($razaid){
         $request = $this->getRequest();  
         $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
         $urlvirtual=$myRepo->find(1)->getVirtualurl();    
-        $basedet = $urlvirtual == true ? DIRECTORY_SEPARATOR.'/toro/': $baseurl.DIRECTORY_SEPARATOR.'/toro/'; 
+        $basedet = $urlvirtual == true ? DIRECTORY_SEPARATOR.'toro/': $baseurl.DIRECTORY_SEPARATOR.'toro/'; 
         $unificados=$pdfhelper->UnificadosDataFormed($torosIds,$impresion,$em,$basedet);
         //Create object and options
         $pdfGenerator = $this->get('knp_snappy.pdf');
@@ -1127,7 +1127,7 @@ public function exceladminAction($razaid){
         $torosIds=array();
         foreach($source['torosInfo'] as $t)
             $torosIds[]=$t[0];        
-        $basedet = $urlvirtual == true ? DIRECTORY_SEPARATOR.'/toro/': $baseurl.DIRECTORY_SEPARATOR.'/toro/';
+        $basedet = $urlvirtual == true ? DIRECTORY_SEPARATOR.'toro/': $baseurl.DIRECTORY_SEPARATOR.'toro/';
         $unificados=$pdfHelper->UnificadosDataFormed($torosIds,$impresion,$em,$basedet);
         $html = $this->renderView('gemaBundle:Maquetacatalogo:unificado.html.twig', array( 'unificados'=>$unificados,));        
        // print($html);die();

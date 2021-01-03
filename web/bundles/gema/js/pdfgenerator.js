@@ -132,7 +132,7 @@ $('.imprimircatalogo').click(function() {
 
                         input: [
 
-                            '<div> <span><input style="vertical-align: top;" type="radio" checked required name="impresionradio" value="1"> Un toro por página</span> <span><input style="vertical-align: top;" type="radio"  required name="impresionradio" value="2"> Dos toros por páagina</span> </div>' +
+                            '<div> <span><input style="vertical-align: top;" type="radio" checked required name="impresionradio" value="1"> Un toro por página</span> <span><input style="vertical-align: top;" type="radio"  required name="impresionradio" value="2"> Dos toros por página</span> </div>' +
                             '<div class="row"> ' +
                             '<div class="col-md-6 col-xs-6">' +
                             '<h4 class="headercatalog">Crear PDF</h4>' +
@@ -234,7 +234,7 @@ $('.imprimircatalogo').click(function() {
                                             } else {
                                                 var emails = data.emails;
                                                 vex.dialog.alert({
-                                                    unsafeMessage: '<b>La url al pdf generado se enviará a ' + source.email + ' cuando esté lista</b>',
+                                                    unsafeMessage: '<b>La url al pdf generado se enviará a ' + emails + ' cuando esté lista</b>',
                                                     className: 'vex-theme-wireframe',
                                                     overlayClassName: 'success',
                                                     contentClassName: 'bordernaranjaclass',
@@ -891,7 +891,7 @@ $('.imprimircatalogo').click(function() {
                                                                                         url: url2
                                                                                     });
                                                                                     vex.dialog.alert({
-                                                                                        unsafeMessage: '<b>La url al catálogo generado se enviará a ' + source.email + ' cuando esté lista</b>',
+                                                                                        unsafeMessage: '<b>La url al catálogo generado se enviará a ' + source.emails + ' cuando esté lista</b>',
                                                                                         className: 'vex-theme-wireframe',
                                                                                         overlayClassName: 'success',
                                                                                         contentClassName: 'bordernaranjaclass',

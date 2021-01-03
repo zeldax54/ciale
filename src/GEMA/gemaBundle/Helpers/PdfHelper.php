@@ -35,7 +35,7 @@ class PdfHelper
         $toro->video=$toro->getYoutubes()[0]->getUrl();
         else
         $toro->video='#';
-        $toro->detalleurl = $basedet.'/'.$toro->getApodo();
+        $toro->detalleurl = $basedet.$toro->getApodo();
         //Raza
         $helper->razaName($toro);       
         //////
@@ -77,12 +77,12 @@ class PdfHelper
           $toro1->video=$toro1->getYoutubes()[0]->getUrl();
         else
           $toro1->video='#';   
-          $toro1->detalleurl = $basedet.'/'.$toro1->getApodo();       
+          $toro1->detalleurl = $basedet.$toro1->getApodo();       
        if(count($toro2->getYoutubes())>0)
           $toro2->video=$toro2->getYoutubes()[0]->getUrl();
         else
           $toro2->video='#';    
-          $toro2->detalleurl = $basedet.'/'.$toro2->getApodo();      
+          $toro2->detalleurl = $basedet.$toro2->getApodo();      
           $tab1 = $helper->tablaSet($toro1,$em);
           $tablaflag1=$tab1['tablaflag'];
           $tabla1 =$tab1['tabla'];		
