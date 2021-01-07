@@ -123,7 +123,9 @@
                             <li class="menu-items dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">PRODUCTOS&nbsp;<i class="fa fa-plus"></i><i class="fa fa-minus"></i></a>
                                 <ul class="dropdown-menu">
-                                <li><a href="{{  path('gema_calostro')  }}">Calostro 100®️</a></li>
+                                 <li><a href="{{  path('gema_beefcomp')  }}">BeefComp</a></li>
+                                <li><a href="{{  path('gema_calostro')  }}">Calostro 100®️</a></li>                              
+
                                    {% for prod in productos() %}
                                        <li><a href="{{  path('prodprog_newwindows',{'nombremenu':prod.nombremenu})  }}">{{ prod.nombremenu }}</a></li>
                                     {% endfor %}

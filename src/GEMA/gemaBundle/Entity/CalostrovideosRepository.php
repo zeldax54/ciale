@@ -50,6 +50,19 @@ class CalostrovideosRepository extends EntityRepository
         $qb
             ->select("F")
             ->from($this->getClassName(), "F")       
+            ->where('F.section is NULL')
+            ->orWhere("F.section=''")
+            ->orWhere("F.section='CALOSTRO'") 
+            ->orderBy("F.id", 'DESC');
+            return $qb->getQuery()->getResult();
+    }
+    public function BeefcompOrderedbyDesc(){
+
+        $qb = new QueryBuilder($this->getEntityManager());
+        $qb
+            ->select("F")
+            ->from($this->getClassName(), "F")       
+            ->Where("F.section='BEEFCOMP'") 
             ->orderBy("F.id", 'DESC');
             return $qb->getQuery()->getResult();
     }

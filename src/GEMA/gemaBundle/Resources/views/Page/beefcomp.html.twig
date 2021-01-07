@@ -1,0 +1,669 @@
+{% extends 'gemaBundle::clientlayout.html.twig' %}
+
+{% block customstylesheets %}
+
+	<link href="{{ asset('bundles/gema/clientresources/cpnew/cpnew.css')}}" rel="stylesheet">
+	<link href="{{ asset('bundles/gema/clientresources/rvslider/css/rvslider.css')}}" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.min.css">
+	<link href="{{ asset('calostro/extraresources/calostrocc.css')}}" rel="stylesheet">
+	<link href="{{ asset('calostro/extraresources/galleryone.css')}}" rel="stylesheet">
+
+
+	<style>
+		@import "//netdna.bootstrapcdn.com/font-awesome / 4.0.3/css/font-awesome.min.css";
+		@import "http://fonts.googleapis.com/css?family=Roboto:400,500";
+		@font-face {
+			font-family: 'Calibribold';
+			src: url({{asset('calostro/FUENTES/Calibribold.TTF')}}) format('truetype')
+		}
+		@font-face {
+			font-family: 'Calibriregular';
+			src: url({{asset('calostro/FUENTES/Calibriregular.ttf')}}) format('truetype')
+		}
+		@font-face {
+			font-family: 'Interstatemazdabold';
+			src: url({{asset('calostro/FUENTES/Interstatemazdabold.ttf')}}) format('truetype')
+		}
+		@font-face {
+			font-family: 'Interstatemazdaregular';
+			src: url({{asset('calostro/FUENTES/Interstatemazdaregular.ttf')}}) format('truetype')
+		}
+
+		#ventasbtn:hover {
+			cursor: pointer;
+
+		}
+
+		#imginstruc {
+			width: 50% !important;
+		}
+		h4 a {
+			color: #110e0e;
+		}
+
+		.acordiontitle,
+		.panel-heading h4 {
+			font-family: 'Interstatemazdaregular' !important;
+			font-size: 130% !important;
+			color: #004390 !important;
+
+		}
+
+		.acordiontext,
+		.panel-body p {
+			font-family: 'Interstatemazdaregular' !important;
+			font-size: 130% !important;
+			color: #505457 !important;
+		}
+
+		.centerdivcalostro {
+			text-align: center;
+			margin: 0 auto;
+		}
+		.calostrotitles {
+			font-family: 'Calibribold';
+			font-size: 170%;
+			color: #004390;
+		}
+		.calostrosubtitles {
+			font-family: 'Calibribold';
+			font-size: 170%;
+		}
+		.calostrosubsubtitles {
+			font-family: 'Calibriregular';
+			font-size: 170%;
+		}
+		.calostrotexts {
+			font-family: 'Calibriregular';
+			margin-left: 0;
+			font-size: 150%;
+		}
+		.imagecolumsOne {
+			width: 90%;
+		}
+		.card,
+		.panel-heading {
+			box-shadow: 0 0 0 0 #d4d4d5, 0 0 0 0 #d4d4d5 !important;
+			background: none !important;
+		}
+
+		.sticky {
+			position: -webkit-sticky; /* Safari */
+			position: sticky;
+			top: 24px;
+			float: right;
+			font-size: 50px;
+			z-index: 50000;
+
+		}
+		.habladata {
+			position: absolute;
+			top: 33%;
+			transform: translateY(-50%);
+			left: 20%;
+			right: 0;
+
+		}
+		.habladata span {
+			color: #151414;
+		}
+
+		.hablaname {
+			font-family: 'Calibribold';
+			font-size: 30px;
+			color: #FFFF;
+		}
+		.hablasubname {
+			font-family: 'Calibriregular';
+			font-size: 20px;
+			color: #FFFF;
+		}
+		.divi {
+			margin-top: 10px !important;
+		}
+		@media(max-width: 700px) {
+			.calostrotitles {
+			
+				    font-size: 23px !important;
+               margin-left: 5% !important;
+			}
+			iframe {
+				width: 100% !important;
+			}
+			.columnas div {
+				text-align: center !important;
+			}
+			.columnas img {}
+			#imgapple,
+			#imgandroid {
+				float: none !important;
+			}
+			.hablaname {
+				font-size: 22px !important;
+			}
+			.habladata {
+				top: 19% !important;
+			}
+			.hablasubname {
+				font-size: 10px !important;
+			}
+			.habladata i {
+				font-size: 10px !important;
+			}
+			.divi {
+				margin-top: 0 !important;
+			}
+
+          #rowcontainercard{
+			  margin-left:12% !important;
+		  }
+		  .text4 {
+              margin-right: 28px !important;
+              margin-top: 4%;
+              margin-left: 8%;
+           }
+
+		   #sub1,#sub2{
+			  margin-left: 2% !important;
+              width: 92%  !important;
+		   }
+		   #formparent {
+             width: 89% !important;
+             margin-left: 14px !important;        
+           }
+		   .form-group label{
+			       margin-left: 4% !important;
+		   }
+		   #captchacontainer{
+			       margin-left: 9% !important;
+		   }
+		    .card-body{
+                height: auto !important;
+            }
+
+
+		}
+
+		#bsubmit {
+			color: #ffff;
+			border: none;
+		}
+
+		.img4 {
+			max-width: 110% !important;
+		}
+		.card-body {
+			background: #84a23d;
+			font-size: 18px;
+			color: white;
+			height: 393px;
+			margin-top: -11px !important;
+		}
+		.text4 {
+			margin-right: 28px !important;
+		}
+		.card-img-top {
+			width: 270px !important;
+			height: 226.5px !important;
+
+		}
+		.card {
+			width: 27rem;
+		}
+		p {
+			text-align: left !important;
+		}
+    #formparent{
+      width: 92%;
+    margin-left: 74px;
+    margin-top: 50px;
+    overflow: hidden;
+    background: #84a23d;
+    color: white;
+    }
+		.form-control {
+		   margin-left: 4% !important;
+    background: #84a23d;
+    color: white;
+    width: 85%;
+	       
+
+		}
+
+		form {
+			font-size: 18px;
+
+		}
+		.form-group{
+         overflow: hidden;
+		}
+
+		#bsubmit:hover{
+        background:white;
+           
+
+		}
+	</style>
+{% endblock %}
+
+{% block content %}
+
+
+	<div>
+
+<div class="sticky">
+				<a href="https://wa.me/543462557246">
+					<img src="{{ asset(imgwasapflot) }}" alt="whatsapp" class=""></a>
+			</div>
+		<div class="row centerdivcalostro">
+			<img src="{{ asset(beefcompLogo) }}" alt="Logo" class="" alt="VAS BEEFCOMP">
+		</div>
+
+		<br>
+
+		<div class="row centerdivcalostro">
+			<img src="{{ asset(banner) }}" alt="Logo" class="" alt="El corazón de tu rodeo de cría. Mejorá tu negocio ganadero con el software de gestión BEEFCOMP">
+		</div>
+
+		<div class="row" id="rowcontainercard">
+
+			<div class="col-md-3 col-sm-6">
+				<div class="card">
+					<img class="card-img-top" src="{{ asset(concentra1) }}" alt="concentrada">
+					<div class="card-body">
+						<p class="text4">Integrá toda la información de tu rodeo organizada en un solo lugar. Monitorea todas las etapas del ciclo productivo, cría, recría y engorde con el mejor sistema de trazabilidad
+																					disponible. Acompaña la evolución de tu rodeo con seguimiento de manejo, recuentos precisos de stock y datos históricos.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-3 col-sm-6">
+				<div class="card">
+					<img class="card-img-top" src="{{ asset(practicidad2) }}" alt="practicidad">
+					<div class="card-body">
+						<p class="text4">Gracias a nuestra aplicación para la colecta de información PCC (Pocket Cow Card) los trabajos de manga y el registro de información son muy
+																				rápidos y precisos. Podes colectar toda la información que necesitas en cualquier momento, sin la necesidad de utilizar planillas de campo. Además BC es
+																				compatible con todos los dispositivos de ID electrónica.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-3 col-sm-6">
+				<div class="card">
+					<img class="card-img-top" src="{{ asset(flexible3) }}" alt="flexible">
+					<div class="card-body">
+						<p class="text4">
+							Gestionar toda la información a tu manera es posible. BeefComp se adapta a las necesidades de tu explotación.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-3 col-sm-6">
+				<div class="card">
+					<img class="card-img-top" src="{{ asset(potencia4) }}" alt="potencia">
+					<div class="card-body">
+						<p class="text4">Analiza la información de manera rápida, sencilla y sin límites para tomar decisiones precisas en el momento adecuado. Reemplazá las planillas y
+																																										             gráficos en hojas de cálculo. Con BC la información que necesitas esta disponible en todo momento para analizar: producción, reproducción, genética, nutrición y
+																																										             sanidad integrados en un solo lugar.</p>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div>
+			<img id="sub1" class="" src="{{ asset(sub1) }}" alt="" style="margin-left: 74px;margin-top: 16px;">
+			
+		</div>
+
+		<br><br>
+
+		<div class="centerdivcalostro">
+			
+			<div class="rvs-container rvs-horizontal rvs-light rvs-blue-highlight rvs-bordered-circle-play">
+	<div class="rvs-item-container">
+		<div class="rvs-item-stage">
+		
+      {% for video in videos %}
+      	<div class="rvs-item" style="background-image: url({{ video.urlbackimg }})">
+				<p class="rvs-item-text">{{ video.titulo }}<small>{{ video.videoby }}</small></p>
+				<a href="{{ video.urlvideo }}" class="rvs-play-video"></a>
+			</div>
+
+      {% endfor %}
+      
+			
+		</div>
+	</div>
+	<div class="rvs-nav-container">
+		<a class="rvs-nav-prev"></a>
+		<div class="rvs-nav-stage">
+     {% for video in videos %}
+			<a class="rvs-nav-item">
+				<span class="rvs-nav-item-thumb" style="background-image: url({{ video.urlminiatura }})"></span>
+				<h4 class="rvs-nav-item-title">{{ video.titulo }}</h4>
+				<small class="rvs-nav-item-credits">{{ video.videoby }}</small>
+			</a>	
+       {% endfor %}	
+		</div>
+		<a class="rvs-nav-next"></a>
+	</div>
+</div>
+
+		</div>
+
+		{# <div class="row">
+													<div class="col-md-3 col-xs-3"><img class="imagecolumsOne" src="{{ asset(calostroboliviano) }}" alt="Calostro Boliviano" class="">
+													</div>
+													<div class="col-md-3 col-xs-3"><img class="imagecolumsOne" src="{{ asset(seguroyefectivo) }}" alt="Seguro y Efectivo" class="">
+													</div>
+													<div class="col-md-3 col-xs-3"><img class="imagecolumsOne" src="{{ asset(altatransferencia) }}" alt="Alta Transferencia" class="">
+													</div>
+												
+												
+						</div>  #}
+
+		<div>
+			<img id="sub2" class="" src="{{ asset(sub2) }}" alt="Interesado en Beefcomp" style="margin-left: 74px;margin-top: 16px;">
+		</div>
+
+		<div>
+			<p style="margin-left: 74px;margin-top: 16px;font-size:18px">Completá el siguiente formulario para combinar una demostración con nuestros especialistas.</p>
+		</div>
+
+    
+  <div id="formparent">
+     <h4 style="margin-left: 14px;">COMPLETA TUS DATOS</h4>
+			<form name="form" method="post" id="sendform" action="{{ path('gema_comprasdo') }}">
+			
+
+					<div class="form-group">
+						<label class="required col-md-2 control-label">Nombre*</label>
+						<div class="col-md-10">
+							<input class="form-control" id="nombre" name="nombre" required="required" maxlength="255" type="text">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="required col-md-2 control-label">Apellido*</label>
+						<div class="col-md-10">
+							<input class="form-control" id="apellido" required="required" name="apellido" maxlength="255" type="text">
+						</div>
+					</div>
+
+          
+					<div class="form-group">
+						<label class="required col-md-2 control-label">Email*</label>
+						<div class="col-md-10">
+							<input class="form-control" id="email" name="email" required type="email">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="required col-md-2 control-label">Teléfono*</label>
+						<div class="col-md-10">
+							<input class="form-control" id="telefono" name="telefono" required >
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="required col-md-2 control-label">País*</label>
+						<div class="col-md-10">
+							<input class="form-control" id="pais" name="pais" required >
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="required col-md-2 control-label">Provincia*</label>
+						<div class="col-md-10">
+							<input class="form-control" id="provincia" name="provincia" required >
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="required col-md-2 control-label">Localidad*</label>
+						<div class="col-md-10">
+							<input class="form-control" id="localidad" name="localidad" required >
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="required col-md-2 control-label">Tamaño del Rodeo*</label>
+						<div class="col-md-10">
+							<input class="form-control" id="tamanorodeo" name="tamanorodeo" required >
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="required col-md-2 control-label">Tipo de Explotación*</label>
+						<div class="col-md-10">
+							<input class="form-control" id="tipoexplotacion" name="tipoexplotacion" required >
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="required col-md-2 control-label">Identificación del Rodeo*</label>
+						<div class="col-md-10">
+							<input class="form-control" id="idrodeo" name="idrodeo" required >
+						</div>
+					</div>
+		
+	
+		</div>
+
+		<br><br>
+		      <div style="text-align:center">
+                <div class="form-group" id="captchacontainer" style="margin-left: 38%;">
+				<label style="margin-right: 50%;font-family: cursive;">Valide para enviar</label>
+                    <div class="col-md-10">
+                        <div class="g-recaptcha" data-callback="muestraBoton" data-expired-callback="ocultaboton" data-error-callback="errorboton" data-sitekey="{{ apikey }}"></div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-offset-2 col-md-10">
+                    <button style="margin-top: 2%;" title="Enviar Correo" class="btn btn-default sb" type="submit" id="bsubmit" name="bsubmit">
+					  <img style="width: 64%;"  id="backbtn" src="{{ asset(btnimg) }}">
+					</button>
+                    <img id="mygif" src="{{ asset(gife) }}" style="display: none">
+                </div>
+				</div>
+
+               </form>
+	</div>
+    <br><br><br>
+	
+
+<div id="preguntasfecdiv">
+  <br><br><br>
+ <span class="calostrotitles">PREGUNTAS FRECUENTES</span>
+</div><br><br><br>
+
+<div aria-multiselectable="true" class="panel-group" id="accordion" role="tablist">
+<div class="panel panel-default">
+<div class="panel-heading" id="heading1" role="tab">
+<h4><a aria-controls="collapse1" aria-expanded="true" data-parent="#accordion" data-toggle="collapse" href="#collapse1">¿Cómo se comercializa el software BeefComp?</a></h4>
+</div>
+
+<div aria-labelledby="heading1" class="collapse in panel-collapse" id="collapse1" role="tabpanel">
+<div class="panel-body">
+<p>BeefComp se comercializa a través de un paquete denominado SaaS (Software as a Service) que incluye todos los productos y servicios necesarios para la gestión de información sus animales, licencias para PC, licencia para Tablet y/o Teléfono, instalación, capacitación inicial y Soporte Full para uso, consultas y personalización del programa. El sistema SaaS está dividido en categorías según la cantidad de vacas adultas del establecimiento. </p>
+</div>
+</div>
+</div>
+
+<div class="panel panel-default">
+<div class="panel-heading" id="heading2" role="tab">
+<h4><a aria-controls="collapse2" aria-expanded="false" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse2">¿Cuáles son los requisitos informáticos para instalar BeefComp?</a></h4>
+</div>
+<div aria-labelledby="heading2" class="collapse panel-collapse" id="collapse2" role="tabpanel">
+<div class="panel-body">
+<p>DairyComp está disponible sólo para sistemas operativos Windows. Se recomienda instalarlo en Windows 7 o superior para garantizar que el software y el sistema operativo funcionen correctamente. Idealmente, la computadora debería tener como mínimo una memoria RAM de 4 GB</p>
+</div>
+</div>
+</div>
+
+<div class="panel panel-default">
+<div class="panel-heading" id="heading3" role="tab">
+<h4><a aria-controls="collapse3" aria-expanded="false" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse3">¿Existe un límite en la cantidad de animales o categorías que puedo ingresar en BeefComp? </a></h4>
+</div>
+
+<div aria-labelledby="heading3" class="collapse panel-collapse" id="collapse3" role="tabpanel">
+<div class="panel-body">
+<p>No existe límite para la cantidad de animales que usted puede tener activos en la base de datos de BeefComp</p>
+</div>
+</div>
+</div>
+
+<div class="panel panel-default">
+<div class="panel-heading" id="heading4" role="tab">
+<h4><a aria-controls="collapse4" aria-expanded="false" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse4">¿Existe la versión móvil de BeefComp?</a></h4>
+</div>
+
+<div aria-labelledby="heading4" class="collapse panel-collapse" id="collapse4" role="tabpanel">
+<div class="panel-body">
+<p>Sí y está incluida en todas las categorías de Saas. La aplicación funciona en dispositivos móviles Android, ya sean teléfonos o Tablet. Puede ver e ingresar los datos de los animales mientras trabaja en la manga o recorre el campo, etc. y hacer que se integren de manera automática con el software de escritorio BeefComp. Esta aplicación tiene integrada la capacidad de escanear caravanas electrónicas a través de conexión bluetooth con los bastones de diferentes marcas. </p>
+</div>
+</div>
+</div>
+
+<div class="panel panel-default">
+<div class="panel-heading" id="heading5" role="tab">
+<h4><a aria-controls="collapse5" aria-expanded="false" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse5">En caso de administrar mi establecimiento en dos ubicaciones diferentes ¿Cuáles son mis opciones para acceder a mis datos en la segunda ubicación?</a></h4>
+</div>
+
+<div aria-labelledby="heading5" class="collapse panel-collapse" id="collapse5" role="tabpanel">
+<div class="panel-body">
+<p>Existen un par de opciones disponibles según la cantidad de animales y disponibilidad de licencias según el sistema Saas (no disponible para Saas de menos de 500 vacas). 
+Si está buscando simplemente ver datos en BeefComp en otra computadora, una opción es la versión Shadow (versión de lectura). En cambio, si desea ingresar datos desde otra computadora en la segunda ubicación, la licencia, BeefComp Client actúa como un segundo BeefComp que actualiza automáticamente su base de datos BeefComp en la ubicación principal a través de una red compartida.
+</p>
+</div>
+</div>
+</div>
+
+<div class="panel panel-default">
+<div class="panel-heading" id="heading6" role="tab">
+<h4><a aria-controls="collapse6" aria-expanded="false" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse6">¿Están seguros mis datos de DairyComp?</a></h4>
+</div>
+
+<div aria-labelledby="heading6" class="collapse panel-collapse" id="collapse6" role="tabpanel">
+<div class="panel-body">
+<p>El equipo de soporte técnico de BeefComp lo ayudará a guardar una copia diaria de la base de datos. Sin embargo, para garantizar que sus datos de BeefComp estén seguros, recomendamos ejecutar copias de seguridad diarias de sus datos para guardarlos en una memoria USB externa o en un almacenamiento en la nube como Dropbox o Google Drive (se puede configurar fácilmente desde BeefComp). En caso de falla del disco duro de su computadora, tendrá acceso a una copia de seguridad reciente de sus datos para evitar tener que volver a ingresar una gran cantidad de datos.</p>
+</div>
+</div>
+</div>
+
+<div class="panel panel-default">
+<div class="panel-heading" id="heading7" role="tab">
+<h4><a aria-controls="collapse7" aria-expanded="false" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapse7">Si necesito ayuda con el software, ¿de qué manera me brindan asistencia?</a></h4>
+</div>
+
+<div aria-labelledby="heading7" class="collapse panel-collapse" id="collapse7" role="tabpanel">
+<div class="panel-body">
+<p>Nuestro equipo de soporte de BeefComp, está disponible para brindarles a los usuarios el soporte necesario para el correcto funcionamiento y personalización del software. El sistema Saas incluye todo el tiempo de soporte a distancia (vía Skype, Team Viewer y teléfono) necesario en horario comercial (de lunes a viernes de 8 a 18 horas). No incluye minutos de soporte en horarios no comerciales, los cuales tienen un costo adicional de US$ 2.5 por minuto. Tampoco incluye tiempo de visitas a campo para realizar recapacitaciones o personalizaciones y análisis de los datos (consultar por el costo de estas visitas). 
+Además, puede enviar un correo electrónico a soporte.arg@vas.com y nos comunicaremos con usted lo antes posible. 
+</p>
+</div>
+</div>
+</div>
+    
+
+
+{% endblock %}
+{% block custom_javascripts %}
+     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script src="{{ asset('bundles/gema/clientresources/rvslider/js/rvslider.js')}}"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
+    <script>
+	    
+ $("#news-slider3").owlCarousel({
+        items:3,
+        itemsDesktop:[1199,2],
+        itemsDesktopSmall:[1000,2],
+        itemsMobile:[700,1],
+        pagination:false,
+        navigationText:false,
+        autoPlay:true
+    });
+    
+       function goToByScroll(id)
+	   {
+        
+        $('html,body').animate({
+            scrollTop: $("#"+id).offset().top},
+            'slow');
+          }
+
+		    var muestraBoton = function() {
+                $('#bsubmit').show();
+				$('#captchacontainer').hide();
+				
+            };
+            var ocultaboton = function() {
+                $('#bsubmit').hide();
+				$('#captchacontainer').show();
+            };
+            var errorboton = function() {
+                $('#bsubmit').hide();
+				$('#captchacontainer').show();
+            };
+
+	 $(document).ready(function()
+	 {
+		  $('#bsubmit').hide();
+         $(".rvs-container").rvslider();	
+
+	 });     
+
+	    $("#sendform").on('submit',(function(e){
+        e.preventDefault();
+        $('#bsubmit').hide();
+            var src=$('#mygif').attr('src');
+            vex.dialog.alert({ unsafeMessage:'<div style="text-align: center">' +
+                    '<h5 style="font-family: Fago-Bold">Enviando solicitud</h5>'+
+            '<img width="200px" height="200px" src="'+src+'"><div>'
+
+            , className: 'vex-theme-wireframe' ,
+            overlayClassName: 'success',
+            contentClassName: 'borderblueclass errormaxwidth',
+            closeClassName: 'closebleclass'
+        });
+        $.ajax({
+            url: Routing.generate('gema_beefcompsend'),
+            type: "POST",
+            data:  new FormData(this),
+            contentType: false,
+            cache: false,
+            processData:false,
+            success: function(data){
+                console.log(data);
+                vex.closeAll();
+                vex.dialog.alert({ unsafeMessage:'<span>'+data[1]+'</span>'
+
+                    , className: 'vex-theme-wireframe' ,
+                    overlayClassName: 'success',
+                    contentClassName: 'borderblueclass maxwidth',
+                    closeClassName: 'closebleclass'
+                });
+                console.log(data[2]);
+                $('#bsubmit').show();
+            },
+            error: function(error,stat, err){
+                vex.closeAll();
+                vex.dialog.alert({ unsafeMessage:err
+
+                    , className: 'vex-theme-wireframe' ,
+                    overlayClassName: 'success',
+                    contentClassName: 'borderblueclass errormaxwidth',
+                    closeClassName: 'closebleclass'
+                })
+                $('#bsubmit').show();
+            }
+        });
+    }));
+
+	</script>
+
+
+{% endblock %}

@@ -5,6 +5,7 @@ namespace GEMA\gemaBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class CalostrovideosType extends AbstractType
 {
@@ -15,6 +16,13 @@ class CalostrovideosType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+        ->add('section', ChoiceType::class, array(
+            'choices'  => array(
+                'CALOSTRO' => 'CALOSTRO',
+                'BEEFCOMP' => 'BEEFCOMP',
+                
+            ),
+        ))
             ->add('titulo')
             ->add('videoby')
             ->add('urlvideo')

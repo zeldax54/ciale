@@ -62,7 +62,12 @@ class Calostrovideos {
      */
     private $urlminiatura;
 
-
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="section", type="string",nullable=true )
+     */
+    private $section;
     
 
 
@@ -189,5 +194,28 @@ class Calostrovideos {
     public function getUrlminiatura()
     {
         return $this->urlminiatura;
+    }
+
+    /**
+     * Set section
+     *
+     * @param string $section
+     * @return Calostrovideos
+     */
+    public function setSection($section)
+    {
+        $this->section = $section;
+
+        return $this;
+    }
+
+    /**
+     * Get section
+     *
+     * @return string 
+     */
+    public function getSection()
+    {
+        return $this->section;
     }
 }
