@@ -43,6 +43,7 @@ class InscripcionesController extends Controller
     {
       //Captcha
     $recaptcha = $request->request->get('g-recaptcha-response');
+    print_r($recaptcha);die();
     $url = 'https://www.google.com/recaptcha/api/siteverify';
     $data = array(
         'secret' => $this->getParameter('apisecret'),

@@ -27,8 +27,7 @@ class BeefcompController extends Controller
     $em = $this->getDoctrine()->getManager();
    
      $helper=new MyHelper();
-     $apikey= $this->getParameter('apikey');
-     
+     $apikey= $this->getParameter('apikey'); 
      $gife=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'paperplane.gif');
     
      $beefcompLogo = $helper->directPic('beefcomp1'.DIRECTORY_SEPARATOR,'beefcompLogo.jpg'); 
@@ -93,7 +92,7 @@ class BeefcompController extends Controller
     if ($captcha_success['success']==false) {
         return new JsonResponse(array(
             0=>'No Enviado',
-            1=>'Inscripcion no enviado usted es un robot...',
+            1=>'Mensaje no enviado usted es un robot...',
 
         ));
     }
@@ -107,7 +106,7 @@ class BeefcompController extends Controller
 
     $email = strtolower($request->request->get('email'));
     $telefono = $request->request->get('telefono'); 
-    $tamanorodeo = $request->request->get('telefono'); 
+    $tamanorodeo = $request->request->get('tamanorodeo'); 
     $tipoexplotacion = $request->request->get('tipoexplotacion'); 
     $idrodeo = $request->request->get('idrodeo'); 
 

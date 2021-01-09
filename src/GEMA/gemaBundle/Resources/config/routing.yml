@@ -506,7 +506,7 @@ gema_inscripcionessend:
     defaults: { _controller: "gemaBundle:Inscripciones:inscripcionessend" }
 
 gema_beefcomp:
-    pattern:  /beefcomp/
+    pattern:  /beefcomp
     defaults: { _controller: "gemaBundle:Beefcomp:index" }
 
 gema_beefcompsend:

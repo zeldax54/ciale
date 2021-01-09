@@ -11,8 +11,8 @@
 
 
 	<style>
-		@import "//netdna.bootstrapcdn.com/font-awesome / 4.0.3/css/font-awesome.min.css";
-		@import "http://fonts.googleapis.com/css?family=Roboto:400,500";
+		@import "https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css";
+		@import "https://fonts.googleapis.com/css?family=Roboto:400,500";
 		@font-face {
 			font-family: 'Calibribold';
 			src: url({{asset('calostro/FUENTES/Calibribold.TTF')}}) format('truetype')
@@ -253,7 +253,7 @@
 	<div>
 
 <div class="sticky">
-				<a href="https://wa.me/543462557246">
+				<a target="_blank" href="https://wa.me/5493535636650">
 					<img src="{{ asset(imgwasapflot) }}" alt="whatsapp" class=""></a>
 			</div>
 		<div class="row centerdivcalostro">
@@ -372,10 +372,10 @@
 			<p style="margin-left: 74px;margin-top: 16px;font-size:18px">Completá el siguiente formulario para combinar una demostración con nuestros especialistas.</p>
 		</div>
 
-    
+    <form name="form" method="post" id="sendform" action="{{ path('gema_beefcompsend') }}">
   <div id="formparent">
      <h4 style="margin-left: 14px;">COMPLETA TUS DATOS</h4>
-			<form name="form" method="post" id="sendform" action="{{ path('gema_comprasdo') }}">
+			
 			
 
 					<div class="form-group">
@@ -428,33 +428,43 @@
 						</div>
 					</div>
 
-					<div class="form-group">
-						<label class="required col-md-2 control-label">Tamaño del Rodeo*</label>
-						<div class="col-md-10">
-							<input class="form-control" id="tamanorodeo" name="tamanorodeo" required >
-						</div>
-					</div>
+				
+					 <div class="form-group"><label  class="required col-md-2 control-label">Tamaño del Rodeo*</label>
+                        <div class="col-md-10">
+                            <select class="form-control" name="tamanorodeo" id="tamanorodeo" required>                                  
+                                 <option value="1 a 500 vientres">1 a 500 vientres</option>
+                                 <option value="501 a 2000 vientres<">501 a 2000 vientres</option>
+                                 <option value="+ de 2000 vientres">+ de 2000 vientres</option>
+                                 <option value="Veterinario Asesor">Veterinario Asesor</option>                               
 
-					<div class="form-group">
-						<label class="required col-md-2 control-label">Tipo de Explotación*</label>
-						<div class="col-md-10">
-							<input class="form-control" id="tipoexplotacion" name="tipoexplotacion" required >
-						</div>
-					</div>
+                            </select>
+                        </div>
+					 </div>
 
-					<div class="form-group">
-						<label class="required col-md-2 control-label">Identificación del Rodeo*</label>
-						<div class="col-md-10">
-							<input class="form-control" id="idrodeo" name="idrodeo" required >
-						</div>
-					</div>
-		
+                    <div class="form-group"><label  class="required col-md-2 control-label">Tipo de Explotación*</label>
+                        <div class="col-md-10">
+                            <select class="form-control" name="tipoexplotacion" id="tipoexplotacion" required>                                  
+                                 <option value="CRÍA">CRÍA</option>
+                                 <option value="RECRÍA ">RECRÍA </option>
+                                 <option value="ENGORDE ">ENGORDE </option>
+                                 <option value="CICLO COMPLETO ">CICLO COMPLETO </option>
+						    </select>
+                        </div>
+					 </div>
+
+					 <div class="form-group"><label  class="required col-md-2 control-label">Tipo de Explotación*</label>
+                        <div class="col-md-10">
+                            <select class="form-control" name="idrodeo" id="idrodeo" required>                                  
+                                 <option value="ELECTRONICA ">ELECTRONICA </option>
+                                 <option value="TRADICIONAL  ">TRADICIONAL  </option>                               
+						    </select>
+                        </div>
+					 </div>
 	
-		</div>
-
+	        </div>
 		<br><br>
-		      <div style="text-align:center">
-                <div class="form-group" id="captchacontainer" style="margin-left: 38%;">
+		    <div style="text-align:center">
+               <div class="form-group" id="captchacontainer" style="margin-left: 38%;">
 				<label style="margin-right: 50%;font-family: cursive;">Valide para enviar</label>
                     <div class="col-md-10">
                         <div class="g-recaptcha" data-callback="muestraBoton" data-expired-callback="ocultaboton" data-error-callback="errorboton" data-sitekey="{{ apikey }}"></div>
@@ -468,10 +478,10 @@
 					</button>
                     <img id="mygif" src="{{ asset(gife) }}" style="display: none">
                 </div>
-				</div>
+			</div>
 
-               </form>
-	</div>
+        </form>
+
     <br><br><br>
 	
 

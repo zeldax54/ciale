@@ -63,7 +63,7 @@ class CalostrovideosRepository extends EntityRepository
             ->select("F")
             ->from($this->getClassName(), "F")       
             ->Where("F.section='BEEFCOMP'") 
-            ->orderBy("F.id", 'DESC');
+            ->orderBy("F.id", 'ASC');
             return $qb->getQuery()->getResult();
     }
 }
