@@ -1,7 +1,7 @@
 <?php
 namespace GEMA\gemaBundle\Helpers;
 use \stdClass;
-
+use GEMA\gemaBundle\Helpers\MyHelper;
 class PdfHelper
 {
     public static $razasdata = array(15,21,22,23,24);
@@ -142,7 +142,7 @@ class PdfHelper
       }
 
       public function GeneratePdf($html,$pdfGenerator,$options,$filename,$webPath,$footer=false,$urlfooter='',$request=null){
-         $helper=new MyHelper();              
+                  
          if (!file_exists($webPath)) {
              mkdir($webPath, 0777, true);
          }

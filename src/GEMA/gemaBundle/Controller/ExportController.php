@@ -981,17 +981,19 @@ public function exceladminAction($razaid){
         catch(\Exception $e){
 
             return new JsonResponse(array(
-                0=>'0',
+                0=>'03',
                 1=>$e->getMessage()
             ));
         }
     }
     /* #endregion */
 
-    
+      /* #region  gencatalogo */
     private function gencatalogo($source){
 
         $html='';
+        $pdfHelper = new PdfHelper();   
+        $helper = new MyHelper();
         if(!isset($source['titulopdf']) || $source['titulopdf']==null || $source['titulopdf']=='undefined')
             $filename='catalogo';
         else
@@ -1063,7 +1065,7 @@ public function exceladminAction($razaid){
 
         if( isset($source['mensajeintroducTitulo']) && $source['mensajeintroducTitulo']!='' && $source['mensajeintroducTitulo']!='undefined' && $source['mensajeintroducTitulo']!=null){
 
-            $helper=new MyHelper();
+     
             $img=str_replace('_small','', $helper->randomPic('pdfresources/backgroundintroductorio/'));
 
             $html.=$this->renderView('gemaBundle:Page:pdfMensajebienvenida.html.twig', array(
@@ -1075,7 +1077,7 @@ public function exceladminAction($razaid){
             );
 
         }    
-        $pdfHelper = new PdfHelper();   
+    
         $urlfooter = $this->generateUrl('gema_footertest');
         $pdfGenerator = $this->get('knp_snappy.pdf');
         $guid = $helper->GUID();
@@ -1151,8 +1153,7 @@ public function exceladminAction($razaid){
         );
     }
 
-
-
+ /* #endregion */
 
     
     /* #region  gencatalogoOld */
@@ -1335,6 +1336,8 @@ public function exceladminAction($razaid){
 
     }
 
+ /* #region   portadaAction*/
+  
     /**
      * Metodo para testtear la portada
      * @return \Symfony\Component\HttpFoundation\Response
@@ -1365,7 +1368,9 @@ public function exceladminAction($razaid){
         );
 
     }
+     /* #endregion */
 
+   /* #region   tablacontenidos*/
     public function tablacontenidos($source){
 
         $mensajebienv=$source['mensajeintroducTitulo'];
@@ -1411,7 +1416,7 @@ public function exceladminAction($razaid){
         ));
 
     }
-
+   /* #endregion */
 
 
     /* #region   detallehtml*/
@@ -1642,7 +1647,14 @@ public function exceladminAction($razaid){
             $filename = $helper->remove_accents($toro->getApodo());
             $filename=str_replace(' ','',$filename);
 
-            $html=$this->detallehtml($toroId,$em,1);
+          //  $html=$this->detallehtml($toroId,$em,1);
+           $pdfhelper = new PdfHelper();
+           $torosIds = array($toroId);
+           $basedet = $urlvirtual == true ? DIRECTORY_SEPARATOR.'toro/': $baseurl.DIRECTORY_SEPARATOR.'toro/'; 
+           $unificados=$pdfhelper->UnificadosDataFormed($torosIds,1,$em,$basedet);
+           $html = $this->renderView('gemaBundle:Maquetacatalogo:unificado.html.twig', array( 'unificados'=>$unificados,));
+        //   print($html);die();
+          
             $extension='png';
             $imgGenerator = $this->get('knp_snappy.image');
             $imgGenerator->setTimeout(10000);
@@ -1652,6 +1664,10 @@ public function exceladminAction($razaid){
 //            $imgGenerator->setOption('height','1080');
             $imgGenerator->setOption('zoom',$zoompdf);
             $imgGenerator->setOption('crop-h','1080');
+            $urlfooter = $this->generateUrl(
+                'gema_footertest'              
+            );
+      //      $imgGenerator->setOption('footer-html', $request->getScheme() . '://' . $request->getHttpHost() .$urlfooter); 
 
 
             $webPath=$this->get('kernel')->getRootDir().'/../web/pdfs/'.$guid .'/';
@@ -1684,10 +1700,41 @@ public function exceladminAction($razaid){
 
 
     }
+
+    public function singletoroPdfAction()
+    {        
+         try
+         {
+             set_time_limit(0);
+             $helper=new MyHelper();
+             $toroId=$_POST["id"];
+             $em = $this->getDoctrine()->getManager();
+             $torosIds=array($toroId);
+             $filename=$helper->remove_accents($em->getRepository('gemaBundle:Toro')->find($toroId)->getApodo());
+             $impresion=1;
+             $data=$this->pdfSimple($torosIds,$filename,$impresion);
+             return new JsonResponse(array(
+                 0=>'1',
+                 1=>$data[1],
+                 2=>$filename.'.pdf'
+             ));
+
+         }catch (\Exception $e){
+
+             return new JsonResponse(array(
+                 0=>0,
+                 1=>$e->getMessage()
+             ));
+         }
+    }
+
+
+      /* #region  singletoroPdfActionOld */
+
     /**
      * Genera un pdf del detalle de un toro mismo html que la foto (no es el html del detalle es uno custom; el que se usa en el catalogo)
      */
-    public function singletoroPdfAction(){
+    public function singletoroPdfActionOld(){
 
         try{
             $toroId=$_POST["id"];
@@ -1743,7 +1790,8 @@ public function exceladminAction($razaid){
         }
 
     }
-   
+     /* #endregion */
+
 	
 	function deleteDir($path) {
     // The preg_replace is necessary in order to traverse certain types of folder paths (such as /dir/[[dir2]]/dir3.abc#/)
