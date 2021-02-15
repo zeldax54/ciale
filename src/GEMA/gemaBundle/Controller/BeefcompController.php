@@ -131,6 +131,7 @@ class BeefcompController extends Controller
     $body.='<div><span>CIALE Alta</span></div><br>';
     $body.="<br>";
     $message ->setTo('Pablo.Chesta@altagenetics.com');
+    $message->setCc('joaquin.alvarez@altagenetics.com');
     $message->setBody(
      $body
     );

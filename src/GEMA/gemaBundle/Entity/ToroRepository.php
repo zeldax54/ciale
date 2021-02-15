@@ -65,7 +65,8 @@ class ToroRepository extends EntityRepository
             ->from($this->getClassName(), "A")
             ->leftJoin('A.raza', "R")
             ->where("R.nombre='".$nombre."'");
-               $qb->orderBy('A.apodo',"ASC");
+            $qb->orderBy('A.nuevo',"DESC");
+            $qb->addOrderBy('A.apodo',"ASC");
         return $qb->getQuery()->getResult();
     }
 
@@ -93,8 +94,9 @@ class ToroRepository extends EntityRepository
             ->orWhere("T.padremadre like '%".$dato."%'")
             ->orWhere("T.apodo like '%".$dato."%'")
             ->orWhere("R.nombre like '%".$dato."%'")
-            ->andWhere("T.publico=1")
-            ->orderBy('T.apodo')
+            ->andWhere("T.publico=1");
+            $qb->orderBy('T.nuevo',"DESC");
+            $qb->addOrderBy('T.apodo',"ASC");
         ;
         return $qb->getQuery()->getResult();
 
@@ -113,12 +115,14 @@ class ToroRepository extends EntityRepository
 
 
         $qb->andWhere("A.publico=1");
-        $qb->orderBy('A.apodo',"ASC");
+        $qb->orderBy('A.nuevo',"DESC");
+        $qb->addOrderBy('A.apodo',"ASC");
         return $qb->getQuery()->getResult();
 
     }
 
-    public function torosbyRazaP($raza){
+    public function torosbyRazaP($raza)
+    {
         $qb = new QueryBuilder($this->getEntityManager());
         $qb
             ->select("T","R")
@@ -128,9 +132,10 @@ class ToroRepository extends EntityRepository
             ->Where("T.publico=1");
 
         $qb  ->andWhere('R.id='.$raza->getId());
-        $qb->orderBy('T.apodo',"ASC");
-        return $qb->getQuery()->getResult();
+        $qb->orderBy('T.nuevo',"DESC");
+        $qb->addOrderBy('T.apodo',"ASC");
 
+        return $qb->getQuery()->getResult();
     }
 
 
@@ -141,10 +146,9 @@ class ToroRepository extends EntityRepository
         $rsm = new ResultSetMappingBuilder($this->getEntityManager());
         $rsm->addRootEntityFromClassMetadata($this->getClassName(), 't');
       //  $rsm->addRootEntityFromClassMetadata('MyProject\User', 'u');
-        $queryText='SELECT * FROM toro  WHERE MATCH (tablagenetica) AGAINST (\'"'.$tabN.'"\' IN BOOLEAN MODE) and raza_id='.$razaId;
-       // print($queryText);die();
-      //  print($queryText);die();
-        $query = $em->createNativeQuery('SELECT * FROM toro t WHERE MATCH (t.tablagenetica) AGAINST (\'"'.$tabN.'"\' IN BOOLEAN MODE) and publico=1 and t.raza_id='.$razaId,$rsm);
+       // $queryText='SELECT * FROM toro  WHERE MATCH (tablagenetica) AGAINST (\'"'.$tabN.'"\' IN BOOLEAN MODE) and raza_id='.$razaId.' order by nuevo asc, apodo asc';  
+        $query = $em->createNativeQuery('SELECT * FROM toro t WHERE MATCH (t.tablagenetica) AGAINST (\'"'.$tabN.'"\' IN BOOLEAN MODE) and publico=1 and t.raza_id='.$razaId.' order by nuevo desc, apodo asc',$rsm);
+     
         $toros = $query->getResult(); // array of User objects
         return $toros;
     }
@@ -200,7 +204,7 @@ class ToroRepository extends EntityRepository
                 ->leftJoin('T.raza', "R")
                 ->leftJoin('R.father', "P")
                 ->Where("T.publico=1")
-                ->Where('P.id='.$toro->getRaza()->getFather()->getId());;
+                ->Where('P.id='.$toro->getRaza()->getFather()->getId());
 
 //            $qb  ->andWhere('R.id='.$razaId);
             $qb  ->andWhere('T.id<>'.$id);
