@@ -26,7 +26,7 @@ class InscripcionesController extends Controller
      print('NO habilitado');die();
      }
         $helper=new MyHelper();
-        $encabezadoimg = $helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'encabezado.jpg');
+        $encabezadoimg = $helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'ENCABEZADO-TAURUS.jpg');
         $apikey= $this->getParameter('apikey');
         $gife=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'paperplane.gif');
                 return $this->render('gemaBundle:Page:inscripciones.html.twig', array(
@@ -43,7 +43,7 @@ class InscripcionesController extends Controller
     {
       //Captcha
     $recaptcha = $request->request->get('g-recaptcha-response');
-    print_r($recaptcha);die();
+
     $url = 'https://www.google.com/recaptcha/api/siteverify';
     $data = array(
         'secret' => $this->getParameter('apisecret'),
@@ -79,7 +79,7 @@ class InscripcionesController extends Controller
 
     $email= strtolower($request->request->get('email'));
     $interes=$request->request->get('interes');
-
+ 
     // MailCHimp
     $result='Configuracion Mail_Chimp desactivada';
     if( $em->getRepository('gemaBundle:Configuracion')->find(1)->getRegisterMailChimp()==true){        
@@ -121,12 +121,11 @@ class InscripcionesController extends Controller
 $message->setFrom('info@ciale.com');
 $message->setContentType("text/html");   
 
-$body='<img style="witdh:100%" src="https://www.ciale.com/genericfiles/encabezado.jpg"><br><br>';
-$body.='<span>Hola </span><strong> '.$nombre."!</strong><br>";
-$body.='<div><p>Agradecemos tu inscripción a nuestra próxima edición del CIALE TV el miércoles 9 de diciembre a las 19.30 hs. Podrás acceder a la transmisión desde el siguiente link <a href="https://youtu.be/03vfJi7VH-M"> https://youtu.be/03vfJi7VH-M</a>,</p></div>';
-$body.='<div><span>Muchas gracias!</span></div>';
+$body='<img style="witdh:100%" src="https://www.ciale.com/genericfiles/ENCABEZADO-TAURUS.jpg"><br><br>';
+$body.='<div style="text-align:center"><span>Hola </span><strong> '.$nombre."!</strong><br>";
+$body.='<div><p>Muchas Gracias por participar!</p></div>';
 $body.='<div><span>CIALE Alta</span></div><br>';
-$body.="<br>";
+$body.="<br><div>";
 $message ->setTo($email);
 $message->setBody(
     $body

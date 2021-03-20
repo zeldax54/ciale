@@ -595,6 +595,7 @@ public function exceladminAction($razaid){
         $request = $this->getRequest();  
         $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
         $urlvirtual=$myRepo->find(1)->getVirtualurl();    
+        
         $basedet = $urlvirtual == true ? DIRECTORY_SEPARATOR.'toro/': $baseurl.DIRECTORY_SEPARATOR.'toro/'; 
         $unificados=$pdfhelper->UnificadosDataFormed($torosIds,$impresion,$em,$basedet);
         //Create object and options
@@ -1098,9 +1099,11 @@ public function exceladminAction($razaid){
         );
         $firstpdf = $pdfHelper->GeneratePdf($html,$pdfGenerator,$options,'firstpart', $webPath);
 
+        $gensecond= false;
         if(isset($source['listaprecios']) && $source['listaprecios']!='' && $source['listaprecios']!='undefined' && $source['listaprecios']!=null) {
 
             $texto='';
+            $gensecond= true;
 
             foreach($source['listtoroprocesada'] as $t){
                 $texto.='<div class="row">
@@ -1117,7 +1120,8 @@ public function exceladminAction($razaid){
             ));
         }         
 
-        $secondpdf = $pdfHelper->GeneratePdf($html,$pdfGenerator,$options,'secondpart', $webPath);
+          if($gensecond==true)
+             $secondpdf = $pdfHelper->GeneratePdf($html,$pdfGenerator,$options,'secondpart', $webPath);
 
         //pdf detalles
         $options = array(
@@ -1139,12 +1143,14 @@ public function exceladminAction($razaid){
         $pdfmerge =  new \PDFMerger;
         $pdfmerge->addPDF($firstpdf, 'all');
         $pdfmerge->addPDF($detallepart, 'all');
-        $pdfmerge->addPDF($secondpdf, 'all');
+        if($gensecond==true)
+          $pdfmerge->addPDF($secondpdf, 'all');
         $pdfmerge->merge('file',$outputfilename.'.pdf');   
        
         $helper->DeleteFile($firstpdf);   
         $helper->DeleteFile($detallepart);  
-        $helper->DeleteFile($secondpdf);   
+        if($gensecond==true)
+         $helper->DeleteFile($secondpdf);   
 
         $path = $urlvirtual ==true ? DIRECTORY_SEPARATOR.'/pdfs/'.$guid .'/'.$filename.'.pdf': $baseurl.DIRECTORY_SEPARATOR.'/pdfs/'.$guid .'/'.$filename.'.pdf';         
         return  array(
