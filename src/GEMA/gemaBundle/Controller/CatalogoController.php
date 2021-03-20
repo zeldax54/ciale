@@ -260,7 +260,7 @@ class CatalogoController extends Controller
             $hojas=$em->getRepository('gemaBundle:Catalogohojas')->OrderedbyParent($id);
             $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();           
            
-            $basedet = $urlvirtual == true ? DIRECTORY_SEPARATOR.'/toro/': $baseurl.DIRECTORY_SEPARATOR.'/toro/';
+            $basedet = $urlvirtual == true ? DIRECTORY_SEPARATOR.'toro/': $baseurl.DIRECTORY_SEPARATOR.'toro/';
         
          $html = $this->unificadostestAction(true,$id,$basedet );
         //print($html);die();   

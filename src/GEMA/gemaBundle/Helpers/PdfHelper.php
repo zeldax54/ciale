@@ -35,7 +35,7 @@ class PdfHelper
         $toro->video=$toro->getYoutubes()[0]->getUrl();
         else
         $toro->video='#';
-        $toro->detalleurl = $basedet.$toro->getApodo();
+        $toro->detalleurl = $basedet.$helper->remove_accents($toro->getApodo());
         //Raza
         $helper->razaName($toro);       
         //////
@@ -47,7 +47,7 @@ class PdfHelper
 		   
         $t = new stdClass();
         $t->toro=$toro;
-        $t->tabla=$tabla;
+        $t->tabla=$tabla;             
         $t->tablagenetica=$tablasflag;        
         $t->razasdata=self::$razasdata;
         return $t;
@@ -77,19 +77,23 @@ class PdfHelper
           $toro1->video=$toro1->getYoutubes()[0]->getUrl();
         else
           $toro1->video='#';   
-          $toro1->detalleurl = $basedet.$toro1->getApodo();       
+          $toro1->detalleurl = $basedet.$helper->remove_accents($toro1->getApodo());       
        if(count($toro2->getYoutubes())>0)
           $toro2->video=$toro2->getYoutubes()[0]->getUrl();
         else
           $toro2->video='#';    
-          $toro2->detalleurl = $basedet.$toro2->getApodo();      
+          $toro2->detalleurl = $basedet.$helper->remove_accents($toro2->getApodo());      
           $tab1 = $helper->tablaSet($toro1,$em);
           $tablaflag1=$tab1['tablaflag'];
           $tabla1 =$tab1['tabla'];		
+          //Val tabla 1
+         
              
           $tab2 = $helper->tablaSet($toro2,$em);
           $tablaflag2 = $tab2['tablaflag'];
-          $tabla2 = $tab2['tabla'];		   
+          $tabla2 = $tab2['tabla'];		 
+          //val table2
+        
 
        ////////////////////////////////////////////////
        $t = new stdClass();
@@ -162,5 +166,37 @@ class PdfHelper
         return $webPath;
 
       }
+
+      private function valTabla($tabla){
+         try{
+         
+         if($tabla['tablaflag'] == null || $tabla['tabla']==null)
+             return false;
+          return true;
+        	
+         }
+         catch(\Exception $inner){
+            return false;
+            
+         }    
+        
+
+      }
+      private function GenerateBaseTableGen(){
+      
+         $final = array();
+         $tabla = array();
+         $heads = array('rowhead','A','B','C','D','E','F','PN');
+         $val1 = array('PREC',1,2,3,4,5,6,7);
+         $val2 = array('RANKING',1,2,3,4,5,6,7);
+         $val3 = array('PROMEDIO',1,2,3,4,5,6);
+         $tabla[]=array_combine($heads, $val1);
+         $tabla[]=array_combine($heads, $val2);
+         $tabla[]=array_combine($heads, $val3);      
+         $final['tablaflag'] = $tabla;
+          return $final;
+      }
+
+  
  
 }
