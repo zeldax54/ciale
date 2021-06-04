@@ -249,6 +249,11 @@
 							</div>
 							<div class="checkbox">
 								<label>
+								  <b> Facilidad de parto 15 MAX &nbsp;</b><input id="fp14" familyid="todos" class="todos" autocomplete="off" type="checkbox" style="margin:0;width:auto">
+								</label>
+							</div>							
+							<div class="checkbox">
+								<label>
 								  <b> Facilidad de parto 18 M &nbsp;</b><input id="fp18" familyid="todos" class="todos" autocomplete="off" type="checkbox" style="margin:0;width:auto">
 								</label>
 							</div>
@@ -348,7 +353,13 @@
 											{% endif %}
 											<td data-nuevo="{{ toro.nuevo }}" class="verticalalign">{{ toro.nuevoflag | raw }}</td>
 											{% if toro.facilidadparto is not null and toro.facilidadparto!=0 %}
-												<td data-fp="{{ toro.facilidadparto }}" class="verticalalign">{{ toro.facilidadparto }}M</td>
+												<td data-fp="{{ toro.facilidadparto }}" class="verticalalign">
+												{% if toro.facilidadparto == 14 %}
+												15MAX
+												{% else %}
+												{{ toro.facilidadparto }}M
+												{% endif %}
+												</td>
 											{% else %}
 												<td data-p="0" class="verticalalign"></td>
 											{% endif %}
@@ -434,6 +445,11 @@
 								<div class="checkbox">
 									<label>
 										<b> Facilidad de parto 15 M &nbsp;</b><input id="fp15" familyid="{{ 'family'~tabla.id }}" class="{{ 'family'~tabla.id }}" autocomplete="off" type="checkbox" style="margin:0;width:auto">
+									</label>
+								</div>
+								<div class="checkbox">
+									<label>
+										<b> Facilidad de parto 15 MAX &nbsp;</b><input id="fp14" familyid="{{ 'family'~tabla.id }}" class="{{ 'family'~tabla.id }}" autocomplete="off" type="checkbox" style="margin:0;width:auto">
 									</label>
 								</div>
 								<div class="checkbox">
@@ -635,6 +651,7 @@
 
 
 {% endblock %}
+
  {% block custom_javascripts %}
 
 
@@ -956,6 +973,8 @@
 //                 $('#cpCheckbox.'+familyId).prop('checked',false);
                  $('#fp18.'+familyId).prop('checked',false);
                  $('#fp15.'+familyId).prop('checked',false);
+                 $('#fp14.'+familyId).prop('checked',false);
+
 //                     $('#nuevosCheckbox.'+familyId).prop('checked',false);
 //                     $('#mochoCheckbox.'+familyId).prop('checked',false);
                 }
@@ -963,6 +982,7 @@
 //                     $('#cpCheckbox.'+familyId).prop('checked',false);
                      $('#fp24.'+familyId).prop('checked',false);
                      $('#fp15.'+familyId).prop('checked',false);
+					 $('#fp14.'+familyId).prop('checked',false);
 //                     $('#nuevosCheckbox.'+familyId).prop('checked',false);
 //                     $('#mochoCheckbox.'+familyId).prop('checked',false);
                  }
@@ -970,6 +990,15 @@
 //                     $('#cpCheckbox.'+familyId).prop('checked',false);
                      $('#fp18.'+familyId).prop('checked',false);
                      $('#fp24.'+familyId).prop('checked',false);
+					 $('#fp14.'+familyId).prop('checked',false);
+//                     $('#nuevosCheckbox.'+familyId).prop('checked',false);
+//                     $('#mochoCheckbox.'+familyId).prop('checked',false);
+                 }
+		          if(id=='fp14'){
+//                     $('#cpCheckbox.'+familyId).prop('checked',false);
+                     $('#fp18.'+familyId).prop('checked',false);
+                     $('#fp24.'+familyId).prop('checked',false);
+					 $('#fp15.'+familyId).prop('checked',false);
 //                     $('#nuevosCheckbox.'+familyId).prop('checked',false);
 //                     $('#mochoCheckbox.'+familyId).prop('checked',false);
                  }
@@ -1031,6 +1060,8 @@
 			 var fp15=$('.'+familyId+'#fp15').prop('checked');
 			 var fp18=$('.'+familyId+'#fp18').prop('checked');
 			 var fp24=$('.'+familyId+'#fp24').prop('checked');
+			 var fp14=$('.'+familyId+'#fp14').prop('checked');
+
 			 var isnuevo=$('.'+familyId+'#nuevosCheckbox').prop('checked');
 			 var iscp=$('.'+familyId+'#cpCheckbox').prop('checked');
 			 var ismocho=$('.'+familyId+'#mochoCheckbox').prop('checked');
@@ -1048,7 +1079,7 @@
 			   }
 
 
-			 if(fp15==true || fp18==true || fp24==true)
+			 if(fp15==true || fp18==true || fp24==true || fp14==true)
 			 {
 
 			  	 var val = [];
@@ -1056,9 +1087,17 @@
 						 val.push("24M");
 						 val.push("18M");
 						 val.push("15M");
+						 val.push("15MAX");
+
 					 }
 					 else if(fp18==true){
 						 val.push("18M");
+						 val.push("15M");
+						 val.push("15MAX");
+
+					 }
+					 else if(fp14==true){
+						 val.push("15MAX");
 						 val.push("15M");
 
 					 }
@@ -1068,6 +1107,12 @@
                  console.log(val);
 
 				 var mergedVal = val.join('|');
+				 	
+				 if(mergedVal === "15M"){
+					 console.log('regex');				
+					 table.column('.fpsearch') .search("^" + mergedVal + "$", true, false, true).draw();					 
+				 }
+				 else
 				 table.column('.fpsearch').search(mergedVal,true).draw();
 
 
@@ -1086,7 +1131,7 @@
 
 				 table.column('.mochosearch').search('si').draw();
              }
-			 else if(!fp15 && !fp18 && !fp24 && !iscp && !isnuevo && !iscp && !ismocho)
+			 else if(!fp15 && !fp18 && !fp24 && !fp14 && !iscp && !isnuevo && !iscp && !ismocho)
 			 {
 				 ShowAllRows(table);
 			 }

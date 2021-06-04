@@ -105,8 +105,15 @@ class ToroType extends AbstractType
             ->add('evaluaciongenetica',null,array(
                 'label'=>'Evaluación Genética'
             ))
-            ->add('facilidadparto',null,array(
-                'label'=>'Facilidad de parto'
+            ->add('facilidadparto',ChoiceType::class,array(
+                'label'=>'Facilidad de parto',
+                'choices'  => array(              
+                    '0' => '0',
+                    '15'=>'15M',
+                    '14'=>'15MAX',
+                    '18'=>'18M',
+                    '24'=>'24M'
+                )
             ))
             ->add('cp', 'checkbox', array(
                 'required' => false,

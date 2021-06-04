@@ -318,7 +318,7 @@ class CatalogoController extends Controller
             set_time_limit(0);
             $request = $this->getRequest();
             if($idparam==null)
-              $id = 9;
+              $id = 2;
             else
               $id =$idparam;        
             $html='';
