@@ -1153,14 +1153,17 @@ text-decoration:none;
 .imgdynamicli{
 	width: 85px !important;
 height: 60px !important;
-margin-left: -15px;
+margin-left: 0px;
 }
 .dynamicul{
 	background:white;
 }
-.dynamicliscontainer :hover{
+
+.dynamicliscontainer:hover{
 	font-size:17px;
+	
 }
+
 
 @media (max-width:767px){
 	.top-navegacion {

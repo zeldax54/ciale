@@ -1,217 +1,253 @@
 {% extends 'gemaBundle::clientlayout.html.twig' %}
 
-  {% block customstylesheets %}
-      <link href="{{ asset('bundles/gema/clientresources/css/contactcss.css')}}" rel="stylesheet">
-      <link href="{{ asset('bundles/gema/clientresources/css/contactcssspecial.css')}}" rel="stylesheet">
-      <link href="{{ asset('bundles/gema/clientresources/css/contactcss.css')}}" rel="stylesheet">
+{% block customstylesheets %}
+<link href="{{ asset('bundles/gema/clientresources/css/contactcss.css')}}" rel="stylesheet">
+<link href="{{ asset('bundles/gema/clientresources/css/contactcssspecial.css')}}" rel="stylesheet">
+<link href="{{ asset('bundles/gema/clientresources/css/contactcss.css')}}" rel="stylesheet">
 
-	  {% endblock %}
+{% endblock %}
 
-  {% block content %}
+{% block content %}
 
 <div style="margin-bottom: 50px !important;" id="formcontainer">
+    <div class="row">
+        <div class="col-md-8">
+            <script
+                src="//r1.dotdigital-pages.com/resources/sharing/embed.js?sharing=lp-embed&domain=r1.dotdigital-pages.com&id=6XV1-PU%2Fconsulta-formulario%22">
+            </script>
+        </div>
 
-    <h3 style="font-family: 'Fago-Bold';color:#254389">Haga su consulta completando el siguiente formulario</h3>
+        <div class="col-md-4">
+            <div>
+
+                <div class="row">
+
+
+                    <span id="captext">Capitán Sarmiento</span> <br>
+                    <span id="argentnatext">Argentina</span> <br><br>
+                    <span id="dirtext"> Av. Roque Saenz Peña 1694, Cap. Sarmiento</span> <br><br>
+                    <span id="teltext"> Tel./ Fax: 02478 - 481013 | 0810-222 CIALE (24253) info@ciale.com</span> <br>
+                    <div>
+                        <a href="https://wa.me/005492474476709" target="_blank"><img class="imgredes"
+                                src="{{ asset(wasap) }}"><span id="wasaptext"> +549 2474 476709 </span></a> </div>
+                    <div>
+                        <a href="https://www.facebook.com/CIALE.Alta.Genetics/" target="_blank"><img class="imgredes"
+                                src="{{ asset(facebook) }}"></a>
+                        <a href="https://www.instagram.com/ciale.alta.genetics/" target="_blank"><img class="imgredes"
+                                src="{{ asset(instagram) }}"></a>
+                        <a href="http://www.youtube.com/c/CIALEAlta" target="_blank"> <img class="imgredes"
+                                src="{{ asset(youtube) }}"></a>
+                        <a href="https://www.linkedin.com/company/ciale-alta/" target="_blank"> <img class="imgredes"
+                                src="{{ asset(linkedin) }}"></a>
+                    </div>
+
+                    <br><br>
+                </div>
+
+            </div><br><br><br>
+
+            <br>
+            <div id="mapaid" style="text-align: left;margin-top:-50px">
+
+                <iframe style="height: 170px" scrolling="no" marginheight="0" marginwidth="0"
+                    src="https://maps.google.com.ar/maps?f=q&amp;source=s_q&amp;hl=es&amp;geocode=&amp;q={{ coordenadas }}&amp;sll={{ coordenadas }}&amp;sspn=2.030164,4.22699&amp;ie=UTF8&amp;t=m&amp;ll={{ coordenadas }}&amp;spn=0.041615,0.050468&amp;z=13&amp;output=embed"
+                    width="293" height="293" frameborder="0"></iframe>
+                <a class="btn btn-gris nw"
+                    href="https://maps.google.com.ar/maps?f=q&amp;source=embed&amp;hl=es&amp;geocode=&amp;q={{ coordenadas }}&amp;sll={{ coordenadas }}&amp;sspn=2.030164,4.22699&amp;ie=UTF8&amp;t=m&amp;ll={{ coordenadas }}&amp;spn=0.041615,0.050468&amp;z=13"
+                    target="_blank">Ver mapa</a>
+                <div style="text-align: center"> <span style="font-family: Fago-normal">Laboratorio</span></div>
+    
+                <iframe style="height: 170px" scrolling="no" marginheight="0" marginwidth="0"
+                    src="https://maps.google.com.ar/maps?f=q&amp;source=s_q&amp;hl=es&amp;geocode=&amp;q={{ coordenadaslab }}&amp;sll={{ coordenadaslab }}&amp;sspn=2.030164,4.22699&amp;ie=UTF8&amp;t=m&amp;ll={{ coordenadaslab }}&amp;spn=0.041615,0.050468&amp;z=13&amp;output=embed"
+                    width="293" height="293" frameborder="0"></iframe>
+                <a class="btn btn-gris nw"
+                    href="https://maps.google.com.ar/maps?f=q&amp;source=embed&amp;hl=es&amp;geocode=&amp;q={{ coordenadaslab }}&amp;sll={{ coordenadaslab }}&amp;sspn=2.030164,4.22699&amp;ie=UTF8&amp;t=m&amp;ll={{ coordenadaslab }}&amp;spn=0.041615,0.050468&amp;z=13"
+                    target="_blank">Ver mapa</a>
+            </div>
+
+        </div>
+
+       
+
+    </div>
+
+    <!-- <h3 style="font-family: 'Fago-Bold';color:#254389">Haga su consulta completando el siguiente formulario</h3> -->
+<!-- 
     <div class="row">
         <div class="col-md-6">
-<div style="width: 100%">
-            <form name="form" method="post" id="sendform" action="{{ path('gema_sendmail') }}">
-                <div id="form">
-                    <div class="form-group"><label  class="required col-md-2 control-label" >Nombre</label>
-                        <div class="col-md-10">
-                            <input class="form-control" id="nombre" name="nombre" required="required" maxlength="255" type="text">
+            <div style="width: 100%">
+                <form name="form" method="post" id="sendform" action="{{ path('gema_sendmail') }}">
+                    <div id="form">
+                        <div class="form-group"><label class="required col-md-2 control-label">Nombre</label>
+                            <div class="col-md-10">
+                                <input class="form-control" id="nombre" name="nombre" required="required"
+                                    maxlength="255" type="text">
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group"><label  class="col-md-2 control-label required">Apellido</label>
-                        <div class="col-md-10">
-                            <input class="form-control" id="apellido" name="apellido" required="required"  maxlength="255" type="text">
+                        <div class="form-group"><label class="col-md-2 control-label required">Apellido</label>
+                            <div class="col-md-10">
+                                <input class="form-control" id="apellido" name="apellido" required="required"
+                                    maxlength="255" type="text">
+                            </div>
                         </div>
-                    </div>
 
-                    {# <div class="form-group"><label  class="col-md-2 control-label">Direccion</label>
+                        {# <div class="form-group"><label  class="col-md-2 control-label">Direccion</label>
                         <div class="col-md-10">
                             <input class="form-control" id="direccion" name="direccion"   type="text">
                         </div>
                     </div> #}
 
-                    <div class="form-group"><label  class=" col-md-2 control-label required">Localidad</label>
-                        <div class="col-md-10">
-                            <input class="form-control" id="localidad" name="localidad" required="required"  type="text">
+                        <div class="form-group"><label class=" col-md-2 control-label required">Localidad</label>
+                            <div class="col-md-10">
+                                <input class="form-control" id="localidad" name="localidad" required="required"
+                                    type="text">
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group"><label  class=" col-md-2 control-label required">Provincia</label>
-                        <div class="col-md-10">
-                            <input class="form-control" id="provincia" name="provincia" required="required"  type="text">
+                        <div class="form-group"><label class=" col-md-2 control-label required">Provincia</label>
+                            <div class="col-md-10">
+                                <input class="form-control" id="provincia" name="provincia" required="required"
+                                    type="text">
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group"><label  class=" col-md-2 control-label required">Pais</label>
-                        <div class="col-md-10">
-                            <input class="form-control" id="pais" name="pais" required="required"  type="text">
+                        <div class="form-group"><label class=" col-md-2 control-label required">Pais</label>
+                            <div class="col-md-10">
+                                <input class="form-control" id="pais" name="pais" required="required" type="text">
+                            </div>
                         </div>
-                    </div>
 
-                    {# <div class="form-group"><label  class=" col-md-2 control-label">CP</label>
+                        {# <div class="form-group"><label  class=" col-md-2 control-label">CP</label>
                         <div class="col-md-10">
                             <input placeholder="Código Postal" class="form-control" id="codigopostal" name="codigopostal"   type="text">
                         </div>
                     </div> #}
-                    {#<div style="height: 10px"> </div>#}
+                        {#<div style="height: 10px"> </div>#}
 
 
-                    <div class="form-group"><label  class="required col-md-2 control-label">Email</label>
-                        <div class="col-md-10">
-                            <input class="form-control" id="email" name="email" required   type="email">
+                        <div class="form-group"><label class="required col-md-2 control-label">Email</label>
+                            <div class="col-md-10">
+                                <input class="form-control" id="email" name="email" required type="email">
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group"><label  class="required col-md-2 control-label">Teléfono</label>
-                        <div class="col-md-10">
-                            <input class="form-control" id="telefono" name="telefono" required   type="number">
+                        <div class="form-group"><label class="required col-md-2 control-label">Teléfono</label>
+                            <div class="col-md-10">
+                                <input class="form-control" id="telefono" name="telefono" required type="number">
+                            </div>
                         </div>
-                    </div>
 
-                    {# <div class="form-group"><label  class=" col-md-2 control-label">Empresa</label>
+                        {# <div class="form-group"><label  class=" col-md-2 control-label">Empresa</label>
                         <div class="col-md-10">
                             <input class="form-control" id="empresa" name="empresa"    type="text">
                         </div>
                     </div> #}
 
-                    <div class="form-group"><label  class="required col-md-2 control-label">Elija las razas de su interés</label>
+                        <div class="form-group"><label class="required col-md-2 control-label">Elija las razas de su
+                                interés</label>
+                            <div class="col-md-10">
+                                <select multiple name="razas[]" id="razas" class="selectmultiple">
+                                    <option value="Todas las razas">Todas las razas</option>
+                                    <option value="Todas las razas de carne">Todas las razas de Carne</option>
+                                    <option value="Todas las razas de leche">Todas las razas de Leche</option>
+                                    <option value="Aberdeen Angus">Aberdeen Angus</option>
+                                    <option value="Polled Hereford">Polled Hereford</option>
+                                    <option value="Brangus">Brangus</option>
+                                    <option value="Braford">Braford</option>
+                                    <option value="Otras razas">Otras razas</option>
+                                    <option value="Holando">Holando</option>
+                                    <option value="Jersey">Jersey</option>
+
+
+
+
+
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group"><label class=" col-md-2 control-label">Consulta</label>
+                            <div class="col-md-10">
+                                <textarea class="form-control" id="consulta" name="consulta"></textarea>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="form-group"><label class=" col-md-2 control-label">Validar</label>
                         <div class="col-md-10">
-                            <select multiple name="razas[]" id="razas" class="selectmultiple">
-                                <option value="Todas las razas">Todas las razas</option>
-                                <option value="Todas las razas de carne">Todas las razas de Carne</option>
-                                <option value="Todas las razas de leche">Todas las razas de Leche</option>
-                                <option value="Aberdeen Angus">Aberdeen Angus</option>
-                                <option value="Polled Hereford">Polled Hereford</option>
-                                <option value="Brangus">Brangus</option>
-                                <option value="Braford">Braford</option>
-                                <option value="Otras razas">Otras razas</option>
-                                <option value="Holando">Holando</option>
-                                <option value="Jersey">Jersey</option>
-                                
-
-
-                              
-
-
-                            </select>
+                            <div class="g-recaptcha" data-callback="muestraBoton" data-expired-callback="ocultaboton"
+                                data-error-callback="errorboton" data-sitekey="{{ apikey }}"></div>
                         </div>
                     </div>
 
-                    <div class="form-group"><label  class=" col-md-2 control-label">Consulta</label>
-                        <div class="col-md-10">
-                            <textarea class="form-control" id="consulta" name="consulta" ></textarea>
-                        </div>
+
+                    <div class="col-md-offset-2 col-md-10">
+                        <button title="Enviar Correo" class="btn btn-default sb" type="submit" id="bsubmit"
+                            name="bsubmit">Enviar</button>
+                        <img id="mygif" src="{{ asset(gife) }}" style="display: none">
                     </div>
 
-
-                </div>
-
-                <div class="form-group"><label  class=" col-md-2 control-label">Validar</label>
-                    <div class="col-md-10">
-                        <div class="g-recaptcha" data-callback="muestraBoton" data-expired-callback="ocultaboton" data-error-callback="errorboton" data-sitekey="{{ apikey }}"></div>
-                    </div>
-                </div>
-
-
-                <div class="col-md-offset-2 col-md-10">
-                    <button title="Enviar Correo" class="btn btn-default sb" type="submit" id="bsubmit" name="bsubmit">Enviar</button>
-                    <img id="mygif" src="{{ asset(gife) }}" style="display: none">
-                </div>
-
-            </form>
-</div>
-         </div>
-
-
-
-
-        <div class="col-md-6">
-            <div >
-
-   <div class="row">
-					 
-					 
-					 <span id="captext">Capitán Sarmiento</span> <br>
-					 <span id="argentnatext">Argentina</span> <br><br>
-					  <span id="dirtext"> Av. Roque Saenz Peña 1694, Cap. Sarmiento</span> <br><br>
-					   <span id="teltext"> Tel./ Fax: 02478 -  481013 | 0810-222 CIALE (24253) info@ciale.com</span> <br>
-					   <div>
-					   <a href="https://wa.me/005492474476709" target="_blank"><img class="imgredes"  src="{{ asset(wasap) }}"><span id="wasaptext"> +549 2474 476709 </span></a> </div>
-					  <div>
-					  <a href="https://www.facebook.com/CIALE.Alta.Genetics/" target="_blank"><img class="imgredes"  src="{{ asset(facebook) }}"></a>
-					    <a href="https://www.instagram.com/ciale.alta.genetics/" target="_blank"><img class="imgredes"  src="{{ asset(instagram) }}"></a>
-					 <a href="http://www.youtube.com/c/CIALEAlta" target="_blank"> <img class="imgredes"  src="{{ asset(youtube) }}"></a>
-					 <a href="https://www.linkedin.com/company/ciale-alta/" target="_blank"> <img class="imgredes"  src="{{ asset(linkedin) }}"></a>
-					  </div>
-					
-					  <br><br>
-					 </div>
-
-					</div><br><br><br>
-   
-   <br>
-
-</div>
-
-            <div id="mapaid" style="text-align: left;margin-top:-50px">
-               
-                <iframe style="height: 170px" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com.ar/maps?f=q&amp;source=s_q&amp;hl=es&amp;geocode=&amp;q={{ coordenadas }}&amp;sll={{ coordenadas }}&amp;sspn=2.030164,4.22699&amp;ie=UTF8&amp;t=m&amp;ll={{ coordenadas }}&amp;spn=0.041615,0.050468&amp;z=13&amp;output=embed" width="293" height="293" frameborder="0"></iframe>
-                <a class="btn btn-gris nw" href="https://maps.google.com.ar/maps?f=q&amp;source=embed&amp;hl=es&amp;geocode=&amp;q={{ coordenadas }}&amp;sll={{ coordenadas }}&amp;sspn=2.030164,4.22699&amp;ie=UTF8&amp;t=m&amp;ll={{ coordenadas }}&amp;spn=0.041615,0.050468&amp;z=13" target="_blank">Ver mapa</a>
-                <div style="text-align: center"> <span style="font-family: Fago-normal">Laboratorio</span></div>
-
-                <iframe style="height: 170px" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com.ar/maps?f=q&amp;source=s_q&amp;hl=es&amp;geocode=&amp;q={{ coordenadaslab }}&amp;sll={{ coordenadaslab }}&amp;sspn=2.030164,4.22699&amp;ie=UTF8&amp;t=m&amp;ll={{ coordenadaslab }}&amp;spn=0.041615,0.050468&amp;z=13&amp;output=embed" width="293" height="293" frameborder="0"></iframe>
-                <a class="btn btn-gris nw" href="https://maps.google.com.ar/maps?f=q&amp;source=embed&amp;hl=es&amp;geocode=&amp;q={{ coordenadaslab }}&amp;sll={{ coordenadaslab }}&amp;sspn=2.030164,4.22699&amp;ie=UTF8&amp;t=m&amp;ll={{ coordenadaslab }}&amp;spn=0.041615,0.050468&amp;z=13" target="_blank">Ver mapa</a>
+                </form>
             </div>
-            {#<div style="text-align: center"> <span style="font-family: Fago-normal">Laboratorio</span></div>#}
-
-            {#<div id="mapaid" style="text-align: center;">#}
-
-            {#</div>#}
-
-
         </div>
 
 
 
-  </div>
+
+     
+        {#<div style="text-align: center"> <span style="font-family: Fago-normal">Laboratorio</span></div>#}
+
+        {#<div id="mapaid" style="text-align: center;">#}
+
+        {#</div>#}
+
+
+    </div> -->
+
+
+
+</div>
 
 </div>
 {% endblock %}
 
-    {% block custom_javascripts %}
-        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-        <script>
-
-            $(document).ready(function(){
-                $('#bsubmit').hide();
-            });
-
-            var muestraBoton = function() {
-                $('#bsubmit').show();
-            };
-            var ocultaboton = function() {
-                $('#bsubmit').hide();
-            };
-            var errorboton = function() {
-                $('#bsubmit').hide();
-            };
+{% block custom_javascripts %}
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 
 
-    $("#sendform").on('submit',(function(e){
+<script>
+    $(document).ready(function () {
+        $('#bsubmit').hide();
+    });
+
+    var muestraBoton = function () {
+        $('#bsubmit').show();
+    };
+    var ocultaboton = function () {
+        $('#bsubmit').hide();
+    };
+    var errorboton = function () {
+        $('#bsubmit').hide();
+    };
+
+
+
+    $("#sendform").on('submit', (function (e) {
         e.preventDefault();
         $('#bsubmit').hide();
-            var src=$('#mygif').attr('src');
-            vex.dialog.alert({ unsafeMessage:'<div style="text-align: center">' +
-                    '<h5 style="font-family: Fago-Bold">Enviando mensaje</h5>'+
-            '<img width="200px" height="200px" src="'+src+'"><div>'
+        var src = $('#mygif').attr('src');
+        vex.dialog.alert({
+            unsafeMessage: '<div style="text-align: center">' +
+                '<h5 style="font-family: Fago-Bold">Enviando mensaje</h5>' +
+                '<img width="200px" height="200px" src="' + src + '"><div>'
 
-            , className: 'vex-theme-wireframe' ,
+                ,
+            className: 'vex-theme-wireframe',
             overlayClassName: 'success',
             contentClassName: 'borderblueclass errormaxwidth',
             closeClassName: 'closebleclass'
@@ -219,27 +255,31 @@
         $.ajax({
             url: Routing.generate('gema_sendmail'),
             type: "POST",
-            data:  new FormData(this),
+            data: new FormData(this),
             contentType: false,
             cache: false,
-            processData:false,
-            success: function(data){
+            processData: false,
+            success: function (data) {
                 console.log(data);
                 vex.closeAll();
-                vex.dialog.alert({ unsafeMessage:'<span>'+data[1]+'</span>'
+                vex.dialog.alert({
+                    unsafeMessage: '<span>' + data[1] + '</span>'
 
-                    , className: 'vex-theme-wireframe' ,
+                        ,
+                    className: 'vex-theme-wireframe',
                     overlayClassName: 'success',
                     contentClassName: 'borderblueclass maxwidth',
                     closeClassName: 'closebleclass'
                 });
                 $('#bsubmit').show();
             },
-            error: function(error,stat, err){
+            error: function (error, stat, err) {
                 vex.closeAll();
-                vex.dialog.alert({ unsafeMessage:err
+                vex.dialog.alert({
+                    unsafeMessage: err
 
-                    , className: 'vex-theme-wireframe' ,
+                        ,
+                    className: 'vex-theme-wireframe',
                     overlayClassName: 'success',
                     contentClassName: 'borderblueclass errormaxwidth',
                     closeClassName: 'closebleclass'
@@ -249,13 +289,11 @@
         });
     }));
 
-    $('option').mousedown(function(e) {
+    $('option').mousedown(function (e) {
         e.preventDefault();
         $(this).prop('selected', !$(this).prop('selected'));
         return false;
     });
-
-
 </script>
 
-	{% endblock %}
+{% endblock %}

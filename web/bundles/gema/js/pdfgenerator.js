@@ -891,7 +891,7 @@ $('.imprimircatalogo').click(function() {
                                                                                         url: url2
                                                                                     });
                                                                                     vex.dialog.alert({
-                                                                                        unsafeMessage: '<b>La url al catálogo generado se enviará a ' + source.emails + ' cuando esté lista</b>',
+                                                                                        unsafeMessage: '<b>La url al catálogo generado se enviará a ' + source.email + ' cuando esté lista</b>',
                                                                                         className: 'vex-theme-wireframe',
                                                                                         overlayClassName: 'success',
                                                                                         contentClassName: 'bordernaranjaclass',

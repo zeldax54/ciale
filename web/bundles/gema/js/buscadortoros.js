@@ -104,14 +104,14 @@ console.log(baseUrl);
 
                       lis+='<li class="menu-items dynamicliscontainer" >' +
                           '<a href="'+torodetalleruta+'">' +
-                          '<div><div class="col-xs-4">';
+                          '<div class="row"><div class="col-xs-4">';
                               if(isresponsive==false)
                                  lis+= '<img class="imgdynamicli" src="'+data[f].imagen+'">';
                                else
                                   lis+= '<img width="40px" height="40px" class="" src="'+data[f].imagen+'">';
                          lis+= '</div>' +
                           '<div class="col-xs-8">'+
-                          '<strong>'+data[f].apodo+'</strong><br>' +
+                          '<strong class="menuhight">'+data[f].apodo+'</strong><br>' +
                           '<span>'+data[f].nombreraza+'</span><br>' +
                           '<span style="font-size: 11px">'+data[f].nombretoro+'</span>' +
                           '</div></div></a></li>';
