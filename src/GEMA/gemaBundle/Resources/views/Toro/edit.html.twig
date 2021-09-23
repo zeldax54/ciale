@@ -88,7 +88,7 @@
         <legend style="background: #eee;text-align: center;margin: 0 auto">Tabla Genética</legend>
         <div class="form-group">
             <label  class="col-md-2 control-label">Tipo de Tabla Genética</label>
-            <div class="col-md-10">
+            <div class="col-md-6">
                 <select class="tag-select form-control" id="tipostablaSelect">
                     {% for t in raza.tipotabla.tablas %}
                         {% if t.id==entity.tipotablaselected %}
@@ -99,6 +99,7 @@
                     {% endfor %}
                 </select>
             </div>
+            <div clas="col-md-4">   <input type="button" value="Eliminar tabla seleccionada" id="deletetablaselecc" class="btn btn-danger"/></div>
 
         </div>
 
@@ -336,6 +337,10 @@
                         $(tr).appendTo("#"+tableid+' tbody');
                     }
                 }
+                else{
+                    alert(tablename);
+                    $('div[name="'+tablename+'"]').remove();
+                }
 
             });
         }
@@ -528,6 +533,14 @@
         $('.cleanFilter').click(function(){
 
             ClearSelect();
+        });
+
+        $('#deletetablaselecc').click(function(){            
+            var nombre = $('#tipostablaSelect option:selected').text();         
+            $('table[name="'+nombre+'"]').remove();
+            UpdateJsonCont();
+            Alert('Tabla eliminada. Asegurese de dejar seleccionada la tabla valida');          
+
         });
 
 
