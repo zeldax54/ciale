@@ -1,3 +1,7 @@
+gema_admin_comerciables:
+    resource: "@gemaBundle/Resources/config/routing/comerciables.yml"
+    prefix:   /admin/comerciables
+
 gema_catalogohojas:
     resource: "@gemaBundle/Resources/config/routing/catalogohojas.yml"
     prefix:   /admin/catalogohojas

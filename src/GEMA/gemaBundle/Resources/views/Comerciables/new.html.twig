@@ -1,0 +1,67 @@
+{% extends 'gemaBundle::layout.html.twig' %}
+{% form_theme form 'gemaBundle:Form:theme.html.twig' %}
+
+
+{% block gema_page -%}
+    <h1>Crear Comerciables</h1>
+    <h4>Imagen Principal</h4>
+    <div><input type="button" class="btn btn-file" value="Imagen Principal" id="editarArchivos"></div>
+    <h4>Galeria</h4>
+    <div id="myUploadDropZoneComerciables" class="dropzone"> </div>
+    {{ form(form) }}
+
+
+    <ul class="pager">
+        <li class="next"><a href="{{path('admin_comerciables')}}"><i class="fa fa-list"></i>
+                Listar Comerciables
+            </a></li>
+    </ul>
+{% endblock %}
+
+
+
+
+
+
+{% block custom_javascripts %}
+<script>
+
+$(document).ready(function () {
+  //  $('#gema_gemabundle_comerciables_descripcion').attr('rows',15);
+    var guid='{{ guid }}';
+    $('#gema_gemabundle_comerciables_guid').attr('value',guid);
+    StartDropZone('myUploadDropZoneComerciables','comerciables',guid);
+
+    $('#editarArchivos').click(function(){
+        GetData('comerciables',guid+'P');
+    });
+
+
+ $('#gema_gemabundle_comerciables_tipo').change(function(){
+
+  if ($('select[id$="gema_gemabundle_comerciables_tipo"]>option:selected').text().toLowerCase() !== "promocion") 
+   {
+    $('#gema_gemabundle_comerciables_fechainicio').hide();
+    $('#gema_gemabundle_comerciables_fechafin').hide();
+
+    $('label[for=gema_gemabundle_comerciables_fechainicio]').hide();
+    $('label[for=gema_gemabundle_comerciables_fechafin]').hide();
+    $('label[for=gema_gemabundle_comerciables_fechainicio]').closest('.form-group').hide();
+    $('label[for=gema_gemabundle_comerciables_fechafin]').closest('.form-group').hide();
+
+
+   }
+   else{
+    $('#gema_gemabundle_comerciables_fechainicio').show();
+    $('#gema_gemabundle_comerciables_fechafin').show();
+    $('label[for=gema_gemabundle_comerciables_fechainicio]').show();
+    $('label[for=gema_gemabundle_comerciables_fechafin]').show();
+    $('label[for=gema_gemabundle_comerciables_fechainicio]').closest('.form-group').show();
+    $('label[for=gema_gemabundle_comerciables_fechafin]').closest('.form-group').show();
+   }
+
+ });
+
+}) ;
+  </script>
+{% endblock %}

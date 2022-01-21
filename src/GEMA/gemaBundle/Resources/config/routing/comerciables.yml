@@ -1,0 +1,28 @@
+admin_comerciables:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:Comerciables:index" }
+
+admin_comerciables_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:Comerciables:show" }
+
+admin_comerciables_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:Comerciables:new" }
+
+admin_comerciables_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:Comerciables:create" }
+    requirements: { _method: post }
+
+admin_comerciables_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:Comerciables:edit" }
+
+admin_comerciables_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:Comerciables:update" }
+
+admin_comerciables_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:Comerciables:delete" }
