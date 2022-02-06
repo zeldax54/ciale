@@ -140,10 +140,9 @@ class ComerciablesController extends Controller
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
-
+        $em = $this->getDoctrine()->getManager();       
         $entity = $em->getRepository('gemaBundle:Comerciables')->find($id);
-
+     
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Comerciables entity.');
         }
@@ -155,6 +154,8 @@ class ComerciablesController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'guid'=> $entity->getGUID(),
+           
         ));
     }
 

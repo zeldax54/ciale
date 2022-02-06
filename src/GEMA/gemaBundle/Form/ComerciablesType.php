@@ -29,11 +29,20 @@ class ComerciablesType extends AbstractType
                 'choices'  => array(
                     'promocion' => 'Promocion',
                     'merchandising'=>'Merchandising',    
-                    'producto'=>'Producto',                   
+                    'producto'=>'Producto',
+                    'reciennacidos'=>'Recién nacidos',     
 
                 ),'label'=>'Tipo',                
             ))
-         
+            ->add('categoria',ChoiceType::class,array(
+                'label'=>'Categoria',
+                'required'=>false,
+                'choices'  => array(                            
+                    'materialesia' => 'Materiales IA',
+                    'ide'=>'IDE',
+                    'pesaje'=>'Pesaje'                   
+                )
+            ))
             ->add('fechainicio','date', array(
                 'widget' => 'single_text',
                 'label' => 'Fecha de Inicio',

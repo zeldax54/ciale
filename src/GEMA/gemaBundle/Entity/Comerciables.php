@@ -70,15 +70,21 @@ class Comerciables {
 
     /**
      * @var string
-     * @ORM\Column(name="descripcion", type="string",length=255 ,nullable=true)
+     * @ORM\Column(name="descripcion", type="string",length=1000 ,nullable=true)
      */
     private $descripcion;
 
      /**
      * @var string
-     * @ORM\Column(name="videos", type="string",length=255 ,nullable=true)
+     * @ORM\Column(name="videos", type="string",length=765 ,nullable=true)
      */
     private $videos;
+
+     /**
+     * @var string
+     * @ORM\Column(name="categoria", type="string",length=255 ,nullable=true)
+     */
+     private $categoria;
 
 
     /**
@@ -273,5 +279,28 @@ class Comerciables {
     public function getFechafin()
     {
         return $this->fechafin;
+    }
+
+    /**
+     * Set categoria
+     *
+     * @param string $categoria
+     * @return Comerciables
+     */
+    public function setCategoria($categoria)
+    {
+        $this->categoria = $categoria;
+
+        return $this;
+    }
+
+    /**
+     * Get categoria
+     *
+     * @return string 
+     */
+    public function getCategoria()
+    {
+        return $this->categoria;
     }
 }

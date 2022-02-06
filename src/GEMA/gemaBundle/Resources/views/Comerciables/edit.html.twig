@@ -26,44 +26,102 @@
 
     </ul>
     {% endblock %}
-    {% block custom_javascripts %}
-
-     <script>
-
-$('#editarArchivos').click(function(){
-    var param=$('#gema_gemabundle_comerciables_guid').val();
-    GetData('comerciables',param);
-});
-$('#editarArchivosp').click(function(){
-    var param=$('#gema_gemabundle_comerciables_guid').val();
-    GetData('comerciables',param+'P');
-});
-
-
-$('#gema_gemabundle_comerciables_tipo').change(function(){
-
-if ($('select[id$="gema_gemabundle_comerciables_tipo"]>option:selected').text().toLowerCase() !== "promocion") 
- {
-  $('#gema_gemabundle_comerciables_fechainicio').hide();
-  $('#gema_gemabundle_comerciables_fechafin').hide();
-
-  $('label[for=gema_gemabundle_comerciables_fechainicio]').hide();
-  $('label[for=gema_gemabundle_comerciables_fechafin]').hide();
-  $('label[for=gema_gemabundle_comerciables_fechainicio]').closest('.form-group').hide();
-  $('label[for=gema_gemabundle_comerciables_fechafin]').closest('.form-group').hide();
+   
+   {% block custom_javascripts %}
+    <script>
+    
+    $(document).ready(function () {
+      //  $('#gema_gemabundle_comerciables_descripcion').attr('rows',15);
+        var guid='{{ guid }}';     
+        $('#gema_gemabundle_comerciables_guid').attr('value',guid);
+        StartDropZone('myUploadDropZoneComerciables','comerciables',guid);
+    
+        $('#editarArchivos').click(function(){
+            GetData('comerciables',guid);
+        });
+      
+        $('#editarArchivosp').click(function(){
+        
+            GetData('comerciables',guid+'P');
+        });
 
 
- }
- else{
-  $('#gema_gemabundle_comerciables_fechainicio').show();
-  $('#gema_gemabundle_comerciables_fechafin').show();
-  $('label[for=gema_gemabundle_comerciables_fechainicio]').show();
-  $('label[for=gema_gemabundle_comerciables_fechafin]').show();
-  $('label[for=gema_gemabundle_comerciables_fechainicio]').closest('.form-group').show();
-  $('label[for=gema_gemabundle_comerciables_fechafin]').closest('.form-group').show();
- }
+        if($('select[id$="gema_gemabundle_comerciables_tipo"]>option:selected').text().toLowerCase() === "producto")
+       {
+      
+        $('#gema_gemabundle_comerciables_fechainicio').hide();
+        $('#gema_gemabundle_comerciables_fechafin').hide();    
+        $('label[for=gema_gemabundle_comerciables_fechainicio]').hide();
+        $('label[for=gema_gemabundle_comerciables_fechafin]').hide();
+        $('label[for=gema_gemabundle_comerciables_fechainicio]').closest('.form-group').hide();
+        $('label[for=gema_gemabundle_comerciables_fechafin]').closest('.form-group').hide();
+        
+       }      
+       if($('select[id$="gema_gemabundle_comerciables_tipo"]>option:selected').text().toLowerCase() === "merchandising" || $('select[id$="gema_gemabundle_comerciables_tipo"]>option:selected').val().toLowerCase() ==='reciennacidos' )
+       {
+       
+        $('#gema_gemabundle_comerciables_categoria_chosen').hide();
+        $('label[for=gema_gemabundle_comerciables_categoria]').closest('.form-group').hide();
+        $('#gema_gemabundle_comerciables_fechainicio').hide();
+        $('#gema_gemabundle_comerciables_fechafin').hide();
+    
+        $('label[for=gema_gemabundle_comerciables_fechainicio]').hide();
+        $('label[for=gema_gemabundle_comerciables_fechafin]').hide();
+        $('label[for=gema_gemabundle_comerciables_fechainicio]').closest('.form-group').hide();
+        $('label[for=gema_gemabundle_comerciables_fechafin]').closest('.form-group').hide();
+       }
 
-});
+       if($('select[id$="gema_gemabundle_comerciables_tipo"]>option:selected').text().toLowerCase() === "promocion"){
+    
+        $('label[for=gema_gemabundle_comerciables_categoria]').closest('.form-group').hide();
+        $('#gema_gemabundle_comerciables_categoria_chosen').hide();
+       }
+    
+    
+     $('#gema_gemabundle_comerciables_tipo').change(function(){
+    
+      var selected = $('select[id$="gema_gemabundle_comerciables_tipo"]>option:selected').text().toLowerCase();
+      if (selected !== "promocion") 
+      {
+        $('#gema_gemabundle_comerciables_fechainicio').hide();
+        $('#gema_gemabundle_comerciables_fechafin').hide();
+    
+        $('label[for=gema_gemabundle_comerciables_fechainicio]').hide();
+        $('label[for=gema_gemabundle_comerciables_fechafin]').hide();
+        $('label[for=gema_gemabundle_comerciables_fechainicio]').closest('.form-group').hide();
+        $('label[for=gema_gemabundle_comerciables_fechafin]').closest('.form-group').hide();
+        
+    
+       }   
+       else
+       {
+        $('#gema_gemabundle_comerciables_fechainicio').show();
+        $('#gema_gemabundle_comerciables_fechafin').show();
+        $('label[for=gema_gemabundle_comerciables_fechainicio]').show();
+        $('label[for=gema_gemabundle_comerciables_fechafin]').show();
+        $('label[for=gema_gemabundle_comerciables_fechainicio]').closest('.form-group').show();
+        $('label[for=gema_gemabundle_comerciables_fechafin]').closest('.form-group').show();
+       }
+    
+    
+       if(selected === "producto")
+       {
+        $('#gema_gemabundle_comerciables_categoria_chosen').show();
+        $('label[for=gema_gemabundle_comerciables_categoria]').closest('.form-group').show();
+        
+       }
+       else{
+    
+        $('label[for=gema_gemabundle_comerciables_categoria]').closest('.form-group').hide();
+        $('#gema_gemabundle_comerciables_categoria_chosen').hide();
+       }
+    
+     });
+    
+    }) ;
 
-</script>
-   {% endblock %}
+    function chechHides(){
+
+    }
+      </script>
+    {% endblock %}
