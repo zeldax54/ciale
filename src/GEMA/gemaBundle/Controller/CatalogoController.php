@@ -250,7 +250,8 @@ class CatalogoController extends Controller
         ignore_user_abort(true);
         set_time_limit(0);
         $request = $this->getRequest();
-         $id = $source=$_POST["id"];       
+         $id = $source=$_POST["id"];  
+         $paginas =   $source=$_POST["paginas"];       
 
             $em = $this->getDoctrine()->getManager();
             $conf=$em->getRepository('gemaBundle:Configuracion')->find(1);
@@ -260,9 +261,9 @@ class CatalogoController extends Controller
             $hojas=$em->getRepository('gemaBundle:Catalogohojas')->OrderedbyParent($id);
             $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();           
            
-            $basedet = $urlvirtual == true ? DIRECTORY_SEPARATOR.'toro/': $baseurl.DIRECTORY_SEPARATOR.'toro/';
+            $basedet = $urlvirtual == true ? DIRECTORY_SEPARATOR.'toro/': $baseurl.DIRECTORY_SEPARATOR.'toro/';             
         
-         $html = $this->unificadostestAction(true,$id,$basedet );
+         $html = $this->unificadostestAction(true,$id,$basedet,$paginas);
         //print($html);die();   
         $helper=new MyHelper();
         $guid=$helper->GUID();
@@ -292,6 +293,7 @@ class CatalogoController extends Controller
             $urlfooter = $this->generateUrl(
                 'gema_footertest'              
             );     
+        
          $pdfGenerator->setOption('footer-html', $request->getScheme() . '://' . $request->getHttpHost() .$urlfooter);                    
       
             $pdfGenerator->generateFromHtml(
@@ -311,8 +313,8 @@ class CatalogoController extends Controller
 
     }
 
-
-    public function unificadostestAction($forprinter=false,$idparam=null,$basedet = null){
+ 
+    public function unificadostestAction($forprinter=false,$idparam=null,$basedet = null,$paginas = null){
       	
             ignore_user_abort(true);
             set_time_limit(0);
@@ -330,7 +332,20 @@ class CatalogoController extends Controller
             $hojas=$em->getRepository('gemaBundle:Catalogohojas')->OrderedbyParent($id);
             $html='';      
             $cont=1;
-            $unificados = array();			
+            $unificados = array();	
+            if($paginas!=='-1')
+            {
+                
+                $hojas = array_filter($hojas, function($elem) use($paginas) {
+                    $min = explode ("-", $paginas)[0]; 
+                    $max = explode ("-", $paginas)[1];
+                    return $elem->getNumero() >= $min && $elem->getNumero() <= $max;
+                });
+            }
+              
+         
+
+
             foreach($hojas as $hoja){
 				
 			try

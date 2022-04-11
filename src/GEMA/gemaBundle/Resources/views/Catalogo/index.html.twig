@@ -86,7 +86,8 @@
                 "commands": function(column, row) {
                     return "<a href='#' title=\"Generar catalogo\" data-id='" + row.id + "'  class=\"btn btn-icon command-edit pdfgenerate\" ><span class=\"md md-print\"></span></a> "
                     + "<a href='" + Routing.generate('catalogohojas_byparent', {id: row.id}) + "' title=\"Hojas del catalogo\"  class=\"btn btn-icon command-edit\" ><span class=\"md md-tab\"></span></a> "
-                    +"<a href='" + Routing.generate('catalogo_edit', {id: row.id}) + "'  class=\"btn btn-icon command-edit\" ><span class=\"md md-edit\"></span></a> " +"<a href='" + Routing.generate('catalogo_delete', {id: row.id}) + "' data-id=\'" + row.id + "\' class=\"btn btn-icon command-delete\" ><span class=\"md md-delete\"></span></a>";
+                    +"<a href='" + Routing.generate('catalogo_edit', {id: row.id}) + "'  class=\"btn btn-icon command-edit\" ><span class=\"md md-edit\"></span></a> " +"<a href='" + Routing.generate('catalogo_delete', {id: row.id}) + "' data-id=\'" + row.id + "\' class=\"btn btn-icon command-delete\" ><span class=\"md md-delete\"></span></a>"
+                    +"<a href='#' title=\"Generar catalogo filter\" data-id='" + row.id + "'  class=\"btn btn-icon command-edit pdfgenerate filterpdfgenerate\" ><span class=\"md md-filter\"></span></a> ";
                 },
                "fecha": function(column, row) {
                     return "" + row.fecha.date.substring(0, 10);
@@ -110,22 +111,63 @@
              $(".pdfgenerate").on("click", function (evt) { 
 
 vex.defaultOptions.closeAllOnPopState=false;
+
+   var haspaginas = false;
+   var paginas = '-1';
+        
+  var id =$(this).data('id');
+   
+   
+    if($(this).hasClass( "filterpdfgenerate" )){
+    
+    vex.dialog.open({
+    message: 'Paginas a Imprimir',
+    input: [
+        '<input name="paginas" type="text" placeholder="X-Y" required />',      
+    ].join(''),
+    buttons: [
+        $.extend({}, vex.dialog.buttons.YES, { text: 'Imprimir' }),
+        $.extend({}, vex.dialog.buttons.NO, { text: 'Cancel' })
+    ],
+    callback: function (data) {
+        if (!data) {
+            console.log('Cancelled')
+        } else {
+            var paginas = data.paginas; 
+         CallPdf(id,paginas);
+        }
+    }
+});
+    }
+    else{
+
+        CallPdf(id,paginas);
+
+    }
+
+          
+               
+        
+              
+
+    
+              
+            });
+
+        });
+
+function CallPdf(id,paginas){
+ var url = Routing.generate('gema_unificadoscatalog');      
  vex.dialog.alert({ unsafeMessage:'<div><span>Generando PDF espere</span></div>',
          className: 'vex-theme-wireframe' ,
         overlayClassName: 'success',
         contentClassName: 'bordernaranjaclass',
         closeClassName: ''     
-          });     
-            
-
-        
-                 
-               var id =$(this).data('id');
-               var url = Routing.generate('gema_unificadoscatalog');        
+          });  
 
     $.ajax({
         type: 'POST',
-        data: {id: id},
+        data: {id: id,paginas:paginas},
         url: url,
         success: function (data) {
             console.log(data);
@@ -176,10 +218,8 @@ vex.defaultOptions.closeAllOnPopState=false;
             console.log(err);
         }
     });
-              
-            });
+}
 
-        });
     </script>
     {% endblock %}
 
