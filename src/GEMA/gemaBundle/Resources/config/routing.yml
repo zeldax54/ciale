@@ -1,7 +1,7 @@
 gema_admin_comerciables:
     resource: "@gemaBundle/Resources/config/routing/comerciables.yml"
     prefix:   /admin/comerciables
-
+    
 gema_catalogohojas:
     resource: "@gemaBundle/Resources/config/routing/catalogohojas.yml"
     prefix:   /admin/catalogohojas
@@ -492,23 +492,23 @@ gema_dostorostest:
 gema_footertest:
     pattern:  /footertest
     defaults: { _controller: "gemaBundle:Catalogo:footerCAt" }
-
+    
 gema_unificadostest:
     pattern:  /unificadostest
     defaults: { _controller: "gemaBundle:Catalogo:unificadostest" }
-
+    
 gema_unificadoscatalog:
     pattern:  /unificadoscatalog
     defaults: { _controller: "gemaBundle:Catalogo:unificadoscatalog" }
-
+    
 gema_inscripciones:
     pattern:  /inscripciones
     defaults: { _controller: "gemaBundle:Inscripciones:inscripcionesindex" }
 
 gema_inscripcionessend:
     pattern:  /inscripcionessend
-    defaults: { _controller: "gemaBundle:Inscripciones:inscripcionessend" }
-
+    defaults: { _controller: "gemaBundle:Inscripciones:inscripcionessend" }    
+    
 gema_beefcomp:
     pattern:  /beefcomp
     defaults: { _controller: "gemaBundle:Beefcomp:index" }
@@ -516,7 +516,7 @@ gema_beefcomp:
 gema_beefcompsend:
     pattern:  /gema_beefcompsend
     defaults: { _controller: "gemaBundle:Beefcomp:send" }
-   
+
 prodprog_newwindows:
     pattern:  /{nombremenu}
     defaults: { _controller: "gemaBundle:ProdProgclient:newwind" }

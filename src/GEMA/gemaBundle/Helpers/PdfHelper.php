@@ -47,8 +47,10 @@ class PdfHelper
 		   
         $t = new stdClass();
         $t->toro=$toro;
-        $t->tabla=$tabla;             
-        $t->tablagenetica=$tablasflag;        
+        $t->tabla=$tabla;       
+
+           
+          $t->tablagenetica=$tablasflag;        
         $t->razasdata=self::$razasdata;
         return $t;
     }
@@ -86,14 +88,12 @@ class PdfHelper
           $tab1 = $helper->tablaSet($toro1,$em);
           $tablaflag1=$tab1['tablaflag'];
           $tabla1 =$tab1['tabla'];		
-          //Val tabla 1
          
              
           $tab2 = $helper->tablaSet($toro2,$em);
           $tablaflag2 = $tab2['tablaflag'];
           $tabla2 = $tab2['tabla'];		 
-          //val table2
-        
+      
 
        ////////////////////////////////////////////////
        $t = new stdClass();

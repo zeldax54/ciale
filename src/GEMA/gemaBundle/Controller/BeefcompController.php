@@ -27,7 +27,8 @@ class BeefcompController extends Controller
     $em = $this->getDoctrine()->getManager();
    
      $helper=new MyHelper();
-     $apikey= $this->getParameter('apikey'); 
+     $apikey= $this->getParameter('apikey');
+     
      $gife=$helper->directPic('genericfiles'.DIRECTORY_SEPARATOR,'paperplane.gif');
     
      $beefcompLogo = $helper->directPic('beefcomp1'.DIRECTORY_SEPARATOR,'beefcompLogo.jpg'); 
@@ -130,8 +131,8 @@ class BeefcompController extends Controller
  
     $body.='<div><span>CIALE Alta</span></div><br>';
     $body.="<br>";
-    $message ->setTo('Pablo.Chesta@altagenetics.com');
-    $message->setCc('joaquin.alvarez@altagenetics.com');
+    $message ->setTo('Matias.Machain@altagenetics.com');
+	$message->setCc('joaquin.alvarez@altagenetics.com');
     $message->setBody(
      $body
     );

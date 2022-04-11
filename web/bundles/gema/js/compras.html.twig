@@ -1,0 +1,652 @@
+{% extends 'gemaBundle::clientlayout.html.twig' %}
+
+  {% block customstylesheets %}
+      <link href="{{ asset('bundles/gema/clientresources/css/contactcss.css')}}" rel="stylesheet">
+      <link href="{{ asset('bundles/gema/clientresources/css/contactcssspecial.css')}}" rel="stylesheet">
+     <link rel="stylesheet" href="{{ asset('bundles/gema/chosen/chosen.min.css')}}">
+     <link rel="stylesheet" href="{{ asset('bundles/gema/clientresources/winwheel/wheel.css')}}">
+
+
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.1.2/css/buttons.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/select/1.1.2/css/select.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.0.2/css/responsive.dataTables.min.css">
+
+      <style>
+     .navbar-nav{
+          display:none;
+      }
+      .parentdiv{
+                
+                margin-left:8%;
+          
+      }
+      #logotipo{
+          margin-left: 141% !important;
+      }
+      .top-navegacion{
+display:none !important;
+
+      }
+      .footer-superior, .footer-medio, .footer-inferior{
+
+          display:none;
+      }
+.chosen-single {
+    height: 25px !important;
+    font-size: 15px !important;
+   font-family: 'Fago-normal'!important;
+}
+
+#tablapedidos_wrapper{
+margin-left:17%;
+
+}
+td,th {font-size:15px}
+
+tr{border:1px solid !important;border-color:#e6ba56 !important}
+
+table.dataTable tbody tr.selected {
+    color: white !important;
+    background-color: #eeeeee !important;
+}
+
+td:hover,#ahelp{
+    cursor: pointer
+}
+th{
+    background-color:#254389 !important;
+}
+.modal-footer{
+    text-align:center !important;
+}
+
+@media (max-width: 600px) {
+ #tablapedidos_wrapper{
+margin-left:0%;
+
+}
+.modal-content{
+    width: 49% !important;
+    margin-top: 74% !important;
+}
+#canvas{
+    margin-left: 20% !important;
+    width: 96% !important;;
+}
+
+.wrapped-container{
+    width: 138% !important;
+}
+
+
+}
+
+
+ 
+
+
+      </style>
+	  {% endblock %}
+
+  {% block content %}
+
+<div style="margin-bottom: 50px !important;" id="formcontainer">
+
+    <h3 style="font-family: 'Fago-Bold';color:#254389;font-size:22px !important">Complete éste formulario para registrar su compra y acceder a la ruleta por más beneficios.</h3>
+    <h4 style="font-family: 'Fago-Bold';color:#254389;font-size:16px !important;text-align: center">Disponible solo para Argentina</h4>
+<br><br>
+<input type="text" id="clicked" hidden>
+    <div class="row">
+        <div class="col-md-8 parentdiv">
+<div style="width: 100%">
+            <form name="form" method="post" id="sendform" action="{{ path('gema_comprasdo') }}">
+                <div id="form">
+                    <div class="form-group"><label  class="required col-md-2 control-label" >Nombre</label>
+                        <div class="col-md-10">
+                            <input class="form-control" id="nombre" name="nombre" required="required" maxlength="255" type="text">
+                        </div>
+                    </div>
+
+                    <div class="form-group"><label  class="required col-md-2 control-label">Apellido</label>
+                        <div class="col-md-10">
+                            <input class="form-control" id="apellido" required="required" name="apellido"  maxlength="255" type="text">
+                        </div>
+                    </div>
+
+                  <div class="form-group"><label  class="col-md-2 control-label">Empresa</label>
+                        <div class="col-md-10">
+                            <input class="form-control" id="empresa" required="required" name="empresa"   type="text">
+                        </div>
+                    </div>
+
+                    <div class="form-group"><label  class="required col-md-2 control-label">Localidad</label>
+                        <div class="col-md-10">
+                            <input class="form-control" id="localidad" required="required" name="localidad"   type="text">
+                        </div>
+                    </div>
+
+                    <div class="form-group"><label  class="required col-md-2 control-label">Provincia</label>
+                        <div class="col-md-10">
+                            <input class="form-control" id="provincia" required="required" name="provincia"   type="text">
+                        </div>
+                    </div>
+
+                    <div class="form-group"><label  class="required col-md-2 control-label">Pais</label>
+                        <div class="col-md-10">
+                            <input class="form-control" id="pais" required="required" name="pais"   type="text">
+                        </div>
+                    </div>
+
+                  {#  <div class="form-group"><label  class=" col-md-2 control-label">CP</label>
+                        <div class="col-md-10">
+                            <input placeholder="Código Postal" class="form-control" id="codigopostal" name="codigopostal"   type="text">
+                        </div>
+                    </div>
+                    {#<div style="height: 10px"> </div>#}
+
+
+                    <div class="form-group"><label  class="required col-md-2 control-label">Email</label>
+                        <div class="col-md-10">
+                            <input class="form-control" id="email" name="email" required   type="email">
+                        </div>
+                    </div>
+
+                    <div class="form-group"><label  class="required col-md-2 control-label">Teléfono</label>
+                        <div class="col-md-10">
+                            <input class="form-control" id="telefono" name="telefono" required   type="number">
+                        </div>
+                    </div>
+
+                    {# <div class="form-group"><label  class=" col-md-2 control-label">Empresa</label>
+                        <div class="col-md-10">
+                            <input class="form-control" id="empresa" name="empresa"    type="text">
+                        </div>
+                    </div>#}
+
+                    <div class="form-group"><label  class="required col-md-2 control-label">Vendedor</label>
+                        <div class="col-md-10">
+                            <select name="vendedor" id="vendedor">                              
+
+                                {% for v in vendedores %}
+                                    <option value="{{ v.id }}">{{ v.nombre }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                  {#  <div class="form-group"><label  class="required col-md-2 control-label">Consulta</label>
+                        <div class="col-md-10">
+                            <textarea class="form-control" required="required"  id="consulta" name="consulta" ></textarea>
+                        </div>
+                    </div>#}
+                    <br><br>
+                     <div class="form-group"><label  class="required col-md-2 control-label">Buscar toro</label>
+                        <div class="col-md-10">
+                            <select name="pedidobase" id="pedidobase">                              
+                                  <option value=-1></option>
+                                {% for p in pedisosbase %}
+                                    <option value="{{ p.toro.id }}">{{  p.toro.apodo }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>  
+<div class="form-group"><label  class=" col-md-2 control-label"></label>
+                        <div class="col-md-10">
+                    <span>Hace clic en el nombre del toro de la lista de abajo y luego hacer clic en el botón "Cantidad" para poder indicar la cantidad deseada.<a id="ahelp"> CLIC AQUI PARA MAS AYUDA</a></span>
+                 </div>
+                    </div>               
+
+      </div>
+  
+     
+        <table id="tablapedidos" style="width:150%">
+                    <thead class="">
+									<tr class="">
+                                    	<th class="idtoro">idtoro</th>
+                                    	<th class="apodo">Apodo</th>
+										<th class="cantidad">Cantidad</th>
+										<th class="preciolista">Precio Lista</th>
+										<th class="preciopromo">Precio Promo</th>
+										<th class="total">Total</th>
+										<th class="totallista">TotalLista</th>
+                                        <th class="pedidobaseid">pedidobaseid</th>
+                                      
+										
+
+									
+
+
+
+                                       
+                                        </tr>
+									</thead>
+									<tbody>
+                                    <tfoot>
+                                            <tr>
+                                                <th colspan="5" style="text-align:right">Total: </th>
+                                             <th></th>
+                                             <th></th>
+                                       
+
+
+                                            </tr>
+                                        </tfoot>
+                                    </tbody>
+                    <table>
+ <br>
+
+                    <div class="form-group"><label  class="required col-md-2 control-label">Metodo de Pago</label>
+                        <div class="col-md-10">
+                            <select name="metodopagolabel" id="metodopagolabel">                              
+                                 <option value=-1></option>
+                                 <option value="CONTADO">CONTADO</option>
+                                 <option value="CHEQUE">CHEQUE</option>
+                                 <option value="TARJETA">TARJETA RURAL</option>                               
+                            </select>
+                        </div>
+                        
+                    </div>    
+
+  <br>
+                    <div class="form-group" style="display:none"><label  class="required col-md-2 control-label">METODOPAGOID</label>
+                        <div class="col-md-10">
+                            <input class="form-control" id="metodopagoid" name="metodopagoid" required   type="number">
+                        </div>
+                    </div>  
+                     
+                     
+             
+ 
+  <br>
+                <div class="form-group"><label  class=" col-md-2 control-label">Validar</label>
+                    <div class="col-md-10">
+                        <div class="g-recaptcha" data-callback="muestraBoton" data-expired-callback="ocultaboton" data-error-callback="errorboton" data-sitekey="{{ apikey }}"></div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-offset-2 col-md-10">
+                    <button title="Enviar Correo" class="btn btn-default sb" type="submit" id="bsubmit" name="bsubmit">Enviar</button>
+                    <img id="mygif" src="{{ asset(gife) }}" style="display: none">
+                </div>
+
+            </form>
+</div>
+         </div>
+
+
+
+
+      
+
+
+
+  </div>
+
+
+
+</div>
+
+<!-- The Modal -->
+<div class="modal" id="canvasModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="" style="width:750px">
+        <img src="{{ asset('mediainpage/wheel/pin.png')}}" style="width: 6%;
+          background-color: white;text-align: center;margin-left: 32%;">
+        </div>
+        <canvas id='canvas' width='750' height='450' style="margin-left:9% !important">
+            Canvas not supported, use another browser.
+        </canvas>
+      
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock %}
+
+    {% block custom_javascripts %}
+
+    <script>
+      
+  var metodospago= {{ metodopago|json_encode|raw }};
+    var ruletas= {{ ruletas|json_encode|raw }};
+    var totlaahorro;
+    var descuento;
+ console.log(metodospago);
+     function calcular(mplabel){
+
+ 
+      var dosis = tabla.column(2).data().sum();
+      var total = tabla.column(5).data().sum();
+      totlaahorro = tabla.column(6).data().sum() - total;
+      var mpvar;
+      var totalfinal = total;
+       descuento = 0;
+      if(total>0 && mplabel!=-1){
+
+
+ console.log(total);
+         $.each(metodospago, function( index, mp ) {
+             if(mp.tipo.toLowerCase()==mplabel.toLowerCase()
+             && dosis>=mp.dosismin && dosis<=mp.dosismax
+             ){
+                 $("#metodopagoid").val(mp.id);
+                 console.log(mp);
+                 mpvar=mp;
+                 if(mp.descuentoporc > 0) {
+                     descuento = (mp.descuentoporc/100*total);
+                     totalfinal = total - descuento;        
+                     totlaahorro =  totlaahorro+descuento;      
+
+                 }
+               }
+           
+          });
+          console.log(total);
+          console.log(descuento);
+          console.log(totalfinal);
+          console.log(mpvar.descrip1);
+          console.log(mpvar.descrip2);    
+          var descrips1 = mpvar.descrip1 + ' ' ;
+          var descrip2 = isUndefined(mpvar.descrip2) ==true?'':' y '+mpvar.descrip2;      
+          $("table").children('tfoot').eq(1).find("th").eq(0).html(descrips1+descrip2+'_____________________Ahorro $'+totlaahorro);
+          $("table").children('tfoot').eq(1).find("th").eq(1).html("$"+totalfinal);
+
+         
+
+
+      }
+
+      function isUndefined(x) {
+  return typeof x == "undefined";
+}
+     
+
+  }
+    </script>
+
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+       <script src="{{ asset('bundles/gema/chosen/chosen.jquery.js')}}"></script>
+
+ <script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+ <script src="https://cdn.datatables.net/buttons/1.1.2/js/dataTables.buttons.min.js"></script>
+ <script src="https://cdn.datatables.net/select/1.1.2/js/dataTables.select.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+ <script src="https://cdn.datatables.net/responsive/2.0.2/js/dataTables.responsive.min.js"></script>
+ <script src="{{ asset('bundles/gema/clientresources/datatables/altedit/dataTables.altEditor.free.js')}}"></script>
+ <script src="{{ asset('bundles/gema/clientresources/winwheel/Winwheel.js')}}"></script>
+ <script src="{{ asset('bundles/gema/js/comprafinish.js')}}"></script>
+  <script src="{{ asset('bundles/gema/clientresources/winwheel/TweenMax.min.js')}}"></script>
+
+
+        <script>
+
+            $(document).ready(function(){
+                $('#bsubmit').hide();
+            });
+
+            var muestraBoton = function() {
+                $('#bsubmit').show();
+            };
+            var ocultaboton = function() {
+                $('#bsubmit').hide();
+            };
+            var errorboton = function() {
+                $('#bsubmit').hide();
+            };
+
+
+
+
+    $('option').mousedown(function(e) {
+        e.preventDefault();
+        $(this).prop('selected', !$(this).prop('selected'));
+        return false;
+    });
+
+
+</script>
+
+<script>
+ var tabla;
+$(document).ready(function(){
+
+jQuery.fn.dataTable.Api.register( 'sum()', function ( ) {
+    return this.flatten().reduce( function ( a, b ) {
+        if ( typeof a === 'string' ) {
+            a = a.replace(/[^\d.-]/g, '') * 1;
+        }
+        if ( typeof b === 'string' ) {
+            b = b.replace(/[^\d.-]/g, '') * 1;
+        }
+ 
+        return a + b;
+    }, 0 );
+} );
+
+
+
+   tabla = $("#tablapedidos").DataTable({
+					// scrollY: 300,
+					 scrollX: true,
+					 scrollCollapse: true,
+					 paging: false,
+					 "bInfo" : false,
+                     'stripeClasses':['myodd','myeven'],
+                     searching: false, paging: false, info: true,
+                     
+                     "columnDefs": [
+                        { "width": "20%"},
+                         { "width": "20%" },
+                          { "width": "20%" },
+                           { "width": "20%" },
+                            { "width": "20%" },
+                            { "width": "20%" },
+                            { "width": "20%" },
+
+                        
+
+
+                            {
+							 "targets": [ 0,7 ],
+							  "visible": false,
+                               disabled: true,
+						 },
+                         {
+							 "targets": [ 1,3,4,5 ],							
+                              disabled: true,
+						 }
+                         ,
+                         {
+							 "targets": [ 5],							
+                            "render": function ( data, type, full, meta ) {   
+                         
+                                   full[5]=full[2]*full[4];
+                                 //  tabla.row( meta.row ).data( full ).draw();                       
+
+                            return (full[2]*full[4]);
+                          
+                           }
+                         },
+                         
+                            {
+							 "targets": [ 6],	
+                              "visible": false,						
+                            "render": function ( data, type, full, meta ) {   
+                         
+                                   full[6]=full[2]*full[3];
+                                 //  tabla.row( meta.row ).data( full ).draw();                       
+
+                            return (full[2]*full[3]);
+                          
+                           }
+						 }
+                         
+               
+                        ],
+
+   "footerCallback": function ( row, data, start, end, display ) {
+            var api = this.api(), data;
+ 
+            // Remove the formatting to get integer data for summation
+            var intVal = function ( i ) {
+                return typeof i === 'string' ?
+                    i.replace(/[\$,]/g, '')*1 :
+                    typeof i === 'number' ?
+                        i : 0;
+            };
+ 
+            // Total over all pages
+            total = api
+                .column( 5 )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 ); 
+
+            totallista=api
+                .column( 6 )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 ); 
+ 
+            // Update footer
+            ahorro=totallista-total;
+            $( api.column( 5 ).footer() ).html(
+               'Total $'+ total 
+              );
+              $( api.column( 4 ).footer() ).html(
+               ' Ahorro $'+ ahorro+''
+              );
+        },
+
+    dom: 'Bfrtip',        
+    select: 'single',   
+    responsive: true,    
+    altEditor: true,    
+    buttons: [
+    {
+      extend: 'selected', 
+      text: 'Cantidad',
+      name: 'edit'    
+  
+    },
+    {
+      extend: 'selected', 
+      text: 'Eliminar',
+      name: 'delete'  
+   }],
+  
+          oLanguage: {
+              "altEditor" : {
+    "modalClose" : "Cerrar",
+    "edit" : {
+        "title" : "Cantidad",
+        "button" : "OK"
+    },
+    "add" : {
+        "title" : "Nuovo",
+        "button" : "Crea"
+    },
+    "delete" : {
+        "title" : "Eliminar",
+        "button" : "OK"
+    },
+    "success" : "Exito!",
+    
+}           
+        }
+                     });
+
+
+
+
+
+var pedidosbase= {{ baserializada|json_encode|raw }};
+
+
+$("select").chosen({
+   width: "100%",
+   display_selected_options:false
+ });
+  
+ $("#pedidobase").change(function(e){    
+      var idselected=this.value;  
+  $.each(pedidosbase, function( index, p ) {
+        if(parseInt(p.toro.id)===parseInt(idselected) ){        
+             tabla.row.add( [
+            p.toro.id,
+            p.toro.apodo,
+            1,
+            p.preciolista,
+            p.preciopromo,
+            p.preciopromo,
+            0,
+            p.id
+        ] ).draw( false );
+        }
+
+    })    
+ })
+
+
+
+});
+</script>
+
+<script>
+$(document).on('show.bs.modal','.modal', function () {
+ $('.modal-body').find('#alteditor-row-0').hide();
+ $('.modal-body').find('#alteditor-row-3').hide();
+ $('.modal-body').find('#alteditor-row-4').hide();
+ $('.modal-body').find('#alteditor-row-5').hide();
+ $('.modal-body').find('#alteditor-row-6').hide();
+ $('.modal-body').find('#alteditor-row-7').hide();
+
+
+
+
+
+})
+</script>
+<script>
+$(document).ready(function(){
+
+  $("#metodopagolabel").change(function(e){
+
+      
+       var mplabel=this.value;   
+       calcular(mplabel);   
+
+
+
+});
+
+ 
+
+      });
+</script>
+
+
+	{% endblock %}

@@ -595,7 +595,6 @@ public function exceladminAction($razaid){
         $request = $this->getRequest();  
         $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
         $urlvirtual=$myRepo->find(1)->getVirtualurl();    
-        
         $basedet = $urlvirtual == true ? DIRECTORY_SEPARATOR.'toro/': $baseurl.DIRECTORY_SEPARATOR.'toro/'; 
         $unificados=$pdfhelper->UnificadosDataFormed($torosIds,$impresion,$em,$basedet);
         //Create object and options

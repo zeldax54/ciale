@@ -57,7 +57,7 @@ class ToroType extends AbstractType
                     'Australia' => 'Australia',
                     'Brasil' => 'Brasil',
                     'ARG'=>'ARG',
-                    'colombia'=>'Colombia'
+					'colombia'=>'Colombia'
 
                 ),'label'=>'Nacionalidad'
             ))

@@ -703,14 +703,23 @@ td{
             <div class="toro-video">
 			{% if toro.video !="#" %}
                 <a href="{{toro.video}}"><img src="{{absolute_url(asset('bundles/gema/catalogresources/img/btn-video.png'))}}" alt="Mira el Video"></a>
-            {% endif %}
+            {%endif %}
 			</div>
 			
   </div>
            
   
      </div>
-      
+             <script>
+			 var toroid = {{toro.id}};	
+ window.onload = new function() {
+  var newwidth = (document.getElementById('dynamictextwith'+toroid.toString()).clientWidth / 1.333333)
+ - (document.getElementById('primetahead'+toroid.toString()).clientWidth / 1.333333)+208 ;
+  var nattr="width:"+newwidth.toString()+"pt !important";
+			document.getElementById('dynamictextwith'+toroid.toString()).setAttribute("style",nattr);          
+	        document.getElementById('dynamictextwith'+toroid.toString()).innerHTML = nattr;
+}		 						   
+			 </script>
   
 </body>
 

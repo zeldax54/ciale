@@ -1049,7 +1049,22 @@ td{
     </div>
 	<div class="pagebreak" style="height:10px !important">
       </div>
-	  
+	   <script>
+			 var toro1id = {{toro1.id}};
+			 var toro2id = {{toro2.id}};	                   
+		 window.onload = new function() {
+ var newwidth1 = document.getElementsByClassName('1tablainferior1'+toro1id.toString())[0].clientWidth - document.getElementById('1primetahead'+toro1id.toString()).clientWidth;
+			document.getElementById('1dynamictextwith'+toro1id.toString()).setAttribute("style","display:block;width:"+newwidth1.toString()+"px !important");
+            document.getElementById('1dynamictextwith'+toro1id.toString()).style.width=newwidth1.toString()+'px !important';	
+            
+			var newwidth2 = document.getElementsByClassName('2tablainferior2'+toro2id.toString())[0].clientWidth - document.getElementById('2primetahead'+toro2id.toString()).clientWidth;
+			document.getElementById('2dynamictextwith'+toro2id.toString()).setAttribute("style","display:block;width:"+newwidth2.toString()+"px !important");
+            document.getElementById('2dynamictextwith'+toro2id.toString()).style.width=newwidth2.toString()+'px !important';	
+
+};	
+			 
+			
+			 </script>
 </body>
 
 </html>

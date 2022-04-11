@@ -16,7 +16,6 @@ use Symfony\Component\Debug\Debug;
    // header('HTTP/1.0 403 Forbidden');
   //  exit('You are not allowed to access this file. Check '.basename(__FILE__).' for more information.');
 //}
-
 $loader = require_once __DIR__.'/../app/bootstrap.php.cache';
 Debug::enable();
 

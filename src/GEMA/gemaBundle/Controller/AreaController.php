@@ -36,8 +36,6 @@ class AreaController extends Controller
         $accion = 'Listar Expedientes de Area';
         $this->get("gema.utiles")->traza($accion);
 
-
-
         return $this->render('gemaBundle:Area:index.html.twig', array(
             'entities' => $entities,
         ));
@@ -62,9 +60,6 @@ class AreaController extends Controller
 
             return $this->redirect($this->generateUrl('area_show', array('id' => $entity->getId())));
         }
-
-
-
 
         return $this->render('gemaBundle:Area:new.html.twig', array(
             'entity' => $entity,

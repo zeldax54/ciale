@@ -1,0 +1,80 @@
+label{
+	font-family:'Fago-normal';
+}
+
+input,textarea{
+	font-family:'Fago-normal';
+}
+
+.sb,.sb:hover{
+	position: absolute;
+    top: 5px;
+    right: 12% !important;
+    padding: 0;
+    color: #fff !important;
+    background-color: #00388B;
+    border-color: #00388B;
+    border-width: 0;
+    width: 85px;
+    height: 36px;
+  
+    cursor: pointer;
+    transition: all 0.4s linear;
+    background-repeat: no-repeat;
+    background-size: 70%;
+    background-position: center;
+
+}
+
+.selectmultiple{
+	font-family:'Fago-normal';
+	width: 70%;
+    height: 200px !important;
+	
+}
+form .required::after{
+	content: "*";
+   color: #cc0920;
+
+right: 0;
+}
+
+.errormaxwidth{
+	width:90%;
+}
+.form-group{
+	padding-bottom:20px;
+}
+.redmail{
+	cursor: pointer; 
+	}
+	
+	@media (max-width:600px){
+		.redventasheaderdivsep p{
+			margin-left: 14%;
+			text-align: -webkit-auto;
+		}
+		.redventasheaderdivsep h2{
+			margin-left: 14% !important;
+			text-align: -webkit-auto;
+		}
+		
+		.redventasHeader{
+			/*margin-left: 43%;*/
+			text-align: -webkit-auto;
+		}
+		
+		.prob{
+			width:99%;
+					text-align:left !important;
+		}
+		
+		.org{
+			text-align:left;
+			margin-top: 2%;
+			margin-left:15% !important;
+		}
+		
+		
+	}
+

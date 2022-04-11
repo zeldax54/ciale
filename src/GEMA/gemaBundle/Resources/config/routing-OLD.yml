@@ -1,0 +1,467 @@
+gema_calostrovideos:
+    resource: "@gemaBundle/Resources/config/routing/calostrovideos.yml"
+    prefix:   /admin/calostrovideos
+
+gema_compra:
+    resource: "@gemaBundle/Resources/config/routing/compra.yml"
+    prefix:   /admin/compra
+
+gema_metodopago:
+    resource: "@gemaBundle/Resources/config/routing/metodopago.yml"
+    prefix:   /admin/metodopago
+
+gema_vendedorcompra:
+    resource: "@gemaBundle/Resources/config/routing/vendedorcompra.yml"
+    prefix:   /admin/vendedorcompra
+
+gema_pedidobase:
+    resource: "@gemaBundle/Resources/config/routing/pedidobase.yml"
+    prefix:   /admin/pedidobase
+
+gema_premio:
+    resource: "@gemaBundle/Resources/config/routing/premio.yml"
+    prefix:   /admin/premio
+
+gema_ruleta:
+    resource: "@gemaBundle/Resources/config/routing/ruleta.yml"
+    prefix:   /admin/ruleta
+
+gema_aerea:
+    resource: "@gemaBundle/Resources/config/routing/area.yml"
+    prefix:   /admin/area
+
+gema_remate:
+    resource: "@gemaBundle/Resources/config/routing/remate.yml"
+    prefix:   /admin/cremate
+
+gema_postulaciones:
+    resource: "@gemaBundle/Resources/config/routing/postulaciones.yml"
+    prefix:   /admin/postulaciones
+
+gema_ofertalaboral:
+    resource: "@gemaBundle/Resources/config/routing/ofertalaboral.yml"
+    prefix:   /admin/ofertalaboral
+
+gema_admin:
+    resource: "@gemaBundle/Resources/config/routing/visita.yml"
+    prefix:   /admin/visita
+
+gema_colaborador:
+    resource: "@gemaBundle/Resources/config/routing/colaborador.yml"
+    prefix:   /admin/colaborador
+
+gema_admin_deptotecnico:
+    resource: "@gemaBundle/Resources/config/routing/deptotecnico.yml"
+    prefix:   /admin/deptotecnico
+
+gema_admin_categorianoticia:
+    resource: "@gemaBundle/Resources/config/routing/categorianoticia.yml"
+    prefix:   /admin/categorianoticia
+
+gema_admin_mediadescription:
+    resource: "@gemaBundle/Resources/config/routing/mediadescription.yml"
+    prefix:   /admin/mediadescription
+
+gema_admin_configuracion:
+    resource: "@gemaBundle/Resources/config/routing/configuracion.yml"
+    prefix:   /admin/configuracion
+
+gema_admin_razafather:
+    resource: "@gemaBundle/Resources/config/routing/razafather.yml"
+    prefix:   /admin/razafather
+
+gema_admin_correo:
+    resource: "@gemaBundle/Resources/config/routing/correo.yml"
+    prefix:   /admin/correo
+
+gema_admin_productosprogramas:
+    resource: "@gemaBundle/Resources/config/routing/productosprogramas.yml"
+    prefix:   /admin/productosprogramas
+
+gema_admin_singlehtml:
+    resource: "@gemaBundle/Resources/config/routing/singlehtml.yml"
+    prefix:   /admin/singlehtml
+
+gema_admin_distribuidorlocal:
+    resource: "@gemaBundle/Resources/config/routing/distribuidorlocal.yml"
+    prefix:   /admin/distribuidorlocal
+
+gema_admin_vendedor:
+    resource: "@gemaBundle/Resources/config/routing/vendedor.yml"
+    prefix:   /admin/vendedor
+
+gema_admin_staff:
+    resource: "@gemaBundle/Resources/config/routing/staff.yml"
+    prefix:   /admin/staff
+
+gema_admin_youtube:
+    resource: "@gemaBundle/Resources/config/routing/youtube.yml"
+    prefix:   /admin/youtube
+
+gema_admin_noticias:
+    resource: "@gemaBundle/Resources/config/routing/noticia.yml"
+    prefix:   /admin/noticias
+
+gema_admin_distribuidor:
+    resource: "@gemaBundle/Resources/config/routing/distribuidor.yml"
+    prefix:   /admin/distribuidor
+
+gema_admin_toro_:
+    resource: "@gemaBundle/Resources/config/routing/toro.yml"
+    prefix:   /admin/toro/
+
+gema_admin_raza:
+    resource: "@gemaBundle/Resources/config/routing/raza.yml"
+    prefix:   /admin/raza
+
+gema_admin_decorador:
+    resource: "@gemaBundle/Resources/config/routing/decorador.yml"
+    prefix:   /admin/decorador
+
+gema_admin_colaborador:
+  resource: "@gemaBundle/Resources/config/routing/colaborador.yml"
+  prefix:   /admin/colaborador
+
+
+gema_loggedcheck:
+    pattern:  /loggedcheck
+    defaults: { _controller: gemaBundle:Default:loggedcheck }
+    
+gema_home:
+    pattern:  /
+    defaults: { _controller: gemaBundle:Default:index }
+
+gema_login:
+    pattern:  login
+    defaults: { _controller: gemaBundle:Seguridad:login }
+    
+gema_logout:
+    pattern:  admin/logout
+    defaults: { _controller: gemaBundle:Seguridad:logout }
+    
+gema_login_check:
+    pattern:  admin/login_check
+    defaults: { _controller: gemaBundle:Seguridad:securityCheck }
+    
+gemaBundle_usuario:
+    resource: "@gemaBundle/Resources/config/routing/usuario.yml"
+    prefix:   admin/usuario
+    
+gemaBundle_rol:
+    resource: "@gemaBundle/Resources/config/routing/rol.yml"
+    prefix:   admin/rol
+
+gemaBundle_traza:
+    resource: "@gemaBundle/Resources/config/routing/traza.yml"
+    prefix:   admin/traza
+
+gemaBundle_pagina:
+    resource: "@gemaBundle/Resources/config/routing/pagina.yml"
+    prefix:   /pagina
+
+gemaBundle_adminhome:
+    pattern:  /admin/
+    defaults: { _controller: gemaBundle:Default:index }
+
+gema_boletin:
+    resource: "@gemaBundle/Resources/config/routing/boletin.yml"
+    prefix:   admin/boletin
+
+gema_library:
+ pattern:  /{param}/{folder}/admin/library
+ defaults: { _controller: "gemaBundle:Library:LibraryPage" }
+
+gema_findfile:
+ pattern:  /{texto}/findfile
+ defaults: { _controller: "gemaBundle:Library:FindFile" }
+
+gema_pushfile:
+ pattern:  /{param}/{guidParam}/admin/pushfile
+ defaults: { _controller: "gemaBundle:Library:CopyFile" }
+
+gema_deletefile:
+ pattern:  /{folder}/{guidParam}/{filename}/admin/deletefile
+ defaults: { _controller: "gemaBundle:Library:DeleteFile" }
+
+gema_filesurl:
+ pattern:  /{param}/{folder}/admin/filesurl
+ defaults: { _controller: "gemaBundle:Library:LibraryPage" }
+
+gema_admin_tiporaza:
+    resource: "@gemaBundle/Resources/config/routing/tiporaza.yml"
+    prefix: admin/tiporaza
+
+gema_admin_uploadexcel:
+    pattern:  admin/uploadexcel
+    defaults: { _controller: gemaBundle:Uploader:upload }
+
+gema_razalist:
+    pattern:  /toros/{nombre}
+    defaults: { _controller: "gemaBundle:Razalist:listRaza" }
+
+gema_torodetail:
+    pattern:  /toro/{apodo}
+    defaults: { _controller: "gemaBundle:Razalist:toroDetail" }
+
+gema_raza_tablas:
+    pattern:  /{id}/tablabyraza
+    defaults: { _controller: "gemaBundle:Uploader:findTablasByRaza" }
+
+gema_searchtoroscarne:
+    pattern:  /{dato}/{isfull}/busquedacarne
+    defaults: { _controller: "gemaBundle:Razalist:searchCarne" }
+
+gema_datosoficina:
+    resource: "@gemaBundle/Resources/config/routing/datosoficina.yml"
+    prefix:   admin/datosoficina
+
+gema_redventas:
+    pattern:  /redventas/{codigo}
+    defaults: { _controller: "gemaBundle:Redventas:inicio" }
+
+gema_mixed:
+    pattern:  admin/vendedores/{idprovincia}
+    defaults: { _controller: "gemaBundle:Staff:mixed" }
+
+gema_searchtoroscarnelike:
+    pattern:  /{dato}/busquedacarnelike
+    defaults: { _controller: "gemaBundle:Razalist:searchcarnev2" }
+
+gema_clientnews:
+    pattern:  /{tipo}/{start}/{end}/news
+    defaults: { _controller: "gemaBundle:Clientnews:clientnoticias" }
+
+gema_clientsinglenews:
+    pattern:  /{id}/new
+    defaults: { _controller: "gemaBundle:Clientnews:clientsinflenoticia" }
+
+gema_clientsboletines:
+    pattern:  /{start}/{end}/boletines
+    defaults: { _controller: "gemaBundle:Clientnews:clienlistboletines" }
+
+gema_clientboletin:
+    pattern:  /{id}/clientboletin
+    defaults: { _controller: "gemaBundle:Clientnews:clientboletin" }
+
+gema_clientcontenido:
+    pattern:  /{nombre}/contenido
+    defaults: { _controller: "gemaBundle:Singlehtmlclient:gethtml" }
+
+gema_prodprog:
+    pattern:  info/{tipo}/
+    defaults: { _controller: "gemaBundle:ProdProgclient:index" }
+
+gema_correoindex:
+    pattern:  /contacto
+    defaults: { _controller: "gemaBundle:Mail:contactindex" }
+
+gema_sendmail:
+    pattern:  /sendmail
+    defaults: { _controller: "gemaBundle:Mail:sendmail" }
+
+gema_sellermail:
+    pattern:  /sellermail
+    defaults: { _controller: "gemaBundle:Mail:sellermail" }
+
+gema_export:
+    pattern:  /exportarExcel
+    defaults: { _controller: "gemaBundle:Export:excelExport" }
+
+gema_toropdf:
+    pattern:  /{toroId}/pdf
+    defaults: { _controller: "gemaBundle:Export:todopdf" }
+
+gema_setmediadescription:
+    pattern:  /desc
+    defaults: { _controller: "gemaBundle:Library:setdescription" }
+
+gema_getmediadescription:
+    pattern:  /getdesc
+    defaults: { _controller: "gemaBundle:Library:getdescription" }
+
+gema_torocambpublic:
+    pattern:  /{id}/cpc
+    defaults: { _controller: "gemaBundle:Toro:changepublic" }
+
+gema_exceladmin:
+    pattern:  /{razaid}/exceladmin
+    defaults: { _controller: "gemaBundle:Export:exceladmin" }
+
+gema_reorder:
+    pattern:  /reorder
+    defaults: { _controller: "gemaBundle:Staff:reorder" }
+
+gema_mapaorder:
+    pattern:  admin/mapaorder/
+    defaults: { _controller: "gemaBundle:Reordermapa:razasindex" }
+
+gema_mapindex:
+    pattern:  admin/mapaorder/{id}/
+    defaults: { _controller: "gemaBundle:Reordermapa:mapaindex" }
+
+gema_reordermapa:
+    pattern:  /admin/reordermapa
+    defaults: { _controller: "gemaBundle:Reordermapa:reorder" }
+
+admin_mapadatos_edit:
+    pattern:  /admin/mapadatosedit/
+    defaults: { _controller: "gemaBundle:Reordermapa:edit" }
+
+pdf_generate:
+    pattern:  /pdf
+    defaults: { _controller: "gemaBundle:Export:pdfgenerate" }
+
+pdf_generateformovile:
+  pattern:  /pdfformovile
+  defaults: { _controller: "gemaBundle:Export:pdfgenerateformovile" }
+
+toro_pdf:
+    pattern:  /{toroid}/toropdf
+    defaults: { _controller: "gemaBundle:Export:toropdf" }
+
+gema_catalogobaseinfo:
+    pattern:  /catalogbaseinfo
+    defaults: { _controller: "gemaBundle:Export:catalogbaseinfo" }
+
+admin_limpiarcatalogos:
+    pattern:  admin/limpiarcatalogos
+    defaults: { _controller: "gemaBundle:Export:limpiarcatalogos" }
+
+pdf_generate_catalogo:
+    pattern:  /catalogo
+    defaults: { _controller: "gemaBundle:Export:generatecatalogo" }
+
+pdf_generate_catalogoformovil:
+  pattern:  /catalogoformovil
+  defaults: { _controller: "gemaBundle:Export:generatecatalogformovil" }
+
+toro_img:
+    pattern:  /img
+    defaults: { _controller: "gemaBundle:Export:toroimg" }
+
+pdf_capatest:
+    pattern:  /capatest/{capaname}
+    defaults: { _controller: "gemaBundle:Export:capatest" }
+
+pdf_portadatest:
+    pattern:  /test/portadatest
+    defaults: { _controller: "gemaBundle:Export:portada" }
+
+
+fpfilter:
+    pattern:  /admin/fpfilter/{fp}/{isfp}
+    defaults: { _controller: "gemaBundle:Toro:fpFilter" }
+
+sugeridos_index:
+    pattern:  /admin/sugeridos
+    defaults: { _controller: "gemaBundle:Sugeridos:index" }
+
+sugeridos_all_update:
+    pattern:  /admin/allupdte
+    defaults: { _controller: "gemaBundle:Sugeridos:updateall" }
+
+sugeridosone:
+    pattern:  /admin/sugeridosone/{id}
+    defaults: { _controller: "gemaBundle:Sugeridos:updateone" }
+
+sugeridos_esquemaupdate:
+    pattern:  /admin/sugeridosesquemaupdate/
+    defaults: { _controller: "gemaBundle:Sugeridos:sugeridosesquemaupdate" }
+
+toro_singlepdf:
+    pattern:  /singlepdf
+    defaults: { _controller: "gemaBundle:Export:singletoroPdf" }
+
+detallehtmltest:
+    pattern:  /detallehtmltest/{id}
+    defaults: { _controller: "gemaBundle:Export:detallehtmltest" }
+
+raza_multisearch:
+  pattern:  /busquedamultiple
+  defaults: { _controller: "gemaBundle:Razalist:mutiSearchIndex" }
+
+muti_busqueda:
+  pattern:  /mutibusqueda
+  defaults: { _controller: "gemaBundle:Razalist:multisearchGoRazas" }
+
+muti_busqueda_toro:
+  pattern:  /mutibusquedatoros
+  defaults: { _controller: "gemaBundle:Razalist:multisearchGToros" }
+
+cp_new:
+  pattern:  /conceptplus
+  defaults: { _controller: "gemaBundle:ProdProgclient:cp" }
+
+cp_newM:
+  pattern:  /CONCEPTPLUS
+  defaults: { _controller: "gemaBundle:ProdProgclient:cp" }
+
+gema_visitaindex:
+  pattern:  /registrarvisita
+  defaults: { _controller: "gemaBundle:Visita:clientVisitaIndex" }
+
+gema_sendvisita:
+  pattern:  /visitapost
+  defaults: { _controller: "gemaBundle:Visita:clienteVisitaPost" }
+
+gema_ofertasindex:
+  pattern:  /contacto/ofertas
+  defaults: { _controller: "gemaBundle:OfertaLaboral:OfertasIndex" }
+
+gema_ofertapostulacion:
+  pattern:  /ofertaspostulacion/{idoferta}
+  defaults: { _controller: "gemaBundle:OfertaLaboral:PostulacionIndex" }
+
+gema_ofertapostulacionpost:
+  pattern:  /ofertapostulacionpost
+  methods:  [POST]
+  defaults: { _controller: "gemaBundle:OfertaLaboral:PostulacionPost" }
+
+gema_downloadcv:
+  pattern:  /downloadcv/{id}
+  defaults: { _controller: "gemaBundle:OfertaLaboral:PostulacionDownload" }
+
+gema_downloadimg:
+  pattern:  /downloadimg/{id}
+  defaults: { _controller: "gemaBundle:Visita:ImagenDownload" }
+
+gema_remateindex:
+  pattern:  /noticias/remates
+  defaults: { _controller: "gemaBundle:Remate:ClientIndex" }
+
+gema_solicitud:
+    pattern:  /solicitud
+    defaults: { _controller: "gemaBundle:Mail:solicitudIndex" }
+
+gema_sendsolicitud:
+    pattern:  /sendsolicitudmail
+    defaults: { _controller: "gemaBundle:Mail:sendSolicitudMail" }
+
+gema_compras:
+    pattern:  /compras
+    defaults: { _controller: "gemaBundle:Compra:comprasindex" }
+
+gema_comprasdo:
+    pattern:  /comprasdo
+    defaults: { _controller: "gemaBundle:Compra:comprasDo" }
+
+gema_calostro:
+    pattern:  /calostro
+    defaults: { _controller: "gemaBundle:Calostro:index" }
+
+gema_calostromsg:
+    pattern:  /calostromsg
+    defaults: { _controller: "gemaBundle:Calostro:calostromsg" }
+
+prodprog_newwindows:
+    pattern:  /{nombremenu}
+    defaults: { _controller: "gemaBundle:ProdProgclient:newwind" }
+
+
+
+
+
+
+
+
+
